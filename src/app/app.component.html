@@ -1,0 +1,21 @@
+
+ 
+    <main>
+
+        <ng-container *ngIf="isAuthenticated else notAuthMenu">
+            <app-homenavbar></app-homenavbar>
+        <div style="display: flex; flex-grow: grow">
+            
+            <app-sidenav  [isAuthenticated]="auth.isAuthenticated"
+            [username]="auth.username"
+            [userPhoto]="auth.userPhoto"
+            (isAuth)="isAuthenticated"
+            ></app-sidenav>
+            <router-outlet></router-outlet>
+          </div>
+        </ng-container>
+        <ng-template #notAuthMenu>
+            <router-outlet></router-outlet>
+        </ng-template>
+    </main>
+    

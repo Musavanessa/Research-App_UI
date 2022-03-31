@@ -1,0 +1,36 @@
+
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light" [style.height]="navProperties.height" style="padding-right: 10px; margin-left: 10px;">
+    <div style="float:right; cursor: pointer;" (click)="changeSideNav()">
+        <img src="../../../../assets/media/logos/{{navProperties.sidenavIcon}}"  width="16px" height="16px">
+    </div>
+    <div [style.opacity]="navProperties.navOpacity" [style.width]="navProperties.width">
+        <div class="profile_picture_container">
+            <div class="avatar-upload" style="margin-left:auto; margin-right: auto;">
+                <div class="avatar-edit">
+                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                        <label for="imageUpload"></label>
+                </div>
+                <div class="avatar-preview">
+                    <div id="imagePreview" style="background-image: url(../../../../assets/users/{{userPhoto}});">
+                    </div>
+                    <h3 style="margin-left: 30px; margin-top: 21px">{{username}}</h3>
+                    
+                </div>
+            </div>
+        </div><br>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto" id="myDetails">
+            <li><a routerLink="/profile" class="nav-link link-dark" style="text-align: center;">Profile</a></li>
+            <li><a routerLink="/dashboard" class="nav-link link-dark" style="text-align: center;">My Projects</a></li>
+            <li><a routerLink="/chatbox" class="nav-link link-dark" style="text-align: center;">Chatbox</a></li>
+            <li><a  class="nav-link link-dark" style="text-align: center;">Logout</a></li>
+        </ul>
+        <hr>
+    </div>
+</div>
+<!-- <router-outlet></router-outlet> -->
+&nbsp;
+&nbsp;    
+
+
+

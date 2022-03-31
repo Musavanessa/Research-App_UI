@@ -1,0 +1,154 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+ 
+  
+  a{
+    text-decoration: none;
+  }
+  ul{
+    list-style: none;
+  }
+  .active{
+    color: #fc036b;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+  
+  .navbar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 20px;
+    color: whitesmoke;
+  }
+  .nav-links.submit{
+    display: flex;
+    align-items: center;
+  }
+  .nav-links.li.submit{
+    margin: 0 30px;
+  }
+
+  .container{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    animation: animate 16s ease-in-out infinite;
+    background-size: cover;
+    
+  }
+  
+  .outer{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+  }
+
+  img{
+    width: 10%;
+    position: relative;
+    float: left;
+    align-items: left;
+  }
+  body{
+    background-image: url("/../assets/embe.jpg");
+    width: 100vw;
+    height: 100vh;
+    background-position: bottom;
+    background-size: cover;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  
+  }
+  .header-content{
+    margin-bottom: 0px;
+    color: rgb(207, 204, 204);
+    text-align: center;
+
+  }
+  .header-content h1{
+    font-size: 10vmin;
+  }
+  .header-content h2{
+    font-size: 5vmin;
+  }
+  .header-content h3{
+    font-size: 4vmin;
+  }
+  .line{
+    width: 180px;
+    height: 5px;
+    background: #e3242b;
+    margin: 45px auto;
+    border-radius: 57px;
+  }
+  .header-content{
+    font-size: 10vmin;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+
+  @keyframes animate{
+  }
+  
+  .ctn{
+    padding: 5px 10px;
+    background: #e3242b;
+    border-radius: 45px;
+    color: whitesmoke;
+  }
+  .btn{
+    width: 25%;
+    height: 5vh;
+    padding: 5px 10px;
+    background: #e3242b;
+    border-radius: 45px;
+    color: whitesmoke;
+  }
+  .ctn a:hover{
+    background-color: #808000;
+
+  }
+
+  .forget
+{
+  margin-top: 5px;
+  color: #556b2f;
+  background: #d14d4d;
+  
+}
+.forget a
+{
+  color: #556b2f;
+  font-weight: 600;
+  background: #d14d4d;
+  padding: 10px;
+  letter-spacing: 2px;
+  display: flex;
+}
+
+.forget a:hover
+{
+  background-color: #808000
+}
+
+
+
+ 
+
+
+
+  

@@ -1,0 +1,164 @@
+<main>
+    &nbsp;&nbsp;
+    <div style="width:100%">
+      <app-topnav></app-topnav>
+      <div>
+        &nbsp;&nbsp;&nbsp;
+        <!-- SEARCH BAR -->
+        <div class="form-outline mb-4" style="width: 98%; margin-left: 10px;">
+          <input type="search" class="form-control" id="datatable-search-input" placeholder="Search" style="background-color:rgb(255, 255, 255); border-color: rgb(1, 173, 253);">
+        </div>
+        <!-- ALL NOTES & FILTER DIV -->
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <div class="row">
+                <div class="col" style="width: auto;margin-left: 10px; padding: 0px">
+                  <button  type="button" class="btn btn-primary">All Notes</button>
+                </div>
+                <div class="col">
+                  <button  type="button" class="btn btn-secondary">New</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-6" >
+              <div class="card" style="width: 100%;">
+                <div class="card-body" style="padding:8px">
+                  All Notes
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="btn-group">
+                <button class="btn btn-sm dropdown-toggle" style="width: 100%; color:rgb(7, 129, 228);" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Find By
+                </button>
+                <ul class="dropdown-menu">
+                  <li>
+                    Hi there
+                  </li>
+                </ul>
+              </div>
+            </div>
+            &nbsp;
+          </div>
+        </div>
+        &nbsp;
+        <hr style="width:95%; margin:auto">
+        <!-- GRID SYSTEM -->
+        <div class="row" style="width: 100%">
+          <!-- LIST OF MY NOTES CARD -->
+          <div class="col">
+            &nbsp;
+            <div>
+              <div class="card border-light mb-3" style="width: 100%; border: none;">
+                <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">Notes
+                  &nbsp;&nbsp;
+                </div>
+                <div class="card border-light mb-3" style="width: 100%;margin-left: auto; margin-right: auto; border: none;">
+                  &nbsp;&nbsp;
+                  <div style="overflow: scroll; height: 300px; width: 100%; margin-left: auto; margin-right: auto;">
+                    <ul class="list-group" style="width: 90%; margin-left: auto; margin-right: auto;">
+                      <li class="list-group-item" *ngFor = 'let us of notesData'>
+                        <div class="row">
+                          <div class="col-8">{{us.title}}</div>
+                          <div class="col">
+                            <a style="color:rgb(0, 0, 0); cursor: pointer;" (click)="openNote(us.id)" id="{{us.id}}">
+                              <img src="../../../../../../../assets/media/logos/edit_note_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="float:right">
+                            </a>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+
+                  </div>
+                </div>
+                &nbsp;&nbsp;&nbsp;
+              </div>
+            </div>
+            <div clas="row" >
+              <div class="row">
+                <div class="col">
+                  <div class="col">
+                    <div class="card"  style="width: 100%; ">
+                      <div class="card-body" style="padding: 15px; margin: 0;">
+                        <div class="row">
+                          <div class="col-8">                              
+                            <div class="mb-3" style="margin: 0px 0px 0px;">
+                              <h6 class="card-subtitle mb-2 text-muted">Add Collaborator</h6>
+                              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Username" style="border:none;  background-color: rgb(245, 245, 245); outline:none">
+                              </div>
+                          </div>
+                          <div class="col">
+                            <h6 class="card-subtitle mb-2 text-muted">&nbsp;</h6>
+                            <button type="button" routerLink="" class="btn btn-primary btn-xs">Save</button>&nbsp;
+                          </div>
+                        </div>
+                        <!-- MY NOTES DIV - MAKE THIS DIV SCROLLABLE -->
+                        <div style=" height:auto; width: 100%; background-color: rgb(255, 255, 255);">
+                          <h6 class="card-subtitle mb-2 text-muted">Collaborators</h6>
+                          <hr style="margin: 0px">&nbsp;
+                          <div class="row">
+                            <div class="card" style="border: none; ">
+                              <div class="card-body" style="border:none; padding: 5px;">
+                                <ul class="list-group">
+                                  <li class="list-group-item" style="width: 100%">
+                                    <div class="row">
+                                      <div class="col-10">shikomatlala@gmail.com</div>
+                                      <div class="col">
+                                        <button routerLink="/notes" type="button"  style="float:right"  class="btn  btn-sm">
+                                            <img src="../../../../../../../assets/media/logos/clear_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-8">
+            &nbsp;
+            <!-- DIV FOR THE ACTUAL NOTE -->
+            <div class="card border-light mb-3" style="width: 100%; border:none; ">
+              <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(0, 0, 0);">Edit Note</div>
+              <!-- <span class="badge badge-light">9</span> -->
+              &nbsp;
+              <div class="card" style="width: 95%; margin-left: auto; margin-right: auto;">
+                <div class="card-body">
+                  <p class="card-text">{{noteObject.title}}</p>
+                  <div>
+                    <!-- <h6 class="card-subtitle mb-2 text-muted">{{noteObject.text}}</h6> -->
+                    <div style="overflow: scroll; width: 95%; margin-left: auto; margin-right: auto; position:initial">
+                      <textarea style="width: 100%; height: 450px; resize: none; border:none; outline: none;">
+                        {{noteObject.text}}
+                      </textarea>                    
+                    </div>
+                    <!-- <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" rows="50" cols="1000" style="height: 550px; resize: none;"></textarea> -->
+                  <h6 class="card-subtitle mb-2 text-muted">16 March 2022, Wednesday</h6>
+                  <button type="button" routerLink ="" class="btn btn-primary btn-xs">Save</button>&nbsp;
+                  <button type="button" routerLink ="" class="btn btn-light btn-xs">Open In Project</button>&nbsp;&nbsp;
+                  <button type="button" routerLink ="" class="btn btn-danger btn-xs" style="background-color:rgb(182, 0, 0)">Delete</button>&nbsp;
+                  &nbsp;
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- END GRID -->
+        &nbsp;
+        &nbsp;
+          &nbsp;
+      </div>
+          &nbsp;
+    </div>
+</main>
+

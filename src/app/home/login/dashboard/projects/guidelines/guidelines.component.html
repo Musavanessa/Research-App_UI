@@ -1,0 +1,101 @@
+
+<main >
+  &nbsp;&nbsp;
+    <div style="width: 97%;">
+      <app-topnav></app-topnav>
+      <div style="overflow: auto; height: 100%;">
+        <!-- <app-innernav></app-innernav> -->
+        <!-- GRID SYSTEM -->
+        <div class="row">
+          <!-- BACKLOG LIST -->
+          <!-- CREATE PROJECT CARD -->
+          <div class="col-sm" style="width: 100%">
+            &nbsp;
+            <div class="card border-light mb-3" style="width: 100%;margin-left: auto; margin-right: auto; border: none;">
+              <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">Guidelines
+                &nbsp;&nbsp;
+              </div>
+              &nbsp;&nbsp;
+              <div style="overflow: scroll; height: 400px; width: 100%; margin-left: auto; margin-right: auto;">
+                <ul class="list-group" style="width: 90%; margin-left: auto; margin-right: auto;">
+                  <li id="listId{{us.id}}" class="list-group-item" *ngFor = 'let us of guideLinesObject; let i=index;'>
+                    <div class="row">
+                      <div class="col-8">{{us.name}}</div>
+                      <div class="col">
+                        <a style="color:rgb(0, 0, 0); cursor: pointer;" (click)="openGuideline(us.id)" id="{{us.id}}">
+                          <img src="../../../../../../../assets/media/logos/launch_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="float:right">
+                        </a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="col">
+              &nbsp;
+              <div class="card" style="width: 18rem;" style="width: 100%;">
+                <div class="card-body">
+                  <p class="card-text">{{guideLineObject.name}}</p>
+                  <div style="height: 400px">
+                    <h5 class="card-title">
+                      {{guideLineObject.text}}
+                    </h5>
+                  </div>
+                  <h6 class="card-subtitle mb-2 text-muted">16 March 2022, Wednesday</h6>
+                  <button type="button" routerLink ="" class="btn btn-primary btn-xs">Next</button>&nbsp;
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm">col-sm</div>
+                <div class="col-sm">col-sm</div>
+                <div class="col-sm">col-sm</div>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-sm-3">
+            <div class="col">
+              &nbsp;
+              <div class="card" style="width: 18rem;" style="width: 100%; ">
+                <div class="card-body" style="padding: 15px; margin: 0;">
+                  <div class="mb-3" style="margin: 0px 0px 0px;">
+                    <h6 class="card-subtitle mb-2 text-muted">Create Title</h6>
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter Title" style="border:none;  background-color: rgb(245, 245, 245); outline:none">
+                  </div>
+                  <div class="mb-3">
+                    <h6 class="card-subtitle mb-2 text-muted">Take Note </h6>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" style=" resize: none;" rows="13"></textarea>
+                  </div>
+                  <button type="button" routerLink="" class="btn btn-primary btn-xs">Save</button>&nbsp;
+                  <button type="button" class="btn btn-default">Clear</button>
+                  <hr >
+                  <div style="overflow:scroll; height:auto; width: 100%; background-color: rgb(255, 255, 255);">
+                    <h6 class="card-subtitle mb-2 text-muted">Notes</h6>
+                    <hr style="margin: 0px">
+                    <div class="row">
+                      <div class="card" style="border: none; ">
+                        <div class="card-body" style="border:none; padding: none; ">
+                          <div class="row">
+                            <div class="col-sm-9"><h4 class="card-subtitle mb-1">Kat is going home...</h4></div>
+                            <div class="col-sm-2"><h6 class="card-subtitle mb-1"><button routerLink="/notes" type="button" class="btn btn-success btn-sm">Edit</button></h6></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <!-- END GRID -->
+        &nbsp;
+        &nbsp;
+          &nbsp;
+          </div>
+          &nbsp;
+        </div>
+    </main>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
