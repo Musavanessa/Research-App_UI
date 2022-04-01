@@ -1,0 +1,13 @@
+.nav-link{
+    position: relative;
+    left: 1150px;
+    color: #f5f5f5;
+}
+
+li a{
+    color: #f5f5f5;
+}
+
+.navbar, .container-fluid .navbar-collapse{
+    background-color: #0f4675;
+}

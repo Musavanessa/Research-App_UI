@@ -20,10 +20,10 @@
         </div><br>
         <hr>
         <ul class="nav nav-pills flex-column mb-auto" id="myDetails">
-            <li><a routerLink="/profile" class="nav-link link-dark" style="text-align: center;">Profile</a></li>
-            <li><a routerLink="/dashboard" class="nav-link link-dark" style="text-align: center;">My Projects</a></li>
-            <li><a routerLink="/chatbox" class="nav-link link-dark" style="text-align: center;">Chatbox</a></li>
-            <li><a  class="nav-link link-dark" style="text-align: center;">Logout</a></li>
+            <li ><a #profileElement id="1" ng-repeat="prop in propertyDetails"  routerLink="/profile" class="nav-link link-dark hoverTile ng-click-active centerText"  (click)="activateProfileElement()">Profile</a></li>&nbsp;
+            <li ><a #projectElement id="2" routerLink="/dashboard" class="nav-link link-dark hoverTile ng-click-active centerText" (click)="activateProjectElement()">My Projects</a></li>&nbsp;
+            <li ><a #chatBoxElement id="3" routerLink="/chatbox" class="nav-link link-dark hoverTile ng-click-active centerText" (click)="activateChatboxElement()">Chatbox</a></li>&nbsp;  
+            <!-- <li><a  class="nav-link link-dark" style="text-align: center;">Logout</a></li> -->
         </ul>
         <hr>
     </div>
