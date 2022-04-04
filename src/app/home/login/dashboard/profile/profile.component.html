@@ -1,6 +1,94 @@
 
-<main>
-<p>hello from profile</p>
+
+<main style="background-color: rgb(255, 255, 255);">
+    &nbsp;&nbsp;
+    <div style="background-color: rgb(255, 255, 255);" [style.width]="innerWidth" [style.height]="innerHeight">
+    &nbsp;&nbsp;
+    &nbsp;&nbsp;
+    &nbsp;&nbsp;
+    <div class="card border-light mb-3" style="width: 90%; border: none; margin-left: auto; margin-right: auto;">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);" >
+            <p class="h2">Account Settings</p>
+        </div>
+        <div class="card" style="border-color:white">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="card-body">
+                <p class="fs-5">Mr Katleho R. Makhoba</p>
+            </div>
+            <hr>
+        </div>
+        <div class="card border-light mb-3" style="width: 100%;margin-left: auto; margin-right: auto; border: none;">
+          &nbsp;&nbsp;
+          <div style="overflow: scroll; width: 95%; margin-left: auto; margin-right: auto;" [style.height]="inputDivHeigh">
+            <div class="form-floating">
+                <div class="card" style="border-color:white">
+                    <div class="card-body" >
+                        <div class="form-floating">
+                            <div class="container">
+                                <div class="row row-cols-2">
+                                    <div class="col">
+                                        <h5 class="card-title"><span style="color:lightslategrey;">Title</span></h5>
+                                        <select #inputDescipline class="form-control form-control-sm">
+                                            <option>Mr</option>
+                                            <option>Mrs</option>
+                                            <option>Miss</option>
+                                            <option>Prof</option>
+                                            <option>Dr</option>
+                                        </select>
+                                        <br>
+                                    </div>
+                                    <div class="col">
+                                        <h5 class="card-title"><span style="color:lightslategrey;">First Name</span></h5>
+                                        <input #inputFName class="form-control form-control-sm" type="text" value="" >
+                                        <br>
+                                    </div>
+                                    <div class="col">
+                                        <h5 class="card-title"><span style="color:lightslategrey;">Last Name</span></h5>
+                                        <input #inputLName class="form-control form-control-sm" type="text" value="" >
+                                        <br>
+                                    </div>
+                                    <div class="col">
+                                        <h5 class="card-title"><span style="color:lightslategrey;">Email</span></h5>
+                                        <input #inputEmail class="form-control form-control-sm" readonly type="text" style="border-color: white; cursor:unset;" value="katlehormakhoba@gmail.com" >
+                                        <br>
+                                    </div>
+                                    <div class="col">
+                                        <h5 class="card-title"><span style="color:lightslategrey;">ID Number</span></h5>
+                                        <input #inputIDNumber class="form-control form-control-sm" readonly type="text" value="" >
+                                        <br>
+                                    </div>
+                                    
+                                    <div class="col">
+                                        <h5 class="card-title"><span style="color:lightslategrey;">Password</span></h5>
+                                        <input #inputPassword class="form-control form-control-sm" type="password" value="">
+                                        <br>
+                                    </div>
+                                    <div class="col">
+                                        <h5 class="card-title"><span style="color:lightslategrey;">Confirm Password</span></h5>
+                                        <input #inputConfirmPasswordForIssues2PowerToAnnoyKat class="form-control form-control-sm" type="password" value="" >
+                                        <br>
+                                    </div>
+                                    <br>
+                                    <div class="col">
+                                        <h5 class="card-title"><span style="color:lightslategrey;">Title</span></h5>
+                                        <input #inputTitle class="form-control form-control-sm" type="text" value="">
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <button type="button" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          </div>
+        </div>
+        &nbsp;&nbsp;&nbsp;
+      </div>
     &nbsp;
     &nbsp;
+    </div>
 </main>
