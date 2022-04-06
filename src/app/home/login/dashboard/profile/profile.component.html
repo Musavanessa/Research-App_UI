@@ -1,94 +1,160 @@
-
-
 <main style="background-color: rgb(255, 255, 255);">
     &nbsp;&nbsp;
     <div style="background-color: rgb(255, 255, 255);" [style.width]="innerWidth" [style.height]="innerHeight">
-    &nbsp;&nbsp;
-    &nbsp;&nbsp;
-    &nbsp;&nbsp;
-    <div class="card border-light mb-3" style="width: 90%; border: none; margin-left: auto; margin-right: auto;">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);" >
-            <p class="h2">Account Settings</p>
-        </div>
-        <div class="card" style="border-color:white">
+        &nbsp;&nbsp;
+        &nbsp;&nbsp;
+        &nbsp;&nbsp;
+        <div class="card border-light mb-3" style="width: 90%; border: none; margin-left: auto; margin-right: auto;">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <div class="card-body">
-                <p class="fs-5">Mr Katleho R. Makhoba</p>
+            <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">
+                <p class="h2">Account Settings</p>
             </div>
-            <hr>
-        </div>
-        <div class="card border-light mb-3" style="width: 100%;margin-left: auto; margin-right: auto; border: none;">
-          &nbsp;&nbsp;
-          <div style="overflow: scroll; width: 95%; margin-left: auto; margin-right: auto;" [style.height]="inputDivHeigh">
-            <div class="form-floating">
-                <div class="card" style="border-color:white">
-                    <div class="card-body" >
-                        <div class="form-floating">
-                            <div class="container">
-                                <div class="row row-cols-2">
-                                    <div class="col">
-                                        <h5 class="card-title"><span style="color:lightslategrey;">Title</span></h5>
-                                        <select #inputDescipline class="form-control form-control-sm">
-                                            <option>Mr</option>
-                                            <option>Mrs</option>
-                                            <option>Miss</option>
-                                            <option>Prof</option>
-                                            <option>Dr</option>
-                                        </select>
-                                        <br>
-                                    </div>
-                                    <div class="col">
-                                        <h5 class="card-title"><span style="color:lightslategrey;">First Name</span></h5>
-                                        <input #inputFName class="form-control form-control-sm" type="text" value="" >
-                                        <br>
-                                    </div>
-                                    <div class="col">
-                                        <h5 class="card-title"><span style="color:lightslategrey;">Last Name</span></h5>
-                                        <input #inputLName class="form-control form-control-sm" type="text" value="" >
-                                        <br>
-                                    </div>
-                                    <div class="col">
-                                        <h5 class="card-title"><span style="color:lightslategrey;">Email</span></h5>
-                                        <input #inputEmail class="form-control form-control-sm" readonly type="text" style="border-color: white; cursor:unset;" value="katlehormakhoba@gmail.com" >
-                                        <br>
-                                    </div>
-                                    <div class="col">
-                                        <h5 class="card-title"><span style="color:lightslategrey;">ID Number</span></h5>
-                                        <input #inputIDNumber class="form-control form-control-sm" readonly type="text" value="" >
-                                        <br>
-                                    </div>
-                                    
-                                    <div class="col">
-                                        <h5 class="card-title"><span style="color:lightslategrey;">Password</span></h5>
-                                        <input #inputPassword class="form-control form-control-sm" type="password" value="">
-                                        <br>
-                                    </div>
-                                    <div class="col">
-                                        <h5 class="card-title"><span style="color:lightslategrey;">Confirm Password</span></h5>
-                                        <input #inputConfirmPasswordForIssues2PowerToAnnoyKat class="form-control form-control-sm" type="password" value="" >
-                                        <br>
+            <div class="card" style="border-color:white">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <div class="card-body">
+                    <p class="fs-5">{{data.title}} {{data.firstName}} {{data.lastName}}</p>
+                </div>
+                <hr>
+            </div>
+            <div class="card border-light mb-3"
+                style="width: 100%;margin-left: auto; margin-right: auto; border: none;">
+                &nbsp;&nbsp;
+                <div style="overflow: scroll; width: 95%; margin-left: auto; margin-right: auto;"
+                    [style.height]="inputDivHeigh">
+                    <div class="form-floating">
+                        <div class="card" style="border-color:white">
+                            <div class="card-body">
+                                <form #fData="ngForm">
+                                    <div class="container">
+                                        <div class="row row-cols-2">
+                                            <div class="col">
+                                                <!-- <h5 class="card-title"><span style="color:lightslategrey;">Title</span>
+                                                </h5>
+                                                <select class="dropdown-list" name="title" #title="ngModel" id="title"
+                                                    [(ngModel)]="profileForm.title" type="text" name="title" required>
+                                                    <option></option>
+                                                    <option value="Dr">Dr</option>
+                                                    <option value="Mr">Mr</option>
+                                                    <option value="Prof">Prof</option>
+                                                    <option value="Mrs">Mrs</option>
+                                                    <option value="Ms">Ms</option>
+                                                </select> -->
+                                                <br>
+                                            </div>
+                                            <div class="col">
+
+                                            </div>
+                                            <div class="col">
+                                                <h5 class="card-title"><span style="color:lightslategrey;">First
+                                                        Name</span></h5>
+                                                <input name="firstName" #firstName="ngModel" (keyup)="checkValues(fData, 'firstName', firstName)"
+                                                    class="form-control form-control-sm" id="firstName"
+                                                    [(ngModel)]="profileForm.firstName" type="text" minlength="4"
+                                                    placeholder="{{data.firstName}}" required>
+
+                                                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
+                                                    >
+
+                                                    <!-- <div class="alert alert-warning" *ngIf="firstName.errors?.['required']">
+                                                        Please enter First Name.
+                                                    </div> -->
+                                                    <div class="alert alert-danger" *ngIf="firstName.errors?.['minlength']">
+                                                        First Name must be at least 4 characters long.
+                                                    </div>
+
+
+                                                </div>
+
+                                                <br>
+                                            </div>
+                                            <div class="col">
+                                                <h5 class="card-title"><span style="color:lightslategrey;">Last
+                                                        Name</span></h5>
+                                                <input type="text" placeholder="{{data.lastName}}"
+                                                    class="form-control form-control-sm"  (keyup)="checkValues(fData, 'lastName', lastName)" name="lastName"
+                                                    #lastName="ngModel" id="lastName" [(ngModel)]="profileForm.lastName"
+                                                    type="text" minlength="4" required>
+
+                                                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
+                                                    >
+
+                                                    <!-- <div *ngIf="lastName.errors?.['required']">
+                                                        Please enter Last Name.
+                                                    </div> -->
+                                                    <div class="alert alert-danger" *ngIf="lastName.errors?.['minlength']">
+                                                        Last Name must be at least 4 characters long.
+                                                    </div>
+                                                </div>
+
+                                                <br>
+                                            </div>
+                                            <div class="col">
+                                                <h5 class="card-title"><span style="color:lightslategrey;">Email</span>
+                                                </h5>
+                                                <input #inputEmail class="form-control form-control-sm" readonly
+                                                    type="text" style="border-color: white; cursor:unset;"
+                                                    placeholder="{{data.email}}">
+                                                <br>
+                                            </div>
+                                            <div class="col">
+                                                <h5 class="card-title"><span style="color:lightslategrey;">ID
+                                                        Number</span></h5>
+                                                <input #inputIDNumber class="form-control form-control-sm" readonly
+                                                    type="text" placeholder="{{data.idNumber}}">
+                                                <br>
+                                            </div>
+
+                                            <div class="col">
+                                                <h5 class="card-title"><span
+                                                        style="color:lightslategrey;">Password</span></h5>
+                                                <input (keyup)="checkPassword()" (keyup)="checkValues(fData, 'password', password)" type="password"
+                                                    [(ngModel)]="profileForm.password" name="password"
+                                                    #password="ngModel" minlength="6" required placeholder="Password"
+                                                    class="form-control form-control-sm" id="password">
+                                                <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                                   >
+                                                    <!-- <div *ngIf="password.errors?.['required']">Password is required.
+                                                    </div> -->
+                                                    <div class="alert alert-danger" *ngIf="password.errors?.['minlength']">Password must be at
+                                                        least 6 characters long.</div>
+                                                </div>
+                                                <br>
+                                            </div>
+                                            <div class="col">
+                                                <h5 class="card-title"><span style="color:lightslategrey;">Confirm
+                                                        Password</span></h5>
+                                                <input type="password" (keyup)="checkValues(fData, 'confirmPassword', confirmPassword)" (keyup)="checkPassword()"
+                                                    [(ngModel)]="profileForm.confirmPassword" name="confirmPassword"
+                                                    #confirmPassword="ngModel" minlength="6" required
+                                                    placeholder="Repeat your password"
+                                                    class="form-control form-control-sm" id="confirmPassword">
+                                                <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) || pCheck.length > 0"
+                                                    >
+                                                    <!-- <div *ngIf="confirmPassword.errors?.['required']">Confirm Password
+                                                        is required.</div> -->
+                                                    <div class="alert alert-danger" *ngIf="confirmPassword.errors?.['minlength']">Confirm Password
+                                                        must be at least 6 characters long.</div>
+                                                    <div class="alert alert-danger" *ngIf="pCheck.length > 0">{{pCheck}}</div>
+                                                </div>
+                                                <br>
+                                            </div>
+                                            <br>
+                                        </div>
                                     </div>
                                     <br>
-                                    <div class="col">
-                                        <h5 class="card-title"><span style="color:lightslategrey;">Title</span></h5>
-                                        <input #inputTitle class="form-control form-control-sm" type="text" value="">
-                                        <br>
-                                    </div>
-                                </div>
+                                    <!-- <p>{{formV | json}}</p> -->
+                                    <button [disabled]="disable" (click)="updateProfile()" type="button"
+                                        class="btn btn-primary">Update</button>
+                                </form>
                             </div>
-                            <br>
-                            <button type="button" class="btn btn-primary">Update</button>
                         </div>
                     </div>
+
                 </div>
             </div>
-
-          </div>
+            &nbsp;&nbsp;&nbsp;
         </div>
-        &nbsp;&nbsp;&nbsp;
-      </div>
-    &nbsp;
-    &nbsp;
+        &nbsp;
+        &nbsp;
     </div>
 </main>
