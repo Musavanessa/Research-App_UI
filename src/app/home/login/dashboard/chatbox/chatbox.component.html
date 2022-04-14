@@ -1,51 +1,125 @@
+<!--NEW EDITION-->
+<main >
+    <div class="container" style="position:relative; top:0px; left:5px;">
+      <div class="card-header" style="border-radius: 0px;">
+        <p class="h2" style="color:rgb(129, 129, 129);">Chatbox</p>
+      </div>
+      <div class="row">
+        <div class="col"  style="padding:none">
+          <div class="card" style="width:100%; border:none">
+            <caption style="background-color:aliceblue; text-align: center;">Open Chat..</caption>
+            <table class="table table table-hover">
+              <tbody>
+                <tr *ngFor ='let chatGroup of chatGroups' (click)="openChatGroup(chatGroup.groupId)" style="background-color:rgb(255, 255, 255); cursor:pointer">
+                  <td>{{chatGroup.title}}</td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        </div>
+        <div class="col-10"  style="padding-left:none; display: flex; flex-grow: grow;">
+          <div  #chatBoxPage style="height:700px; overflow:scroll; background-color: rgb(199, 199, 199); padding: none; display:inline;">
+            <div>            
+                <br>
+                <div *ngFor= 'let chat of chats' style="width:90%; margin-left:auto; margin-right: auto;">
+                  <div style="margin-left:auto; margin-right:auto; background-color:rgb(250, 250, 249); border-radius: 10px;">
+                    <br>
+                      <div style=" margin-left: auto; margin-right: auto;">
+                        <div class="col" *ngIf="chat.privilege">
+                            <img src="../../../../../assets/media/logos/authorised_green.svg"  width="24px" height="24px">
+                        </div>
+                        <div class="col" style="color:rgb(79, 79, 79)">&nbsp;&nbsp; ~ {{chat.senderEmail}}
+                          <div *ngIf="chat.isSender" class="time-right " (click)="deleteChatMessage(chat.chatId)" style="cursor:pointer">
+                            <span>
+                              <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                            </span>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="card-body" style="background-color:white; border-radius: 10px; width:95%; margin-left: auto; margin-right: auto;">
+                          {{chat.message}}
+                          <span class="time-right">{{chat.datetime}}</span>
+                        </div>
+                      </div>
+                      <br>
+                  </div>
+                  <br>
+                </div>
+            </div>
+          </div>
+          <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 10px; margin-left: 10px;">
+            <div style="float:right; cursor: pointer;" (click)="changeSideNav()">
+                <img src="../../../../../assets/media/logos/Phaidi/attach_file_black_24dp.svg"  width="16px" height="16px">
+            </div>
+            <div [style.opacity]="sideNavProperties.opacity" [style.width]="sideNavProperties.width">
 
-<main>
-
-    &nbsp;
-    <div>
-        
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-
-<!--Dropdown-->
-
-
-
-<div class="containers">
-    
-        <div class="card">
-            <div class="card">
-                <div class="project-info-box mt-0">
-                    <h5>Supervisor Feedback</h5><hr>
-                    <div class="card">
-                        <div class="project-info-box mt-0">
-                        
+            </div>
+           </div>
+        </div>     
+        <div style="background-color:whitesmoke;">
+            <br>
+            <div class="row">
+                <div class="col" style="text-align:left; position: relative; left:20px; border-radius: 90px;">
+                    <button [style.backgroundColor]="clickedInsertFileButtonColor" (click)="openFormPopupInsertAttachment()"  class="btn btn-primary removeFocus " style="border-radius: 50%; background-color: white; border:none; width:50px; height: 50px;" (keydown)="sendMessage()" (keyup)="scrollDown()"  (mousedown)="sendMessage()" (mouseup)="scrollDown()">
+                        <img src="../../../../../assets/media/logos/Phaidi/attach_file_grey_24dp.svg"  width="auto" height="auto">
+                    </button>
+                    <div #formPopupInsertAttachment class="form-popup" [style.display]="displayPopup">
+                        <label for="formFileSm" class="form-label">Pick a file to upload</label>
+                        <div class="row" styl="display: flex; flex-grow: grow">
+                            <div class="col-9">
+                                <input class="form-control form-control-sm" id="formFileSm" type="file" (change)="onFileSelected($event)">
+                            </div>
+                            <div class="col">
+                                <button (click)="onFileUpload()" type="button" class="btn btn-primary btn-sm">Upload</button>
+                            </div>
                         </div>
                     </div>
-                </div><!-- / project-info-box -->
+                  </div>
+              <div class="col-10" style="border-radius: 20px; background-color: rgb(255, 255, 255); position: relative; left: 20px  ;">
+                <textarea #inputChatBox class="form-control texArea" id="exampleFormControlTextarea1" placeholder="Type a message" (keyup)="auto_grow()"></textarea>
+              </div>
+              <div class="col" style="text-align:left; position: relative; left:20px">
+                <button class="btn btn-primary" style="border-radius: 50px;" (keydown)="sendMessage()" (keyup)="scrollDown()"  (mousedown)="sendMessage()" (mouseup)="scrollDown()">Send</button>
+              </div>
             </div>
-
-
-            <div class="project-info-box mt-0">
-                <h5>Response:</h5><hr>
-                <div class="card">
-                    <textarea name="" id="" cols="50" rows="7">Write here...</textarea>
-                </div><br>
-                <button class="btnsend">Send</button>
-            </div>
-            
-            
+            <br>
+        </div> 
+      </div>
     </div>
-    <button class="btnsend" routerLink="/proposal">Back</button>
-</div>
+    <!--ADD A WAY TO SEE THE LIST OF ATTACHEMENTS - THIS IS THEREFORE THE ATTACHMENTS NAV-->
+</main>
 
 
-  
 
-  
+
+<!--PREVIOUS EDITION-->
+<!-- <main>
+    &nbsp;
+    <div>      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <div class="containers">
+            <div class="card">
+                <div class="card">
+                    <div class="project-info-box mt-0">
+                        <h5>Supervisor Feedback</h5><hr>
+                        <div class="card">
+                            <div class="project-info-box mt-0">
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-info-box mt-0">
+                    <h5>Response:</h5><hr>
+                    <div class="card">
+                        <textarea name="" id="" cols="50" rows="7">Write here...</textarea>
+                    </div><br>
+                    <button class="btnsend">Send</button>
+                </div>
+            </div>
+            <button class="btnsend" routerLink="/proposal">Back</button>
+        </div>
     </div>
     &nbsp;
-</main>
+</main> -->
