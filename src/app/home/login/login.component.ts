@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

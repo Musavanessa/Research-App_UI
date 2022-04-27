@@ -16,6 +16,8 @@ export class SidenavComponent implements OnInit {
   @ViewChild('profileElement') profileElement: any;
   @ViewChild('projectElement') projectElement: any;
   @ViewChild('chatBoxElement') chatBoxElement: any;
+  // profileElement.nativeElement.style.backgroundColor="rgb(0, 132, 255)";
+  // profileElement.nativeElement.style.color="white";
 
   @Input('isAuthenticated') isAuthenticated: boolean = false;
   @Input('username') username: string = 'user';
@@ -27,7 +29,10 @@ export class SidenavComponent implements OnInit {
   constructor(public sideNavService: SidenavService) { }
   ngOnInit(): void {
     this.changeSideNav();
-    this.activateProfileElement();
+    // this.activateProfileElement();
+    // this.profileElement.nativeElement.style.backgroundColor="rgb(0, 132, 255)";
+    // this.profileElement.nativeElement.style.color="white";
+    
   }
 
   navProperties =  SidenavService.navProperties;

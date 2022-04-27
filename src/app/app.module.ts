@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { SidenavService } from './services/navs/sidenav.service';
-
+import { ProjectObjectService } from './home/login/dashboard/projects/project-object.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -24,12 +24,18 @@ import { ProjectWriteComponent } from './home/login/dashboard/projects/project/p
 import { GlobalVariables } from './globals';
 import { ProjectStatusComponent } from './home/login/dashboard/projects/project/project-status/project-status.component';
 import { ApiserviceService } from './apiservice.service';
-import { DatePipe } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { SignupComponent } from './componets/signup/signup.component';
-
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
+import { BlogOpComponent } from './home/blog-op/blog-op.component';
 import { TokenInterceptor } from './services/auth/interceptors/token.interceptors';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ProjectEventsComponent } from './home/login/dashboard/projects/project/project-events/project-events.component';
+
+import { MatButtonModule } from '@angular/material/button';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatCardModule} from '@angular/material/card';
+import { SignupComponent } from './components/signup/signup.component';
+
 
 @NgModule({
   declarations: [
@@ -50,6 +56,8 @@ import { TokenInterceptor } from './services/auth/interceptors/token.interceptor
     InnernavComponent,
     ProjectWriteComponent,
     ProjectStatusComponent,
+    BlogOpComponent,
+    ProjectEventsComponent,
     SignupComponent
   ],
   imports: [
@@ -58,17 +66,27 @@ import { TokenInterceptor } from './services/auth/interceptors/token.interceptor
     BrowserAnimationsModule,
     FontAwesomeModule,
     HttpClientModule,
-    AppRoutingModule,
-   
+
+
+    //Material UI Components
+    MatDatepickerModule,
+    MatButtonModule,
+    MatCardModule,
+  
+
+
     ReactiveFormsModule,
-    FormsModule,
-    BrowserAnimationsModule
+    FormsModule
   ],
-  providers: [SidenavService, GlobalVariables, ApiserviceService, DatePipe , {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptor,
-    multi: true
-  }],
+  providers: [SidenavService, 
+    GlobalVariables, 
+    ApiserviceService,
+    ProjectObjectService,
+    DatePipe,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

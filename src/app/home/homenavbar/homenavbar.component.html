@@ -1,8 +1,9 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top" style="background-color:white">
   <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="width: 100%;">
+    <nav class="navbar navbar-expand-lg " style="width: 100%; background-color: 0f4675; height: auto;">
+      &nbsp;&nbsp;
       <a class="navbar-brand" routerLink="/home">
-        <img src="../assets/media/logos/ResearcherDNA-Logo.png" alt="ResearcherDNA-Logo" width="auto" height="100%">
+        <img src="../../../assets/media/ResearcherDNA_logo/logo.svg" alt="ResearcherDNA-Logo" width="200px" style="background-color:inherit">
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -13,13 +14,19 @@
             <a class="nav-link" routerLink="/home">Home <span class="sr-only"></span></a>
           </li> -->
           <li class="nav-item">
-            <a class="nav-link" href="#" style="color:white">Blog</a>
+            <a class="nav-link" routerLink="/blog" style="color:white">Blog</a>
           </li>
           <!-- <li class="nav-item">
             <a class="nav-link" href="#"></a>
           </li> -->
-          <li class="nav-item" >
-            <a class="nav-link" href="#" style="color:white">Logout</a>
+          <li class="nav-item"  >
+            <!-- <a class="nav-link" href="#" style="color:white">Logout</a> -->
+            <button type="button" routerLink="./home" class="btn btn-light  btn-sm" style="background-color:transparent; float:righ;  left: 1150px; position: relative; border:none;">
+              <span class="badge badge-light">
+                <img src="../../../assets/media/logos/logout_white_24dp.svg" alt="ResearcherDNA-Logo" width="26px" style="background-color:inherit">
+              </span>
+              <span class="sr-only" style="color:rgb(255, 255, 255)">Logout</span>
+            </button>
           </li>
         </ul>
       </div>

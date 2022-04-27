@@ -1,5 +1,5 @@
 
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-light" [style.height]="navProperties.height" style="padding-right: 10px; margin-left: 10px;">
+<div class="d-flex flex-column flex-shrink-0 p-3 " [style.height]="navProperties.height" style="padding-right: 10px; margin-left: 10px;">
     <div style="float:right; cursor: pointer;" (click)="changeSideNav()">
         <img src="../../../../assets/media/logos/{{navProperties.sidenavIcon}}"  width="16px" height="16px">
     </div>
@@ -11,7 +11,7 @@
                         <label for="imageUpload"></label>
                 </div>
                 <div class="avatar-preview">
-                    <div id="imagePreview" style="background-image: url(../../../../assets/users/{{userPhoto}});">
+                    <div id="imagePreview" style="background-image: url({{url}});">
                     </div>
                     <h3 style="margin-left: 30px; margin-top: 21px">{{username}}</h3>
                     
@@ -25,7 +25,7 @@
             <li ><a #chatBoxElement id="3" routerLink="/chatbox" class="nav-link link-dark hoverTile ng-click-active centerText" (click)="activateChatboxElement()">Chatbox</a></li>&nbsp;  
             <!-- <li><a  class="nav-link link-dark" style="text-align: center;">Logout</a></li> -->
         </ul>
-        <hr>
+
     </div>
 </div>
 <!-- <router-outlet></router-outlet> -->

@@ -1,0 +1,159 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale =1.0">
+<title>Signup Page</title>
+
+
+<section>
+  <div class="color"></div>
+  <div class="color"></div>
+  <div class="color"></div>
+  <div class="color"></div>
+  <div class="color"></div>
+  <div class="color"></div>
+  <div class="box">
+    <nav></nav>
+    <div class="square" style="--i:0;"></div>
+    <div class="square" style="--i:1;"></div>
+    <div class="square" style="--i:2;"></div>
+    <div class="square" style="--i:3;"></div>
+    <div class="square" style="--i:4;"></div>
+    <div class="container">
+      <div class="form">
+        <img class="img-login" src="./tutLogo.svg" alt="login">
+        <div style="margin-left:auto; margin-right:auto">
+            <h2>Sign-Up</h2>
+        </div>
+
+        <form #fData="ngForm">
+          <!-- <div class="titles"> -->
+            <!-- <label for="title">Title</label>
+            <select class="dropdown-list"  name="title" #title="ngModel" id="title"
+              [(ngModel)]="signUpForm.title" type="text" name="title" required>
+              <option></option>
+              <option value="Dr">Dr</option>
+
+              <option value="Mr">Mr</option>
+              <option value="Prof">Prof</option>
+              <option value="Mrs">Mrs</option>
+              <option value="Ms">Ms</option>
+            </select>
+            <div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
+
+              <div *ngIf="title.errors?.['required']">
+                Please select Title.
+              </div>
+            </div>
+          </div> -->
+
+          <div class="inputBox">
+            <input name="firstName" #firstName="ngModel" id="firstName" [(ngModel)]="signUpForm.firstName" type="text"
+              minlength="4" placeholder="First Name" required>
+
+            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
+
+              <div *ngIf="firstName.errors?.['required']">
+                Please enter First Name.
+              </div>
+              <div *ngIf="firstName.errors?.['minlength']">
+                First Name must be at least 4 characters long.
+              </div>
+
+
+            </div>
+          </div>
+
+
+          <div class="inputBox">
+            <input type="text" placeholder="Last Name" name="lastName" #lastName="ngModel" id="lastName"
+              [(ngModel)]="signUpForm.lastName" type="text" minlength="4" required>
+
+            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
+
+              <div *ngIf="lastName.errors?.['required']">
+                Please enter Last Name.
+              </div>
+              <div *ngIf="lastName.errors?.['minlength']">
+                Last Name must be at least 4 characters long.
+              </div>
+
+
+            </div>
+          </div>
+
+          <div class="inputBox">
+            <input type="email" [(ngModel)]="signUpForm.email" #email="ngModel" name="email"
+              pattern="[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{3,}" required placeholder="Your Email"
+              class="form-input" id="email">
+            <div *ngIf="email.invalid && email.touched" class="alert alert-danger">
+              <div *ngIf="email.errors?.['required']">
+                Email is required.
+              </div>
+              <div *ngIf="email.errors?.['pattern']">
+                Invalid email format.
+              </div>
+            </div>
+
+
+          </div>
+          <div class="inputBox">
+            <input 
+            type="idNumber" 
+            [(ngModel)]="signUpForm.idNumber"
+            name="idNumber"
+            #idNumber="ngModel"
+            minlength="13"
+            maxlength="13"
+            required
+            placeholder="Your I.D Number"
+            class="form-input" 
+            id="idNumber">
+        <div *ngIf="idNumber.invalid && idNumber.touched" class="alert alert-danger">
+            <div *ngIf="idNumber.errors?.['required']">ID Number is required.</div>
+            <div *ngIf="idNumber.errors?.['minlength'] || idNumber.errors?.['maxlength']">ID Number must be 13 characters long.</div>
+      
+        </div>
+        </div>
+
+          <div class="inputBox">
+            <input type="password" [(ngModel)]="signUpForm.password" name="password" #password="ngModel" minlength="6"
+              required placeholder="Password" class="form-input" id="password">
+            <div *ngIf="password.invalid && password.touched" class="alert alert-danger">
+              <div *ngIf="password.errors?.['required']">Password is required.</div>
+              <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long.</div>
+            </div>
+
+          </div>
+          <div class="inputBox">
+            <input type="password"  (keyup)="checkPassword()" [(ngModel)]="signUpForm.confirmPassword" name="confirmPassword"
+              #confirmPassword="ngModel" minlength="6" required placeholder="Repeat your password" class="form-input"
+              id="confirmPassword">
+            <div *ngIf="confirmPassword.invalid && confirmPassword.touched || pCheck.length > 0" class="alert alert-danger">
+              <div *ngIf="confirmPassword.errors?.['required']">Confirm Password is required.</div>
+              <div *ngIf="confirmPassword.errors?.['minlength']">Confirm Password must be at least 6 characters long.</div>
+              <div *ngIf="pCheck.length > 0">{{pCheck}}</div>
+            </div>
+          </div>
+
+          <!-- <p>{{fData.value | json}}</p> -->
+          <br>
+          <div class="submit" >
+            <button [disabled] = "fData.invalid" (click)="signUp()" class="btn btn-primary" >Sign Up</button>
+          </div>
+
+          <p class="forget">Already have an account ?<a routerLink="/login"> LogIn</a>
+          </p>
+        </form>
+
+        <div *ngIf="errors.length > 0" class="alert alert-danger">
+          <p *ngFor="let error of errors">
+            {{error}}
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

@@ -25,7 +25,9 @@ import { HomenavbarComponent } from './home/homenavbar/homenavbar.component';
 import { InnernavComponent } from './home/login/dashboard/projects/topnav/innernav/innernav.component';
 import { ProjectWriteComponent } from './home/login/dashboard/projects/project/project-write/project-write.component';
 import { ProjectStatusComponent } from './home/login/dashboard/projects/project/project-status/project-status.component';
-import { SignupComponent } from './componets/signup/signup.component';
+import { BlogOpComponent } from './home/blog-op/blog-op.component';
+import { ProjectEventsComponent } from './home/login/dashboard/projects/project/project-events/project-events.component';
+import { SignupComponent } from './components/signup/signup.component';
 import { SessionGuardService } from './services/auth/session-guard.service';
 
 
@@ -48,7 +50,10 @@ const routes: Routes = [
   {path: 'homenavbar', component:HomenavbarComponent, canActivate:[SessionGuardService]},
   {path: 'innernav', component:InnernavComponent, canActivate:[SessionGuardService]},
   {path: 'project-write', component:ProjectWriteComponent, canActivate:[SessionGuardService]},
-  {path: 'project-status', component:ProjectStatusComponent, canActivate:[SessionGuardService]}
+  {path: 'project-status', component:ProjectStatusComponent, canActivate:[SessionGuardService]},
+  {path: 'blog-op', component:BlogOpComponent},
+  {path: 'project-events', component:ProjectEventsComponent},
+  {path: 'signup', component:SignupComponent}
 ];
 
 @NgModule({

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProjectObjectService } from '../../project-object.service';
+// import { ProjectObject } from '../../project-viewer';
 
 @Component({
   selector: 'app-innernav',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InnernavComponent implements OnInit {
 
-  constructor() { }
-
+  // public projectObject: ProjectObject
+  constructor(public globalProjectObject : ProjectObjectService) { }
+  // projectName = ProjectObject.projectObject.name;
+  projectObject = ProjectObjectService.projectObject;
   ngOnInit(): void {
+    // console.log(ProjectObject.projectObject.name);
   }
 
 }
