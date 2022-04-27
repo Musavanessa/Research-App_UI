@@ -16,9 +16,9 @@ export class GuidelinesComponent implements OnInit {
   ngOnInit(): void {
     this.guidelines();
 
-    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-      queryParams: { message: 'Please log out first ' }
-    });
+    // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+    //   queryParams: { message: 'Please log out first ' }
+    // });
   }
   guideLinesObject: any;
   guideLineObject = {

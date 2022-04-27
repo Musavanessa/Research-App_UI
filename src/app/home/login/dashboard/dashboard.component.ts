@@ -67,9 +67,9 @@ export class DashboardComponent implements OnInit {
     this.allDisciplines();
 
 
-    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-      queryParams: { message: 'Please log out first ' }
-    });
+    // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+    //   queryParams: { message: 'Please log out first ' }
+    // });
   }
   disableProjectSaveButtons()
   {

@@ -57,9 +57,9 @@ export class NotesComponent implements OnInit {
       console.log("We are here");
     }
 
-    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-      queryParams: { message: 'Please log out first ' }
-    });
+    // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+    //   queryParams: { message: 'Please log out first ' }
+    // });
   }
   findNotesByTitle()
   {

@@ -12,9 +12,9 @@ export class ProjectWriteComponent implements OnInit {
   constructor(public router: Router, public authService: AuthService) { }
 
   ngOnInit(): void {
-    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-      queryParams: { message: 'Please log out first ' }
-    });
+    // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+    //   queryParams: { message: 'Please log out first ' }
+    // });
   }
 
 }

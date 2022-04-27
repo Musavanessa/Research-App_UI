@@ -36,9 +36,9 @@ export class ProfileComponent implements OnInit {
 
     this.getMe();
 
-    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-      queryParams: { message: 'Please log out first ' }
-    });
+    // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+    //   queryParams: { message: 'Please log out first ' }
+    // });
 
     
   }

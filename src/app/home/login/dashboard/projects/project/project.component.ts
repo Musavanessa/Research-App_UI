@@ -45,9 +45,9 @@ export class ProjectComponent implements OnInit {
     
     this.guidelines();
 
-    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-      queryParams: { message: 'Please log out first ' }
-    });
+    // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+    //   queryParams: { message: 'Please log out first ' }
+    // });
   }
 
   isDisplayErrorInputMessage = false;

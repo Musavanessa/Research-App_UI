@@ -152,9 +152,9 @@ onResize(event: any) {
   ngOnInit(): void {
     this.innerWidth = (window.innerWidth * 0.823) + "px";
 
-    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-      queryParams: { message: 'Please log out first ' }
-    });
+    // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+    //   queryParams: { message: 'Please log out first ' }
+    // });
 
   }
 

@@ -13,9 +13,9 @@ export class ProjectsComponent implements OnInit {
   constructor(public authService: AuthService, public router: Router) { }
 
   ngOnInit(): void {
-    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-      queryParams: { message: 'Please log out first ' }
-    });
+    // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+    //   queryParams: { message: 'Please log out first ' }
+    // });
   }
 
 
