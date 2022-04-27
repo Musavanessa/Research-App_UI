@@ -14,6 +14,6 @@ export class UserService {
 
 
   getUser():Observable<User>{
-    return this.http.get<User>(this.URL+'/getUser')
+    return this.http.get<User>(this.URL+'/getUser');
   }
 }

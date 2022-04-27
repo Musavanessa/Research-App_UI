@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+// import { InnernavComponent } from '../topnav/innernav/innernav.component';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ApiserviceService } from 'src/app/apiservice.service';
-// import { Transform } from 'stream';
+import { ProjectObjectService } from '../project-object.service';
+import { SidenavService } from 'src/app/services/navs/sidenav.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+
 
 @Component({
   selector: 'app-project',
@@ -11,7 +15,91 @@ import { ApiserviceService } from 'src/app/apiservice.service';
 })
 export class ProjectComponent implements OnInit {
 
-  constructor(public datepipe: DatePipe, public router: Router, private service: ApiserviceService) { }
+  // public projectObject: ProjectObject,
+  constructor(public sidenavService: SidenavService, public globalProjectObject : ProjectObjectService,public authService: AuthService, public datepipe: DatePipe, public router: Router, private service: ApiserviceService) { }
+
+  @ViewChild('noteText') noteText:any;
+  @ViewChild('noteTitle') noteTitle:any;
+  noteObject = {id: 0, 
+                title: "", 
+                text: "", 
+                wordCount: 0, 
+                createdAt: "", 
+                updatedAt: "", 
+                guidelineId: null,
+                projectId: null,
+                collaboratorId: null,
+                userId: 0 };
+  //We need to get the total number of items so that we can allow the user to click the next button.
+  backgroundColor = "white";
+  ngOnInit(): void {
+    this.service.notes().subscribe((res)=>{
+      console.log(res.notes, "res==>");
+      this.notesData = res.notes;
+    });
+    this.projectObject = ProjectObjectService.projectObject;
+    // this.innerNav.ngOnInit();
+    console.log(this.projectObject)
+    //The one issue that I am getting here, is that when I create a project - I am not able to synchronise the project right away - 
+    //I do not know how I can takle this issue and get it done with.
+    
+    this.guidelines();
+
+    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+      queryParams: { message: 'Please log out first ' }
+    });
+  }
+
+  isDisplayErrorInputMessage = false;
+  isDisplaySuccessNoteMessage = false;
+  closeErrorInputMessage()
+  {
+    if(this.isDisplayErrorInputMessage)
+      this.isDisplayErrorInputMessage = false;
+    else
+      this.isDisplayErrorInputMessage = true;
+  }
+
+  closeSuccessNoteMessage()
+  {
+    if(this.isDisplaySuccessNoteMessage)
+      this.isDisplaySuccessNoteMessage = false;
+    else
+      this.isDisplaySuccessNoteMessage = true;
+  }
+  createNoteResponse = "";
+  createNewNote()
+  {
+    //Check if the notes are empty.
+    //Mainly we want to make sure that body of the note is not empty
+    if(this.noteText.nativeElement.value == "")
+    {
+      this.closeErrorInputMessage();
+    }
+    else
+    {
+      // this.noteObject.projectId = this.projectObject
+      this.noteObject.id = ProjectObjectService.projectObject.id;
+      this.noteObject.text = this.noteText.nativeElement.value;
+      this.noteObject.title = this.noteTitle.nativeElement.value;
+      this.noteObject.userId = ProjectObjectService.projectObject.userId;
+      // console.log(this.noteObject);
+      this.service.saveNote(this.noteObject).subscribe((res)=>{
+        this.createNoteResponse = res.status;
+      });
+      this.ngOnInit();
+      this.closeSuccessNoteMessage();
+    
+    }
+  }
+
+  clearNoteEntry()
+  {
+     this.noteText.nativeElement.value = "";
+     this.noteTitle.nativeElement.value = "";
+  }
+
+  projectObject = {};
   notesData: any;
   activeState = "white";
   isActive = false;
@@ -29,16 +117,6 @@ export class ProjectComponent implements OnInit {
     }
     return this.activeState;
   }
-  
-  //We need to get the total number of items so that we can allow the user to click the next button.
-  backgroundColor = "white";
-  ngOnInit(): void {
-    this.service.notes().subscribe((res)=>{
-      console.log(res.notes, "res==>");
-      this.notesData = res.notes;
-    });
-    this.guidelines();
-  }
   guideLinesObject: any;
   guideLineObject = {
     id: 1,
@@ -51,15 +129,7 @@ export class ProjectComponent implements OnInit {
 
   date = this.datepipe.transform(this.guideLineObject.updatedAt, 'yyyy-MM-dd hh:mm:ss');
   guideLine: any;
-  noteObject = {id: 0, title: "", 
-  text: "", 
-  wordCount: 0, 
-  createdAt: "", 
-  updatedAt: "", 
-  guidelineId: null,
-  projectId: null,
-  collaboratorId: null,
-  userId: null };
+
   openGuideline(id:any)
   {
     this.service.getGuideline(id).subscribe((res)=>{
@@ -92,4 +162,11 @@ export class ProjectComponent implements OnInit {
       this.guideLinesObject = res.guidelines;
     });
   }
+  openInNotes(noteId:number)
+  {
+    this.globalProjectObject.updateNoteObject(noteId);
+    this.sidenavService.makeLinkActive(2);
+
+  }
+
 }

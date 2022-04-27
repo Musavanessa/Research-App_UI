@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 // import {MatCardModule} from '@angular/material/card';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ApiserviceService } from 'src/app/apiservice.service';
-import { GlobalVariables } from './../../../globals';
+import { GlobalVariables} from './../../../globals';
 import { DatePipe } from '@angular/common';
+import { ProjectObjectService } from './projects/project-object.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -13,15 +15,27 @@ import { DatePipe } from '@angular/common';
 
 export class DashboardComponent implements OnInit {
 
-  displaySuccessMessage = "display: none; width:80%; margin-left: auto; margin-right: auto; ";
+  constructor( public projectObject : ProjectObjectService, public datepipe: DatePipe, public router:Router, public globalVariables: GlobalVariables, private service: ApiserviceService, public authService: AuthService ) { }
+  
+
   isDisplaySuccessMessage = false;
-  closeDisplaySuccessMessage() {
-    if (this.isDisplaySuccessMessage) {
-      this.displaySuccessMessage = "display: none; width:80%; margin-left: auto; margin-right: auto;";
+  isDisplayErrorInputMessage = false;
+
+  closeErrorInputMessage()
+  {
+    if(this.isDisplayErrorInputMessage)
+      this.isDisplayErrorInputMessage = false;
+    else
+      this.isDisplayErrorInputMessage = true;
+  }
+  closeDisplaySuccessMessage()
+  {
+    if(this.isDisplaySuccessMessage)
+    {
       this.isDisplaySuccessMessage = false;
     }
-    else {
-      this.displaySuccessMessage = "display: unset; ";
+    else
+    {
       this.isDisplaySuccessMessage = true;
     }
   }
@@ -33,21 +47,18 @@ export class DashboardComponent implements OnInit {
   i!: number;
   projectData: any;
   //Now the goal is to make sure that I create an object
-  constructor(
-    public datepipe: DatePipe, 
-    public router: Router, 
-    public globalVariables: GlobalVariables, 
-    private service: ApiserviceService,
-    private activatedRoute: ActivatedRoute) { }
+  
+  
+  
   first2Projects: any;
-  newProjectObject = { projectTypeId: 1, userId: 2, description: "", descipline: "", researchType: "", name: "" };
+  newProjectObject = {projectTypeId: 1, userId: 2, description: "", descipline: "", researchType: "", name: ""};
   // inputDescription + inputDescipline + inputResearchP + inputResearch + inputTitle
   @ViewChild('inputDescription') inputDescription: any;
   @ViewChild('inputDescipline') inputDescipline: any;
-  @ViewChild('inputResearchP') inputResearchP: any;
-  @ViewChild('inputResearch') inputResearch: any;
-  @ViewChild('inputTitle') inputTitle: any;
-  @ViewChild('projectSaveButton') projectSaveButton: any;
+  @ViewChild('inputResearchP') inputResearchP:any;
+  @ViewChild('inputResearch') inputResearch:any;
+  @ViewChild('inputTitle') inputTitle:any;
+  @ViewChild('projectSaveButton') projectSaveButton:any;
 
   ngOnInit(): void {
     this.globalVariables.showSideNav();
@@ -55,100 +66,117 @@ export class DashboardComponent implements OnInit {
     this.myProjects();
     this.allDisciplines();
 
-    this.activatedRoute.queryParams.subscribe((params: Params) => {
-      console.log(params);
-      setTimeout(() => {
-        this.router.navigate([], {
-          replaceUrl: true,
-          queryParams: { message: null },
-          queryParamsHandling: 'merge'
-        });
 
-      }, 2000);
+    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+      queryParams: { message: 'Please log out first ' }
     });
   }
-  disableProjectSaveButtons() {
+  disableProjectSaveButtons()
+  {
     this.inputButtonEnabler = 0;
     //  this.projectSaveButton.nativeElement.disabled = true;
-    if (this.inputDescription.nativeElement.value != "") {
-      this.inputButtonEnabler++;
-      this.inputDescription.nativeElement.style.borderColor = "lightgrey";
-    }
-    else {
+     if(this.inputDescription.nativeElement.value !="")
+     {
+       this.inputButtonEnabler++;
+       this.inputDescription.nativeElement.style.borderColor = "lightgrey";
+     }
+     else
+     {
       //  this.inputDescription.nativeElement.style.backgroundColor = "red";
-      this.inputDescription.nativeElement.style.borderColor = "red";
-    }
-    if (this.inputDescipline.nativeElement.value != "") {
-      this.inputButtonEnabler++;
-    }
-    else {
+       this.inputDescription.nativeElement.style.borderColor = "red";
+     }
+     if(this.inputDescipline.nativeElement.value !="")
+     {
+       this.inputButtonEnabler++;
+     }
+     else
+     {
       this.inputDescipline.nativeElement.style.borderColor = "red";
-    }
-    if (this.inputTitle.nativeElement.value != "") {
+     }
+     if(this.inputTitle.nativeElement.value !="")
+     {
       this.inputTitle.nativeElement.style.borderColor = "lightgrey";
-      this.inputButtonEnabler++;
-    }
-    else {
+       this.inputButtonEnabler++;
+     }
+     else
+     {
       this.inputTitle.nativeElement.style.borderColor = "red";
-    }
-    return this.inputButtonEnabler;
+     }
+     return this.inputButtonEnabler;
   }
 
-  saveProject() {
+  saveProject()
+  {
     // this.projectSaveButton.nativeElement.disabled = true;
     this.newProjectObject.descipline = "";
-    this.newProjectObject.description = "";
+    this.newProjectObject.description  = "";
     this.newProjectObject.researchType = "";
     this.newProjectObject.name = "";
-    this.newProjectObject.descipline = this.inputDescipline.nativeElement.value;
-    this.newProjectObject.description = this.inputDescription.nativeElement.value;
-    if (this.inputResearchP.nativeElement.checked) {
+    this.newProjectObject.descipline =  this.inputDescipline.nativeElement.value;
+    this.newProjectObject.description  = this.inputDescription.nativeElement.value;
+    if(this.inputResearchP.nativeElement.checked)
+    {
       this.newProjectObject.researchType = this.inputResearchP.nativeElement.value;
     }
-    else {
+    else
+    {
       this.newProjectObject.researchType = this.inputResearch.nativeElement.value;
     }
     this.newProjectObject.name = this.inputTitle.nativeElement.value;
     console.log(this.newProjectObject);
-    if (this.disableProjectSaveButtons() == 3) {
+    if(this.disableProjectSaveButtons() == 3)
+    {
       this.createNewProject(this.newProjectObject);
       this.clearCreateProject();
       this.showCreateProject();
       // console.log("Creating a new Project");
       // this.ngOnInit();
     }
-    else {
+    else
+    {
       console.log("Fill in all the fields");
+      this.closeErrorInputMessage();
     }
   }
-
-  createNewProject(data: any) {
-    this.service.createNewProject(data).subscribe((res) => {
+  updateProjectObject(projectId:any)
+  {
+      // this.projectObject.updateProjectObject(projectId);
+      this.service.getProject(projectId).subscribe((res)=>{
+        this.projectObject.setProjectObject(res.project);
+      });
+  }
+  createNewProject(data:any)
+  {
+    this.service.createNewProject(data).subscribe((res)=>{
       console.log(res, 'res=>');
       this.ngOnInit();
       this.closeDisplaySuccessMessage()
     });
   }
-  clearCreateProject() {
-    this.newProjectObject.descipline = "";
-    this.newProjectObject.description = "";
-    this.newProjectObject.researchType = "";
-    this.newProjectObject.name = "";
-    this.inputDescription.nativeElement.value = "";
-    this.inputTitle.nativeElement.value = "";
+  clearCreateProject()
+  {
+      this.newProjectObject.descipline = "";
+      this.newProjectObject.description  = "";
+      this.newProjectObject.researchType = "";
+      this.newProjectObject.name = "";
+      this.inputDescription.nativeElement.value = "";
+      this.inputTitle.nativeElement.value = "";
   }
   createProjectDisplay = "none";
   transformElement = "transform: rotate(0deg);"
   svgImage = "add_circle_green_24dp.svg";
   isOpenCreateProject = false;
-  showCreateProject() {
-    if (this.isOpenCreateProject) {
+  showCreateProject()
+  {
+    if(this.isOpenCreateProject)
+    {
       this.createProjectDisplay = "none";
       this.isOpenCreateProject = false;
       this.transformElement = "transform: rotate(0deg);"
       this.svgImage = "add_circle_green_24dp.svg";
     }
-    else {
+    else
+    {
       this.createProjectDisplay = "unset";
       this.isOpenCreateProject = true;
       this.transformElement = "transform: rotate(45deg);"
@@ -156,18 +184,21 @@ export class DashboardComponent implements OnInit {
 
     }
   }
-  showCreateProject_() {
+  showCreateProject_()
+  {
     this.showCreateProject();
   }
 
-  allDisciplines() {
-    this.service.disciplines().subscribe((res) => {
+  allDisciplines()
+  {
+    this.service.disciplines().subscribe((res)=>{
       this.allDisciplinesObject = res.disciplines;
       console.log(this.allDisciplinesObject)
     })
   }
-  myProjects() {
-    this.service.projects().subscribe((res) => {
+  myProjects()
+  {
+    this.service.projects().subscribe((res)=>{
       // console.log(res.projects);
       // this.myProjectsObject = res.projects;
       this.first2Projects = Array.prototype.slice.call(res.projects,);

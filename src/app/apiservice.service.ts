@@ -28,6 +28,21 @@ export class ApiserviceService {
   {
       return this._http.get(`${this.apiUrl+"notes/"+ noteId}`);
   }
+
+  deleteNote(noteId:number) : Observable<any>
+  {
+     return this._http.delete(`${this.apiUrl+"notes/"+noteId}`);
+  }
+
+  saveNote(noteObject: any):Observable<any>
+  { 
+    return this._http.post(`${this.apiUrl+"notes"}`, noteObject); 
+  }
+
+  updateNote(noteId:any, noteObject:any): Observable<any>
+  {
+    return this._http.patch(`${this.apiUrl+"notes/"+noteId}`, noteObject);
+  }
   guidelines(projectTypeId:number): Observable<any>
   {
      return this._http.get(`${this.apiUrl+"guidelines"}?projectTypeId=`+projectTypeId);
@@ -45,6 +60,10 @@ export class ApiserviceService {
   {
     return this._http.post(`${this.apiUrl+"projects"}` , data);
 
+  }
+  getProject(projectId: any):Observable<any>
+  {
+    return this._http.get(`${this.apiUrl+"projects/"+projectId}`);
   }
 }
   

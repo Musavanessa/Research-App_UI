@@ -1,130 +1,125 @@
-<main>
-  &nbsp;&nbsp;
-  
-  <div style="width: 100%; ">
+<main style="background-color:rgb(255, 255, 255); height: 92%; position: fixed; top: 75px; width:82%">
+  <div>
     <app-topnav></app-topnav>
-    <div style=" max-height: 95%; width: 97%; overflow:scroll;">
-
-      <div>
-        &nbsp;
-        <div class="card" style="width:90%; margin-right:auto; margin-left: auto;" >
-          <div class="card-body" >
-            <div style="cursor: pointer;" (click)="showCreateProject()">
-                  <img src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s;" (click)="showCreateProject_" [style]="transformElement">
-                Create New Project
-            </div>
-            <div class="card border-light mb-3" style="width: 100%;" [style.display]= "createProjectDisplay" > 
-              <div class="card-header" style="background-color:#2196F3; color:whitesmoke">Create Project</div>
-              <div class="card-body">
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <h5 class="card-title"><span style="color:lightslategrey;">Title</span></h5>
-                    <input #inputTitle class="form-control form-control-sm" type="text" value="" (change)="disableProjectSaveButtons()">
-                  </li>
-                  <li class="list-group-item">
-                    <div class="form-check">
-                      <input #inputResearchP class="form-check-input" type="radio" value="2" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                      <label class="form-check-label" for="flexRadioDefault1">
-                        Research Proposal
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input  #inputResearch class="form-check-input" type="radio" value="1" name="flexRadioDefault" id="flexRadioDefault2" >
-                      <label class="form-check-label" for="flexRadioDefault2">
-                        Research
-                      </label>
-                    </div>
-                  </li>
-                  <li class="list-group-item">
-                    <h5 class="card-title"><span style="color:lightslategrey;">Choose Department</span></h5>
-                    <select #inputDescipline class="form-control form-control-sm">
-                      <option *ngFor= "let discipline of allDisciplinesObject;">
-                          {{discipline.name}}
-                      </option>
-                    </select>
-                  </li>
-                  <li class="list-group-item">
-                    <div class="form-group">
-                      <h5 class="card-title"><span style="color:lightslategrey;">Description</span></h5>
-                      <textarea #inputDescription class="form-control" id="exampleFormControlTextarea1" rows="6" style="resize: none;"  (change)="disableProjectSaveButtons()"></textarea>
-                    </div>
-                  </li>
-                  <li class="list-group-item">
-                    <div class="row">
-                      <div class="col-sm-8"><button type="button" #projectSaveButton (click)="saveProject()" class="btn btn-primary">Save</button></div>
-                      <div class="col-sm"><button type="button" (click)="clearCreateProject()" class="btn btn-light">Clear</button></div>
-                      <div class="col-sm"><button type="button" routerLink="/project" class="btn btn-success">Open</button></div>
-                      <div class="col-sm"><button type="button" class="btn btn-dark"  (click)="showCreateProject()" >Close</button></div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
+    <div style="width: 100%; height: 93%; position:relative;top:64px; background-color: rgb(255, 255, 255); overflow: scroll;">
+      &nbsp;
+      <div class="card" style="width:95%; margin-right:auto; margin-left: auto;  background-color: aliceblue; border-color: white;" >
+        <div class="card-body" >
+          <div style="cursor: pointer;" (click)="showCreateProject()">
+                <img src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 1s;" (click)="showCreateProject_" [style]="transformElement">
+              Create New Project
           </div>
-        </div>
-        &nbsp;
-        <div class="alert alert-success alert-dismissible fade show" role="alert" [style]="displaySuccessMessage">
-          <strong>Success</strong>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="closeDisplaySuccessMessage()"></button>
-        </div>
-        &nbsp;
-        <div class="card text-dark bg-light mb-3" style="width:95%; margin-left: auto; margin-right: auto;">
-          <div class="card-header">My Projects</div>
-          <div class="card-body"style="background-color:white">
-            <div>
-              <div class="card-body">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th scope="col">ID</th>
-                      <th scope="col">Project Name</th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Start Date</th>
-                      <th scope="col"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor= "let project of first2Projects; let i index">
-                      <th scope="row">{{project.id}}</th>
-                      <td>{{project.name}}</td>
-                      <td>{{project.description}}</td>
-                      <td>{{project.project_status.status}}</td>
-                      <td>{{project.startDate}}</td>
-                      <td>
-                        <div class="col-sm">
-                          <button type="button" routerLink="/project" class="btn btn-primary">Open</button>
-                        </div>
-                      </td>
-                      <td></td>
-  
-                    </tr>
-                  </tbody>
-                </table>
-                <!-- <p class="card-text">{{project.name}}</p> -->
-                <!-- <div>
-                  <div style="overflow: scroll; width: 95%; margin-left: auto; margin-right: auto; position:initial">
-                    <textarea style="width: 100%; height: 450px; resize: none; border:none; outline: none;">
-                      {{project.description}}
-                    </textarea>                    
-                  </div>
-                </div> -->
-              </div>
+          <div class="card border-light mb-3" style="width: 100%;" [style.display]= "createProjectDisplay" > 
+            <div class="card-header" style="background-color:#2196F3; color:whitesmoke">Create Project</div>
+            <div *ngIf="isDisplayErrorInputMessage" class="alert alert-danger alert-dismissible fade show" role="alert"  style="width:100%; margin-right:auto; margin-left: auto;">
+              <strong>NB</strong> &nbsp;Enter all fields
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="closeErrorInputMessage()"></button>
             </div>
+            <div class="card-body" style="border-color:white">
+              <ul class="list-group" style="border-color:white">
+                <li class="list-group-item"  style="border-color:white">
+                  <h5 class="card-title"><span style="color:lightslategrey;">Title</span></h5>
+                  <input #inputTitle class="form-control form-control-sm" type="text" value="" (change)="disableProjectSaveButtons()">
+                  <hr>
+                </li>
+                <li class="list-group-item"  style="border-color:white">
+                  <div class="form-check">
+                    <input #inputResearchP class="form-check-input" type="radio" value="2" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Research Proposal
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input  #inputResearch class="form-check-input" type="radio" value="1" name="flexRadioDefault" id="flexRadioDefault2" >
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Research
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input  #inputResearch class="form-check-input" type="radio" value="3" name="flexRadioDefault" id="flexRadioDefault2" >
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Personal Work
+                    </label>
+                  </div>
+                  <hr>
+                </li>
+                <li class="list-group-item"  style="border-color:white">
+                  <h5 class="card-title"><span style="color:lightslategrey;">Choose Department</span></h5>
+                  <select #inputDescipline class="form-control form-control-sm">
+                    <option *ngFor= "let discipline of allDisciplinesObject;">
+                        {{discipline.name}}
+                    </option>
+                  </select>
+                  <hr>
   
+                </li>
+                <li class="list-group-item"  style="border-color:white">
+                  <div class="form-group">
+                    <h5 class="card-title"><span style="color:lightslategrey;">Description</span></h5>
+                    <textarea #inputDescription class="form-control" id="exampleFormControlTextarea1" rows="6" style="resize: none;"  (change)="disableProjectSaveButtons()"></textarea>
+                  </div>
+                  <hr>
+  
+                </li>
+                <li class="list-group-item"  style="border-color:white">
+                  <div class="row">
+                    <div class="col-sm-8"><button type="button" #projectSaveButton (click)="saveProject()" class="btn btn-primary">Save</button></div>
+                    <div class="col-sm"><button type="button" (click)="clearCreateProject()" class="btn btn-light">Clear</button></div>
+                    <div class="col-sm"><button type="button" routerLink="/project" class="btn btn-success" style="background-color:darkgreen">Open</button></div>
+                    <div class="col-sm"><button type="button" class="btn btn-dark"  (click)="showCreateProject()" >Close</button></div>
+                  </div>
+  
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-      <!-- <div class="row">
-        <div class="col-sm">col-sm</div>
-        <div class="col-sm">col-sm</div>
-        <div class="col-sm">col-sm</div>
-      </div> -->
-      <!-- END GRID -->
       &nbsp;
+      <div class="alert alert-success alert-dismissible fade show" role="alert"  style="width:95%; margin-right:auto; margin-left: auto;" *ngIf="isDisplaySuccessMessage">
+        <strong>Success</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="closeDisplaySuccessMessage()"></button>
+      </div>
       &nbsp;
-        &nbsp;
+      <div class="card text-dark bg-light mb-3" style="width:95%; margin-left: auto; margin-right: auto; border:none">
+        <div class="card-header" style="background-color:rgb(255, 255, 255);" >
+          <p class="h2">My Projects</p></div>
+        <div class="card-body"style="background-color:white">
+          <div>
+            <div class="card-body" style="height:580px; overflow:scroll">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Project Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col"></th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor= "let project of first2Projects;" style="cursor:pointer" routerLink="/project" (click)="projectObject.updateProjectObject(project.id)">
+                    <th scope="row" >{{project.id}}</th>
+                    <td>{{project.name}}</td>
+                    <td>{{project.description}}</td>
+                    <td></td>
+                    <td>{{project.project_status.status}}</td>
+                    <td>{{project.startDate}}</td>
+                    <td></td>
+                    <td>
+                      <a class="nav-link"  style="color:black" routerLink="/project-write">
+                        <img src="../../../../../../../assets/media/logos/notification_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    &nbsp;
   </div>
 </main>

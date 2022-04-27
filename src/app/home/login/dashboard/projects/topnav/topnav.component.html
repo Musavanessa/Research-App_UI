@@ -1,14 +1,14 @@
-<div style=" padding-bottom: 10px;">
+<div style=" padding-bottom: 10px; position:fixed; top: 85px; background-color: rgb(255, 255, 255);  width: 80%;">
     <ul class="nav nav-tabs"  id="myTab" role="tablist" style="background-color:#ffffff00;">
       &nbsp;&nbsp;&nbsp;
       <li class="nav-item">
-        <a  class="nav-link active" id="home-tab" data-toggle="tab" routerLink="/dashboard" role="tab" aria-controls="home" aria-selected="false">Projects</a>
+        <a #projectsElement ngClass="nav-link {{isActiveProjects}} " style="color:rgb(163, 163, 163)" id="projects-tab" data-toggle="tab" routerLink="/dashboard" role="tab" aria-controls="projects" aria-selected="false" (click)="makeLinkActive(1)">Projects</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" style="color:rgb(163, 163, 163)" id="profile-tab" data-toggle="tab" routerLink="/notes" role="tab" aria-controls="profile" aria-selected="false">Notes</a>
+        <a #notesElement ngClass="nav-link {{isActiveNotes}} " style="color:rgb(163, 163, 163)" id="notes-tab" data-toggle="tab" routerLink="/notes" role="tab" aria-controls="notes" aria-selected="false" (click)="makeLinkActive(2)">Notes</a>
       </li>
       <li class="nav-item"  style="color:rgb(163, 163, 163)">
-        <a class="nav-link" style="color:rgb(163, 163, 163)" id="contact-tab" data-toggle="tab" routerLink="/guidelines" role="tab" aria-controls="contact" aria-selected="true">Guidelines</a>
+        <a #guidelinesElement ngClass="nav-link {{isActiveGuidelines}}" style="color:rgb(163, 163, 163)" id="guidelines-tab" data-toggle="tab" routerLink="/guidelines" role="tab" aria-controls="guidelines" aria-selected="true" (click)="makeLinkActive(3)">Guidelines</a>
       </li>
     </ul>
 </div>

@@ -12,9 +12,9 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-      queryParams: { message: 'Please log out first ' }
-    });
+    // if(this.authService.isAuthenticated) 
+    //   this.router.navigate(['/dashboard'],{queryParams:{ message: 'Please log out first '}});
+    //I guess the one thing that we need to do is to make sure that we remove everything that the user has created
   }
 
 }

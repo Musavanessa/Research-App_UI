@@ -22,7 +22,7 @@
 
 
 .card-header{
-  background-color:rgb(244, 244, 244);
+  background-color:rgb(255, 255, 255);
 }
 
 .removeFocus:focus{
@@ -114,15 +114,14 @@
 } */
 
 .container {
-  position: relative;
+  position: fixed;
   float: right;
   border: 0 #dedede;
   background-color: #fff;
   border-radius: 5px;
   padding: 10px;
   margin: 10px 0;
-  right: 20px;
-  top: -100px;
+  width:1400px;
 }
 
 .darker {
@@ -143,7 +142,14 @@
   max-width: 60px;
   width: 100%;
   margin-right: 20px;
-  border-radius: 50%;
+  /* border-radius: 50%; */
+}
+
+.container svg{
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px; 
 }
 
 .container img.right {
@@ -157,6 +163,10 @@
   color: #aaa;
 }
 
+.changeImage{
+  height: auto;
+  width: auto;
+}
 .name-right {
     bottom: 10px;
   float: left;

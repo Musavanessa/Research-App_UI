@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { elementAt } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-chatbox',
@@ -11,7 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 })
 export class ChatboxComponent implements OnInit {
 
-  constructor(public datepipe: DatePipe, public http: HttpClient) { }
+  constructor(public authService: AuthService, public datepipe: DatePipe, public http: HttpClient, public router: Router) { }
   @ViewChild('inputChatBox') inputChatBox: any;
   @ViewChild('chatBoxPage') chatBoxPage: any;
   @ViewChild('formPopupInsertAttachment') formPopupInsertAttachment :any;
@@ -19,6 +21,9 @@ export class ChatboxComponent implements OnInit {
   displayPopup = "none";
   clickedInsertFileButtonColor = "white";
   selectedFile!: File;
+  public innerWidth: any;
+
+
 
   sidenavIcons: Array<string> = ["edit-solid.svg", "menu_black_24dp.svg"];
   sideNavProperties = {status: false,
@@ -81,6 +86,10 @@ export class ChatboxComponent implements OnInit {
   chatId: 4
 }];
 
+@HostListener('window:resize', ['$event'])
+onResize(event: any) {
+  this.innerWidth = (window.innerWidth * 0.823) + "px";
+}
 
   date = new Date();
   sendMessage() {
@@ -141,6 +150,11 @@ export class ChatboxComponent implements OnInit {
     this.inputChatBox.nativeElement.style.height = (this.inputChatBox.nativeElement.scrollHeight) + "px";
   }
   ngOnInit(): void {
+    this.innerWidth = (window.innerWidth * 0.823) + "px";
+
+    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+      queryParams: { message: 'Please log out first ' }
+    });
 
   }
 

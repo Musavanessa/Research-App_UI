@@ -1,6 +1,6 @@
 <main style="background-color: rgb(255, 255, 255);">
     &nbsp;&nbsp;
-    <div style="background-color: rgb(255, 255, 255);" [style.width]="innerWidth" [style.height]="innerHeight">
+    <div class="container-fluid" style="background-color: rgb(255, 255, 255);" [style.width]="innerWidth" [style.height]="innerHeight">
         &nbsp;&nbsp;
         &nbsp;&nbsp;
         &nbsp;&nbsp;
@@ -42,7 +42,6 @@
                                                 <br>
                                             </div>
                                             <div class="col">
-
                                             </div>
                                             <div class="col">
                                                 <h5 class="card-title"><span style="color:lightslategrey;">First
@@ -51,41 +50,26 @@
                                                     class="form-control form-control-sm" id="firstName"
                                                     [(ngModel)]="profileForm.firstName" type="text" minlength="4"
                                                     placeholder="{{data.firstName}}" required>
-
-                                                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)"
-                                                    >
-
-                                                    <!-- <div class="alert alert-warning" *ngIf="firstName.errors?.['required']">
-                                                        Please enter First Name.
-                                                    </div> -->
+                                                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
                                                     <div class="alert alert-danger" *ngIf="firstName.errors?.['minlength']">
                                                         First Name must be at least 4 characters long.
                                                     </div>
-
-
                                                 </div>
-
                                                 <br>
                                             </div>
                                             <div class="col">
-                                                <h5 class="card-title"><span style="color:lightslategrey;">Last
-                                                        Name</span></h5>
+                                                <h5 class="card-title">
+                                                    <span style="color:lightslategrey;">Last Name</span>
+                                                </h5>
                                                 <input type="text" placeholder="{{data.lastName}}"
                                                     class="form-control form-control-sm"  (keyup)="checkValues(fData, 'lastName', lastName)" name="lastName"
                                                     #lastName="ngModel" id="lastName" [(ngModel)]="profileForm.lastName"
                                                     type="text" minlength="4" required>
-
-                                                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)"
-                                                    >
-
-                                                    <!-- <div *ngIf="lastName.errors?.['required']">
-                                                        Please enter Last Name.
-                                                    </div> -->
+                                                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
                                                     <div class="alert alert-danger" *ngIf="lastName.errors?.['minlength']">
                                                         Last Name must be at least 4 characters long.
                                                     </div>
                                                 </div>
-
                                                 <br>
                                             </div>
                                             <div class="col">
@@ -103,7 +87,6 @@
                                                     type="text" placeholder="{{data.idNumber}}">
                                                 <br>
                                             </div>
-
                                             <div class="col">
                                                 <h5 class="card-title"><span
                                                         style="color:lightslategrey;">Password</span></h5>
@@ -111,12 +94,8 @@
                                                     [(ngModel)]="profileForm.password" name="password"
                                                     #password="ngModel" minlength="6" required placeholder="Password"
                                                     class="form-control form-control-sm" id="password">
-                                                <div *ngIf="password.invalid && (password.dirty || password.touched)"
-                                                   >
-                                                    <!-- <div *ngIf="password.errors?.['required']">Password is required.
-                                                    </div> -->
-                                                    <div class="alert alert-danger" *ngIf="password.errors?.['minlength']">Password must be at
-                                                        least 6 characters long.</div>
+                                                <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                                                    <div class="alert alert-danger" *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long.</div>
                                                 </div>
                                                 <br>
                                             </div>
@@ -128,10 +107,7 @@
                                                     #confirmPassword="ngModel" minlength="6" required
                                                     placeholder="Repeat your password"
                                                     class="form-control form-control-sm" id="confirmPassword">
-                                                <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) || pCheck.length > 0"
-                                                    >
-                                                    <!-- <div *ngIf="confirmPassword.errors?.['required']">Confirm Password
-                                                        is required.</div> -->
+                                                <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched) || pCheck.length > 0">
                                                     <div class="alert alert-danger" *ngIf="confirmPassword.errors?.['minlength']">Confirm Password
                                                         must be at least 6 characters long.</div>
                                                     <div class="alert alert-danger" *ngIf="pCheck.length > 0">{{pCheck}}</div>
@@ -142,7 +118,6 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <!-- <p>{{formV | json}}</p> -->
                                     <button [disabled]="disable" (click)="updateProfile()" type="button"
                                         class="btn btn-primary">Update</button>
                                 </form>

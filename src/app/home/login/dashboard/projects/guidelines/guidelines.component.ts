@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { ApiserviceService } from 'src/app/apiservice.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-guidelines',
@@ -10,10 +11,14 @@ import { ApiserviceService } from 'src/app/apiservice.service';
 })
 export class GuidelinesComponent implements OnInit {
 
-  constructor(public datepipe: DatePipe, public router: Router, private service: ApiserviceService ) { }
+  constructor(public datepipe: DatePipe, public router: Router, private service: ApiserviceService, public authService: AuthService ) { }
 
   ngOnInit(): void {
     this.guidelines();
+
+    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+      queryParams: { message: 'Please log out first ' }
+    });
   }
   guideLinesObject: any;
   guideLineObject = {

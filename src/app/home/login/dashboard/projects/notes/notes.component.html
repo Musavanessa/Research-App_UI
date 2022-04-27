@@ -1,164 +1,128 @@
-<main>
-    &nbsp;&nbsp;
-    <div style="width:100%">
-      <app-topnav></app-topnav>
-      <div>
-        &nbsp;&nbsp;&nbsp;
-        <!-- SEARCH BAR -->
-        <div class="form-outline mb-4" style="width: 98%; margin-left: 10px;">
-          <input type="search" class="form-control" id="datatable-search-input" placeholder="Search" style="background-color:rgb(255, 255, 255); border-color: rgb(1, 173, 253);">
-        </div>
-        <!-- ALL NOTES & FILTER DIV -->
-        <div class="container">
-          <div class="row">
-            <div class="col">
-              <div class="row">
-                <div class="col" style="width: auto;margin-left: 10px; padding: 0px">
-                  <button  type="button" class="btn btn-primary">All Notes</button>
-                </div>
-                <div class="col">
-                  <button  type="button" class="btn btn-secondary">New</button>
-                </div>
-              </div>
-            </div>
-            <div class="col-6" >
-              <div class="card" style="width: 100%;">
-                <div class="card-body" style="padding:8px">
-                  All Notes
-                </div>
-              </div>
+<main style="background-color:rgb(255, 255, 255); height: 93%; position: fixed; top: 75px; width:83%; user-select: none;">
+  <div>
+    <app-topnav></app-topnav>
+    <div style="width: 100%; height: 100%; position:relative;top:64px; background-color: rgb(255, 255, 255);">
+      <div style="height: 60px; background-color:rgb(250, 250, 250); margin-left: auto; margin-right: auto;" [style.width]="innerWidth">
+        <div  style="background-color:rgb(255, 255, 255); width:480px; border-radius: 8px; position:relative; top:10px; left:50px;  box-shadow: 2px 2px rgb(238, 238, 238);" >
+          <div class="row row-cols-auto paddingTop" >
+            <div class="col" style="width:40px; height:29px; background-color:transparent"></div>
+            <div class="col paddingTop " >
+              <img  src="../../../../../../../assets/media/logos/search_grey_24dp.svg" alt="ResearcherDNA-Logo" style="vertical-align: center;bottom:0; height: 24px; width: 24px; cursor: pointer;">
             </div>
             <div class="col">
-              <div class="btn-group">
-                <button class="btn btn-sm dropdown-toggle" style="width: 100%; color:rgb(7, 129, 228);" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Find By
-                </button>
-                <ul class="dropdown-menu">
-                  <li>
-                    Hi there
-                  </li>
-                </ul>
+              <input #inputSearchNotes (keyup)="findNotesByTitle()" type="text" class="form-control removeOutline" id="search-notes" placeholder="Search notes" style="background-color:transparent; border:none; outline: none; color:grey" (keyup)="updateClearButton()">
+            </div>
+            <div class="col" width="24px" height="24px" style="width:30px; height:30px; background-color:transparent" (click)="clearInputSearch()">
+                <div class="col paddingTop" *ngIf="showClear">
+                  <img src="../../../../../../../assets/media/logos/clear_grey_24dp.svg" alt="ResearcherDNA-Logo" style="vertical-align: center; height: 24px; width: 24px; cursor: pointer;">
               </div>
             </div>
-            &nbsp;
-          </div>
-        </div>
-        &nbsp;
-        <hr style="width:95%; margin:auto">
-        <!-- GRID SYSTEM -->
-        <div class="row" style="width: 100%">
-          <!-- LIST OF MY NOTES CARD -->
-          <div class="col">
-            &nbsp;
-            <div>
-              <div class="card border-light mb-3" style="width: 100%; border: none;">
-                <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">Notes
-                  &nbsp;&nbsp;
-                </div>
-                <div class="card border-light mb-3" style="width: 100%;margin-left: auto; margin-right: auto; border: none;">
-                  &nbsp;&nbsp;
-                  <div style="overflow: scroll; height: 300px; width: 100%; margin-left: auto; margin-right: auto;">
-                    <ul class="list-group" style="width: 90%; margin-left: auto; margin-right: auto;">
-                      <li class="list-group-item" *ngFor = 'let us of notesData'>
-                        <div class="row">
-                          <div class="col-8">{{us.title}}</div>
-                          <div class="col">
-                            <a style="color:rgb(0, 0, 0); cursor: pointer;" (click)="openNote(us.id)" id="{{us.id}}">
-                              <img src="../../../../../../../assets/media/logos/edit_note_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="float:right">
-                            </a>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-
-                  </div>
-                </div>
-                &nbsp;&nbsp;&nbsp;
-              </div>
-            </div>
-            <div clas="row" >
-              <div class="row">
-                <div class="col">
-                  <div class="col">
-                    <div class="card"  style="width: 100%; ">
-                      <div class="card-body" style="padding: 15px; margin: 0;">
-                        <div class="row">
-                          <div class="col-8">                              
-                            <div class="mb-3" style="margin: 0px 0px 0px;">
-                              <h6 class="card-subtitle mb-2 text-muted">Add Collaborator</h6>
-                              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Username" style="border:none;  background-color: rgb(245, 245, 245); outline:none">
-                              </div>
-                          </div>
-                          <div class="col">
-                            <h6 class="card-subtitle mb-2 text-muted">&nbsp;</h6>
-                            <button type="button" routerLink="" class="btn btn-primary btn-xs">Save</button>&nbsp;
-                          </div>
-                        </div>
-                        <!-- MY NOTES DIV - MAKE THIS DIV SCROLLABLE -->
-                        <div style=" height:auto; width: 100%; background-color: rgb(255, 255, 255);">
-                          <h6 class="card-subtitle mb-2 text-muted">Collaborators</h6>
-                          <hr style="margin: 0px">&nbsp;
-                          <div class="row">
-                            <div class="card" style="border: none; ">
-                              <div class="card-body" style="border:none; padding: 5px;">
-                                <ul class="list-group">
-                                  <li class="list-group-item" style="width: 100%">
-                                    <div class="row">
-                                      <div class="col-10">shikomatlala@gmail.com</div>
-                                      <div class="col">
-                                        <button routerLink="/notes" type="button"  style="float:right"  class="btn  btn-sm">
-                                            <img src="../../../../../../../assets/media/logos/clear_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                                        </button>
-                                      </div>
-                                    </div>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-8">
-            &nbsp;
-            <!-- DIV FOR THE ACTUAL NOTE -->
-            <div class="card border-light mb-3" style="width: 100%; border:none; ">
-              <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(0, 0, 0);">Edit Note</div>
-              <!-- <span class="badge badge-light">9</span> -->
-              &nbsp;
-              <div class="card" style="width: 95%; margin-left: auto; margin-right: auto;">
-                <div class="card-body">
-                  <p class="card-text">{{noteObject.title}}</p>
-                  <div>
-                    <!-- <h6 class="card-subtitle mb-2 text-muted">{{noteObject.text}}</h6> -->
-                    <div style="overflow: scroll; width: 95%; margin-left: auto; margin-right: auto; position:initial">
-                      <textarea style="width: 100%; height: 450px; resize: none; border:none; outline: none;">
-                        {{noteObject.text}}
-                      </textarea>                    
-                    </div>
-                    <!-- <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" rows="50" cols="1000" style="height: 550px; resize: none;"></textarea> -->
-                  <h6 class="card-subtitle mb-2 text-muted">16 March 2022, Wednesday</h6>
-                  <button type="button" routerLink ="" class="btn btn-primary btn-xs">Save</button>&nbsp;
-                  <button type="button" routerLink ="" class="btn btn-light btn-xs">Open In Project</button>&nbsp;&nbsp;
-                  <button type="button" routerLink ="" class="btn btn-danger btn-xs" style="background-color:rgb(182, 0, 0)">Delete</button>&nbsp;
-                  &nbsp;
-                  </div>
-                </div>
-              </div>
+            <div class="col" style="background-color:transparent"></div>
+            <div class="col">
+              <button (click)="showAllNotes()" type="button" class="btn btn-primary btn-sm" style="background-color:rgb(250, 250, 245);border:none; color: grey">Show all</button>
             </div>
           </div>
         </div>
-        <!-- END GRID -->
-        &nbsp;
-        &nbsp;
-          &nbsp;
       </div>
-          &nbsp;
+      <div class="row" style="width:100%; flex-wrap:nowrap;" [style.height]="innerHeight">
+        <div  *ngIf="isNotesFound" class="col" style="margin-left: auto; margin-right: auto; position: relative; left: 8px; top:2px;">
+          <div class="card " style="width: 100%; border:none;">
+              <caption style="background-color:aliceblue; text-align: center;">Notes</caption>
+                <div [style.height]="notesListHeight" style="user-select: none;overflow: scroll; width: 100%; margin-left: auto; margin-right: auto; background-color: rgb(255, 255, 255);">
+                  <table class="table table-sm table-hover">
+                    <tbody>
+                      <tr *ngFor ='let us of notesData' (click)="openNote(us.id)" style="background-color:rgb(255, 255, 255); cursor:pointer">
+                        <td>{{us.title}}</td>
+                        <!-- <td style="color:rgb(117, 119, 119);  font-size: 12px;"></td> -->
+                        <td style="color:rgb(117, 119, 119);  font-size: 12px;">{{formatTime(us.updatedAt)}} | {{formatDate(us.updatedAt)}}</td>
+                        <!-- <td>
+                          <img (click)="deleteNote(us.id, us.title)"  src="../../../../../../assets/media/logos/person_add_FILL1_wght700_GRAD200_opsz48.svg" alt="ResearcherDNA-Logo" width="20px" height="20px">
+                        </td> -->
+                        <th>
+                          <img (click)="deleteNote(us.id, us.title)"  src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                        </th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+          </div>
+          <!-- <div style="top:-10px">
+            <h6 class="card-subtitle mb-2 text-muted">Add Collaborator</h6>
+            <div class="container">
+              <div class="row">
+                <div class="col-md-10">
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Username" style="border:none;  background-color: rgb(245, 245, 245); outline:none">
+                </div>
+                <div class="col-6 col-md-2">
+                  <button type="button" routerLink="" class="btn btn-primary btn-xs">Save</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+
+          <div class="card border-light mb-3" style="width: 100%;margin-left: auto; height: 160px; top:-10px;">
+            <caption style="background-color:aliceblue; text-align: center;">Collaborators</caption>
+            <div style="overflow: scroll; height: 150px; width: 100%; margin-left: auto; margin-right: auto; background-color: rgb(253, 253, 253);">
+              <div style="height: 350px; width: 97%; margin-left: auto; margin-right: auto;">
+                <table class="table table-sm table-hover" style="width:100%">
+                  <tbody>
+                    <tr *ngFor ='let us of notesData' (click)="openNote(us.id)" style="background-color:rgb(253, 253, 255); cursor:pointer">
+                      <td><img src="https://avatars.githubusercontent.com/u/58688272?v=4" height="32px" style="border-radius:40px"></td>
+                      <td style="color:rgb(117, 119, 119);"><div style="width:280px">{{testVariable}}</div></td>
+                      <td style="color:rgb(117, 119, 119);">collaborator</td>
+                      <td></td>
+                      <th>
+                        <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                      </th>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> -->
+        </div>
+        <div [ngClass]="makeNotepadFillScreen" style="background-color:rgb(255, 255, 255)">
+          <div class="card border-light mb-3" style="width: 100%; border:none; background-color: rgb(255, 255, 255); ">
+            <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(255, 255, 255);">
+              <input #inputNoteTitle class="form-control form-control-sm" placeholder="Enter title here" style="border:none" value="{{noteObject.title}}">
+            </div>
+            <br>
+            <div class="card" style="width: 100%; margin-left: auto; margin-right: auto; border-radius: 0px;">
+              <div class="card-body">
+                <div>
+                  <div style="overflow: scroll; width: 97%; margin-left: auto; margin-right: auto; position:initial; border: none;">
+                    <textarea #inputNoteText ng-model="myTextArea"  style="width: 100%; height: 490px; resize: none; border:none; outline: none;" value="{{noteObject.text}}" placeholder="Write here...">
+                    {{noteObject.text}}
+                    </textarea>     
+                    <input #hiddenNoteIdInput  name="hiddenNoteIdInput" style="display:none" value={{noteObject.id}}>               
+                  </div>
+                  <h6 #noteDate class="card-subtitle mb-2 text-muted">{{formatDate(noteObject.createdAt)}}</h6>
+                <div>
+                  <button *ngIf="!isThisNoteOpen" type="button" (click)="createNewNote()" style=" border:none" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Save">
+                    Save
+                  </button>&nbsp;
+                  <button *ngIf="isThisNoteOpen" type="button" (click)="updateNote(noteObject.id)" style=" border:none" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Update">
+                    Update
+                  </button>&nbsp;
+                  <!-- <button type="button" routerLink ="" class="btn btn-light btn-sm" style=" border:none"  data-toggle="tooltip" data-placement="top" title="Open in project">
+                    Guideline
+                  </button>&nbsp;&nbsp; -->
+                  <button type="button" (click)="deleteNote(noteObject.id, noteObject.title)" class="btn btn-danger btn-sm" style=" border:none; background-color:red" data-toggle="tooltip" data-placement="top" title="Delete">
+                    Delete
+                  </button>&nbsp;&nbsp;
+                  <button  type="button" class="btn btn-secondary btn-sm" (click)="clearNote()" style=" border:none; " data-toggle="tooltip" data-placement="top" title="New">
+                    New
+                  </button>
+                  &nbsp;&nbsp;
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div> 
 </main>
 

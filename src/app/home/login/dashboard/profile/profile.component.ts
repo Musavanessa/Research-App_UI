@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener} from '@angular/core';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user/user.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +22,7 @@ export class ProfileComponent implements OnInit {
   profileForm : User = new User;
 
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, public router: Router, public authService: AuthService) { }
 
 
 
@@ -32,7 +34,11 @@ export class ProfileComponent implements OnInit {
     this.innerHeight= (window.innerHeight * 0.87) + "px";
     console.log(this.innerWidth + "H " + this.innerHeight + "W");
 
-    this.getMe()
+    this.getMe();
+
+    if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
+      queryParams: { message: 'Please log out first ' }
+    });
 
     
   }
