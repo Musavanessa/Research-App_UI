@@ -37,6 +37,8 @@ import {MatCardModule} from '@angular/material/card';
 import { SignupComponent } from './components/signup/signup.component';
 
 
+import { ChatboxServiceService } from './services/chatbox/chatbox-service.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,6 +84,7 @@ import { SignupComponent } from './components/signup/signup.component';
     GlobalVariables, 
     ApiserviceService,
     ProjectObjectService,
+    ChatboxServiceService,
     DatePipe,{
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

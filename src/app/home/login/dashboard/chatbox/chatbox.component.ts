@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { elementAt } from 'rxjs';
+import { ChatboxServiceService } from 'src/app/services/chatbox/chatbox-service.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -13,7 +14,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class ChatboxComponent implements OnInit {
 
-  constructor(public authService: AuthService, public datepipe: DatePipe, public http: HttpClient, public router: Router) { }
+  constructor(public chatBoxService: ChatboxServiceService, public authService: AuthService, public datepipe: DatePipe, public http: HttpClient, public router: Router) { }
   @ViewChild('inputChatBox') inputChatBox: any;
   @ViewChild('chatBoxPage') chatBoxPage: any;
   @ViewChild('formPopupInsertAttachment') formPopupInsertAttachment :any;
@@ -150,7 +151,10 @@ onResize(event: any) {
     this.inputChatBox.nativeElement.style.height = (this.inputChatBox.nativeElement.scrollHeight) + "px";
   }
   ngOnInit(): void {
+    
     this.innerWidth = (window.innerWidth * 0.823) + "px";
+
+    this.getAllChats();
 
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
@@ -202,6 +206,13 @@ onResize(event: any) {
     
   }
 
+  getAllChats()
+  {
+    // console.log("Hi there");
+    this.chatBoxService.getChats().subscribe((res)=>{
+      console.log(res, 'res=>');
+    });
+  }
 
   onFileUpload()
   {

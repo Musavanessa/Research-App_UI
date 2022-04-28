@@ -15,6 +15,9 @@
             <tbody>
               <tr *ngFor ='let chatGroup of chatGroups' (click)="openChatGroup(chatGroup.groupId)" style="background-color:rgb(255, 255, 255); cursor:pointer">
                 <td>{{chatGroup.title}}</td>
+                <td>
+                  <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                </td>
               </tr>
             </tbody>
           </table>
