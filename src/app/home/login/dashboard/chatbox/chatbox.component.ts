@@ -6,6 +6,7 @@ import { ChatboxServiceService } from 'src/app/services/chatbox/chatbox-service.
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-chatbox',
@@ -14,7 +15,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class ChatboxComponent implements OnInit {
 
-  constructor(public chatBoxService: ChatboxServiceService, public authService: AuthService, public datepipe: DatePipe, public http: HttpClient, public router: Router) { }
+  constructor(public userService: UserService, public chatBoxService: ChatboxServiceService, public authService: AuthService, public datepipe: DatePipe, public http: HttpClient, public router: Router) { }
   @ViewChild('inputChatBox') inputChatBox: any;
   @ViewChild('chatBoxPage') chatBoxPage: any;
   @ViewChild('formPopupInsertAttachment') formPopupInsertAttachment :any;
@@ -23,6 +24,7 @@ export class ChatboxComponent implements OnInit {
   clickedInsertFileButtonColor = "white";
   selectedFile!: File;
   public innerWidth: any;
+  userType: string = "1";
 
 
 
@@ -155,6 +157,9 @@ onResize(event: any) {
     this.innerWidth = (window.innerWidth * 0.823) + "px";
 
     this.getAllChats();
+    // this.userService.getMe();
+    this.getMe();
+    this.userType = UserService.userType;
 
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
@@ -218,5 +223,31 @@ onResize(event: any) {
   {
     // const fd  = new FormData();
     // this.http.post('')
+  }
+
+  getMe(){
+
+    this.userService.getUser().subscribe((data: any) => {
+      this.userType = data.user.userType;
+      console.log(data.user.userType + " = User Type");
+
+      console.log('show: ',this.userType);
+    })
+  }
+
+  isUserSupervisor(data:string)
+  {
+    if(data == "1")
+    {
+      console.log(data + " The user type is ");
+      return true;
+      
+    }
+    else
+    {
+      console.log(data + " The user type is ");
+      return false;
+    }
+
   }
 }

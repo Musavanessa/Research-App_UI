@@ -36,7 +36,6 @@ export class ProjectObjectService {
 
   ngOnInit(): void
   {
-
   }
   //Function to update the project Object
   updateProjectObject(projectId:any)

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { ApiserviceService } from 'src/app/apiservice.service';
 import { GlobalVariables} from './../../../globals';
 import { DatePipe } from '@angular/common';
+import { UserService } from 'src/app/services/user/user.service';
 import { ProjectObjectService } from './projects/project-object.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
@@ -15,8 +16,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 
 export class DashboardComponent implements OnInit {
 
-  constructor( public projectObject : ProjectObjectService, public datepipe: DatePipe, public router:Router, public globalVariables: GlobalVariables, private service: ApiserviceService, public authService: AuthService ) { }
-  
+  constructor(public userService: UserService,  public projectObject : ProjectObjectService, public datepipe: DatePipe, public router:Router, public globalVariables: GlobalVariables, private service: ApiserviceService, public authService: AuthService ) { }
+  userType: string = "1";
 
   isDisplaySuccessMessage = false;
   isDisplayErrorInputMessage = false;
@@ -212,5 +213,34 @@ export class DashboardComponent implements OnInit {
     })
     // this.first2Projects = this.myProjectsObject.slice(0,2);
   }
+
+
+  getMe(){
+
+    this.userService.getUser().subscribe((data: any) => {
+      this.userType = data.user.userType;
+      console.log(data.user.userType + " = User Type");
+
+      console.log('show: ',this.userType);
+    })
+  }
+
+
+  isUserSupervisor(data:string)
+  {
+    if(data == "1")
+    {
+      console.log(data + " The user type is ");
+      return true;
+      
+    }
+    else
+    {
+      console.log(data + " The user type is ");
+      return false;
+    }
+
+  }
+
 
 }

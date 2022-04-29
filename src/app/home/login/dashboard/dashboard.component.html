@@ -3,7 +3,7 @@
     <app-topnav></app-topnav>
     <div style="width: 100%; height: 93%; position:relative;top:64px; background-color: rgb(255, 255, 255); overflow: scroll;">
       &nbsp;
-      <div class="card" style="width:95%; margin-right:auto; margin-left: auto;  background-color: aliceblue; border-color: white;" >
+      <div *ngIf="!isUserSupervisor(userType)" class="card" style="width:95%; margin-right:auto; margin-left: auto;  background-color: aliceblue; border-color: white;" >
         <div class="card-body" >
           <div style="cursor: pointer;" (click)="showCreateProject()">
                 <img src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 1s;" (click)="showCreateProject_" [style]="transformElement">
@@ -83,7 +83,9 @@
       &nbsp;
       <div class="card text-dark bg-light mb-3" style="width:95%; margin-left: auto; margin-right: auto; border:none">
         <div class="card-header" style="background-color:rgb(255, 255, 255);" >
-          <p class="h2">My Projects</p></div>
+          <!-- <p *ngIf="!isUserSupervisor(userType)" class="h2">My Projects</p></div> -->
+          <p *ngIf="isUserSupervisor(userType)" class="h2">Students</p></div>
+
         <div class="card-body"style="background-color:white">
           <div>
             <div class="card-body" style="height:580px; overflow:scroll">
@@ -91,10 +93,10 @@
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Project Name</th>
-                    <th scope="col">Description</th>
+                    <th scope="col">Student Name</th>
+                    <th scope="col">Project Description</th>
                     <th scope="col"></th>
-                    <th scope="col">Status</th>
+                    <th scope="col">Project Status</th>
                     <th scope="col">Start Date</th>
                     <th scope="col"></th>
                   </tr>

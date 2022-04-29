@@ -18,10 +18,8 @@ export class ProfileComponent implements OnInit {
   formV: any = {lastName: false, firstName: false, password: false};
   pCheck: string = '';
   data: User = new User;
-
+  userType: string = "1";
   profileForm : User = new User;
-
-
   constructor(private userService: UserService, public router: Router, public authService: AuthService) { }
 
 
@@ -74,10 +72,26 @@ export class ProfileComponent implements OnInit {
 
     this.userService.getUser().subscribe((data: any) => {
       this.data = data.user;
-      console.log('show: ',data.user);
+      this.userType = data.user.userType;
+      console.log(data.user.userType + " = User Type");
+
+      console.log('show: ',this.userType);
     })
+  }
 
-
+  isUserSupervisor(data:string)
+  {
+    if(data == "1")
+    {
+      console.log(data + " The user type is ");
+      return true;
+      
+    }
+    else
+    {
+      console.log(data + " The user type is ");
+      return false;
+    }
 
   }
 }

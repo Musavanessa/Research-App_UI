@@ -13,7 +13,8 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <div class="card-body">
                     <p class="fs-5">{{data.title}} {{data.firstName}} {{data.lastName}} 
-                        <img src="../../../../../assets/media/logos/authorised_green.svg"  width="24px" height="24px">
+                        
+                        <img *ngIf="isUserSupervisor(userType)" src="../../../../../assets/media/logos/authorised_green.svg"  width="24px" height="24px">
                     </p>
                 </div>
                 <hr>
@@ -126,7 +127,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             &nbsp;&nbsp;&nbsp;

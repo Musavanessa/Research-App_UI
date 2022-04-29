@@ -16,7 +16,7 @@
               <tr *ngFor ='let chatGroup of chatGroups' (click)="openChatGroup(chatGroup.groupId)" style="background-color:rgb(255, 255, 255); cursor:pointer">
                 <td>{{chatGroup.title}}</td>
                 <td>
-                  <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                  <img *ngIf="isUserSupervisor(userType)" src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                 </td>
               </tr>
             </tbody>
@@ -35,7 +35,7 @@
                           <img src="../../../../../assets/media/logos/authorised_green.svg"  width="24px" height="24px">
                       </div>
                       <div class="col" style="color:rgb(79, 79, 79)">&nbsp;&nbsp; ~ {{chat.senderEmail}}
-                        <div *ngIf="chat.isSender" class="time-right " (click)="deleteChatMessage(chat.chatId)" style="cursor:pointer">
+                        <div *ngIf="chat.isSender || isUserSupervisor(userType) "  class="time-right " (click)="deleteChatMessage(chat.chatId)" style="cursor:pointer">
                           <span>
                             <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                           </span>

@@ -12,8 +12,21 @@ export class UserService {
 
   constructor(private http:HttpClient) { }
 
-
+ 
   getUser():Observable<User>{
     return this.http.get<User>(this.URL+'/getUser');
+  }
+
+  static userData: any;
+  static userType: string;
+  getMe(){
+
+    this.getUser().subscribe((data: any) => {
+      UserService.userData = data.user;
+      UserService.userType = data.user.userType;
+      console.log(data.user.userType + " = User Type");
+      console.log("The User Type is = " + UserService.userType);
+    });
+    // UserService.userType = this.getUserType();
   }
 }
