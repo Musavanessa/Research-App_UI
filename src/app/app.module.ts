@@ -36,6 +36,7 @@ import { SignupComponent } from './components/signup/signup.component';
 
 import { ChatboxServiceService } from './services/chatbox/chatbox-service.service';
 import { MaterialModule } from './material/material.module';
+import { ChatgroupComponent } from './home/login/dashboard/chatbox/chatgroup/chatgroup/chatgroup.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { MaterialModule } from './material/material.module';
     ProjectStatusComponent,
     BlogOpComponent,
     ProjectEventsComponent,
-    SignupComponent
+    SignupComponent,
+    ChatgroupComponent
   ],
   imports: [
     BrowserModule,

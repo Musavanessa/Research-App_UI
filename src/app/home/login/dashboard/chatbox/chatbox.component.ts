@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { elementAt } from 'rxjs';
@@ -19,14 +19,26 @@ export class ChatboxComponent implements OnInit {
   @ViewChild('inputChatBox') inputChatBox: any;
   @ViewChild('chatBoxPage') chatBoxPage: any;
   @ViewChild('formPopupInsertAttachment') formPopupInsertAttachment :any;
+  @ViewChild('moreDetails') moreButtonLocation : any;
   isformPopupInsertAttachmentOpen = false;
   displayPopup = "none";
   clickedInsertFileButtonColor = "white";
   selectedFile!: File;
   public innerWidth: any;
   userType: string = "1";
-
-
+  editGroupChatDataDetails = {
+    bottom: 226.390625,
+    height: 0,
+    left: 187.921875,
+    right: 228.859375,
+    top: 226.390625,
+    width: 40.9375,
+    x: 187.921875,
+    y: 226.390625,
+  }
+  editGroupChatDataDetailsLeft = (this.editGroupChatDataDetails.left * 1.3 )+ "px";
+  editGroupChatDataDetailsRight = (this.editGroupChatDataDetails.right * 1.5)+ "px";
+  editGroupChatDataDetailsTop = (this.editGroupChatDataDetails.top * 1) + "px";
   sidenavIcons: Array<string> = ["edit-solid.svg", "menu_black_24dp.svg"];
   sideNavProperties = {status: false,
       width: "0px",
@@ -187,7 +199,6 @@ onResize(event: any) {
 
   onFileSelected(event:any)
   {
-
     this.selectedFile = <File>event.target.files[0];
     console.log(this.selectedFile);
   }
@@ -208,6 +219,12 @@ onResize(event: any) {
       this.clickedInsertFileButtonColor = "white";
     }
     
+  }
+  getElementPosition(moreDetails: any)
+  {
+    this.editGroupChatDataDetails =  this.moreButtonLocation.nativeElement.getBoundingClientRect();
+    console.log(this.editGroupChatDataDetails);
+
   }
 
   getChatGroups()

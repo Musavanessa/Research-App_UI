@@ -10,13 +10,50 @@
     <div class="row" [style.width]="innerWidth">
       <div class="col"  style="padding:none">
         <div class="card" style="width:100%; border:none">
-          <caption style="background-color:aliceblue; text-align: center;">Open Chat..</caption>
+          <caption style="background-color:aliceblue; text-align: center;">Chats</caption>
+          <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position: fixed;" [style.top]="editGroupChatDataDetailsTop" [style.left]="editGroupChatDataDetailsLeft">
+            <div class="card" style="width: 18rem; border:none;">
+              <div class="card-header" style="background-color:rgb(0, 129, 172);color:white">
+                Settings
+                <span class="time-right">x</span>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">A third item</li>
+                <li class="list-group-item">
+                  <tr>
+                    <th scope="col">
+                      <input name="groupTitle" class="form-control form-control-sm removeFocus" style="border-top:none; border-left:none; border-right:none; border-radius:0; margin-left: auto; margin-right: auto;" id="groupTitle" type="text" minlength="3" placeholder="Notifice Board">
+                    </th>
+                  </tr>
+                </li>
+                <li class="list-group-item">
+                  <tr style="user-select:none">
+                    <td>
+                      <button type="button" class="btn btn-primary btn-sm">Save</button>
+                    </td>
+                    <td style="color:#787878">
+                      <button type="button" class="btn btn-primary btn-sm" style="background-color:inherit; border:none; outline: none!important; box-shadow:none;">
+                        <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                      </button>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-primary btn-sm" style="color:#787878; background-color: inherit; border:none; outline: none!important; box-shadow:none; cursor:default;">
+                            Delete Noticeboard
+                      </button>
+                    </td>
+                  </tr>
+                </li>
+              </ul>
+            </div>
+          </div>
           <table class="table table table-hover">
             <tbody>
               <tr *ngFor ='let chatGroup of chatGroups' (click)="openChatGroup(chatGroup.groupId)" style="background-color:rgb(255, 255, 255); cursor:pointer">
                 <td>{{chatGroup.title}}</td>
                 <td>
-                  <img *ngIf="isUserSupervisor(userType)" src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                  <div #moreDetails  class="removeFocus"  [style.backgroundColor]="clickedInsertFileButtonColor" (click)="openFormPopupInsertAttachment()" (click)="getElementPosition(moreDetails)"  >
+                    <img src="../../../../../assets/media/icons/more_vert_black_24dp.svg" atl="More Options" width="24px" height="24px">
+                  </div>
                 </td>
               </tr>
             </tbody>
