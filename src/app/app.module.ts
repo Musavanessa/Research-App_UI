@@ -31,13 +31,11 @@ import { TokenInterceptor } from './services/auth/interceptors/token.interceptor
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProjectEventsComponent } from './home/login/dashboard/projects/project/project-events/project-events.component';
 
-import { MatButtonModule } from '@angular/material/button';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatCardModule} from '@angular/material/card';
 import { SignupComponent } from './components/signup/signup.component';
 
 
 import { ChatboxServiceService } from './services/chatbox/chatbox-service.service';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [
@@ -68,15 +66,7 @@ import { ChatboxServiceService } from './services/chatbox/chatbox-service.servic
     BrowserAnimationsModule,
     FontAwesomeModule,
     HttpClientModule,
-
-
-    //Material UI Components
-    MatDatepickerModule,
-    MatButtonModule,
-    MatCardModule,
-  
-
-
+    MaterialModule,
     ReactiveFormsModule,
     FormsModule
   ],

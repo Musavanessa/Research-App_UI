@@ -11,10 +11,10 @@ export class ChatboxServiceService {
   apiUrl = 'http://localhost:3000/api/v1/';
 
   //Get All Chats
-  getChats(): Observable<any>
+  chat_groups(): Observable<any>
   {
     let data = 3;
-    return this._http.get(`${this.apiUrl+"chatBox"}`);
+    return this._http.get(`${this.apiUrl+"chat_groups/discipline/1"}`);
   }
 
 }

@@ -1,0 +1,9 @@
+How to use angular material basic 3 steps
+1 - Import module
+	import { MatButtonModule } from '@angular/material';
+
+2 - Add to imports array
+	import : [ MatButtonModule]
+
+3 - Use in the HTML
+	<button mat-raised-button>Hello World</button>

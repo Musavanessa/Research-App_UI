@@ -27,7 +27,6 @@ export class ChatboxComponent implements OnInit {
   userType: string = "1";
 
 
-
   sidenavIcons: Array<string> = ["edit-solid.svg", "menu_black_24dp.svg"];
   sideNavProperties = {status: false,
       width: "0px",
@@ -156,7 +155,7 @@ onResize(event: any) {
     
     this.innerWidth = (window.innerWidth * 0.823) + "px";
 
-    this.getAllChats();
+    this.getChatGroups();
     // this.userService.getMe();
     this.getMe();
     this.userType = UserService.userType;
@@ -211,10 +210,19 @@ onResize(event: any) {
     
   }
 
+  getChatGroups()
+  {
+    this.chatBoxService.chat_groups().subscribe((res)=>{
+      console.log(res, 'res=>');
+      this.chatGroups = res.chatGroups;
+      console.log(this.chatGroups);
+    });
+  }
+
   getAllChats()
   {
     // console.log("Hi there");
-    this.chatBoxService.getChats().subscribe((res)=>{
+    this.chatBoxService.chat_groups().subscribe((res)=>{
       console.log(res, 'res=>');
     });
   }
