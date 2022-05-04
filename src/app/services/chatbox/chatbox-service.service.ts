@@ -17,4 +17,23 @@ export class ChatboxServiceService {
     return this._http.get(`${this.apiUrl+"chat_groups/discipline/1"}`);
   }
 
+  chat_group(): Observable<any>
+  {
+    return this._http.get(`${this.apiUrl+ "chat_groups/1"}`);
+  }
+
+  getChat(id:any): Observable<any>
+  {
+    return this._http.get(`${this.apiUrl +"chat"+ id}`);
+  }
+
+  updateChatGroup(chatGrupModel:any):Observable<any>
+  {
+    return this._http.patch(`${this.apiUrl + "chat_groups/" + chatGrupModel.id}` , chatGrupModel);
+  }
+
+  deleteChatGroup(id:any):Observable<any>
+  {
+    return this._http.delete(`${this.apiUrl + "chat_groups/" + id}`);
+  }
 }

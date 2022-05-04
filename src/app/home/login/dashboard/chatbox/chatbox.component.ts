@@ -20,7 +20,23 @@ export class ChatboxComponent implements OnInit {
   @ViewChild('chatBoxPage') chatBoxPage: any;
   @ViewChild('formPopupInsertAttachment') formPopupInsertAttachment :any;
   @ViewChild('moreDetails') moreButtonLocation : any;
+  @ViewChild('switchRestrictInput') switchRestrictInput:any;
+  @ViewChild('updateChatGroupTitle') updateChatGroupTitle:any;
+  updateChatGroupModel= {id: 0, title: 0, privileges: 0};
+  //Group Setting Variables
+  noticeBoardName: string ="";
+  openChatGroupName = 0;
+  @ViewChild('groupSettingsCard') groupSettingsCard :any;
+  chatGroups: Array<any> = [{}];
+  isGroupSettingsCardOpen = false;
+  displaySettingsCard = "none";
   isformPopupInsertAttachmentOpen = false;
+
+  //Variables for creating a new chatGroup
+  svgImage = "add_circle_green_24dp.svg";
+  transformElement = "transform: rotate(0deg);"
+  isOpenCreateChatGroup = false;
+
   displayPopup = "none";
   clickedInsertFileButtonColor = "white";
   selectedFile!: File;
@@ -45,8 +61,7 @@ export class ChatboxComponent implements OnInit {
       opacity: "0%",
       icon: this.sidenavIcons[0]
     };
-
-
+  
 
 
   myChat = {
@@ -57,9 +72,6 @@ export class ChatboxComponent implements OnInit {
     isSender: true,
     chatGroup: 1,
   };
-
-  chatGroups = [{title: "Noticeboard",groupId: 1,departmentId: 1},
-                 {title: "Chat",groupId: 2,departmentId: 1}];
 
   chats =   [{senderEmail: "shikomatlala@tut.ac.za",
   message: `Morning colleagues I wanted to ask something about research ethics, I have noticed that I am actually allowed to copy someones work - I wanted to confirm the truthfulness of this new discovery \nKindly Shiko Matlala\nAll the same awesomeness of SVG comes along for the ride, like flexibility while retaining sharpness. Plus you can do anything a raster graphic can do, like repeat.
@@ -111,7 +123,7 @@ onResize(event: any) {
 
       let newMessageId: number = 0;
       newMessageId += this.chats.length;
-      console.log("New Message ID " + newMessageId++)
+      // console.log("New Message ID " + newMessageId++)
       let newChat = {
         senderEmail: "shikomatlala@tut.ac.za",
         message: this.inputChatBox.nativeElement.value,
@@ -139,12 +151,12 @@ onResize(event: any) {
   }
   deleteChatMessage(chatId:number) {
     // delete this.chats[chatId-1];
-    console.log(this.chats);
+    // console.log(this.chats);
     this.chats.splice(chatId-1, 1);
-    console.log(this.chats);
-    console.log("I am deleting " + chatId);
-    console.log(chatId-1);
-    console.log(this.chatBoxPage.nativeElement.scrollTop);
+    // console.log(this.chats);
+    // console.log("I am deleting " + chatId);
+    // console.log(chatId-1);
+    // console.log(this.chatBoxPage.nativeElement.scrollTop);
   }
 
   scrollDown()
@@ -179,6 +191,11 @@ onResize(event: any) {
   }
 
 
+  showCreateProject_()
+  {
+    this.showCreateNewGroup();
+  }
+
   changeSideNav()
   {
     if(this.sideNavProperties.status == true)
@@ -200,7 +217,7 @@ onResize(event: any) {
   onFileSelected(event:any)
   {
     this.selectedFile = <File>event.target.files[0];
-    console.log(this.selectedFile);
+    // console.log(this.selectedFile);
   }
 
   openFormPopupInsertAttachment()
@@ -223,14 +240,14 @@ onResize(event: any) {
   getElementPosition(moreDetails: any)
   {
     this.editGroupChatDataDetails =  this.moreButtonLocation.nativeElement.getBoundingClientRect();
-    console.log(this.editGroupChatDataDetails);
+    // console.log(this.editGroupChatDataDetails);
 
   }
 
   getChatGroups()
   {
     this.chatBoxService.chat_groups().subscribe((res)=>{
-      console.log(res, 'res=>');
+      // console.log(res, 'res=>');
       this.chatGroups = res.chatGroups;
       console.log(this.chatGroups);
     });
@@ -240,7 +257,7 @@ onResize(event: any) {
   {
     // console.log("Hi there");
     this.chatBoxService.chat_groups().subscribe((res)=>{
-      console.log(res, 'res=>');
+      // console.log(res, 'res=>');
     });
   }
 
@@ -253,26 +270,185 @@ onResize(event: any) {
   getMe(){
 
     this.userService.getUser().subscribe((data: any) => {
-      this.userType = data.user.userType;
-      console.log(data.user.userType + " = User Type");
+    this.userType = data.user.userType;
+      // console.log(data.user.userType + " = User Type");
 
-      console.log('show: ',this.userType);
+      // console.log('show: ',this.userType);
     })
+  }
+
+  showCreateNewGroup()
+  {
+    if(this.isOpenCreateChatGroup)
+    {
+      // this.createProjectDisplay = "none";
+      this.isOpenCreateChatGroup = false;
+      this.transformElement = "transform: rotate(0deg);"
+      this.svgImage = "add_circle_green_24dp.svg";
+    }
+    else
+    {
+      // this.createProjectDisplay = "unset";
+      this.isOpenCreateChatGroup = true;
+      this.transformElement = "transform: rotate(45deg);"
+      this.svgImage = "add_circle_red_24dp.svg";
+
+    }
+
   }
 
   isUserSupervisor(data:string)
   {
     if(data == "1")
     {
-      console.log(data + " The user type is ");
+      // console.log(data + " The user type is ");
       return true;
       
     }
     else
     {
-      console.log(data + " The user type is ");
+      // console.log(data + " The user type is ");
       return false;
     }
 
+  }
+  closeSettingsCardCloseButton()
+  {
+    if(this.isGroupSettingsCardOpen == true)
+    {
+      this.isGroupSettingsCardOpen = false;
+      this.groupSettingsCard.nativeElement.style = "block";
+      this.displaySettingsCard = "block";
+      // this.clickedInsertFileButtonColor = "rgb(227, 227, 227)";
+    }
+    else
+    {
+      this.isGroupSettingsCardOpen = true;
+      this.displaySettingsCard = "none";
+      // this.clickedInsertFileButtonColor = "white";
+    }
+  }
+  updateChatGroup()
+  {
+    console.log(this.updateChatGroupModel.id);
+    // this.updateChatGroupModel.title = this.switchRestrictInput.nativeElement.checked;
+    if(this.switchRestrictInput.nativeElement.checked)
+    {
+      this.updateChatGroupModel.privileges = 2;
+    }
+    else
+    {
+      this.updateChatGroupModel.privileges = 1;
+    }
+
+    this.updateChatGroupModel.title = this.updateChatGroupTitle.nativeElement.value;
+
+    console.log(this.updateChatGroupModel.privileges);
+    console.log(this.updateChatGroupModel);
+
+    this.chatBoxService.updateChatGroup(this.updateChatGroupModel).subscribe((res)=>{
+      console.log(res, 'res=>');
+      this.ngOnInit();
+    });
+  
+
+  }
+
+  closeSettingsCard(event:any, id:any)
+  {
+    console.log(id);
+    console.log("X=" + event.target.x + " , Y=" + event.target.y);
+    this.editGroupChatDataDetailsLeft = (event.target.x  * 1.3 )+ "px";
+    this.editGroupChatDataDetailsTop = (event.target.y)+ "px";
+    console.log(this.editGroupChatDataDetailsLeft + " Left , " + this.editGroupChatDataDetailsTop + " Right");
+    console.log(this.chatGroups);
+    for(let x=0; x < this.chatGroups.length; x++)
+    {
+       if(this.chatGroups[x].id == id)
+       {
+        this.noticeBoardName = this.chatGroups[x].title;
+        this.openChatGroupName = this.chatGroups[x].id;
+        console.log(this.noticeBoardName);
+        console.log(id);
+        console.log(this.chatGroups[x].privileges + " P");
+        this.updateChatGroupModel.id = this.chatGroups[x].id;
+        this.updateChatGroupModel.privileges = this.chatGroups[x].privileges;
+        this.updateChatGroupModel.title = this.chatGroups[x].title;
+        // this.updateChatGroupModel = {id: this.chatGroups[x].id,
+        // privileges: this.chatGroups[x].privileges}; 
+        if(this.chatGroups[x].privileges !=1)
+        {
+          this.switchRestrictInput.nativeElement.checked = true;
+        }
+        else
+        {
+          this.switchRestrictInput.nativeElement.checked = false;
+        }
+        x = this.chatGroups.length;
+        // console.log("Privileges " + this.chatGroups[x].privileges);
+        //Get the restriction status
+
+        // if(this.chatGroups[x].privileges == 1)
+        // {
+        //   this.switchRestrictInput.nativeElement.checked = true;
+        // }
+        // else
+        // {
+        //   this.switchRestrictInput.nativeElement.checked = false;
+        // }
+       }
+    }
+    // console.log(event.target.y);
+    this.openSettingsCard(event);
+    if(this.isGroupSettingsCardOpen == true)
+    {
+      this.isGroupSettingsCardOpen = false;
+      this.groupSettingsCard.nativeElement.style = "block";
+      this.displaySettingsCard = "block";
+      // this.clickedInsertFileButtonColor = "rgb(227, 227, 227)";
+    }
+    else
+    {
+      this.isGroupSettingsCardOpen = true;
+      this.displaySettingsCard = "none";
+      // this.clickedInsertFileButtonColor = "white";
+    }
+  }
+
+  openSettingsCard(event:any)
+  {
+    //If the chat settings card is open I just want to make sure that I  close it first
+    console.log("X=" + event.target.x + " , Y=" + event.target.y);
+    this.editGroupChatDataDetailsLeft = (event.target.x  + 60 )+ "px";
+    this.editGroupChatDataDetailsTop = (event.target.y)+ "px";
+    console.log(this.editGroupChatDataDetailsLeft + " Left , " + this.editGroupChatDataDetailsTop + " Right");
+    //Get the variable of the chatGroup name
+
+
+  
+    // console.log(event.target.y);
+    // console.log(this.chatGroups[0])
+    if(this.isGroupSettingsCardOpen == true)
+    {
+
+      this.isGroupSettingsCardOpen = false;
+      this.groupSettingsCard.nativeElement.style = "block";
+      this.displaySettingsCard = "block";
+      // this.clickedInsertFileButtonColor = "rgb(227, 227, 227)";
+    }
+    else
+    {
+      this.isGroupSettingsCardOpen = true;
+      this.displaySettingsCard = "none";
+      // this.clickedInsertFileButtonColor = "white";
+    }
+  }
+
+  deleteChatGroup(id:any)
+  {
+    this.chatBoxService.deleteChatGroup(id).subscribe((res)=>{
+      console.log(res, 'res=>');
+      this.ngOnInit();
+    });
   }
 }

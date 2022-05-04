@@ -137,6 +137,11 @@
   display: table;
 }
 
+.chatGroupSettingsClass
+{
+  width: 18rem; border:none; box-shadow: 0px 0px 10px  rgb(134, 134, 134);
+}
+
 .container img {
   float: left;
   max-width: 60px;

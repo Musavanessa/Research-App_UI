@@ -9,61 +9,89 @@
     </div>
     <div class="row" [style.width]="innerWidth">
       <div class="col"  style="padding:none">
-        <div class="card" style="width:100%; border:none">
-          <caption style="background-color:aliceblue; text-align: center;">Chats</caption>
+        <div class="card" style="width:100%; border:none; background-color: rgb(239, 239, 239);">
           <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position: fixed;" [style.top]="editGroupChatDataDetailsTop" [style.left]="editGroupChatDataDetailsLeft">
-            <div class="card" style="width: 18rem; border:none; box-shadow: 0px 0px 10px  rgb(134, 134, 134);">
-              <div class="card-header" style="background-color:rgb(0, 129, 172);color:white">
-                Settings
-                <span class="time-right">x</span>
+            <div #groupSettingsCard class="card chatGroupSettingsClass"  >
+              <div class="card-header" style="background-color:rgb(0, 172, 32);color:white">
+                Create New Chatgroup
+                <span class="time-right" style="cursor:pointer">
+                    <img (click)="closeSettingsCardCloseButton()" src="../../../../../assets/media/logos/clear_white_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                </span>
               </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                  <!-- <select #inputDescipline class="form-control form-control-sm">
-                    <option>
-                        Allow Chat
-                    </option>
-                    <option>
-                      Restrict Chat
-                  </option>
-                  </select> -->
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" checked>
-                    <label class="form-check-label" for="flexSwitchCheckChecked">Restrict Chat</label>
-                  </div>
-                  <!-- <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
-                  </div> -->
+                  <tr>
+                    <th scope="col">
+                      <div>
+                        <h5 class="card-title" style="color:#4c5055; font-size: 9px; margin: 0 0 -5px;">
+                          Enter Chatgroup name
+                        </h5>
+                      </div>
+                      <input #updateChatGroupTitle name="groupTitle" class="form-control form-control-sm removeFocus" style="border-top:none; border-left:none; border-right:none; border-bottom: none; border-radius:0; margin-left: auto; margin-right: auto; width:15rem" id="groupTitle" type="text" minlength="3" placeholder="Enter Chatgroup Title" value="{{noticeBoardName}}">
+                    </th>
+                  </tr>
                 </li>
                 <li class="list-group-item">
-                  Group Type
+                  <div class="form-check form-switch" style="user-select:none;">
+                    <input #switchRestrictInput class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" style="cursor:pointer" isChecked >
+                    <label class="form-check-label" for="flexSwitchCheckChecked" style="cursor:pointer">Chat Restriction</label>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <tr style="user-select:none">
+                    <td>
+                      <button (click)="updateChatGroup()" type="button" class="btn btn-primary btn-sm">Create</button>
+                    </td>
+                  </tr>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <caption style="background-color:transparent; text-align: center;">
+            <div style="cursor: pointer;" (click)="showCreateNewGroup()">
+              <img src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s;" (click)="showCreateProject_" [style]="transformElement" >New Chatgroup
+        </div>
+          </caption>
+          <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position: fixed;" [style.top]="editGroupChatDataDetailsTop" [style.left]="editGroupChatDataDetailsLeft">
+            <div #groupSettingsCard class="card chatGroupSettingsClass"  [style.display]="displaySettingsCard">
+              <div class="card-header" style="background-color:rgb(0, 129, 172);color:white">
+                Settings
+                <span class="time-right" style="cursor:pointer">
+                    <img (click)="closeSettingsCardCloseButton()" src="../../../../../assets/media/logos/clear_white_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                </span>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <div class="form-check form-switch" style="user-select:none;">
+                    <input #switchRestrictInput class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" style="cursor:pointer" isChecked >
+                    <label class="form-check-label" for="flexSwitchCheckChecked" style="cursor:pointer">Chat Restriction</label>
+                  </div>
                 </li>
                 <li class="list-group-item">
                   <tr>
                     <th scope="col">
                       <div>
                         <h5 class="card-title" style="color:#787878; font-size: 9px; margin: 0 0 -5px;">
-                          Group Name
+                          Edit group name
                         </h5>
                       </div>
-                      <input name="groupTitle" class="form-control form-control-sm removeFocus" style="border-top:none; border-left:none; border-right:none; border-bottom: none; border-radius:0; margin-left: auto; margin-right: auto;" id="groupTitle" type="text" minlength="3" value="Noticeboard">
+                      <input #updateChatGroupTitle name="groupTitle" class="form-control form-control-sm removeFocus" style="border-top:none; border-left:none; border-right:none; border-bottom: none; border-radius:0; margin-left: auto; margin-right: auto;" id="groupTitle" type="text" minlength="3" value="{{noticeBoardName}}">
                     </th>
                   </tr>
                 </li>
                 <li class="list-group-item">
                   <tr style="user-select:none">
                     <td>
-                      <button type="button" class="btn btn-primary btn-sm">Save</button>
+                      <button (click)="updateChatGroup()" type="button" class="btn btn-primary btn-sm">Save changes</button>
                     </td>
                     <td style="color:#787878">
-                      <button type="button" class="btn btn-primary btn-sm" style="background-color:inherit; border:none; outline: none!important; box-shadow:none;">
+                      <button type="button" class="btn btn-primary btn-sm" style="background-color:inherit; border:none; outline: none!important; box-shadow:none;" (click)="deleteChatGroup(openChatGroupName)">
                         <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                       </button>
                     </td>
                     <td>
-                      <button type="button" class="btn btn-primary btn-sm" style="color:#787878; background-color: inherit; border:none; outline: none!important; box-shadow:none; cursor:default;">
-                            Delete Noticeboard
+                      <button  type="button" class="btn btn-primary btn-sm" style="color:#787878; background-color: inherit; border:none; outline: none!important; box-shadow:none; cursor:default;">
+                            Delete {{noticeBoardName}}
                       </button>
                     </td>
                   </tr>
@@ -73,10 +101,10 @@
           </div>
           <table class="table table table-hover">
             <tbody>
-              <tr *ngFor ='let chatGroup of chatGroups' (click)="openChatGroup(chatGroup.groupId)" style="background-color:rgb(255, 255, 255); cursor:pointer">
+              <tr *ngFor ='let chatGroup of chatGroups' (click)="openChatGroup(chatGroup.id)" style="background-color:rgb(255, 255, 255); cursor:pointer">
                 <td>{{chatGroup.title}}</td>
-                <td>
-                  <div #moreDetails  class="removeFocus"  [style.backgroundColor]="clickedInsertFileButtonColor" (click)="openFormPopupInsertAttachment()" (click)="getElementPosition(moreDetails)"  >
+                <td (click)="closeSettingsCard($event, chatGroup.id)">
+                  <div #moreDetails  class="removeFocus" (click)="getElementPosition(moreDetails)"  >
                     <img src="../../../../../assets/media/icons/more_vert_black_24dp.svg" atl="More Options" width="24px" height="24px">
                   </div>
                 </td>
