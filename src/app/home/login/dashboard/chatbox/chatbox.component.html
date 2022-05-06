@@ -1,7 +1,7 @@
 <!--NEW EDITION-->
 <main style="background-color:rgb(255, 255, 255); height: 92%; position: fixed; top: 75px;">
   <div class="container"  [style.width]="innerWidth">
-    <div class="card-header" style="border-radius: 0px;"  [style.width]="innerWidth">
+    <div class="card-header" style="border-radius: 0px;user-select: none;"  [style.width]="innerWidth">
       <img  src="../../../../../assets/media/logos/285683_bubbles_icon.svg">
       <p class="h2" style="color:rgb(52, 52, 52); text-shadow: 0 0 3px #ffffff, 0 0 2px #787878;">Chatbox</p>
       <br>
@@ -21,7 +21,7 @@
                 <li class="list-group-item">
                   <tr>
                     <th scope="col">
-                      <input #createChatGroupTitleInput name="groupTitle" class="form-control form-control-sm removeFocus" style="border-top:none; border-left:none; border-right:none; border-bottom: none; border-radius:0; margin-left: auto; margin-right: auto; width:15rem" id="groupTitle" type="text" minlength="3" placeholder="Enter Chatgroup Title here">
+                      <input #createChatGroupTitleInput name="groupTitle" (keyup)="createChatGroupTitleInputCheck()" class="form-control form-control-sm removeFocus" style="border-top:none; border-left:none; border-right:none; border-bottom: none; border-radius:0; margin-left: auto; margin-right: auto; width:15rem" id="groupTitle" type="text" minlength="3" placeholder="Enter Chatgroup Title here">
                     </th>
                   </tr>
                 </li>
@@ -34,17 +34,17 @@
                 <li class="list-group-item">
                   <tr style="user-select:none">
                     <td>
-                      <button (click)="createChatGroup()" type="button" class="btn btn-primary btn-sm">Create</button>
+                      <button #createChatGroupButton (click)="createChatGroup()" type="button" class="btn btn-primary btn-sm" disabled>Create</button>
                     </td>
                   </tr>
                 </li>
               </ul>
             </div>
           </div>
-          <caption style="background-color:transparent; text-align: center;">
+          <caption style="background-color:transparent; text-align: center;user-select: none;">
             
             <div>
-              <img (click)="showCreateNewGroup($event)" src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s;" [style]="transformElement" >New Chatgroup
+              <img (click)="showCreateNewGroup($event)" src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" >New Chatgroup
             </div>
           </caption>
           <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position: absolute;" [style.top]="editGroupChatDataDetailsTop" [style.left]="editGroupChatDataDetailsLeft">

@@ -42,6 +42,8 @@ export class ChatboxComponent implements OnInit {
   createGroupChatDataDetailsTop = "";
   @ViewChild('createChatGroupTitleInput') createChatGroupTitleInput:any;
   @ViewChild('switchRestrictCreateChatGroup') switchRestrictCreateChatGroup:any;
+  @ViewChild('createChatGroupButton') createChatGroupButton:any;
+  newChatGroupModel = { userId: 0, title: "", privileges: 0, disciplineId: 0};
   
 
   displayPopup = "none";
@@ -174,9 +176,12 @@ onResize(event: any) {
 
   }
 
-  openChatGroup(chatId: any)
+  openChatGroup(chatGroupId: any)
   {
-    
+    console.log("ChatGroupID " + chatGroupId);
+    this.chatBoxService.viewChats(chatGroupId).subscribe((data:any)=>{
+      console.log(data);
+    });
   }
   auto_grow() {
     this.inputChatBox.nativeElement.style.height = "5px";
@@ -191,6 +196,11 @@ onResize(event: any) {
     this.getMe();
     this.userType = UserService.userType;
     // this.ngOnInit();
+    this.userService.getUser().subscribe((data: any)=>{
+      this.newChatGroupModel.userId = data.user.id;
+      this.newChatGroupModel.disciplineId = data.user.disciplineId;
+      console.log(this.newChatGroupModel.disciplineId);
+    });
 
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
@@ -293,7 +303,7 @@ onResize(event: any) {
       this.transformElement = "transform: rotate(0deg);"
       this.svgImage = "add_circle_green_24dp.svg";
       this.createChatGroupDisplay = "none"
-
+      this.createChatGroupButton.nativeElement.disabled = true;
       this.isGroupSettingsCardOpen = false;
       this.displaySettingsCard = "none";
     }
@@ -303,9 +313,12 @@ onResize(event: any) {
       this.createChatGroupDisplay = "unset";
       this.isOpenCreateChatGroup = true;
       this.transformElement = "transform: rotate(45deg);"
+      this.createChatGroupButton.nativeElement.disabled = true;
       this.svgImage = "add_circle_red_24dp.svg";
 
     }
+    this.createChatGroupTitleInput.nativeElement.value = "";
+    this.createChatGroupButton.nativeElement.disabled = true;
   }
 
   showCreateNewGroup(event:any)
@@ -317,6 +330,8 @@ onResize(event: any) {
       // this.createProjectDisplay = "none";
       this.isOpenCreateChatGroup = false;
       this.transformElement = "transform: rotate(0deg);"
+      this.createChatGroupButton.nativeElement.disabled = true;
+      this.createChatGroupTitleInput.nativeElement.value = "";
       this.svgImage = "add_circle_green_24dp.svg";
       this.createChatGroupDisplay = "none"
     }
@@ -325,6 +340,8 @@ onResize(event: any) {
       this.createChatGroupDisplay = "unset";
       this.isOpenCreateChatGroup = true;
       this.transformElement = "transform: rotate(45deg);"
+      this.createChatGroupButton.nativeElement.disabled = true;
+      this.createChatGroupTitleInput.nativeElement.value = "";
       this.svgImage = "add_circle_red_24dp.svg";
     }
   }
@@ -469,26 +486,36 @@ onResize(event: any) {
 
   createChatGroup()
   {
-    let newChatGroupModel = { userId: 0, title: "", privileges: 0, disciplineId: 0};
+    // let newChatGroupModel = { userId: 0, title: "", privileges: 0, disciplineId: 0};
     if(this.switchRestrictCreateChatGroup.nativeElement.checked)
     {
-      newChatGroupModel.privileges = 2;
-    }
+      this.newChatGroupModel.privileges = 2;
+    } 
     else
     {
-      newChatGroupModel.privileges = 1;
+      this.newChatGroupModel.privileges = 1;
     }
-    newChatGroupModel.title = this.createChatGroupTitleInput.nativeElement.value;
-    this.userService.getUser().subscribe((data: any)=>{
-      newChatGroupModel.userId = data.user.id;
-    });
-
-    console.log(newChatGroupModel);
-
+    this.newChatGroupModel.title = this.createChatGroupTitleInput.nativeElement.value;
+    // console.log(newChatGroupModel);
+    this.chatBoxService.createChatGroup(this.newChatGroupModel).subscribe((res)=>{
+      console.log(res, 'res=>');
+      this.ngOnInit();
+    })
 
 
   }
 
+  createChatGroupTitleInputCheck()
+  {
+    if(this.createChatGroupTitleInput.nativeElement.value == "")
+    {
+      this.createChatGroupButton.nativeElement.disabled = true;
+    }
+    else
+    {
+      this.createChatGroupButton.nativeElement.disabled = false;
+    }
+  }
   deleteChatGroup(id:any)
   {
     this.chatBoxService.deleteChatGroup(id).subscribe((res)=>{

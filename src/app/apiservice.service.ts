@@ -65,5 +65,11 @@ export class ApiserviceService {
   {
     return this._http.get(`${this.apiUrl+"projects/"+projectId}`);
   }
+
+
+  getChats():Observable<any>
+  {
+    return this._http.get(`${this.apiUrl+""}`)
+  }
 }
   

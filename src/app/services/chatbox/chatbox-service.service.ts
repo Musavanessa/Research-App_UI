@@ -25,7 +25,7 @@ export class ChatboxServiceService {
 
   getChat(id:any): Observable<any>
   {
-    return this._http.get(`${this.apiUrl +"chat"+ id}`);
+    return this._http.get(`${this.apiUrl +"chats/"+ id}`);
   }
 
   updateChatGroup(chatGrupModel:any):Observable<any>
@@ -40,6 +40,12 @@ export class ChatboxServiceService {
 
   createChatGroup(newChatGroupModel:any):Observable<any>
   {
+    console.log(`${this.apiUrl + "chat_groups/discipline/" + newChatGroupModel.disciplineId}`)
     return this._http.post(`${this.apiUrl + "chat_groups/discipline/" + newChatGroupModel.disciplineId}`, newChatGroupModel);
+  }
+
+  viewChats(chatGroupId:any):Observable<any>
+  {
+    return this._http.get(`${this.apiUrl + "chats/" + chatGroupId}`);
   }
 }
