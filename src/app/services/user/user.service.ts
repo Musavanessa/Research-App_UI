@@ -19,14 +19,22 @@ export class UserService {
 
   static userData: any;
   static userType: string;
+  static userId: any;
   getMe(){
 
     this.getUser().subscribe((data: any) => {
       UserService.userData = data.user;
       UserService.userType = data.user.userType;
-      console.log(data.user.userType + " = User Type");
-      console.log("The User Type is = " + UserService.userType);
     });
     // UserService.userType = this.getUserType();
+  }
+
+  getUserID()
+  {
+    this.getUser().subscribe((data: any) => {
+      UserService.userData = data.user;
+      UserService.userType = data.user.userType;
+      UserService.userId = data.user.id;
+    });
   }
 }

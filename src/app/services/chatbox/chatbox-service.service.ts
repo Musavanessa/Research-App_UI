@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,5 +36,10 @@ export class ChatboxServiceService {
   deleteChatGroup(id:any):Observable<any>
   {
     return this._http.delete(`${this.apiUrl + "chat_groups/" + id}`);
+  }
+
+  createChatGroup(newChatGroupModel:any):Observable<any>
+  {
+    return this._http.post(`${this.apiUrl + "chat_groups/discipline/" + newChatGroupModel.disciplineId}`, newChatGroupModel);
   }
 }
