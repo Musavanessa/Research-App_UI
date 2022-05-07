@@ -116,11 +116,11 @@
                 <div style="margin-left:auto; margin-right:auto; background-color:rgb(250, 250, 249); border-radius: 10px;">
                   <br>
                     <div style=" margin-left: auto; margin-right: auto;">
-                      <div class="col" *ngIf="chat.privilege">
+                      <div class="col" *ngIf="chat.user.userType == 2">
                           <img src="../../../../../assets/media/logos/authorised_green.svg"  width="24px" height="24px">
                       </div>
-                      <div class="col" style="color:rgb(79, 79, 79)">&nbsp;&nbsp; ~ {{chat.senderEmail}}
-                        <div *ngIf="chat.isSender || isUserSupervisor(userType) "  class="time-right " (click)="deleteChatMessage(chat.chatId)" style="cursor:pointer">
+                      <div class="col" style="color:rgb(79, 79, 79)">&nbsp;&nbsp; ~ {{chat.user.email}}
+                        <div *ngIf="chat.isSender || isUserSupervisor(chat.user.userType) "  class="time-right " (click)="deleteChatMessage(chat.chatId)" style="cursor:pointer">
                           <span>
                             <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                           </span>
@@ -128,8 +128,8 @@
                       </div>
                       <br>
                       <div class="card-body" style="background-color:white; border-radius: 10px; width:95%; margin-left: auto; margin-right: auto;">
-                        {{chat.message}}
-                        <span class="time-right">{{chat.datetime}}</span>
+                        {{chat.text}}
+                        <span class="time-right">{{formatTime(chat.createdAt) + " | " + formatDate(chat.createdAt) }}</span>
                       </div>
                     </div>
                     <br>

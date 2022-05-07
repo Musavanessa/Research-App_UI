@@ -23,6 +23,7 @@ export class ChatboxComponent implements OnInit {
   @ViewChild('switchRestrictInput') switchRestrictInput:any;
   @ViewChild('updateChatGroupTitle') updateChatGroupTitle:any;
   updateChatGroupModel= {id: 0, title: 0, privileges: 0};
+
   //Group Setting Variables
   noticeBoardName: string ="";
   openChatGroupName = 0;
@@ -44,7 +45,8 @@ export class ChatboxComponent implements OnInit {
   @ViewChild('switchRestrictCreateChatGroup') switchRestrictCreateChatGroup:any;
   @ViewChild('createChatGroupButton') createChatGroupButton:any;
   newChatGroupModel = { userId: 0, title: "", privileges: 0, disciplineId: 0};
-  
+  userID = 0;
+  chatGroupID = 0;
 
   displayPopup = "none";
   clickedInsertFileButtonColor = "white";
@@ -74,51 +76,25 @@ export class ChatboxComponent implements OnInit {
 
 
   myChat = {
-    senderEmail: "shikomatlala@tut.ac.za",
-    message: "Morning colleagues I wanted to ask something about research ethics, I have noticed that I am actually allowed to copy someones work - I wanted to confirm the truthfulness of this new discovery \nKindly Shiko Matlala",
-    datetime: "13:06 09 Apr 2022",
+    email: "shikomatlala@tut.ac.za",
+    text: "Morning colleagues I wanted to ask something about research ethics, I have noticed that I am actually allowed to copy someones work - I wanted to confirm the truthfulness of this new discovery \nKindly Shiko Matlala",
+    createdAt: "13:06 09 Apr 2022",
     privilege: true,
     isSender: true,
     chatGroup: 1,
   };
 
-  chats =   [{senderEmail: "shikomatlala@tut.ac.za",
-  message: `Morning colleagues I wanted to ask something about research ethics, I have noticed that I am actually allowed to copy someones work - I wanted to confirm the truthfulness of this new discovery \nKindly Shiko Matlala\nAll the same awesomeness of SVG comes along for the ride, like flexibility while retaining sharpness. Plus you can do anything a raster graphic can do, like repeat.
+  chats =   [{email: "shikomatlala@tut.ac.za",
+  text: `Morning colleagues I wanted to ask something about research ethics, I have noticed that I am actually allowed to copy someones work - I wanted to confirm the truthfulness of this new discovery \nKindly Shiko Matlala\nAll the same awesomeness of SVG comes along for the ride, like flexibility while retaining sharpness. Plus you can do anything a raster graphic can do, like repeat.
   In this video we look at applying a “ripped paper edge” effect to the bottom of a module via background-image on an a pseudo element. Kind of a neat way to do it so the main element itself can have a solid background color we can match and let the page background bleed through the negative space in the SVG. Plus not need any markup to do it.\n
   All the same awesomeness of SVG comes along for the ride, like flexibility while retaining sharpness. Plus you can do anything a raster graphic can do, like repeat.
   In this video we look at applying a “ripped paper edge” effect to the bottom of a module via background-image on an a pseudo element. Kind of a neat way to do it so the main element itself can have a solid background color we can match and let the page background bleed through the negative space in the SVG. Plus not need any markup to do it.`,
-  datetime: "13:06 09 Apr 2022",
+  createdAt: "13:06 09 Apr 2022",
   privilege: true,
   isSender: false,
   groupId: 1,
-  chatId: 1
-},
-{
-  senderEmail: "leratomatlapa@tut.ac.za",
-  message: "Morning colleagues I wanted to ask something about research ethics, I have noticed that I am actually allowed to copy someones work - I wanted to confirm the truthfulness of this new discovery \nKindly Shiko Matlala",
-  datetime: "10:06 10 Apr 2022",
-  privilege: false,
-  isSender: false,
-  groupId: 1,
-  chatId: 2
-},
-{
-  senderEmail: "tsholofeloitumeleng@tut.ac.za",
-  message: "Morning colleagues I wanted to ask something about research ethics, I have noticed that I am actually allowed to copy someones work - I wanted to confirm the truthfulness of this new discovery \nKindly Shiko Matlala",
-  datetime: "12:06 10 Apr 2022",
-  privilege: false,
-  isSender: false,
-  groupId: 1,
-  chatId: 3
-},
-{
-  senderEmail: "jameslivingston@tut.ac.za",
-  message: "Morning colleagues I wanted to ask something about research ethics, I have noticed that I am actually allowed to copy someones work - I wanted to confirm the truthfulness of this new discovery \nKindly Shiko Matlala",
-  datetime: "8:06 11 Apr 2022",
-  privilege: false,
-  isSender: false,
-  groupId: 1,
-  chatId: 4
+  chatId: 1,
+  user:{userType:0, email: ""}
 }];
 
 @HostListener('window:resize', ['$event'])
@@ -126,46 +102,41 @@ onResize(event: any) {
   this.innerWidth = (window.innerWidth * 0.823) + "px";
 }
 
-  date = new Date();
+  date = Date.now();
   sendMessage() {
     if (this.inputChatBox.nativeElement.value != "") {
 
       let newMessageId: number = 0;
       newMessageId += this.chats.length;
-      // console.log("New Message ID " + newMessageId++)
       let newChat = {
-        senderEmail: "shikomatlala@tut.ac.za",
-        message: this.inputChatBox.nativeElement.value,
-        datetime: this.datepipe.transform(this.date, 'h:mm a') + " | " + this.datepipe.transform(this.date, ' dd MMM yy'),
+        email: "shikomatlala@tut.ac.za",
+        text: this.inputChatBox.nativeElement.value,
+        createdAt: this.datepipe.transform(this.date, 'h:mm a') + " | " + this.datepipe.transform(this.date, ' dd MMM yy'),
         privilege: true,
         isSender: true,
         groupId: 1,
-        chatId: newMessageId
+        chatId: newMessageId,
+        user: {userType:0, email: ""}
       };
+      let sendChatToDB = {
+        chatGroupId: this.chatGroupID,
+        userId: this.userID,
+        text: this.inputChatBox.nativeElement.value
+      }
       let scrollTop = this.chatBoxPage.nativeElement.scrollHeight * 2;
       this.chatBoxPage.nativeElement.scrollTop = scrollTop;
-      // this.chatBoxPage.nativeElement.scrollTop = (this.chatBoxPage.nativeElement.scrollHeight + parseInt(myNumber));
-      this.chats.push(newChat);
-      // console.log(this.chats);
-      // console.log("Scoll Top " + this.chatBoxPage.nativeElement.scrollTop);
+      console.log(sendChatToDB);
+      // this.chats.push(newChat);
+      // this.chats.push()
       this.inputChatBox.nativeElement.value = "";
-      // this.chatBoxPage.nativeElement.scrollTop;
-      // console.log(" new Scoll Top " + this.chatBoxPage.nativeElement.scrollTop);
-      // console.log( typeof this.chatBoxPage.nativeElement.scrollTop);
-
-      // (parseInt(this.chatBoxPage.nativeElement.scrollTop) + 200) + "  is the new top")
-      // console.log("Scroll top value is " + this.chatBoxPage.nativeElement.scrollTop + 200);
+      this.chatBoxService.createChat(sendChatToDB).subscribe((res)=>{
+        console.log(res.status);
+        // this.ngOnInit();
+      })
     }
-    // this.chatBoxPage.nativeElement.scrollTop = this.chatBoxPage.nativeElement.scrollHeight;
   }
   deleteChatMessage(chatId:number) {
-    // delete this.chats[chatId-1];
-    // console.log(this.chats);
     this.chats.splice(chatId-1, 1);
-    // console.log(this.chats);
-    // console.log("I am deleting " + chatId);
-    // console.log(chatId-1);
-    // console.log(this.chatBoxPage.nativeElement.scrollTop);
   }
 
   scrollDown()
@@ -179,8 +150,10 @@ onResize(event: any) {
   openChatGroup(chatGroupId: any)
   {
     console.log("ChatGroupID " + chatGroupId);
+    this.chatGroupID =  chatGroupId;
     this.chatBoxService.viewChats(chatGroupId).subscribe((data:any)=>{
-      console.log(data);
+      console.log(data.chat);
+      this.chats = data.chat;
     });
   }
   auto_grow() {
@@ -188,24 +161,16 @@ onResize(event: any) {
     this.inputChatBox.nativeElement.style.height = (this.inputChatBox.nativeElement.scrollHeight) + "px";
   }
   ngOnInit(): void {
-    
     this.innerWidth = (window.innerWidth * 0.823) + "px";
-
     this.getChatGroups();
-    // this.userService.getMe();
     this.getMe();
     this.userType = UserService.userType;
-    // this.ngOnInit();
     this.userService.getUser().subscribe((data: any)=>{
       this.newChatGroupModel.userId = data.user.id;
+      this.userID = data.user.id;
       this.newChatGroupModel.disciplineId = data.user.disciplineId;
       console.log(this.newChatGroupModel.disciplineId);
     });
-
-    // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-    //   queryParams: { message: 'Please log out first ' }
-    // });
-
   }
 
 
@@ -235,7 +200,6 @@ onResize(event: any) {
   onFileSelected(event:any)
   {
     this.selectedFile = <File>event.target.files[0];
-    // console.log(this.selectedFile);
   }
 
   openFormPopupInsertAttachment()
@@ -258,14 +222,11 @@ onResize(event: any) {
   getElementPosition(moreDetails: any)
   {
     this.editGroupChatDataDetails =  this.moreButtonLocation.nativeElement.getBoundingClientRect();
-    // console.log(this.editGroupChatDataDetails);
-
   }
 
   getChatGroups()
   {
     this.chatBoxService.chat_groups().subscribe((res)=>{
-      // console.log(res, 'res=>');
       this.chatGroups = res.chatGroups;
       console.log(this.chatGroups);
     });
@@ -273,32 +234,24 @@ onResize(event: any) {
 
   getAllChats()
   {
-    // console.log("Hi there");
     this.chatBoxService.chat_groups().subscribe((res)=>{
-      // console.log(res, 'res=>');
     });
   }
 
   onFileUpload()
   {
-    // const fd  = new FormData();
-    // this.http.post('')
   }
 
   getMe(){
 
     this.userService.getUser().subscribe((data: any) => {
     this.userType = data.user.userType;
-      // console.log(data.user.userType + " = User Type");
-
-      // console.log('show: ',this.userType);
     })
   }
   closeCreateNewGroup()
   {
     if(this.isOpenCreateChatGroup)
     {
-      // this.createProjectDisplay = "none";
       this.isOpenCreateChatGroup = false;
       this.transformElement = "transform: rotate(0deg);"
       this.svgImage = "add_circle_green_24dp.svg";
@@ -309,7 +262,6 @@ onResize(event: any) {
     }
     else
     {
-      // this.createProjectDisplay = "unset";
       this.createChatGroupDisplay = "unset";
       this.isOpenCreateChatGroup = true;
       this.transformElement = "transform: rotate(45deg);"
@@ -346,9 +298,9 @@ onResize(event: any) {
     }
   }
 
-  isUserSupervisor(data:string)
+  isUserSupervisor(data:any)
   {
-    if(data == "1")
+    if(data == "2")
     {
       return true;
     }
@@ -376,7 +328,6 @@ onResize(event: any) {
   updateChatGroup()
   {
     console.log(this.updateChatGroupModel.id);
-    // this.updateChatGroupModel.title = this.switchRestrictInput.nativeElement.checked;
     if(this.switchRestrictInput.nativeElement.checked)
     {
       this.updateChatGroupModel.privileges = 2;
@@ -385,24 +336,18 @@ onResize(event: any) {
     {
       this.updateChatGroupModel.privileges = 1;
     }
-
     this.updateChatGroupModel.title = this.updateChatGroupTitle.nativeElement.value;
-
     console.log(this.updateChatGroupModel.privileges);
     console.log(this.updateChatGroupModel);
-
     this.chatBoxService.updateChatGroup(this.updateChatGroupModel).subscribe((res)=>{
       console.log(res, 'res=>');
       this.ngOnInit();
       this.closeSettingsCardCloseButton();
     });
-  
-
   }
 
   closeSettingsCard(event:any, id:any)
   {
-
       if(this.isOpenCreateChatGroup)
       {
         this.closeCreateNewGroup();
@@ -450,8 +395,16 @@ onResize(event: any) {
         this.isGroupSettingsCardOpen = true;
         this.displaySettingsCard = "none";
       }
+  }
 
-    
+  formatDate(date:any)
+  {
+
+    return this.datepipe.transform(date, ' dd/MMM/yy');
+  }
+  formatTime(date:any)
+  {
+    return this.datepipe.transform(date, ' h:mm a');
   }
 
   openSettingsCard(event:any, id: any)

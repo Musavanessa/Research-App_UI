@@ -48,4 +48,9 @@ export class ChatboxServiceService {
   {
     return this._http.get(`${this.apiUrl + "chats/" + chatGroupId}`);
   }
+
+  createChat(chatObject:any):Observable<any>
+  {
+    return this._http.post(`${this.apiUrl + "chats/ " + chatObject.chatGroupId}`, chatObject);
+  }
 }
