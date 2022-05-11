@@ -17,11 +17,11 @@
 
 .input_table
 {
-  width: auto;
+  /* width: 290px; */
   text-align: left;
   /* padding: 5px; */
   outline: none;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   border: 1px solid;
   border-color: darkgrey;
   color:rgb(1, 37, 83);
@@ -30,6 +30,15 @@
   border-right: none;
   border-left: none;
   border-bottom: none;
+  border-radius: 0;
+  outline: none !important;
+  box-shadow: none !important;
+  border-bottom: 1px solid rgb(221, 221, 221);
+  padding:1rem 3.5rem 1rem 0.75rem;
+  color: rgb(101, 101, 101);
+  font-size:1rem;
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: normal;
 }
 
 
@@ -361,10 +370,13 @@ input[type="datetime-local"] {
   padding:1rem 3.5rem 1rem 0.75rem;
   color: rgb(101, 101, 101);
   font-size:1rem;
-  font-family:monospace;
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: normal;
   
-  border:1px solid #8292a2;
-  border-radius:0.25rem;
+  border:none;
+  border-bottom: 1px solid darkgrey;
+  border-radius:0;
+
   background:
     white
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='22' viewBox='0 0 20 22'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23688EBB' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' transform='translate(1 1)'%3E%3Crect width='18' height='18' y='2' rx='2'/%3E%3Cpath d='M13 0L13 4M5 0L5 4M0 8L18 8'/%3E%3C/g%3E%3C/svg%3E")
@@ -375,7 +387,8 @@ input[type="datetime-local"] {
 }
 input[type="datetime-local"]:focus {
   outline:none;
-  border-color:#91cce0;
+  border:none;
+  border-bottom: 1px solid rgb(0, 153, 255);
   box-shadow: 1 0 0 0.25rem rgba(0, 120, 250, 0.1);
 }
 
@@ -486,6 +499,14 @@ input[type="datetime-local"]:hover::-webkit-calendar-picker-indicator:hover { op
   color: grey;
 }
 
+.GeneralRemoveActiveStatus
+{
+  font-size:1rem;
+  font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: normal;
+  /* border-right: none; */
+}
+
 .GeneralRemoveActiveStatus:focus{
 
   background-color: unset;
@@ -494,7 +515,8 @@ input[type="datetime-local"]:hover::-webkit-calendar-picker-indicator:hover { op
   outline: unset;
   background-color: white;
   border-color: #d8d8d8;
-  color: grey;
+  color: rgb(101, 101, 101);
+
 }
 
 

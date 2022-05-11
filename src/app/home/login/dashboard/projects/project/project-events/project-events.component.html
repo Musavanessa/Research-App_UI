@@ -98,23 +98,23 @@
             <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 20rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
               <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none">
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
+                  <li class="list-group-item" style="border:none">
                     <div class="input-group mb-3">
-                      <input readonly disabled type="text" style="background-color: white; color:rgb(82, 82, 82); user-select: none;" class="form-control removeActiveStatus" placeholder="Acceptance Criteria" aria-label="Acceptance Criteria" aria-describedby="basic-addon2" value="Add New Event">
                       <div class="input-group-append">
                         <button class="btn btn-outline-secondary addAcceptanceCriteriaButton" type="button">
                           <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
-                          Add</button>
+                          Add New Event
+                        </button>
                       </div>
                     </div>
                   </li>
-                  <li class="list-group-item">
-                    <div class="input-group mb-3">
-                      <input readonly disabled type="text" class="form-control removeActiveStatus" placeholder="Acceptance Criteria" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">
+                  <li class="list-group-item" >
+                    <div class="input-group mb-3" style="padding: 0 0 0 0; margin:0px 0px 3px;">
                       <div class="input-group-append">
-                        <button  disabled class="btn btn-outline-secondary addAcceptanceCriteriaButton" type="button">
+                        <button  style="width:18rem; border-left: #919191;" class="btn btn-outline-secondary addAcceptanceCriteriaButton" type="button">
                           <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
-                          Add</button>
+                          Add New Goal
+                        </button>
                       </div>
                     </div>
                   </li>
@@ -139,10 +139,10 @@
                   Create Event
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    <input type="text" class="form-control GeneralRemoveActiveStatus" placeholder="Event name" aria-label="event name" aria-describedby="basic-addon2">               
+                  <li class="list-group-item" style="border:none">
+                    <input type="text" class="form-control  input_table" placeholder="Event name" aria-label="event name" aria-describedby="basic-addon2">               
                   </li>
-                  <li class="list-group-item">
+                  <li class="list-group-item" style="border:none">
                     <div class="container">
                       <div class="row">
                         <div class="col-sm">
@@ -154,7 +154,7 @@
                       </div>
                     </div>
                   </li>
-                  <li class="list-group-item">
+                  <li class="list-group-item" >
                     <div class="container">
                       <div class="row">
                         <div class="col-sm">
@@ -171,7 +171,7 @@
                       Event Details
                     </h3>
                       <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
-                        <textarea #noteText class="form-control  GeneralRemoveActiveStatus" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Goal details..."></textarea>
+                        <textarea #noteText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Goal details..."></textarea>
                       </div>
                   </li>
                   <li class="list-group-item">
@@ -202,8 +202,11 @@
                   Set new goal
                 </div>
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">
-                    <input type="text" class="form-control GeneralRemoveActiveStatus" placeholder="Goal title" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">               
+                  <li class="list-group-item" style="border:none">
+                    <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
+                      Goal Title
+                    </h3>
+                    <input type="text" class="form-control input_table" placeholder="Goal title" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">               
                   </li>
                   <li class="list-group-item">
                     <div class="container">
@@ -222,21 +225,23 @@
                         </div>
                       </div>
                     </div>
+                    <br>
                   </li>
-                  <li class="list-group-item">
+            
+                  <li class="list-group-item" style="border:none">
                     <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                       Goal Description
                     </h3>
                       <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
-                        <textarea #noteText class="form-control  GeneralRemoveActiveStatus" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Goal Description..."></textarea>
+                        <textarea #noteText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Goal Description..."></textarea>
                       </div>
                   </li>
-                  <li class="list-group-item">
+                  <li class="list-group-item" style="border:none">
                     <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                       Acceptance Criteria
                     </h3>
                     <div class="input-group mb-3">
-                      <input type="text" class="form-control removeActiveStatus" placeholder="Acceptance Criteria" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">
+                      <input type="text" class="form-control GeneralRemoveActiveStatus" placeholder="Acceptance Criteria" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">
                       <div class="input-group-append">
                         <button class="btn btn-outline-secondary addAcceptanceCriteriaButton" type="button">
                           <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
@@ -258,6 +263,84 @@
                                 </div>
                               </div>
                             </li>
+                            <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
+                              <div class="input-group mb-3">
+                                <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
+                                    <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
+                              <div class="input-group mb-3">
+                                <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
+                                    <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
+                              <div class="input-group mb-3">
+                                <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
+                                    <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
+                              <div class="input-group mb-3">
+                                <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
+                                    <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
+                              <div class="input-group mb-3">
+                                <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
+                                    <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
+                              <div class="input-group mb-3">
+                                <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
+                                    <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
+                              <div class="input-group mb-3">
+                                <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                  <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
+                                    <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                    Delete
+                                  </button>
+                                </div>
+                              </div>
+                            </li>
+                            
                           </ul>
                         </div>
                       </div>
