@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { elementAt } from 'rxjs';
+import { elementAt, first } from 'rxjs';
 import { ChatboxServiceService } from 'src/app/services/chatbox/chatbox-service.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,16 +12,73 @@ import { UserService } from 'src/app/services/user/user.service';
   selector: 'app-project-events',
   templateUrl: './project-events.component.html',
   styleUrls: ['./project-events.component.css'],
-  
+
 })
 export class ProjectEventsComponent implements OnInit {
 
-  constructor(public router: Router, public authService: AuthService) { }
+  constructor(public datepipe: DatePipe, public router: Router, public authService: AuthService) { }
   selected: Date | null | undefined;
+
+  //CALENDAR VARIABLES
+  weeks = [
+    [{ isOfMonth:true, value: 0},{ isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}],
+    [{ isOfMonth:true, value: 0},{ isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}],
+    [{ isOfMonth:true, value: 0},{ isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}],
+    [{ isOfMonth:true, value: 0},{ isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}],
+    [{ isOfMonth:true, value: 0},{ isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}],
+    [{ isOfMonth:true, value: 0},{ isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}]
+  ];
+
+
+  weeksis = [1,2,3,4,5,6];
+
   ngOnInit(): void {
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
+    let date: Date = new Date();
+    console.log("Date = " + date); //Date = Tue Feb 05 2019 12:05:22 GMT+0530 (IST)  
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    console.log(firstDay + " The first day");
+    var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    var nFirstDay = this.formatDate(firstDay);
+    var nLastDay = this.formatDate(lastDay);
+    console.log(this.formatDate(firstDay));
+    console.log(this.dateDiff(nFirstDay, nLastDay));
+    console.log(this.findDateStart(firstDay));
+    console.log(this.weeks[0][1].value);
+
+
+
+    for(let y = 0; y < this.weeks.length; y++)
+    {
+      //we need to get the list of all the weeks
+
+      for(let x = 0; x < this.weeks[y].length; x++)
+      {
+        //We want to loop from  day 1 to day 7
+        
+      }
+    }
+
+  }
+
+  formatDate(date: any) {
+
+    return this.datepipe.transform(date, 'd');
+  }
+
+  dateDiff(start: any, end: any) {
+    let newStart: number = +start;
+    let newEnd: number = +end;
+    // return ((newEnd - newStart));
+    return newEnd;
+    //Now we need to find out when the date is going to start.
+  }
+
+  findDateStart(date: any) {
+    //but we need to return the column number
+    return this.datepipe.transform(date, 'EEEE')
   }
 
   //CREATE NEW GOAL VARIABLES
@@ -42,73 +99,63 @@ export class ProjectEventsComponent implements OnInit {
     x: 187.921875,
     y: 226.390625,
   }
-  editGoalDataDetailsLeft = (this.editGoalDataDetails.left * 1.3 )+ "px";
-  editGroupChatDataDetailsRight = (this.editGoalDataDetails.right * 1.5)+ "px";
+  editGoalDataDetailsLeft = (this.editGoalDataDetails.left * 1.3) + "px";
+  editGroupChatDataDetailsRight = (this.editGoalDataDetails.right * 1.5) + "px";
   editGoalDataDetailsTop = (this.editGoalDataDetails.top * 1) + "px";
 
 
   //GOAL SETTINGS VARIABLES
-  @ViewChild('groupSettingsCard') groupSettingsCard :any;
+  @ViewChild('groupSettingsCard') groupSettingsCard: any;
   displayGoalSettingsCard = "block";
   goalName = "";
   goalAcceptanceCriteria = "Student must explain guidelines";
 
 
   //GOAL
-  goals:any;
-  moreDetails:any;
+  goals: any;
+  moreDetails: any;
 
 
-  closeCreateNewGoal()
-  {
-
-  }
-
-
-  createGoalTitleInputCheck()
-  {
+  closeCreateNewGoal() {
 
   }
 
 
-  createNewGoal()
-  {
-
-  }
-
-  showCreateNewGoal(event:any)
-  {
+  createGoalTitleInputCheck() {
 
   }
 
 
-  goalSettingsCardCloseButton()
-  {
+  createNewGoal() {
 
   }
 
-  updateGoal()
-  {
+  showCreateNewGoal(event: any) {
 
   }
 
-  deleteGoal(goalName:any)
-  {
+
+  goalSettingsCardCloseButton() {
 
   }
 
-  openGoal(goalId:any)
-  {
+  updateGoal() {
 
   }
 
-  closeGoalsCard(event:any, goalId:any)
-  {
+  deleteGoal(goalName: any) {
 
   }
 
-  getElementPosition(moreDetails:any)
-  {
+  openGoal(goalId: any) {
+
+  }
+
+  closeGoalsCard(event: any, goalId: any) {
+
+  }
+
+  getElementPosition(moreDetails: any) {
 
   }
 }
