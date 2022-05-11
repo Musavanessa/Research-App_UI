@@ -49,13 +49,15 @@ export class ProjectEventsComponent implements OnInit {
 
   //GOAL SETTINGS VARIABLES
   @ViewChild('groupSettingsCard') groupSettingsCard :any;
-  displayGoalSettingsCard = "none";
+  displayGoalSettingsCard = "block";
   goalName = "";
+  goalAcceptanceCriteria = "Student must explain guidelines";
 
 
   //GOAL
   goals:any;
   moreDetails:any;
+
 
   closeCreateNewGoal()
   {
