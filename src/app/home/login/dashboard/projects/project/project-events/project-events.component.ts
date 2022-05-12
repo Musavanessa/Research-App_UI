@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener, ElementRef, ViewChildren, QueryList } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { elementAt, first } from 'rxjs';
+import { elementAt, first, startWith } from 'rxjs';
 import { ChatboxServiceService } from 'src/app/services/chatbox/chatbox-service.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
@@ -21,16 +21,17 @@ export class ProjectEventsComponent implements OnInit {
 
   //CALENDAR VARIABLES
   weeks = [
-    [{ isOfMonth:true, value: 0},{ isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}],
-    [{ isOfMonth:true, value: 0},{ isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}],
-    [{ isOfMonth:true, value: 0},{ isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}],
-    [{ isOfMonth:true, value: 0},{ isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}],
-    [{ isOfMonth:true, value: 0},{ isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}],
-    [{ isOfMonth:true, value: 0},{ isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}, { isOfMonth:true, value: 0}]
+    [{ isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isWeekEnd: true, isToday: false}],
+    [{ isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isWeekEnd: true, isToday: false}],
+    [{ isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isWeekEnd: true, isToday: false}],
+    [{ isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isWeekEnd: true, isToday: false}],
+    [{ isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isWeekEnd: true, isToday: false}],
+    [{ isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isWeekEnd: true, isToday: false}]
   ];
 
 
   weeksis = [1,2,3,4,5,6];
+  dayNumber = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   ngOnInit(): void {
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
@@ -46,17 +47,80 @@ export class ProjectEventsComponent implements OnInit {
     console.log(this.formatDate(firstDay));
     console.log(this.dateDiff(nFirstDay, nLastDay));
     console.log(this.findDateStart(firstDay));
+    var letStartDateDay = this.findDateStart(firstDay);
+    var letEndDateDay = this.findDateStart(lastDay);
+
     console.log(this.weeks[0][1].value);
 
 
+    //Split the days of the week into 4 - 
+    var numWeeks:number = Math.floor(this.dateDiff(nFirstDay, nLastDay)/7)+1;
+    console.log("Number of weeks in Month = " + Math.floor(this.dateDiff(nFirstDay, nLastDay)%7))
 
-    for(let y = 0; y < this.weeks.length; y++)
+    console.log("Number of Weeks " + numWeeks);
+    let startDayOfTheWeek = this.dayNumber.indexOf(letStartDateDay!)
+    let endDayOfTheWeek = this.dayNumber.indexOf(letEndDateDay!)
+
+    console.log("Start Day of the Week " + startDayOfTheWeek)
+    let tempfirstDay:number = this.dayAsNum(nFirstDay);
+    let tempLastDay:number = this.dayAsNum(nLastDay);
+    console.log("End day of the week" + endDayOfTheWeek + "\nNumber of Weeks " + numWeeks+  "\nLast Day of the Week " + tempLastDay)
+    let dateCounter = 1;
+
+    //The first Weeek
+    for(let y= 0; y < 1; y++)
+    {
+      for(let x =0; x < this.weeks[y].length; x++)
+      {
+        if(y == 0 && x == startDayOfTheWeek)
+        {
+          this.weeks[y][x].value = +tempfirstDay;
+          this.weeks[y][x].isOfMonth = true;
+        }
+      }
+    }
+
+    for(let y = 1; y < this.weeks.length; y++)
     {
       //we need to get the list of all the weeks
 
       for(let x = 0; x < this.weeks[y].length; x++)
       {
         //We want to loop from  day 1 to day 7
+        //Place the first day
+          //The first day is on a sunday( which means we need to loop 1)
+
+
+          //Get the day of the week
+
+        dateCounter++;
+
+        
+        if( y <= numWeeks  && x <= tempLastDay && !(y == 0 && x == startDayOfTheWeek) && !(y== numWeeks && x== endDayOfTheWeek))
+        {
+          this.weeks[y][x].value = dateCounter;
+          this.weeks[y][x].isOfMonth = true;
+        }
+        if(dateCounter >= tempLastDay)
+        {
+          dateCounter = 0;
+          this.weeks[y][x].isOfMonth = false;
+        }
+        // else
+        // {
+
+        //   this.weeks[y][x].value = dateCounter;
+        // }
+
+        if(y== numWeeks && x== endDayOfTheWeek)
+        {
+          this.weeks[y][x].value = +tempLastDay;
+        }
+      
+
+        
+
+        //Place the last day
         
       }
     }
@@ -76,6 +140,11 @@ export class ProjectEventsComponent implements OnInit {
     //Now we need to find out when the date is going to start.
   }
 
+  dayAsNum(startDay:any)
+  {
+    let start:number = +startDay;
+    return start;
+  }
   findDateStart(date: any) {
     //but we need to return the column number
     return this.datepipe.transform(date, 'EEEE')
