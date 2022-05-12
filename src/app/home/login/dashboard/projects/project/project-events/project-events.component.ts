@@ -12,116 +12,120 @@ import { UserService } from 'src/app/services/user/user.service';
   selector: 'app-project-events',
   templateUrl: './project-events.component.html',
   styleUrls: ['./project-events.component.css'],
+  template: `
+  <ng-template #isTodayDateTemplate>
+    <td><div class="highlightTodayDate" >{{week[0].value}}</div></td>
+  </ng-template>`
 
 })
 export class ProjectEventsComponent implements OnInit {
 
+
   constructor(public datepipe: DatePipe, public router: Router, public authService: AuthService) { }
   selected: Date | null | undefined;
 
+  // @ViewChild(isTodayDateTemplate)
+
   //CALENDAR VARIABLES
   weeks = [
-    [{ isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isWeekEnd: true, isToday: false}],
-    [{ isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isWeekEnd: true, isToday: false}],
-    [{ isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isWeekEnd: true, isToday: false}],
-    [{ isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isWeekEnd: true, isToday: false}],
-    [{ isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isWeekEnd: true, isToday: false}],
-    [{ isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isToday: false}, { isOfMonth:true, value: 0, isWeekEnd: true, isToday: false}]
+    [{ isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }],
+    [{ isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }],
+    [{ isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }],
+    [{ isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }],
+    [{ isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }],
+    [{ isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }]
   ];
 
 
-  weeksis = [1,2,3,4,5,6];
+  weeksis = [1, 2, 3, 4, 5, 6];
   dayNumber = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+  months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  todayVariable: any;
 
   ngOnInit(): void {
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
+
+    let dateTime: Date = new Date();
+    let today = new Date(dateTime.getFullYear(), dateTime.getMonth());
+    this.todayVariable = this.formatDate(dateTime);
+    //console.log("Today is " + this.todayVariable);
+    //console.log("Today variable is = " + this.todayVariable);
     let date: Date = new Date();
-    console.log("Date = " + date); //Date = Tue Feb 05 2019 12:05:22 GMT+0530 (IST)  
+    //console.log("Date = " + date); //Date = Tue Feb 05 2019 12:05:22 GMT+0530 (IST)  
     var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    console.log(firstDay + " The first day");
+    //console.log(firstDay + " The first day");
     var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
     var nFirstDay = this.formatDate(firstDay);
     var nLastDay = this.formatDate(lastDay);
-    console.log(this.formatDate(firstDay));
-    console.log(this.dateDiff(nFirstDay, nLastDay));
-    console.log(this.findDateStart(firstDay));
+    //console.log(this.formatDate(firstDay));
+    //console.log(this.dateDiff(nFirstDay, nLastDay));
+    //console.log(this.findDateStart(firstDay));
     var letStartDateDay = this.findDateStart(firstDay);
     var letEndDateDay = this.findDateStart(lastDay);
 
-    console.log(this.weeks[0][1].value);
+    //console.log(this.weeks[0][1].value);
 
 
     //Split the days of the week into 4 - 
-    var numWeeks:number = Math.floor(this.dateDiff(nFirstDay, nLastDay)/7)+1;
-    console.log("Number of weeks in Month = " + Math.floor(this.dateDiff(nFirstDay, nLastDay)%7))
+    var numWeeks: number = Math.floor(this.dateDiff(nFirstDay, nLastDay) / 7) + 1;
+    //console.log("Number of weeks in Month = " + Math.floor(this.dateDiff(nFirstDay, nLastDay)%7))
 
-    console.log("Number of Weeks " + numWeeks);
+    //console.log("Number of Weeks " + numWeeks);
     let startDayOfTheWeek = this.dayNumber.indexOf(letStartDateDay!)
     let endDayOfTheWeek = this.dayNumber.indexOf(letEndDateDay!)
 
-    console.log("Start Day of the Week " + startDayOfTheWeek)
-    let tempfirstDay:number = this.dayAsNum(nFirstDay);
-    let tempLastDay:number = this.dayAsNum(nLastDay);
-    console.log("End day of the week" + endDayOfTheWeek + "\nNumber of Weeks " + numWeeks+  "\nLast Day of the Week " + tempLastDay)
+    //console.log("Start Day of the Week " + startDayOfTheWeek)
+    let tempfirstDay: number = this.dayAsNum(nFirstDay);
+    let tempLastDay: number = this.dayAsNum(nLastDay);
+    //console.log("End day of the week" + endDayOfTheWeek + "\nNumber of Weeks " + numWeeks+  "\nLast Day of the Week " + tempLastDay)
     let dateCounter = 1;
-
+    let monthPrint = this.getMonth(date);
+    // console.log(this.getMonth(date));
     //The first Weeek
-    for(let y= 0; y < 1; y++)
-    {
-      for(let x =0; x < this.weeks[y].length; x++)
-      {
-        if(y == 0 && x == startDayOfTheWeek)
-        {
+    for (let y = 0; y < 1; y++) {
+      for (let x = 0; x < this.weeks[y].length; x++) {
+        if (y == 0 && x == startDayOfTheWeek) {
           this.weeks[y][x].value = +tempfirstDay;
           this.weeks[y][x].isOfMonth = true;
+          this.weeks[y][x].dateId = dateCounter + monthPrint!;
         }
       }
     }
 
-    for(let y = 1; y < this.weeks.length; y++)
-    {
+    for (let y = 1; y < this.weeks.length; y++) {
       //we need to get the list of all the weeks
 
-      for(let x = 0; x < this.weeks[y].length; x++)
-      {
+      for (let x = 0; x < this.weeks[y].length; x++) {
+        dateCounter++;
         //We want to loop from  day 1 to day 7
         //Place the first day
-          //The first day is on a sunday( which means we need to loop 1)
+        //The first day is on a sunday( which means we need to loop 1)
 
 
-          //Get the day of the week
+        //Get the day of the week
 
-        dateCounter++;
-
-        
-        if( y <= numWeeks  && x <= tempLastDay && !(y == 0 && x == startDayOfTheWeek) && !(y== numWeeks && x== endDayOfTheWeek))
-        {
+        if (y <= numWeeks && x <= tempLastDay && !(y == 0 && x == startDayOfTheWeek) && !(y == numWeeks && x == endDayOfTheWeek)) {
           this.weeks[y][x].value = dateCounter;
           this.weeks[y][x].isOfMonth = true;
+          this.weeks[y][x].dateId = dateCounter + monthPrint!;
         }
-        if(dateCounter >= tempLastDay)
-        {
+        if (dateCounter >= tempLastDay) {
           dateCounter = 0;
           this.weeks[y][x].isOfMonth = false;
         }
-        // else
-        // {
-
-        //   this.weeks[y][x].value = dateCounter;
-        // }
-
-        if(y== numWeeks && x== endDayOfTheWeek)
-        {
+        if (y == numWeeks && x == endDayOfTheWeek) {
           this.weeks[y][x].value = +tempLastDay;
+          this.weeks[y][x].isOfMonth = true;
+          this.weeks[y][x].dateId = tempLastDay + monthPrint!;
         }
-      
-
-        
-
-        //Place the last day
-        
+        // console.log(this.todayVariable + " Today Variable " + this.weeks[y][x].value);
+        if (this.weeks[y][x].value == this.todayVariable) {
+          this.weeks[y][x].isToday = true;
+          console.log("The   = " + this.weeks[y][x].value);
+          console.log("The   = " + this.weeks[y][x].isToday);
+        }
       }
     }
 
@@ -129,7 +133,17 @@ export class ProjectEventsComponent implements OnInit {
 
   formatDate(date: any) {
 
-    return this.datepipe.transform(date, 'd');
+    return this.datepipe.transform(date, 'dd');
+  }
+
+  formateShowDate(date:any)
+  {
+    return date
+  }
+
+  getMonth(date: any) {
+    console.log(this.datepipe.transform(date, "dd-MMM-y"))
+    return this.datepipe.transform(date, "-MM-y")
   }
 
   dateDiff(start: any, end: any) {
@@ -140,9 +154,8 @@ export class ProjectEventsComponent implements OnInit {
     //Now we need to find out when the date is going to start.
   }
 
-  dayAsNum(startDay:any)
-  {
-    let start:number = +startDay;
+  dayAsNum(startDay: any) {
+    let start: number = +startDay;
     return start;
   }
   findDateStart(date: any) {
@@ -183,6 +196,30 @@ export class ProjectEventsComponent implements OnInit {
   //GOAL
   goals: any;
   moreDetails: any;
+  getDateClickedDay:any;
+  finalShowDate:any;
+  dateClicked(dateId: any, dateObjet:any) {
+    //We can make use of the date - 
+    console.log(dateObjet);
+    let tempDateID ="";
+    if(dateId.length < 10)
+    {
+      tempDateID = 0 + dateId;
+    }
+    else
+    {
+      tempDateID = dateId;
+    }
+    console.log(tempDateID);
+    let numMonth = tempDateID[3] + tempDateID[4];
+
+    this.finalShowDate  = tempDateID[0] + tempDateID[1] + " " + this.months[+numMonth-1] + " " + tempDateID[6]  + tempDateID[7]  + tempDateID[8]  + tempDateID[9];
+    // let startIndex =dateId.indexOf("-");
+    // console.log(dateId.substring(startIndex, 5))
+
+    console.log("Show the date id = " + dateId);
+    this.getDateClickedDay = dateObjet.dateId;
+  }
 
 
   closeCreateNewGoal() {

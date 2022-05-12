@@ -224,6 +224,32 @@ td
   padding: 1px 25px;
 }
 
+.highlightTodayDate
+{
+  position:relative; top:-25px; left: 8px; background-color: #ffffff; padding:5px; border-radius: 50px; width:30px;
+  text-align: center;
+}
+
+.highlightTodayDate:hover
+{
+  position:relative; top:-25px; left: 8px; padding:5px; border-radius: 50px; width:30px;
+  color:rgb(255, 255, 255);background-color: darkgreen;
+}
+
+.showTodayDate
+{
+  position:relative; top:-25px; left: 8px; background-color: rgb(182, 182, 182); padding:5px; border-radius: 50px; width:30px;
+  text-align: center;
+  color:white;
+}
+
+.showTodayDate:hover
+{
+  position:relative; top:-25px; left: 8px; padding:5px; border-radius: 50px; width:30px;
+  color:rgb(255, 255, 255);background-color: darkgreen;
+}
+
+
 
 .input_weak
 {
@@ -333,7 +359,7 @@ td
 
 .groupsTable td:hover
 {
-  background-color: #cfcfcf;
+  background-color: #eeeeee;
   cursor: pointer;
   
 }
@@ -447,12 +473,60 @@ input[type="datetime-local"]:hover::-webkit-calendar-picker-indicator:hover { op
   color: rgb(255, 0, 0);
 }
 
-
+.time-right {
+  float: right;
+  color: #aaa;
+}
 .addAcceptanceCriteriaButton
 {
   border-top-left-radius: 0;border-bottom-left-radius: 0;border-left:none; border-color: #d8d8d8;
 
 }
+
+.whatWouldYouLikeToChooseEvent
+{
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.whatWouldYouLikeToChooseEvent:focus
+{
+  outline: none;
+  box-shadow: none;
+  color:rgb(0, 126, 175);
+  background-color: rgb(184, 224, 240);
+  border-color: rgb(184, 224, 240);
+}
+
+.whatWouldYouLikeToChooseEvent:hover
+{
+  color: rgb(0, 126, 175);
+  background-color: rgb(184, 224, 240);
+  border-color: rgb(184, 224, 240);
+}
+
+
+.whatWouldYouLikeToChooseGoal
+{
+  border: 1px solid rgb(255, 255, 255);
+}
+
+
+.whatWouldYouLikeToChooseGoal:focus
+{
+  outline: none;
+  box-shadow: none;
+  color: darkgreen;
+  background-color: rgb(178, 231, 178);
+  border-color: rgb(178, 231, 178);
+}
+
+.whatWouldYouLikeToChooseGoal:hover
+{
+  border-color: rgb(178, 231, 178);
+  background-color: rgb(178, 231, 178);
+  color: darkgreen;
+}
+
 
 .addAcceptanceCriteriaButton:focus
 {

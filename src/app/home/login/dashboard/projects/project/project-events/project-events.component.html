@@ -27,13 +27,21 @@
                 </thead>
                 <tbody *ngFor="let week of weeks;let i index">
                   <tr>
-                    <td>{{week[0].value}}</td>
-                    <td>{{week[1].value}}</td>
-                    <td>{{week[2].value}}</td>
-                    <td>{{week[3].value}}</td>
-                    <td>{{week[4].value}}</td>
-                    <td>{{week[5].value}}</td>
-                    <td>{{week[6].value}}</td>
+                    <td><div (click)="dateClicked(week[0].dateId, week[0])" class="highlightTodayDate" *ngIf="!week[0].isToday; else isTodayShow0" >{{week[0].value}}</div></td>
+                    <td><div (click)="dateClicked(week[1].dateId, week[1])" class="highlightTodayDate" *ngIf="!week[1].isToday; else isTodayShow1" >{{week[1].value}}</div></td>
+                    <td><div (click)="dateClicked(week[2].dateId, week[2])" class="highlightTodayDate" *ngIf="!week[2].isToday; else isTodayShow2" >{{week[2].value}}</div></td>
+                    <td><div (click)="dateClicked(week[3].dateId, week[3])" class="highlightTodayDate" *ngIf="!week[3].isToday; else isTodayShow3" >{{week[3].value}}</div></td>
+                    <td><div (click)="dateClicked(week[4].dateId, week[4])" class="highlightTodayDate" *ngIf="!week[4].isToday; else isTodayShow4"  >{{week[4].value}}</div></td>
+                    <td><div (click)="dateClicked(week[5].dateId, week[5])" class="highlightTodayDate" *ngIf="!week[5].isToday; else isTodayShow5"  >{{week[5].value}}</div></td>
+                    <td><div (click)="dateClicked(week[6].dateId, week[6])" class="highlightTodayDate" *ngIf="!week[6].isToday; else isTodayShow6"  >{{week[6].value}}</div></td>
+                    <!-- Templates for the callendar  Show  that a date is today-->
+                    <ng-template #isTodayShow0><div (click)="dateClicked(week[0].dateId, week[0])" class="showTodayDate" >{{week[0].value}}</div></ng-template>
+                    <ng-template #isTodayShow1><div (click)="dateClicked(week[1].dateId, week[1])" class="showTodayDate" >{{week[1].value}}</div></ng-template>
+                    <ng-template #isTodayShow2><div (click)="dateClicked(week[2].dateId, week[2])" class="showTodayDate" >{{week[2].value}}</div></ng-template>
+                    <ng-template #isTodayShow3><div (click)="dateClicked(week[3].dateId, week[3])" class="showTodayDate" >{{week[3].value}}</div></ng-template>
+                    <ng-template #isTodayShow4><div (click)="dateClicked(week[4].dateId, week[4])" class="showTodayDate" >{{week[4].value}}</div></ng-template>
+                    <ng-template #isTodayShow5><div (click)="dateClicked(week[5].dateId, week[5])" class="showTodayDate" >{{week[5].value}}</div></ng-template>
+                    <ng-template #isTodayShow6><div (click)="dateClicked(week[6].dateId, week[6])" class="showTodayDate" >{{week[6].value}}</div></ng-template>
                   </tr>
                 </tbody>
             </table>
@@ -43,42 +51,47 @@
         </div>
         <br>
         <!--WHAT WOULD YOU LIKE TO CREATE DIALOG-->
-        <div class="col"style="padding:none;">
-          <div class="card" style="width:22rem; border:none; background-color: rgb(239, 239, 239);">
-            <caption style="background-color:transparent; text-align: center;user-select: none;">
-              <div>
-                What would you like to create?
-              </div>
-            </caption>
-            <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 20rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
-              <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item" style="border:none">
-                    <div class="input-group mb-3">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary addAcceptanceCriteriaButton" type="button">
-                          <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
-                          Add New Event
-                        </button>
+          <div class="col"style="padding:none; position:fixed; top: 0px; left:0px">
+            <div class="card" style="width:22rem; border:none; background-color: rgb(239, 239, 239);">
+              <caption style="background-color:transparent; text-align: center;user-select: none;">
+                <div style="width:90%; margin-left:auto; margin-right:auto">
+                  
+                  What would you like to create?
+                  <span class="time-right" style="cursor:pointer">
+                    <img src="../../../../../assets/media/logos/clear_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                </span>
+                <div>{{finalShowDate}}</div>
+                </div>
+              </caption>
+              <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 20rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
+                <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none">
+                  <ul class="list-group list-group-flush">
+                    <li class="list-group-item" style="border:none">
+                      <div class="input-group mb-3">
+                        <div class="input-group-append">
+                          <button  style="width:18rem;" class="btn btn-outline-secondary whatWouldYouLikeToChooseEvent" type="button">
+                            <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
+                            Add New Event
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                  <li class="list-group-item" >
-                    <div class="input-group mb-3" style="padding: 0 0 0 0; margin:0px 0px 3px;">
-                      <div class="input-group-append">
-                        <button  style="width:18rem; border-left: #919191;" class="btn btn-outline-secondary addAcceptanceCriteriaButton" type="button">
-                          <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
-                          Add New Goal
-                        </button>
+                    </li>
+                    <li class="list-group-item" >
+                      <div class="input-group mb-3" style="padding: 0 0 0 0; margin:0px 0px 3px;">
+                        <div class="input-group-append">
+                          <button  style="width:18rem;" class="btn btn-outline-secondary whatWouldYouLikeToChooseGoal" type="button">
+                            <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
+                            Add New Goal
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                </ul>
+                    </li>
+                  </ul>
+                </div>
               </div>
+              <br>
             </div>
-            <br>
           </div>
-        </div>
         <br>
         <!--NEW EVENT-->
         <div class="col"style="padding:none;">
@@ -90,7 +103,7 @@
             </caption>
             <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 20rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
               <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none">
-                <div class="card-header" style="background-color: rgb(0, 158, 221);color:rgb(255, 255, 255); border:none">
+                <div class="card-header" style="background-color: rgb(184, 224, 240);color:rgb(0, 126, 175); border:none">
                   Create Event
                 </div>
                 <ul class="list-group list-group-flush">
@@ -153,14 +166,12 @@
             </caption>
             <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 40rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
               <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none">
-                <div class="card-header" style="background-color: rgb(206, 209, 206);color:rgb(124, 121, 121); border:none;">
+                <!-- <div class="card-header" style="background-color: rgb(206, 209, 206);color:rgb(124, 121, 121); border:none;"> -->
+                <div class="card-header" style="background-color: rgb(178, 231, 178);color:darkgreen; border:none;">
                   Set new goal
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item" style="border:none">
-                    <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
-                      Goal Title
-                    </h3>
                     <input type="text" class="form-control input_table" placeholder="Goal title" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">               
                   </li>
                   <li class="list-group-item">
