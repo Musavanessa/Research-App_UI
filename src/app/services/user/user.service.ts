@@ -37,4 +37,9 @@ export class UserService {
       UserService.userId = data.user.id;
     });
   }
+
+  getAllUsersWhere(supervisorId:any): Observable<any>
+  {
+    return this.http.get(`${this.URL + "/getAllUsersWhere/" + supervisorId}`);
+  }
 }

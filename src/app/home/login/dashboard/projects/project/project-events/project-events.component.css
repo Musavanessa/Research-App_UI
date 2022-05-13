@@ -1,8 +1,4 @@
 
-.project-event-calendar:hover
-{
-  background-color: rgb(77, 108, 138) ;
-}
 
 
 
@@ -236,6 +232,8 @@ td
   padding: 1px 25px;
 }
 
+
+
 .highlightTodayDate
 {
   position:relative; top:-25px; left: 8px; background-color: #ffffff; padding:5px; border-radius: 50px; width:30px;
@@ -247,6 +245,64 @@ td
   position:relative; top:-25px; left: 8px; padding:5px; border-radius: 50px; width:30px;
   color:rgb(255, 255, 255);background-color: darkgreen;
 }
+
+
+.project-event-calendar
+{
+  background-color: transparent;
+}
+
+.project-event-calendar:hover
+{
+  
+  background-color: rgba(165, 203, 239, 0.568) ;
+  border-radius: 8px;
+  box-shadow: 0.1rem 0.1rem 2rem 0.5rem rgba(3, 95, 181, 0.189);
+}
+
+
+
+.project-event-appointment
+{
+  background-color: transparent;
+}
+
+.project-event-appointment:hover
+{
+  
+  background-color: rgb(232, 242, 141) ;
+  border-radius: 8px;
+  box-shadow: 0.1rem 0.1rem 2rem 0.5rem rgb(234, 240, 189);
+}
+
+
+.project-event-event
+{
+  background-color: transparent;
+}
+
+.project-event-event:hover
+{
+  
+  background-color: rgb(196, 237, 253) ;
+  border-radius: 8px;
+  box-shadow: 0.1rem 0.1rem 2rem 0.5rem rgba(0, 125, 175, 0.189);
+}
+
+
+.project-event-goal
+{
+  background-color: transparent;
+}
+
+.project-event-goal:hover
+{
+  
+  background-color: rgba(5, 161, 5, 0.389) ;
+  border-radius: 8px;
+  box-shadow: 0.1rem 0.1rem 2rem 0.1rem rgba(5, 161, 5, 0.389);
+}
+
 
 .showTodayDate
 {

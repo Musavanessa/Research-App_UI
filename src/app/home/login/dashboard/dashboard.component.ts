@@ -19,27 +19,19 @@ export class DashboardComponent implements OnInit {
   constructor(public userService: UserService,  public projectObject : ProjectObjectService, public datepipe: DatePipe, public router:Router, public globalVariables: GlobalVariables, private service: ApiserviceService, public authService: AuthService ) { }
   userType: string = "1";
 
+  userData:any;
+  studentList:any;
+
   isDisplaySuccessMessage = false;
   isDisplayErrorInputMessage = false;
+  allStudents:any;
 
-  closeErrorInputMessage()
-  {
-    if(this.isDisplayErrorInputMessage)
-      this.isDisplayErrorInputMessage = false;
-    else
-      this.isDisplayErrorInputMessage = true;
-  }
-  closeDisplaySuccessMessage()
-  {
-    if(this.isDisplaySuccessMessage)
-    {
-      this.isDisplaySuccessMessage = false;
-    }
-    else
-    {
-      this.isDisplaySuccessMessage = true;
-    }
-  }
+  // openStudentInferface(userData:any)
+  // {
+
+  // }
+
+
   faCoffee = faCoffee;
   //This variable increments each time we populate an input box the reason for having this variable is so that when we get to a certain number then we should enable the input button
   inputButtonEnabler = 0;
@@ -67,11 +59,51 @@ export class DashboardComponent implements OnInit {
     this.myProjects();
     this.allDisciplines();
 
+    this.userService.getUser().subscribe((data: any) => {
+      this.userType = data.user.userType;
+      this.userData = data.user;
+      console.log(data.user.userType + " = User Type");
+      this.getAllUsers(this.userData.id);
+      console.log('show: ',this.userData);
+    })
+
+
+
+    
 
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
   }
+
+
+  getAllUsers(id:any)
+  {
+    this.userService.getAllUsersWhere(id).subscribe((data:any)=>{
+      console.log("Hi there");
+      console.log(data);
+    })
+  }
+
+  closeErrorInputMessage()
+  {
+    if(this.isDisplayErrorInputMessage)
+      this.isDisplayErrorInputMessage = false;
+    else
+      this.isDisplayErrorInputMessage = true;
+  }
+  closeDisplaySuccessMessage()
+  {
+    if(this.isDisplaySuccessMessage)
+    {
+      this.isDisplaySuccessMessage = false;
+    }
+    else
+    {
+      this.isDisplaySuccessMessage = true;
+    }
+  }
+
   disableProjectSaveButtons()
   {
     this.inputButtonEnabler = 0;
@@ -228,7 +260,7 @@ export class DashboardComponent implements OnInit {
 
   isUserSupervisor(data:string)
   {
-    if(data == "1")
+    if(data == "2")
     {
       console.log(data + " The user type is ");
       return true;
@@ -242,5 +274,7 @@ export class DashboardComponent implements OnInit {
 
   }
 
+
+  
 
 }

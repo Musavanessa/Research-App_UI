@@ -25,6 +25,14 @@ export class ProjectEventsComponent implements OnInit {
   selected: Date | null | undefined;
 
   // @ViewChild(isTodayDateTemplate)
+  templateName = "template_calendar";
+  //TEMPLATE VARIABLES
+  appointment_tempate_status: boolean = false;
+  goal_tempate_status: boolean = false;
+  event_tempate_status: boolean = false;
+  calendar_tempate_status: boolean = true;
+  template_statuses = [true, false, false, false]
+
 
   //CALENDAR VARIABLES
   weeks = [
@@ -133,6 +141,22 @@ export class ProjectEventsComponent implements OnInit {
       }
     }
 
+  }
+
+  changeActiveStatus(iconId:number)
+  {
+    //Changing the active status will affect the template that is to be shown.
+    for(let x =0; x < this.template_statuses.length; x++)
+    {
+      if(x == iconId)
+      {
+        this.template_statuses[x] = true;
+      }
+      else
+      {
+        this.template_statuses[x] = false;
+      }
+    }
   }
 
   formatDate(date: any) {

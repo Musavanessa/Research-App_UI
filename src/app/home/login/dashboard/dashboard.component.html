@@ -82,18 +82,21 @@
       </div>
       &nbsp;
       <div class="card text-dark bg-light mb-3" style="width:95%; margin-left: auto; margin-right: auto; border:none">
-        <div class="card-header" style="background-color:rgb(255, 255, 255);" >
-          <!-- <p *ngIf="!isUserSupervisor(userType)" class="h2">My Projects</p></div> -->
-          <p *ngIf="isUserSupervisor(userType)" class="h2">Students</p></div>
-
         <div class="card-body"style="background-color:white">
           <div>
             <div class="card-body" style="height:580px; overflow:scroll">
+            <div *ngIf="isUserSupervisor(userType); then studentList; else projectList">
+
+            </div>
+            <ng-template #projectList>
+              <div class="card-header" style="background-color:rgb(255, 255, 255);" >
+                <p class="h2">My Projects</p>
+              </div>
               <table class="table table-hover">
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Student Name</th>
+                    <th scope="col">Project Name</th>
                     <th scope="col">Project Description</th>
                     <th scope="col"></th>
                     <th scope="col">Project Status</th>
@@ -118,6 +121,42 @@
                   </tr>
                 </tbody>
               </table>
+            </ng-template>
+
+            <ng-template #studentList>
+              <div class="card-header" style="background-color:rgb(255, 255, 255);" >
+                <p class="h2">Student List</p>
+              </div>
+              <table  class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Student Name</th>
+                    <!-- <th scope="col">Project Description</th>
+                    <th scope="col"></th>
+                    <th scope="col">Project Status</th>
+                    <th scope="col">Start Date</th> -->
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor= "let student of allStudents;" style="cursor:pointer" routerLink="/project" >
+                    <th scope="row" >{{student.id}}</th>
+                    <td>{{student.firstName}}</td>
+                    <!-- <td>{{project.description}}</td>
+                    <td></td>
+                    <td>{{project.project_status.status}}</td>
+                    <td>{{project.startDate}}</td> -->
+                    <td></td>
+                    <td>
+                      <a class="nav-link"  style="color:black" routerLink="/project-write">
+                        <img src="../../../../../../../assets/media/logos/notification_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </ng-template>
             </div>
           </div>
         </div>
