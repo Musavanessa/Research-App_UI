@@ -1,4 +1,11 @@
 
+.project-event-calendar:hover
+{
+  background-color: rgb(77, 108, 138) ;
+}
+
+
+
 .input_
 {
   width: 250px;

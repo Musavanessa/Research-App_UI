@@ -7,9 +7,24 @@
       <div class="col-10"  style="padding-left:none; display: flex; flex-grow: grow;">
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll;">
           <ul class="list-group">
-            <li class="list-group-item" style="margin: 30px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;">
+            <li class="list-group-item  project-event-calendar" style="margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto; background-color: transparent;">
+              <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/icons/calendar/calendar_month_darkblue_24dp.svg" alt="New Event" width="30px" height="30px" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" >
+            </li>
+            <li class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
               <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/icons/clipboard/assignment_softorange_24dp.svg" alt="New Event" width="30px" height="30px" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" >
             </li>
+
+            <li class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
+              <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/icons/event/event_note_blue_24dp.svg" alt="New Event" width="30px" height="30px" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" >
+            </li>
+
+            <li class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
+              <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/icons/goal_flag_FILL1_wght400_GRAD0_opsz48.svg" alt="New Event" width="30px" height="30px" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" >
+            </li>
+
+
+
+
           </ul>
         </div>
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding:0 0 0 0; margin: 0 0 0 0; height: 750px;overflow: scroll;">
@@ -301,48 +316,46 @@
               <br>
             </div>
           </div>
+          <br>
+          <div>
+            <table class="groupsTable" style="width:80rem; user-select: none; padding:none;">
+              <thead>
+                <tr>
+                  <th>Monday</th>
+                  <th>Tuesday</th>
+                  <th>Wednesday</th>
+                  <th>Thursday</th>
+                  <th>Friday</th>
+                  <th>Saturday</th>
+                  <th>Sunday</th>
+                </tr>
+              </thead>
+              <tbody *ngFor="let week of weeks;let i index">
+                <tr>
+                  <td><div (click)="dateClicked(week[0].dateId, week[0])" class="highlightTodayDate" *ngIf="!week[0].isToday; else isTodayShow0" >{{week[0].value}}</div></td>
+                  <td><div (click)="dateClicked(week[1].dateId, week[1])" class="highlightTodayDate" *ngIf="!week[1].isToday; else isTodayShow1" >{{week[1].value}}</div></td>
+                  <td><div (click)="dateClicked(week[2].dateId, week[2])" class="highlightTodayDate" *ngIf="!week[2].isToday; else isTodayShow2" >{{week[2].value}}</div></td>
+                  <td><div (click)="dateClicked(week[3].dateId, week[3])" class="highlightTodayDate" *ngIf="!week[3].isToday; else isTodayShow3" >{{week[3].value}}</div></td>
+                  <td><div (click)="dateClicked(week[4].dateId, week[4])" class="highlightTodayDate" *ngIf="!week[4].isToday; else isTodayShow4"  >{{week[4].value}}</div></td>
+                  <td><div (click)="dateClicked(week[5].dateId, week[5])" class="highlightTodayDate" *ngIf="!week[5].isToday; else isTodayShow5"  >{{week[5].value}}</div></td>
+                  <td><div (click)="dateClicked(week[6].dateId, week[6])" class="highlightTodayDate" *ngIf="!week[6].isToday; else isTodayShow6"  >{{week[6].value}}</div></td>
+                  <!-- Templates for the callendar  Show  that a date is today-->
+                  <ng-template #isTodayShow0><div (click)="dateClicked(week[0].dateId, week[0])" class="showTodayDate" >{{week[0].value}}</div></ng-template>
+                  <ng-template #isTodayShow1><div (click)="dateClicked(week[1].dateId, week[1])" class="showTodayDate" >{{week[1].value}}</div></ng-template>
+                  <ng-template #isTodayShow2><div (click)="dateClicked(week[2].dateId, week[2])" class="showTodayDate" >{{week[2].value}}</div></ng-template>
+                  <ng-template #isTodayShow3><div (click)="dateClicked(week[3].dateId, week[3])" class="showTodayDate" >{{week[3].value}}</div></ng-template>
+                  <ng-template #isTodayShow4><div (click)="dateClicked(week[4].dateId, week[4])" class="showTodayDate" >{{week[4].value}}</div></ng-template>
+                  <ng-template #isTodayShow5><div (click)="dateClicked(week[5].dateId, week[5])" class="showTodayDate" >{{week[5].value}}</div></ng-template>
+                  <ng-template #isTodayShow6><div (click)="dateClicked(week[6].dateId, week[6])" class="showTodayDate" >{{week[6].value}}</div></ng-template>
+                </tr>
+              </tbody>
+          </table>
+          <br>
+          </div>
+  
          </div>
         <div id="containter-main-calendar-div" #chatBoxPage style="height:750px; width:1700px;overflow:scroll; background-color: transparent; padding: none; display:inline;">          
           <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="padding:0;padding-right: 0px; margin-left: 0px; background-color: transparent;"  [style.display]="displayWhatWouldYouLikeToDo">
-              <!-- <caption style="background-color:transparent; text-align: center;user-select: none;">
-                <div>
-                  <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" >New Event
-                </div>
-              </caption> -->
-              <table class="groupsTable" style="width:80rem; user-select: none; padding:none;">
-                  <thead>
-                    <tr>
-                      <th>Monday</th>
-                      <th>Tuesday</th>
-                      <th>Wednesday</th>
-                      <th>Thursday</th>
-                      <th>Friday</th>
-                      <th>Saturday</th>
-                      <th>Sunday</th>
-                    </tr>
-                  </thead>
-                  <tbody *ngFor="let week of weeks;let i index">
-                    <tr>
-                      <td><div (click)="dateClicked(week[0].dateId, week[0])" class="highlightTodayDate" *ngIf="!week[0].isToday; else isTodayShow0" >{{week[0].value}}</div></td>
-                      <td><div (click)="dateClicked(week[1].dateId, week[1])" class="highlightTodayDate" *ngIf="!week[1].isToday; else isTodayShow1" >{{week[1].value}}</div></td>
-                      <td><div (click)="dateClicked(week[2].dateId, week[2])" class="highlightTodayDate" *ngIf="!week[2].isToday; else isTodayShow2" >{{week[2].value}}</div></td>
-                      <td><div (click)="dateClicked(week[3].dateId, week[3])" class="highlightTodayDate" *ngIf="!week[3].isToday; else isTodayShow3" >{{week[3].value}}</div></td>
-                      <td><div (click)="dateClicked(week[4].dateId, week[4])" class="highlightTodayDate" *ngIf="!week[4].isToday; else isTodayShow4"  >{{week[4].value}}</div></td>
-                      <td><div (click)="dateClicked(week[5].dateId, week[5])" class="highlightTodayDate" *ngIf="!week[5].isToday; else isTodayShow5"  >{{week[5].value}}</div></td>
-                      <td><div (click)="dateClicked(week[6].dateId, week[6])" class="highlightTodayDate" *ngIf="!week[6].isToday; else isTodayShow6"  >{{week[6].value}}</div></td>
-                      <!-- Templates for the callendar  Show  that a date is today-->
-                      <ng-template #isTodayShow0><div (click)="dateClicked(week[0].dateId, week[0])" class="showTodayDate" >{{week[0].value}}</div></ng-template>
-                      <ng-template #isTodayShow1><div (click)="dateClicked(week[1].dateId, week[1])" class="showTodayDate" >{{week[1].value}}</div></ng-template>
-                      <ng-template #isTodayShow2><div (click)="dateClicked(week[2].dateId, week[2])" class="showTodayDate" >{{week[2].value}}</div></ng-template>
-                      <ng-template #isTodayShow3><div (click)="dateClicked(week[3].dateId, week[3])" class="showTodayDate" >{{week[3].value}}</div></ng-template>
-                      <ng-template #isTodayShow4><div (click)="dateClicked(week[4].dateId, week[4])" class="showTodayDate" >{{week[4].value}}</div></ng-template>
-                      <ng-template #isTodayShow5><div (click)="dateClicked(week[5].dateId, week[5])" class="showTodayDate" >{{week[5].value}}</div></ng-template>
-                      <ng-template #isTodayShow6><div (click)="dateClicked(week[6].dateId, week[6])" class="showTodayDate" >{{week[6].value}}</div></ng-template>
-                    </tr>
-                  </tbody>
-              </table>
-              <br>
-      
             <div style="padding:none;" [style.display]="displayWhatWouldYouLikeToDo">
               <div class="card" style="width:22rem; border:none; background-color: rgb(239, 239, 239);">
                 <caption style="background-color:transparent; text-align: center;user-select: none;">
