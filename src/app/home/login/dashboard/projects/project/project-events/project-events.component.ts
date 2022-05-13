@@ -42,6 +42,10 @@ export class ProjectEventsComponent implements OnInit {
   months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   todayVariable: any;
 
+
+  //WHAT WOULD YOU LIKE TO DO DIALOG
+  displayWhatWouldYouLikeToDo = "none";
+
   ngOnInit(): void {
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
@@ -219,11 +223,17 @@ export class ProjectEventsComponent implements OnInit {
 
     console.log("Show the date id = " + dateId);
     this.getDateClickedDay = dateObjet.dateId;
+    this.displayWhatWouldYouLikeToDo = "block";
   }
 
 
   closeCreateNewGoal() {
 
+  }
+
+  closedWhatWouldYouLikeToDo()
+  {
+    this.displayWhatWouldYouLikeToDo = "none";
   }
 
 

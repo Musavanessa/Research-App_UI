@@ -95,7 +95,12 @@
 }
 
 
-img:hover{
+/* img:hover{
+  animation: shake-animation 6.72s ease infinite;
+  transform-origin: 50% 50%;
+} */
+
+.shakeImg:hover{
   animation: shake-animation 6.72s ease infinite;
   transform-origin: 50% 50%;
 }
@@ -172,8 +177,8 @@ img:hover{
 table
 {
   table-layout:fixed;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: none;
+  margin-right: none;
   text-align: left;
 }
 tr
