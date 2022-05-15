@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
+import { Observable, Observer } from 'rxjs';
+import { of } from 'rxjs/internal/observable/of';
 import { ApiserviceService } from 'src/app/apiservice.service';
 
 
@@ -7,9 +9,28 @@ import { ApiserviceService } from 'src/app/apiservice.service';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProjectObjectService {
 
   constructor(public service: ApiserviceService) {}
+
+  
+  sequenceSubscriber(observer: Observer<any>)
+  {
+    observer.next(1);
+    observer.next(2);
+    observer.next(3);
+    observer.complete();
+
+    //Unsubscribe function doesn't need to do anything in this 
+    //Because values are delivered synchronously
+    return {unsubscribe() {}};
+  } 
+
+  sequence = new Observable(this.sequenceSubscriber);
+
+
+
   static noteObject = {id: 0,
    text: "",
    title: "",

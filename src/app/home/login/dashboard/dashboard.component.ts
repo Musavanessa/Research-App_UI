@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { UserService } from 'src/app/services/user/user.service';
 import { ProjectObjectService } from './projects/project-object.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -65,8 +66,13 @@ export class DashboardComponent implements OnInit {
       console.log(data.user.userType + " = User Type");
       this.getAllUsers(this.userData.id);
       console.log('show: ',this.userData);
-    })
-
+    });
+    this.testObservable();
+    // this.projectObject.sequenceSubscriber(this.userType)
+    this.projectObject.sequence.subscribe({
+      next(num) {console.log(num);},
+      complete() {console.log('Finished sequence');}
+    });
 
 
     
@@ -77,11 +83,13 @@ export class DashboardComponent implements OnInit {
   }
 
 
+
   getAllUsers(id:any)
   {
     this.userService.getAllUsersWhere(id).subscribe((data:any)=>{
       console.log("Hi there");
-      console.log(data);
+      this.allStudents = data;
+      console.log("All Student", data);
     })
   }
 
@@ -257,7 +265,21 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  testObservable()
+  {
+    //Create simple observable that emits three values
+    const myObservable = of(1, 2, 3);
 
+    //Create observer object
+    const myObserver = {
+      next: (x: number) => console.log('Observer got a next value: ' + x),
+      error: (err: Error) => console.error('Observarble got an error: ' + err),
+      complete: ()=> console.log('Observable got a complete notification '), 
+    };
+
+    //Execute with the observer object
+    myObservable.subscribe(myObserver);
+  }
   isUserSupervisor(data:string)
   {
     if(data == "2")
@@ -274,6 +296,12 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  openStudentPortal(project_student:any)
+  {
+ 
+    
+
+  }
 
   
 

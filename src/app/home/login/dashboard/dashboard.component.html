@@ -130,24 +130,20 @@
               <table  class="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Student Name</th>
-                    <!-- <th scope="col">Project Description</th>
-                    <th scope="col"></th>
-                    <th scope="col">Project Status</th>
-                    <th scope="col">Start Date</th> -->
+                    <th scope="col">Student ID</th>
+                    <th scope="col">Name & Surname</th>
+                    <th scope="col">Project Name</th>
+                    <th scope="col">Project Description</th>
+                    <th scope="col">Notification</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor= "let student of allStudents;" style="cursor:pointer" routerLink="/project" >
-                    <th scope="row" >{{student.id}}</th>
-                    <td>{{student.firstName}}</td>
-                    <!-- <td>{{project.description}}</td>
-                    <td></td>
-                    <td>{{project.project_status.status}}</td>
-                    <td>{{project.startDate}}</td> -->
-                    <td></td>
+                  <tr *ngFor= "let project_student of allStudents;" style="cursor:pointer" routerLink="/project" (click)="openStudentPortal(project_student)" >
+                    <th scope="row" >{{project_student.user.id}}</th>
+                    <td>{{project_student.user.firstName}} {{project_student .user.lastName}}</td>
+                    <td>{{project_student.name}}</td>
+                    <td>{{project_student.description}}</td>
                     <td>
                       <a class="nav-link"  style="color:black" routerLink="/project-write">
                         <img src="../../../../../../../assets/media/logos/notification_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">

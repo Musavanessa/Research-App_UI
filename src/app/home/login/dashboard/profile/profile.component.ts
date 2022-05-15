@@ -3,6 +3,7 @@ import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user/user.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
+import { DashboardComponent } from '../dashboard.component';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +21,7 @@ export class ProfileComponent implements OnInit {
   data: User = new User;
   userType: string = "1";
   profileForm : User = new User;
-  constructor(private userService: UserService, public router: Router, public authService: AuthService) { }
+  constructor(public dashboardComponent: DashboardComponent, private userService: UserService, public router: Router, public authService: AuthService) { }
 
 
 
@@ -33,7 +34,7 @@ export class ProfileComponent implements OnInit {
     console.log(this.innerWidth + "H " + this.innerHeight + "W");
 
     this.getMe();
-
+    this.dashboardComponent.testObservable();
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
