@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 // import {MatCardModule} from '@angular/material/card';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
@@ -16,6 +16,9 @@ import { of } from 'rxjs';
 })
 
 export class DashboardComponent implements OnInit {
+
+
+
 
   constructor(public userService: UserService,  public projectObject : ProjectObjectService, public datepipe: DatePipe, public router:Router, public globalVariables: GlobalVariables, private service: ApiserviceService, public authService: AuthService ) { }
   userType: string = "1";
@@ -298,9 +301,8 @@ export class DashboardComponent implements OnInit {
 
   openStudentPortal(project_student:any)
   {
- 
-    
-
+      // this.projectObject.myObservable = project_student;
+      this.projectObject.passStudentData(project_student);
   }
 
   

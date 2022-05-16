@@ -37,17 +37,25 @@ export class ProjectComponent implements OnInit {
       this.notesData = res.notes;
     });
     this.projectObject = ProjectObjectService.projectObject;
+
     // this.innerNav.ngOnInit();
     console.log(this.projectObject)
     //The one issue that I am getting here, is that when I create a project - I am not able to synchronise the project right away - 
     //I do not know how I can takle this issue and get it done with.
     
     this.guidelines();
-
+    console.log(this.globalProjectObject.getPassStudentData());
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
+
+    //Listen to myObservable
+    // this.projectObject.myObserver.subscribe(this.projectObject.myObservable)
+    // this.projectObject.my.subscribe(this.projectObject.myObservable);
+    // this.projectObject.myObservable.subscribe(this.projectObject.myObserver)
+    
   }
+
 
   isDisplayErrorInputMessage = false;
   isDisplaySuccessNoteMessage = false;
