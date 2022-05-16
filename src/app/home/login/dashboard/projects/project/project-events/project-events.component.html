@@ -29,6 +29,10 @@
           </div>
           <ng-template #template_calendar>
             <div>
+              <div style="margin-left:auto; margin-right:auto; font-size: 20px; border-left: 5px solid rgb(94, 57, 51); border-radius: 2px; height: 50px; text-align: left;">
+                &nbsp;{{finalShowDate}}
+              </div>
+              <br>
               <table class="groupsTable" style="width:80rem; user-select: none; padding:none;">
                 <thead>
                   <tr>
@@ -362,10 +366,9 @@
         <div id="containter-main-calendar-div" #chatBoxPage style="height:750px; width:1700px;overflow:scroll; background-color: transparent; padding: none; display:inline;">          
           <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="padding:0;padding-right: 0px; margin-left: 0px; background-color: transparent;"  [style.display]="displayWhatWouldYouLikeToDo">
             <div style="padding:none;" [style.display]="displayWhatWouldYouLikeToDo">
-              <div class="card" style="width:22rem; border:none; background-color: rgb(239, 239, 239);">
+              <div class="card" style="width:22rem; border:none; background-color:  white;">
                 <caption style="background-color:transparent; text-align: center;user-select: none;">
                   <div style="width:90%; margin-left:auto; margin-right:auto">
-                    What would you like to create?
                     <span class="time-right" style="cursor:pointer;">
                       <img (click)="closedWhatWouldYouLikeToDo()" src="../../../../../assets/media/logos/clear_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                   </span>
@@ -376,6 +379,14 @@
                   <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none">
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item" style="border:none">
+                          No Appointments 
+                          <hr>
+                      </li>
+                      <li class="list-group-item" style="border:none">
+                          No Events 
+                          <hr>
+                      </li>
+                      <!-- <li class="list-group-item" style="border:none">
                         <div class="input-group mb-3">
                           <div class="input-group-append">
                             <button  style="width:18rem;" class="btn btn-outline-secondary whatWouldYouLikeToChooseEvent" type="button">
@@ -394,7 +405,7 @@
                             </button>
                           </div>
                         </div>
-                      </li>
+                      </li> -->
                     </ul>
                   </div>
                 </div>

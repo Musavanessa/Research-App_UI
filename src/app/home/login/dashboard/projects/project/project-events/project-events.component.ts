@@ -95,6 +95,11 @@ export class ProjectEventsComponent implements OnInit {
     let dateCounter = 1;
     let monthPrint = this.getMonth(date);
     // console.log(this.getMonth(date));
+    let oldMonth  = new Date();
+    oldMonth.setDate(1);
+    oldMonth.setMonth(oldMonth.getMonth()-1);
+    // let lastDayOfPrevMonth = (date.getFullYear(), date.getMonth() + 1, 0);
+
     //The first Weeek
     for (let y = 0; y < 1; y++) {
       for (let x = 0; x < this.weeks[y].length; x++) {
@@ -102,6 +107,11 @@ export class ProjectEventsComponent implements OnInit {
           this.weeks[y][x].value = +tempfirstDay;
           this.weeks[y][x].isOfMonth = true;
           this.weeks[y][x].dateId = dateCounter + monthPrint!;
+        }
+        else
+        {
+          this.weeks[y][x].value = 0;
+          this.weeks[y][x].isOfMonth = false;
         }
       }
     }
