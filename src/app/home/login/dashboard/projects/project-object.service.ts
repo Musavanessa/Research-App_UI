@@ -13,6 +13,7 @@ import { ApiserviceService } from 'src/app/apiservice.service';
 export class ProjectObjectService {
 
   student_pass_down_data:any;
+  userDatails:any;
   constructor(public service: ApiserviceService) {}
 
   //CREATE A COMPONENT TO SET THE STUDENT_PASS_DOWN_DATA 
@@ -20,10 +21,19 @@ export class ProjectObjectService {
   {
     this.student_pass_down_data = data;
   }
-
   getPassStudentData()
   {
     return this.student_pass_down_data;
+  }
+
+  //CREATE COMPONTEN TO SET AND GET THE DATA THE USER IS GOING TO GET
+  setUserDetails(data:any)
+  { 
+    this.userDatails = data;
+  }
+  getUserDetails()
+  {
+    return this.userDatails;
   }
 
   myObservable = of(Object);

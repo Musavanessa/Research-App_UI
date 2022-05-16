@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
       console.log(data.user.userType + " = User Type");
       this.getAllUsers(this.userData.id);
       console.log('show: ',this.userData);
+      this.projectObject.setUserDetails(data.user);
     });
     this.testObservable();
     // this.projectObject.sequenceSubscriber(this.userType)

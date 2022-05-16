@@ -13,9 +13,27 @@ export class InnernavComponent implements OnInit {
   constructor(public globalProjectObject : ProjectObjectService) { }
   // projectName = ProjectObject.projectObject.name;
   projectObject = this.globalProjectObject.getPassStudentData();
+  userDetails = this.globalProjectObject.getUserDetails();
   ngOnInit(): void {
     // console.log(ProjectObject.projectObject.name);
     console.log(this.projectObject);
+    console.log(this.userDetails);
+  }
+
+  isUserSupervisor(data:string)
+  {
+    if(data == "2")
+    {
+      console.log(data + " The user type is ");
+      return true;
+      
+    }
+    else
+    {
+      console.log(data + " The user type is ");
+      return false;
+    }
+
   }
 
 }
