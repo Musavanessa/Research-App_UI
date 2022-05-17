@@ -97,7 +97,7 @@
                             <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                               Start Date / Time
                             </h3>
-                            <input (keyup)="validateRequestAppointmentStartDate()" (mouseup)="validateRequestAppointmentStartDate()" (keyup)="validateRequestAppointmentStartDate()"  #requestAppointmentInputStartDate type="datetime-local" value="2017-01-01">
+                            <input (change)="validateRequestAppointmentStartDate()" (keyup)="validateRequestAppointmentStartDate()" (mouseup)="validateRequestAppointmentStartDate()" (keyup)="validateRequestAppointmentStartDate()"  #requestAppointmentInputStartDate type="datetime-local" value="2017-01-01">
                             <br>
                             <div  *ngIf="createAppointmentErrorList[1]"  class="alert alert-danger" role="alert">
                               <strong>Error: </strong> Enter start date & time
