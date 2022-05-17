@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-project-events',
@@ -24,14 +25,37 @@ export class ProjectEventsComponent implements OnInit {
   constructor(public datepipe: DatePipe, public router: Router, public authService: AuthService) { }
   selected: Date | null | undefined;
 
+  //REQUEST APPOINTMENT VARIABLES & APPOINTMENT VARIABLES
+  @ViewChild('requestAppointmentInputTitle') requestAppointmentInputTitle:any;
+  @ViewChild('requestAppointmentInputStartDate') requestAppointmentInputStartDate :any;
+  @ViewChild('requestAppointmentInputEndDate') requestAppointmentInputEndDate : any;
+  @ViewChild('requestAppointmentInputDetails') requestAppointmentInputDetails : any;
+  createAppointmentErrorList = [false, false, false, false]
+  createAppointmentWarningList = [false, false, false, false]
+  appointments:any;
+  requestNewAppointment = {
+    title: "",
+    createdAt: Date(),
+    endDate: undefined,
+    details: "",
+    approved: false,
+    type:1,
+    updatedAt: Date()
+  }
+  requestApointmentFocused:any;
+
+
   // @ViewChild(isTodayDateTemplate)
   templateName = "template_calendar";
+
+
   //TEMPLATE VARIABLES
   appointment_tempate_status: boolean = false;
   goal_tempate_status: boolean = false;
   event_tempate_status: boolean = false;
   calendar_tempate_status: boolean = true;
   template_statuses = [true, false, false, false]
+  todayDate = new Date();
 
 
   //CALENDAR VARIABLES
@@ -55,6 +79,7 @@ export class ProjectEventsComponent implements OnInit {
   displayWhatWouldYouLikeToDo = "none";
 
   ngOnInit(): void {
+    console.log(this.requestNewAppointment);
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
@@ -184,6 +209,11 @@ export class ProjectEventsComponent implements OnInit {
     return this.datepipe.transform(date, "-MM-y")
   }
 
+  formatTodayDate(date:any)
+  {
+    return this.datepipe.transform(date, "dd MMM y")
+  }
+
   dateDiff(start: any, end: any) {
     let newStart: number = +start;
     let newEnd: number = +end;
@@ -275,9 +305,79 @@ export class ProjectEventsComponent implements OnInit {
 
   }
 
+  // testStartDate()
+  // {
+  //   if(new Date(this.requestAppointmentInputStartDate.nativeElement.value) <= new Date())
+
+  // }
+
 
   createNewGoal() {
+    //Show All the native elements that have been entered
+    this.requestNewAppointment.title = this.requestAppointmentInputTitle.nativeElement.value;
+    this.requestNewAppointment.createdAt = this.requestAppointmentInputStartDate.nativeElement.value;
+    this.requestNewAppointment.endDate = this.requestAppointmentInputEndDate.nativeElement.value;
+    this.requestNewAppointment.details = this.requestAppointmentInputDetails.nativeElement.value;
+    console.log(this.requestNewAppointment);
+    
+    if(this.requestAppointmentInputTitle.nativeElement.value == "") this.createAppointmentErrorList[0] = true;
+    if(this.requestAppointmentInputDetails.nativeElement.value == "") this.createAppointmentErrorList[3] = true;
+    if(this.requestAppointmentInputStartDate.nativeElement.value == "") this.createAppointmentErrorList[1] = true;
+    if(this.requestAppointmentInputEndDate.nativeElement.value == "") this.createAppointmentErrorList[2] = true;
 
+
+    if(new Date(this.requestAppointmentInputStartDate.nativeElement.value).getTime() < new Date().getTime())
+          console.log("Today is greate than yesterday")
+    else
+    {
+      console.log("Tomorrow is greater than today")
+    }
+  }
+
+  checkAppointmentStartDate()
+  {
+    if(new Date(this.requestAppointmentInputStartDate.nativeElement.value).getTime() < new Date().getTime())
+    {
+        this.requestAppointmentInputStartDate.nativeElement.value = "";
+        console.log(this.requestAppointmentInputStartDate.nativeElement.value);
+    }
+    else
+    {
+      console.log("Tomorrow is greater than today")
+    }
+  }
+
+  //INPUT VALIDATOR METHOS
+        validateRequestAppointmentInputTitle(){
+          //Remove trailing white space
+          this.requestAppointmentInputTitle.nativeElement.value = this.requestAppointmentInputTitle.nativeElement.value.replace(/^\s+/g, '');;
+          if(this.requestAppointmentInputTitle.nativeElement.value.trim() == "") this.createAppointmentErrorList[0] = true;
+          else this.createAppointmentErrorList[0] = false;
+        }
+
+        validateRequestAppointmentInputDetails(){
+          //Remove trailing white space
+          this.requestAppointmentInputDetails.nativeElement.value = this.requestAppointmentInputDetails.nativeElement.value.replace(/^\s+/g, '');;
+          if(this.requestAppointmentInputDetails.nativeElement.value.trim() == "") this.createAppointmentErrorList[3] = true;
+          else this.createAppointmentErrorList[3] = false;
+        }
+        validateRequestAppointmentStartDate(){
+          this.checkAppointmentStartDate()
+          if(this.requestAppointmentInputStartDate.nativeElement.value == ""){
+            this.createAppointmentErrorList[1] = true;
+            console.log(this.requestAppointmentInputStartDate.nativeElement.value)
+          }
+          else this.createAppointmentErrorList[1] = false;
+        }
+
+  checkAppointmentEndDate()
+  {
+    //If the start date is empty - then make sure that you compare the end date with the current date plus 10 minutes
+    if(this.requestAppointmentInputStartDate.nativeElement.value.length)
+    {
+      console.log("Start with the start date");
+      console.log(this.requestAppointmentInputEndDate.nativeElement.value)  
+    }
   }
 
   showCreateNewGoal(event: any) {

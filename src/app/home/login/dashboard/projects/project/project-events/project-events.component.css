@@ -390,10 +390,17 @@ td
 .groupsTable tr{
   border: 1px lightgrey solid;
   background-color: white;
-  
-
 }
 
+.appointments-card-in-today
+{
+  background-color: white;
+}
+
+/* .appointments-card-in-today:hover
+{
+  background-color: rgb(234, 240, 184);
+} */
 
 
 .groupsTable thead 
@@ -418,7 +425,7 @@ td
 
 .groupsTable td
 {
-  height: 100px;
+  height: 90px;
   border: 1px lightgrey solid;
   text-align: left;
   

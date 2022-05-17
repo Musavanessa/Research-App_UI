@@ -31,7 +31,7 @@
             <div>
               <div style="margin-left:auto; margin-right:auto; font-size: 20px; border-left: 5px solid rgb(94, 57, 51); border-radius: 2px; height: 50px; text-align: left;">
                 <div style="position:relative;top: 12px">
-                  &nbsp;{{finalShowDate}}
+                  &nbsp;Today |&nbsp;{{formatTodayDate(todayDate)}}
                 </div>
               </div>
               <br>
@@ -84,7 +84,11 @@
                   </div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item" style="border:none">
-                      <input type="text" class="form-control  input_table" placeholder="Event name" aria-label="event name" aria-describedby="basic-addon2">               
+                      <input (keyup)="validateRequestAppointmentInputTitle()" #requestAppointmentInputTitle type="text" class="form-control  input_table" placeholder="Event name" aria-label="event name" aria-describedby="basic-addon2">               
+                      <br>
+                      <div  *ngIf="createAppointmentErrorList[0]"  class="alert alert-danger" role="alert">
+                        <strong>Error:</strong> Title is Missing
+                      </div>
                     </li>
                     <li class="list-group-item" style="border:none">
                       <div class="container">
@@ -93,7 +97,11 @@
                             <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                               Start Date / Time
                             </h3>
-                            <input type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                            <input (keyup)="validateRequestAppointmentStartDate()" (mouseup)="validateRequestAppointmentStartDate()" (keyup)="validateRequestAppointmentStartDate()"  #requestAppointmentInputStartDate type="datetime-local" value="2017-01-01">
+                            <br>
+                            <div  *ngIf="createAppointmentErrorList[1]"  class="alert alert-danger" role="alert">
+                              <strong>Error: </strong> Enter start date & time
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -105,7 +113,14 @@
                             <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                               End Date / Time
                             </h3>
-                            <input type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                            <input (keyup)="checkAppointmentEndDate()" (input)="checkAppointmentEndDate()" #requestAppointmentInputEndDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                            <br>
+                            <div *ngIf="createAppointmentWarningList[2]" class="alert alert-warning" role="alert">
+                              <strong>warning: </strong> Enter start date & time first
+                            </div>
+                            <div *ngIf="createAppointmentErrorList[2]" class="alert alert-danger" role="alert">
+                              <strong>Error: </strong> Enter end date & time
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -115,13 +130,16 @@
                         Appointment Purpose
                       </h3>
                         <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
-                          <textarea #noteText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Appointment Purpose..."></textarea>
+                          <textarea (keyup)="validateRequestAppointmentInputDetails()" #requestAppointmentInputDetails class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Appointment Purpose..."></textarea>
+                        </div>
+                        <div  *ngIf="createAppointmentErrorList[3]"  class="alert alert-danger" role="alert">
+                          <strong>Error:</strong> Appoitment Purpose is missing
                         </div>
                     </li>
                     <li class="list-group-item">
                       <tr style="user-select:none">
                         <td>
-                          <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" disabled>Create</button>
+                          <button #createRequestAppointmentButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" >Create</button>
                         </td>
                       </tr>
                     </li>
@@ -183,7 +201,7 @@
                     <li class="list-group-item">
                       <tr style="user-select:none">
                         <td>
-                          <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" disabled>Create</button>
+                          <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm">Create</button>
                         </td>
                       </tr>
                     </li>
@@ -365,57 +383,53 @@
             <br>
           </ng-template>
          </div>
-        <div id="containter-main-calendar-div" #chatBoxPage style="height:750px; width:1700px;overflow:scroll; background-color: transparent; padding: none; display:inline;">          
-          <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="padding:0;padding-right: 0px; margin-left: 0px; background-color: transparent;"  [style.display]="displayWhatWouldYouLikeToDo">
+        <!-- <div id="containter-main-calendar-div" #chatBoxPage style="height:750px; width:24rem;overflow:scroll; background-color: transparent; padding: none; display:inline;">           -->
+          <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="padding:0;padding-right: 0px; margin-left: 0px; background-color: transparent; height:750px; overflow: scroll;"  [style.display]="displayWhatWouldYouLikeToDo">
             <div style="padding:none;" [style.display]="displayWhatWouldYouLikeToDo">
               <div class="card" style="width:22rem; border:none; background-color:  white;">
-                <caption style="background-color:transparent; text-align: center;user-select: none;">
-                  <div style="width:90%; margin-left:auto; margin-right:auto">
-                    <span class="time-right" style="cursor:pointer;">
-                      <img (click)="closedWhatWouldYouLikeToDo()" src="../../../../../assets/media/logos/clear_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                  </span>
-                  <div>{{finalShowDate}}</div>
-                  </div>
-                </caption>
+                <br>
                 <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 20rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
                   <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none">
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item" style="border:none">
-                          No Appointments 
-                          <hr>
-                      </li>
-                      <li class="list-group-item" style="border:none">
-                          No Events 
-                          <hr>
-                      </li>
-                      <!-- <li class="list-group-item" style="border:none">
-                        <div class="input-group mb-3">
-                          <div class="input-group-append">
-                            <button  style="width:18rem;" class="btn btn-outline-secondary whatWouldYouLikeToChooseEvent" type="button">
-                              <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
-                              Add New Event
-                            </button>
+                    <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 20rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
+                      <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none">
+                        <div class="card-header" style="background-color: rgb(204, 168, 237);color:rgb(90, 0, 175); border:none">
+                        {{finalShowDate}}
+                        </div>
+                        <br>
+                        <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 19rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
+                          <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none">
+                            <div class="card-header appointments-card-in-today" style="cursor: pointer; color:rgb(138, 124, 1); border:none">
+                              Appointments
+                            </div>
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item" style="border:none">
+                              </li>
+                            </ul>
                           </div>
                         </div>
-                      </li>
-                      <li class="list-group-item" >
-                        <div class="input-group mb-3" style="padding: 0 0 0 0; margin:0px 0px 3px;">
-                          <div class="input-group-append">
-                            <button  style="width:18rem;" class="btn btn-outline-secondary whatWouldYouLikeToChooseGoal" type="button">
-                              <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
-                              Add New Goal
-                            </button>
+                        <br>
+                        <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 19rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
+                          <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none">
+                            <div class="card-header appointments-card-in-today" style="cursor: pointer; color:rgb(0, 126, 175); border:none">
+                              Events
+                            </div>
+                            <ul class="list-group list-group-flush">
+                              <li class="list-group-item" style="border:none">
+                              </li>
+                            </ul>
                           </div>
                         </div>
-                      </li> -->
-                    </ul>
+
+
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <br>
               </div>
             </div>
           </div>
-        </div>
+        <!-- </div> -->
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 10px; margin-left: 10px;">
           <div style="float:right; cursor: pointer;">
               <img src="../../../../../assets/media/logos/Phaidi/attach_file_black_24dp.svg"  width="16px" height="16px">

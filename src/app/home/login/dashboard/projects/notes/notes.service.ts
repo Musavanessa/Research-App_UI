@@ -12,14 +12,8 @@ export class NotesService {
   isOpenNote: boolean = false;
   setNoteObject(data:any)
   {
-    console.log("Data :" + data);
-    this.isOpenNote = true;
-    this.apiService.getNote(5).subscribe((res)=>{
-      console.log("Were are in the setNoteObject function |");
-      // console.log(res, 'res=>');
-      this.openNoteObject = res.note;
-      console.log("Note Object " + res.note);
-    });
+    this.openNoteObject = data;
+    this.setIsOpenNoteTrue();
   }
   getNoteObject()
   {
@@ -30,5 +24,15 @@ export class NotesService {
   setIsOpenNoteFalse()
   {
     this.isOpenNote = false;
+  }
+
+  setIsOpenNoteTrue()
+  {
+    this.isOpenNote = true;
+  }
+
+  getIsOpenNote()
+  {
+    return this.isOpenNote;
   }
 }

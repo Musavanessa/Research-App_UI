@@ -50,18 +50,10 @@ export class NotesComponent implements OnInit {
       }
 
     })
-    if(this.noteService.isOpenNote)
+    if(this.noteService.getIsOpenNote())
     {
-      // this.noteObject = this.noteService.getNodeObject();
-      // this.openNoteFromProjects();
-      console.log(this.noteService.getNoteObject())
-      console.log(this.noteObject);
-      console.log("We are here");
+      this.noteObject = this.noteService.getNoteObject();
     }
-
-    // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-    //   queryParams: { message: 'Please log out first ' }
-    // });
   }
   findNotesByTitle()
   {

@@ -87,7 +87,7 @@ export class ProjectComponent implements OnInit {
     else
     {
       // this.noteObject.projectId = this.projectObject
-      this.noteObject.id = ProjectObjectService.projectObject.id;
+                                                           
       this.noteObject.text = this.noteText.nativeElement.value;
       this.noteObject.title = this.noteTitle.nativeElement.value;
       this.noteObject.userId = ProjectObjectService.projectObject.userId;
@@ -170,11 +170,10 @@ export class ProjectComponent implements OnInit {
       this.guideLinesObject = res.guidelines;
     });
   }
-  openInNotes(noteId:number)
+  openInNotes(noteObject:any)
   {
     // this.globalProjectObject.updateNoteObject(noteId);
-    this.noteService.setNoteObject(noteId);
-
+    this.noteService.setNoteObject(noteObject);
     this.sidenavService.makeLinkActive(2);
   }
 
