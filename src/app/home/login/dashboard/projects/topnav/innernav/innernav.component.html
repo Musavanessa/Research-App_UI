@@ -47,6 +47,9 @@
   </ng-template>
 
   <ng-template #supervisorTemplate>
-    <li class="list-group-item" style="border:none">Student:  <strong>{{projectObject.name}}</strong></li>
+    <li class="list-group-item" style="border:none; font-size: 20px;">{{projectObject.user.id}} | 
+      <strong>{{projectObject.user.firstName}} {{projectObject.user.lastName}}</strong>
+      | {{projectObject.name}}
+    </li>
   </ng-template>
 

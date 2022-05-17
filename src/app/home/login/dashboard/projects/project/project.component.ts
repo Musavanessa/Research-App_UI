@@ -6,6 +6,7 @@ import { ApiserviceService } from 'src/app/apiservice.service';
 import { ProjectObjectService } from '../project-object.service';
 import { SidenavService } from 'src/app/services/navs/sidenav.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NotesService } from '../notes/notes.service';
 
 @Component({
   selector: 'app-project',
@@ -15,7 +16,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class ProjectComponent implements OnInit {
 
   // public projectObject: ProjectObject,
-  constructor( public sidenavService: SidenavService, public globalProjectObject : ProjectObjectService,public authService: AuthService, public datepipe: DatePipe, public router: Router, private service: ApiserviceService) { }
+  constructor(public noteService: NotesService, public sidenavService: SidenavService, public globalProjectObject : ProjectObjectService,public authService: AuthService, public datepipe: DatePipe, public router: Router, private service: ApiserviceService) { }
 
   @ViewChild('noteText') noteText:any;
   @ViewChild('noteTitle') noteTitle:any;
@@ -171,9 +172,10 @@ export class ProjectComponent implements OnInit {
   }
   openInNotes(noteId:number)
   {
-    this.globalProjectObject.updateNoteObject(noteId);
-    this.sidenavService.makeLinkActive(2);
+    // this.globalProjectObject.updateNoteObject(noteId);
+    this.noteService.setNoteObject(noteId);
 
+    this.sidenavService.makeLinkActive(2);
   }
 
 }

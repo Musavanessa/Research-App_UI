@@ -6,6 +6,7 @@ import { ProjectObjectService } from '../project-object.service';
 import { ControlContainer } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NotesService } from './notes.service';
 
 @Component({
   selector: 'app-notes',
@@ -14,7 +15,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class NotesComponent implements OnInit {
 
-  constructor(public sidenavService: SidenavService,public globalProjectObject: ProjectObjectService, private service: ApiserviceService, public datepipe: DatePipe, public authService: AuthService, public router: Router ) { }
+  constructor(public noteService: NotesService, public sidenavService: SidenavService,public globalProjectObject: ProjectObjectService, private service: ApiserviceService, public datepipe: DatePipe, public authService: AuthService, public router: Router ) { }
   //Variables to use to update the note.
   @ViewChild('inputNoteTitle') inputNoteTitle: any;
   @ViewChild('inputNoteText') inputNoteText:any;
@@ -49,10 +50,11 @@ export class NotesComponent implements OnInit {
       }
 
     })
-    if(ProjectObjectService.projectOpened)
+    if(this.noteService.isOpenNote)
     {
-      this.noteObject = ProjectObjectService.noteObject;
-      this.openNoteFromProjects();
+      // this.noteObject = this.noteService.getNodeObject();
+      // this.openNoteFromProjects();
+      console.log(this.noteService.getNoteObject())
       console.log(this.noteObject);
       console.log("We are here");
     }
@@ -163,6 +165,7 @@ export class NotesComponent implements OnInit {
   openNote(id : any)
   { 
     this.service.getNote(id).subscribe((res)=>{
+      console.log("We are openNote Function |")
       console.log(res.note, "res==>");
       this.noteObject = res.note;
       ProjectObjectService.noteObject = res.note;
@@ -174,10 +177,10 @@ export class NotesComponent implements OnInit {
     //Create a note object somewhere.
     //In order for us to open the note, we firstly need to get the note ID that we want to open and then using that note ID we are going to get the actual note that we are looking for.
   }
-  openNoteFromProjects()
-  {
-    this.noteObject = ProjectObjectService.noteObject;
-  }
+  // openNoteFromProjects()
+  // {
+  //   this.noteObject = this.noteService.
+  // }
 
   showAllNotes()
   {
