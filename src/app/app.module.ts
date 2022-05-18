@@ -37,6 +37,8 @@ import { SignupComponent } from './components/signup/signup.component';
 import { ChatboxServiceService } from './services/chatbox/chatbox-service.service';
 import { MaterialModule } from './material/material.module';
 import { ChatgroupComponent } from './home/login/dashboard/chatbox/chatgroup/chatgroup/chatgroup.component';
+import { BlogformComponent } from './home/blogform/blogform.component';
+import { AddsourceComponent } from './addsource/addsource.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { ChatgroupComponent } from './home/login/dashboard/chatbox/chatgroup/cha
     BlogOpComponent,
     ProjectEventsComponent,
     SignupComponent,
-    ChatgroupComponent
+    ChatgroupComponent,
+    BlogformComponent,
+    AddsourceComponent
   ],
   imports: [
     BrowserModule,
