@@ -25,24 +25,45 @@ export class ProjectEventsComponent implements OnInit {
   constructor(public datepipe: DatePipe, public router: Router, public authService: AuthService) { }
   selected: Date | null | undefined;
 
-  //REQUEST APPOINTMENT VARIABLES & APPOINTMENT VARIABLES
-  @ViewChild('requestAppointmentInputTitle') requestAppointmentInputTitle:any;
-  @ViewChild('requestAppointmentInputStartDate') requestAppointmentInputStartDate :any;
-  @ViewChild('requestAppointmentInputEndDate') requestAppointmentInputEndDate : any;
-  @ViewChild('requestAppointmentInputDetails') requestAppointmentInputDetails : any;
-  createAppointmentErrorList = [false, false, false, false]
-  createAppointmentWarningList = [false, false, false, false]
-  appointments:any;
-  requestNewAppointment = {
+  //========================================================
+  //VARIABLES ----- REQUEST APPOINTMENT VARIABLES & APPOINTMENT VARIABLES
+  //========================================================
+    @ViewChild('requestAppointmentInputTitle') requestAppointmentInputTitle:any;
+    @ViewChild('requestAppointmentInputStartDate') requestAppointmentInputStartDate :any;
+    @ViewChild('requestAppointmentInputEndDate') requestAppointmentInputEndDate : any;
+    @ViewChild('requestAppointmentInputDetails') requestAppointmentInputDetails : any;
+    createAppointmentErrorList = [false, false, false, false];
+    createAppointmentWarningList = [false, false, false, false];
+    appointments:any;
+    requestNewAppointment = {
+      title: "",
+      createdAt: Date(),
+      endDate: undefined,
+      details: "",
+      approved: false,
+      type:1,
+      updatedAt: Date()
+    }
+    requestApointmentFocused:any;
+
+  //========================================================
+  //VARIABLES ----- FOR EVENT TEMPLATE
+  //========================================================
+  @ViewChild('createEventInputTitle') createEventInputTitle:any;
+  @ViewChild('createEventInputStartDate') createEventInputStartDate :any;
+  @ViewChild('createEventInputEndDate') createEventInputEndDate : any;
+  @ViewChild('createEventInputDetails') createEventInputDetails : any;
+  createEventErrorList = [false, false, false, false];
+  createEventWarningList = [false, false, false, false];
+  events:any;
+  newEventObjejct = {
     title: "",
     createdAt: Date(),
     endDate: undefined,
-    details: "",
-    approved: false,
-    type:1,
-    updatedAt: Date()
+    details: ""
   }
-  requestApointmentFocused:any;
+
+
 
 
   // @ViewChild(isTodayDateTemplate)
@@ -59,7 +80,7 @@ export class ProjectEventsComponent implements OnInit {
 
 
   //CALENDAR VARIABLES
-  weeks = [
+  weeks = [ 
     [{ isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }],
     [{ isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }],
     [{ isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: false, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }, { isOfMonth: true, value: 0, isWeekEnd: true, isToday: false, dateId: "" }],
@@ -79,7 +100,7 @@ export class ProjectEventsComponent implements OnInit {
   displayWhatWouldYouLikeToDo = "none";
 
   ngOnInit(): void {
-    console.log(this.requestNewAppointment);
+    // console.log(this.requestNewAppointment);
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
@@ -170,8 +191,8 @@ export class ProjectEventsComponent implements OnInit {
         // console.log(this.todayVariable + " Today Variable " + this.weeks[y][x].value);
         if (this.weeks[y][x].value == this.todayVariable) {
           this.weeks[y][x].isToday = true;
-          console.log("The   = " + this.weeks[y][x].value);
-          console.log("The   = " + this.weeks[y][x].isToday);
+          // console.log("The   = " + this.weeks[y][x].value);
+          // console.log("The   = " + this.weeks[y][x].isToday);
         }
       }
     }
@@ -205,7 +226,7 @@ export class ProjectEventsComponent implements OnInit {
   }
 
   getMonth(date: any) {
-    console.log(this.datepipe.transform(date, "dd-MMM-y"))
+    // console.log(this.datepipe.transform(date, "dd-MMM-y"))
     return this.datepipe.transform(date, "-MM-y")
   }
 
@@ -268,7 +289,7 @@ export class ProjectEventsComponent implements OnInit {
   finalShowDate:any;
   dateClicked(dateId: any, dateObjet:any) {
     //We can make use of the date - 
-    console.log(dateObjet);
+    // console.log(dateObjet);
     let tempDateID ="";
     if(dateId.length < 10)
     {
@@ -278,14 +299,14 @@ export class ProjectEventsComponent implements OnInit {
     {
       tempDateID = dateId;
     }
-    console.log(tempDateID);
+    // console.log(tempDateID);
     let numMonth = tempDateID[3] + tempDateID[4];
 
     this.finalShowDate  = tempDateID[0] + tempDateID[1] + " " + this.months[+numMonth-1] + " " + tempDateID[6]  + tempDateID[7]  + tempDateID[8]  + tempDateID[9];
     // let startIndex =dateId.indexOf("-");
     // console.log(dateId.substring(startIndex, 5))
 
-    console.log("Show the date id = " + dateId);
+    // console.log("Show the date id = " + dateId);
     this.getDateClickedDay = dateObjet.dateId;
     this.displayWhatWouldYouLikeToDo = "block";
   }
@@ -305,56 +326,17 @@ export class ProjectEventsComponent implements OnInit {
 
   }
 
-  // testStartDate()
-  // {
-  //   if(new Date(this.requestAppointmentInputStartDate.nativeElement.value) <= new Date())
 
-  // }
-
-
-  createNewGoal() {
-    //Show All the native elements that have been entered
-    this.requestNewAppointment.title = this.requestAppointmentInputTitle.nativeElement.value;
-    this.requestNewAppointment.createdAt = this.requestAppointmentInputStartDate.nativeElement.value;
-    this.requestNewAppointment.endDate = this.requestAppointmentInputEndDate.nativeElement.value;
-    this.requestNewAppointment.details = this.requestAppointmentInputDetails.nativeElement.value;
-    console.log(this.requestNewAppointment);
-    
-    if(this.requestAppointmentInputTitle.nativeElement.value == "") this.createAppointmentErrorList[0] = true;
-    if(this.requestAppointmentInputDetails.nativeElement.value == "") this.createAppointmentErrorList[3] = true;
-    if(this.requestAppointmentInputStartDate.nativeElement.value == "") this.createAppointmentErrorList[1] = true;
-    if(this.requestAppointmentInputEndDate.nativeElement.value == "") this.createAppointmentErrorList[2] = true;
-
-
-    if(new Date(this.requestAppointmentInputStartDate.nativeElement.value).getTime() < new Date().getTime())
-          console.log("Today is greate than yesterday")
-    else
-    {
-      console.log("Tomorrow is greater than today")
-    }
-  }
-
-  checkAppointmentStartDate()
-  {
-    if(new Date(this.requestAppointmentInputStartDate.nativeElement.value).getTime() < new Date().getTime())
-    {
-        this.requestAppointmentInputStartDate.nativeElement.value = "";
-        console.log(this.requestAppointmentInputStartDate.nativeElement.value);
-    }
-    else
-    {
-      console.log("Tomorrow is greater than today")
-    }
-  }
-
-  //INPUT VALIDATOR METHOS
+//================================
+//REQUEST APPOINTMENTS FUNCTIONS 
+//==================================
+        //INPUT VALIDATOR METHODS
         validateRequestAppointmentInputTitle(){
           //Remove trailing white space
           this.requestAppointmentInputTitle.nativeElement.value = this.requestAppointmentInputTitle.nativeElement.value.replace(/^\s+/g, '');;
           if(this.requestAppointmentInputTitle.nativeElement.value.trim() == "") this.createAppointmentErrorList[0] = true;
           else this.createAppointmentErrorList[0] = false;
         }
-
         validateRequestAppointmentInputDetails(){
           //Remove trailing white space
           this.requestAppointmentInputDetails.nativeElement.value = this.requestAppointmentInputDetails.nativeElement.value.replace(/^\s+/g, '');;
@@ -365,25 +347,86 @@ export class ProjectEventsComponent implements OnInit {
           this.checkAppointmentStartDate()
           if(this.requestAppointmentInputStartDate.nativeElement.value == ""){
             this.createAppointmentErrorList[1] = true;
-            console.log(this.requestAppointmentInputStartDate.nativeElement.value)
           }
           else this.createAppointmentErrorList[1] = false;
         }
+        validateRequestAppointmentEndDate()
+        {
+          //Firstly check if the start date has been entered.
+          if(this.requestAppointmentInputStartDate.nativeElement.value == ""){
+            this.requestAppointmentInputEndDate.nativeElement.value = "";
+            this.createAppointmentWarningList[2] = true;
+          }
+          else
+          {
+            this.createAppointmentWarningList[2] = false;
+            this.checkAppointmentEndDate();
+          }
+        }
+        //FUNCTIONS FOR HANDLING INPUT VALIDATION FOR CREATEING APPOINTMENT
+        checkAppointmentStartDate(){
+          //Here we check if the start date not less than the current day -for you cannot create an appointment which starts yesterday
+          if(new Date(this.requestAppointmentInputStartDate.nativeElement.value).getTime() < new Date().getTime()){
+            this.requestAppointmentInputStartDate.nativeElement.value = "";
+          }
+        }
+        checkAppointmentEndDate(){
+          //If the start date is empty - then make sure that you compare the end date with the current date plus 10 minutes
+          if( new Date(this.requestAppointmentInputEndDate.nativeElement.value).getTime() <= new Date(this.requestAppointmentInputStartDate.nativeElement.value).getTime()){
+            this.requestAppointmentInputEndDate.nativeElement.value = "";
+            this.createAppointmentErrorList[2] = true;
+          }
+          else{
+            this.createAppointmentErrorList[2] = false;
+          }
+        }
+        createNewAppointment() {
+          //Show All the native elements that have been entered
+          this.requestNewAppointment.title = this.requestAppointmentInputTitle.nativeElement.value;
+          this.requestNewAppointment.createdAt = this.requestAppointmentInputStartDate.nativeElement.value;
+          this.requestNewAppointment.endDate = this.requestAppointmentInputEndDate.nativeElement.value;
+          this.requestNewAppointment.details = this.requestAppointmentInputDetails.nativeElement.value;
+          
+          if(this.requestAppointmentInputTitle.nativeElement.value == "") this.createAppointmentErrorList[0] = true;
+          if(this.requestAppointmentInputDetails.nativeElement.value == "") this.createAppointmentErrorList[3] = true;
+          if(this.requestAppointmentInputStartDate.nativeElement.value == "") this.createAppointmentErrorList[1] = true;
+          if(this.requestAppointmentInputEndDate.nativeElement.value == "") this.createAppointmentErrorList[2] = true;
+        }
+  
+//===========================================
+//EVENT FUNCTIONS 
+//============================================
+        //INPUT VALIDATOR METHODS
+        validateEventInputTitle()
+        {
 
-  checkAppointmentEndDate()
-  {
-    //If the start date is empty - then make sure that you compare the end date with the current date plus 10 minutes
-    if(this.requestAppointmentInputStartDate.nativeElement.value.length)
-    {
-      console.log("Start with the start date");
-      console.log(this.requestAppointmentInputEndDate.nativeElement.value)  
-    }
-  }
+        }
+        validateEventInputDetails()
+        {
+
+        }
+        validateEventInputStartDate()
+        {
+
+        }
+        validateEventEndDate()
+        {
+
+        }
+        //FUNCTIONS FOR HANDLING INPUT VALIDATION FOR CREATING AN EVENT
+        createNewEvent()
+        {
+
+        }
 
   showCreateNewGoal(event: any) {
 
   }
 
+  createNewGoal()
+  {
+
+  }
 
   goalSettingsCardCloseButton() {
 

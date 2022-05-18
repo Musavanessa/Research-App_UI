@@ -85,9 +85,11 @@
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item" style="border:none">
                       <input (keyup)="validateRequestAppointmentInputTitle()" #requestAppointmentInputTitle type="text" class="form-control  input_table" placeholder="Event name" aria-label="event name" aria-describedby="basic-addon2">               
-                      <br>
-                      <div  *ngIf="createAppointmentErrorList[0]"  class="alert alert-danger" role="alert">
-                        <strong>Error:</strong> Title is Missing
+                      <div *ngIf="createAppointmentErrorList[0]">
+                        <br>
+                        <div class="alert alert-danger" role="alert">
+                          <strong>Error:</strong> Appointment Title is Missing
+                        </div>
                       </div>
                     </li>
                     <li class="list-group-item" style="border:none">
@@ -98,9 +100,11 @@
                               Start Date / Time
                             </h3>
                             <input (change)="validateRequestAppointmentStartDate()" (keyup)="validateRequestAppointmentStartDate()" (mouseup)="validateRequestAppointmentStartDate()" (keyup)="validateRequestAppointmentStartDate()"  #requestAppointmentInputStartDate type="datetime-local" value="2017-01-01">
-                            <br>
-                            <div  *ngIf="createAppointmentErrorList[1]"  class="alert alert-danger" role="alert">
-                              <strong>Error: </strong> Enter start date & time
+                            <div *ngIf="createAppointmentErrorList[1]">
+                              <br>
+                              <div class="alert alert-danger" role="alert" >
+                                <strong>Error: </strong> Enter start date & time
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -113,13 +117,18 @@
                             <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                               End Date / Time
                             </h3>
-                            <input (keyup)="checkAppointmentEndDate()" (input)="checkAppointmentEndDate()" #requestAppointmentInputEndDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
-                            <br>
-                            <div *ngIf="createAppointmentWarningList[2]" class="alert alert-warning" role="alert">
-                              <strong>warning: </strong> Enter start date & time first
+                            <input (change)="validateRequestAppointmentEndDate()" (keyup)="validateRequestAppointmentEndDate()" (input)="validateRequestAppointmentEndDate()" #requestAppointmentInputEndDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                            <div *ngIf="createAppointmentWarningList[2]">
+                              <br>
+                              <div class="alert alert-warning" role="alert">
+                                <strong>warning: </strong> Enter start date & time first
+                              </div>
                             </div>
-                            <div *ngIf="createAppointmentErrorList[2]" class="alert alert-danger" role="alert">
-                              <strong>Error: </strong> Enter end date & time
+                            <div *ngIf="createAppointmentErrorList[2]">
+                              <br>
+                              <div class="alert alert-danger" role="alert">
+                                <strong>Error: </strong> Enter end date & time
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -132,14 +141,17 @@
                         <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
                           <textarea (keyup)="validateRequestAppointmentInputDetails()" #requestAppointmentInputDetails class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Appointment Purpose..."></textarea>
                         </div>
-                        <div  *ngIf="createAppointmentErrorList[3]"  class="alert alert-danger" role="alert">
-                          <strong>Error:</strong> Appoitment Purpose is missing
+                        <div  *ngIf="createAppointmentErrorList[3]">
+                          <br>
+                          <div  class="alert alert-danger" role="alert">
+                            <strong>Error:</strong> Appoitment Purpose is missing
+                          </div>
                         </div>
                     </li>
                     <li class="list-group-item">
                       <tr style="user-select:none">
                         <td>
-                          <button #createRequestAppointmentButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" >Create</button>
+                          <button #createRequestAppointmentButton (click)="createNewAppointment()" type="button" class="btn btn-primary btn-sm" >Create</button>
                         </td>
                       </tr>
                     </li>
@@ -158,13 +170,19 @@
                 </div>
               </caption>
               <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 20rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
-                <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none">
+                <div #createEventCard class="card chatGroupSettingsClass"  style="border:none">
                   <div class="card-header" style="background-color: rgb(184, 224, 240);color:rgb(0, 126, 175); border:none">
                     Create Event
                   </div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item" style="border:none">
-                      <input type="text" class="form-control  input_table" placeholder="Event name" aria-label="event name" aria-describedby="basic-addon2">               
+                      <input #createEventInputTitle type="text" class="form-control  input_table" placeholder="Event name" aria-label="event name" aria-describedby="basic-addon2">    
+                      <div *ngIf="createEventErrorList[0]">
+                        <br>
+                        <div class="alert alert-danger" role="alert" >
+                          <strong>Error:</strong>Event Title is Missing 
+                        </div>
+                      </div>           
                     </li>
                     <li class="list-group-item" style="border:none">
                       <div class="container">
@@ -173,7 +191,13 @@
                             <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                               Start Date / Time
                             </h3>
-                            <input type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                            <input #createEventInputStartDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                            <div *ngIf="createEventErrorList[1]">
+                              <br>
+                              <div class="alert alert-danger" role="alert" >
+                                <strong>Error:</strong> Enter start date & time
+                              </div>
+                            </div> 
                           </div>
                         </div>
                       </div>
@@ -185,7 +209,19 @@
                             <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                               End Date / Time
                             </h3>
-                            <input type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                            <input #createEventInputEndDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                            <div *ngIf="createEventWarningList[2]">
+                              <br>
+                              <div class="alert alert-warning" role="alert">
+                                <strong>warning: </strong> Enter start date & time first
+                              </div>
+                            </div>
+                            <div *ngIf="createEventErrorList[2]">
+                              <br>
+                              <div class="alert alert-danger" role="alert">
+                                <strong>Error:</strong> Enter end date & time
+                              </div>
+                            </div> 
                           </div>
                         </div>
                       </div>
@@ -195,13 +231,19 @@
                         Event Details
                       </h3>
                         <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
-                          <textarea #noteText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Goal details..."></textarea>
+                          <textarea #createEventInputDetails class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Goal details..."></textarea>
+                        </div>
+                        <div *ngIf="createEventErrorList[3]" >
+                          <br>
+                          <div class="alert alert-danger" role="alert">
+                            <strong>Error:</strong> Enter Event Details 
+                          </div>
                         </div>
                     </li>
                     <li class="list-group-item">
                       <tr style="user-select:none">
                         <td>
-                          <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm">Create</button>
+                          <button #createGoalButton (click)="createNewEvent()" type="button" class="btn btn-primary btn-sm">Create</button>
                         </td>
                       </tr>
                     </li>
