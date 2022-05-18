@@ -176,7 +176,7 @@
                   </div>
                   <ul class="list-group list-group-flush">
                     <li class="list-group-item" style="border:none">
-                      <input #createEventInputTitle type="text" class="form-control  input_table" placeholder="Event name" aria-label="event name" aria-describedby="basic-addon2">    
+                      <input (keyup)="validateEventInputTitle()" #createEventInputTitle type="text" class="form-control  input_table" placeholder="Event name" aria-label="event name" aria-describedby="basic-addon2">    
                       <div *ngIf="createEventErrorList[0]">
                         <br>
                         <div class="alert alert-danger" role="alert" >
@@ -191,7 +191,7 @@
                             <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                               Start Date / Time
                             </h3>
-                            <input #createEventInputStartDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                            <input (change)="validateEventInputStartDate()"  #createEventInputStartDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
                             <div *ngIf="createEventErrorList[1]">
                               <br>
                               <div class="alert alert-danger" role="alert" >
@@ -209,7 +209,7 @@
                             <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                               End Date / Time
                             </h3>
-                            <input #createEventInputEndDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                            <input (change)="validateEventInputEndDate()" #createEventInputEndDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
                             <div *ngIf="createEventWarningList[2]">
                               <br>
                               <div class="alert alert-warning" role="alert">
@@ -231,7 +231,7 @@
                         Event Details
                       </h3>
                         <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
-                          <textarea #createEventInputDetails class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Goal details..."></textarea>
+                          <textarea (keyup)="validateEventInputDetails()" #createEventInputDetails class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Goal details..."></textarea>
                         </div>
                         <div *ngIf="createEventErrorList[3]" >
                           <br>
@@ -263,14 +263,19 @@
                   </div>
                 </caption>
                 <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 40rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
-                  <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none">
-                    <!-- <div class="card-header" style="background-color: rgb(206, 209, 206);color:rgb(124, 121, 121); border:none;"> -->
+                  <div #createGoalCard class="card chatGroupSettingsClass"  style="border:none">
                     <div class="card-header" style="background-color: rgb(178, 231, 178);color:darkgreen; border:none;">
                       Set new goal
                     </div>
                     <ul class="list-group list-group-flush">
                       <li class="list-group-item" style="border:none">
-                        <input type="text" class="form-control input_table" placeholder="Goal title" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">               
+                        <input (keyup)="validateGoalInputTitle()" #createGoalInputTitle type="text" class="form-control input_table" placeholder="Goal title" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">               
+                        <div *ngIf="createGoalErrorList[0]">
+                          <br>
+                          <div class="alert alert-danger" role="alert">
+                            <strong>Error:</strong> Goal Title is Missing
+                          </div>
+                        </div>
                       </li>
                       <li class="list-group-item">
                         <div class="container">
@@ -279,13 +284,31 @@
                               <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                                 Start date
                               </h3>
-                              <input type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                              <input (change)="validateGoalInputStartDate()" #createGoalInputStartDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                              <div *ngIf="createGoalErrorList[1]">
+                                <br>
+                                <div class="alert alert-danger" role="alert">
+                                  <strong>Error:</strong> Invalid Start Date
+                                </div>
+                              </div>
                             </div>
                             <div class="col-sm">
                               <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                                 End date
                               </h3>
-                              <input type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">  
+                              <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">  
+                              <div *ngIf="createGoalWarningList[2]">
+                                <br>
+                                <div class="alert alert-warning" role="alert">
+                                  <strong>Warning: </strong> Enter start date & time first
+                                </div>
+                              </div>
+                              <div *ngIf="createGoalErrorList[2]">
+                                <br>
+                                <div class="alert alert-danger" role="alert">
+                                  <strong>Error: </strong> Invalid End Date
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -296,7 +319,13 @@
                           Goal Description
                         </h3>
                           <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
-                            <textarea #noteText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Goal Description..."></textarea>
+                            <textarea (keyup)="validateGoalInputDescription()" #createGoalInputDecription class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Goal Description..."></textarea>
+                            <div *ngIf="createGoalErrorList[3]">
+                              <br>
+                              <div class="alert alert-danger" role="alert">
+                                <strong>Error: </strong> Enter Goal Details
+                              </div>
+                            </div>
                           </div>
                       </li>
                       <li class="list-group-item" style="border:none">
@@ -304,106 +333,35 @@
                           Acceptance Criteria
                         </h3>
                         <div class="input-group mb-3">
-                          <input type="text" class="form-control GeneralRemoveActiveStatus" placeholder="Acceptance Criteria" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">
+                          <input (keyup)="validateGoalInputAcceptanceCriteria()" #createGoalInputAcceptanceCriteria type="text" class="form-control GeneralRemoveActiveStatus" placeholder="Acceptance Criteria" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">
                           <div class="input-group-append">
-                            <button class="btn btn-outline-secondary addAcceptanceCriteriaButton" type="button">
-                              <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
+                            <button (mouseup)="refreshAcceptanceCriteriaInput()" (mousedown)="addToAcceptanceCriteriaList()"  (keyup)="refreshAcceptanceCriteriaInputOnEnter($event)" (keydown)="addToAcceptanceCriteriaList()" class="btn btn-outline-secondary addAcceptanceCriteriaButton" type="button">
+                              <img *ngIf="showAddIconOnAddGoal" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
+                              <span *ngIf="!showAddIconOnAddGoal" class="badge" style="background-color:darkgreen; border-radius:50px">{{showNumAcceptanceCriteriaItem}}</span>
                               Add</button>
+                          </div>
+                        </div>
+                        <div *ngIf="createGoalErrorList[4]">
+                          <br>
+                          <div class="alert alert-danger" role="alert">
+                            <strong>Error: </strong> Invalid Acceptance Criteria
                           </div>
                         </div>
                         <div class="container-fluid" style="padding: 0 0 0 0; border:none; height: 150px; overflow: scroll; ">
                           <div class="container" style="border:none" >
-                            <div class="row" style="border:none">
+                            <div class="row" style="border:none; --bs-gutter-x: 0rem;">
                               <ul class="list-group" style="padding: 0 0 0 0; border:none;">
-                                <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
-                                  <div class="input-group mb-3">
-                                    <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                <li *ngFor="let accptanceCriteria of acceptanceCriteriaList.slice().reverse(); let i = index" class="list-group-item" style="padding: 0 0 0 0; border:none">
+                                  <div class="input-group mb-3" style=" border-bottom: 1px solid rgb(212, 212, 212);">
+                                    <input type="text" readonly disabled value="{{accptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color: transparent; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
-                                      <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
+                                      <button (click)="removeFromAcceptanceCriteriaList(i)" class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
                                         <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                                         Delete
                                       </button>
                                     </div>
                                   </div>
                                 </li>
-                                <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
-                                  <div class="input-group mb-3">
-                                    <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                      <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
-                                        <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                                        Delete
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
-                                  <div class="input-group mb-3">
-                                    <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                      <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
-                                        <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                                        Delete
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
-                                  <div class="input-group mb-3">
-                                    <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                      <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
-                                        <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                                        Delete
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
-                                  <div class="input-group mb-3">
-                                    <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                      <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
-                                        <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                                        Delete
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
-                                  <div class="input-group mb-3">
-                                    <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                      <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
-                                        <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                                        Delete
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
-                                  <div class="input-group mb-3">
-                                    <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                      <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
-                                        <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                                        Delete
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                <li class="list-group-item" style="padding: 0 0 0 0; border: none;">
-                                  <div class="input-group mb-3">
-                                    <input type="text" readonly disabled value="{{goalAcceptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color:#faf9f9; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                      <button class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
-                                        <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                                        Delete
-                                      </button>
-                                    </div>
-                                  </div>
-                                </li>
-                                
                               </ul>
                             </div>
                           </div>
@@ -412,7 +370,7 @@
                       <li class="list-group-item">
                         <tr style="user-select:none">
                           <td>
-                            <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" disabled>Create</button>
+                            <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" >Create</button>
                           </td>
                         </tr>
                       </li>
@@ -461,8 +419,6 @@
                             </ul>
                           </div>
                         </div>
-
-
                       </div>
                     </div>
                   </div>

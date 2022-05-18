@@ -24,16 +24,12 @@ export class InnernavComponent implements OnInit {
   {
     if(data == "2")
     {
-      console.log(data + " The user type is ");
       return true;
-      
     }
     else
     {
-      console.log(data + " The user type is ");
       return false;
     }
-
   }
 
 }
