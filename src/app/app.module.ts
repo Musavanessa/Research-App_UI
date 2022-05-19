@@ -39,6 +39,8 @@ import { NotesService } from './home/login/dashboard/projects/notes/notes.servic
 import { MaterialModule } from './material/material.module';
 import { ChatgroupComponent } from './home/login/dashboard/chatbox/chatgroup/chatgroup/chatgroup.component';
 
+import { GoalsService } from './services/project-events-goals/goals.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,6 +81,7 @@ import { ChatgroupComponent } from './home/login/dashboard/chatbox/chatgroup/cha
     NotesService,
     ProjectObjectService,
     ChatboxServiceService,
+
     DatePipe,{
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

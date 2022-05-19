@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener, ElementRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ElementRef, ViewChildren, QueryList, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
@@ -105,6 +105,7 @@ export class ProjectEventsComponent implements OnInit {
   showNumAcceptanceCriteriaItem = 0;
   isGoalSuccessfullyCreated:boolean = false;
   isGoalNotSuccessfullyCreated:boolean = false;
+  goalsObject:any;
 
 
   // @ViewChild(isTodayDateTemplate)
@@ -747,6 +748,8 @@ export class ProjectEventsComponent implements OnInit {
                 this.createGoalInputAcceptanceCriteria.nativeElement.value = "";
                 this.acceptanceCriteriaList = [];
                 this.isGoalSuccessfullyCreated = true;
+                this.showAddIconOnAddGoal = true;
+                this.showNumAcceptanceCriteriaItem = 0;
               }
               else
               {
@@ -756,7 +759,10 @@ export class ProjectEventsComponent implements OnInit {
             console.log(this.createGoalObject);
           }
         }
-
+        updateIsGoalSuccessfullDisplay()
+        {
+          this.isGoalSuccessfullyCreated = false; 
+        }
 
 
   showCreateNewGoal(event: any) {
