@@ -1,6 +1,7 @@
 import { Injectable, Type } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
+import { HttpClient } from '@angular/common/http';
 import { ApiserviceService } from 'src/app/apiservice.service';
 
 
@@ -11,12 +12,16 @@ import { ApiserviceService } from 'src/app/apiservice.service';
 })
 
 export class ProjectObjectService {
-
+  constructor(private http:HttpClient, public service: ApiserviceService) {}
+  apiUrl = 'http://localhost:3000/api/v1/';
   student_pass_down_data:any;
   userDatails:any;
-  constructor(public service: ApiserviceService) {}
 
   //CREATE A COMPONENT TO SET THE STUDENT_PASS_DOWN_DATA 
+  apiCreateNewGoal(data:any):Observable<any>
+  {
+    return this.http.post(`${this.apiUrl + "goal"}`, data)
+  }
   passStudentData(data:any)
   {
     this.student_pass_down_data = data;
@@ -36,34 +41,7 @@ export class ProjectObjectService {
     return this.userDatails;
   }
 
-  myObservable = of(Object);
 
-  myObserver = {
-    next: (studentData:any)=> { 
-      console.log("Observable got a next value: " + studentData);
-      return studentData},
-    error: (err: Error)=> console.error("Observable got an error " + err),
-    complete: ()=>console.log('Observable got a complete notification ')
-  };
-
-
-  observer: Observer<any> ={
-    next: function(value:any){
-      console.log(value);
-    },
-    error: function(error: any){
-      console.log(error);
-    },
-    complete: function(){
-      console.log('Complete');
-    }
-  }
-
-  getStudentData():Observable<any>
-  {
-    return this.myObservable;
-  }
-  
   
   sequenceSubscriber(observer: Observer<any>)
   {

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, HostListener, ElementRef, ViewChildren, Q
 import { Router } from '@angular/router';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { ProjectObjectService } from '../../project-object.service';
 import { elementAt, first, startWith } from 'rxjs';
 import { ChatboxServiceService } from 'src/app/services/chatbox/chatbox-service.service';
 import { HttpClient } from '@angular/common/http';
@@ -24,8 +25,16 @@ import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
 export class ProjectEventsComponent implements OnInit {
 
 
-  constructor(public datepipe: DatePipe, public router: Router, public authService: AuthService) { }
+  constructor(public projectObjectService : ProjectObjectService, public datepipe: DatePipe, public router: Router, public authService: AuthService) { }
   selected: Date | null | undefined;
+
+  //=====================
+  //GENERAL VARIABLES
+  //=====================
+  userDetails:any;
+  studentData:any;
+
+
 
   //========================================================
   //VARIABLES ----- REQUEST APPOINTMENT VARIABLES & APPOINTMENT VARIABLES
@@ -68,7 +77,7 @@ export class ProjectEventsComponent implements OnInit {
 
 
   //========================================================
-  //VARIABLES ----- FOR CREATE GAOL TEMPLATE
+  //VARIABLES ----- FOR CREATE GOAL TEMPLATE
   //========================================================
   @Pipe({ name: 'reverse' })
   @ViewChild('createGoalInputTitle') createGoalInputTitle:any;
@@ -76,22 +85,26 @@ export class ProjectEventsComponent implements OnInit {
   @ViewChild('createGoalInputEndDate') createGoalInputEndDate:any;
   @ViewChild('createGoalInputDecription') createGoalInputDecription:any
   @ViewChild('createGoalInputAcceptanceCriteria')  createGoalInputAcceptanceCriteria:any
-  createGoalErrorList = [false, false, false, false, false];
-  createGoalValuesValid = [false, false, false, false];
-  createGoalWarningList =  [false, false, false, false, false];
+  createGoalErrorList   = [false, false, false, false, false];
+  createGoalValuesValid = [false, false, false, false, false];
+  createGoalWarningList = [false, false, false, false, false];
   // goals:any;
   createGoalObject = {
     title: "",
     createAt : Date(),
-    endDate: undefined,
-    details: "",
+    dueDate: undefined,
+    outcome: "",
     acceptanceCriteria: "",
+    projectId: 0,
+    userId: 0,
+    projectStatusId: 1
   }
   tempAcceptanceCriteriaList = "";
   acceptanceCriteriaList: any = [];
   showAddIconOnAddGoal:boolean = true;
   showNumAcceptanceCriteriaItem = 0;
-
+  isGoalSuccessfullyCreated:boolean = false;
+  isGoalNotSuccessfullyCreated:boolean = false;
 
 
   // @ViewChild(isTodayDateTemplate)
@@ -128,7 +141,9 @@ export class ProjectEventsComponent implements OnInit {
   displayWhatWouldYouLikeToDo = "none";
 
   ngOnInit(): void {
-    // console.log(this.requestNewAppointment);
+   this.userDetails = this.projectObjectService.getUserDetails();
+   this.studentData = this.projectObjectService.getPassStudentData();
+   // console.log(this.requestNewAppointment);
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
@@ -426,9 +441,11 @@ export class ProjectEventsComponent implements OnInit {
           if( new Date(this.requestAppointmentInputEndDate.nativeElement.value).getTime() <= new Date(this.requestAppointmentInputStartDate.nativeElement.value).getTime()){
             this.requestAppointmentInputEndDate.nativeElement.value = "";
             this.createAppointmentErrorList[2] = true;
+            this.createAppointmentValuesValid[2] = false;
           }
           else{
             this.createAppointmentErrorList[2] = false;
+            this.createAppointmentValuesValid[2] = true;
           }
         }
         createNewAppointment() {
@@ -450,16 +467,12 @@ export class ProjectEventsComponent implements OnInit {
           if(checkAllVariables == 4)
           {
             console.log("We can move forward");
+            this.requestNewAppointment.title = this.requestAppointmentInputTitle.nativeElement.value;
+            this.requestNewAppointment.createdAt = this.requestAppointmentInputStartDate.nativeElement.value;
+            this.requestNewAppointment.endDate = this.requestAppointmentInputEndDate.nativeElement.value;
+            this.requestNewAppointment.details = this.requestAppointmentInputDetails.nativeElement.value;
+            console.log(this.requestNewAppointment);
           }
-          this.requestNewAppointment.title = this.requestAppointmentInputTitle.nativeElement.value;
-          this.requestNewAppointment.createdAt = this.requestAppointmentInputStartDate.nativeElement.value;
-          this.requestNewAppointment.endDate = this.requestAppointmentInputEndDate.nativeElement.value;
-          this.requestNewAppointment.details = this.requestAppointmentInputDetails.nativeElement.value;
-          
-          // if(this.requestAppointmentInputTitle.nativeElement.value == "") this.createAppointmentErrorList[0] = true;
-          // if(this.requestAppointmentInputDetails.nativeElement.value == "") this.createAppointmentErrorList[3] = true;
-          // if(this.requestAppointmentInputStartDate.nativeElement.value == "") this.createAppointmentErrorList[1] = true;
-          // if(this.requestAppointmentInputEndDate.nativeElement.value == "") this.createAppointmentErrorList[2] = true;
         }
   
 //===========================================
@@ -470,18 +483,32 @@ export class ProjectEventsComponent implements OnInit {
         {
           //Remove trailing white space
           this.createEventInputTitle.nativeElement.value = this.createEventInputTitle.nativeElement.value.replace(/^\s+/g, '');;
-          if(this.createEventInputTitle.nativeElement.value.trim() == "") this.createEventErrorList[0] = true;
-          else this.createEventErrorList[0] = false;
+          if(this.createEventInputTitle.nativeElement.value.trim() == "") 
+          {
+            this.createEventErrorList[0] = true;
+
+          }
+          else 
+          {
+            this.createEventErrorList[0] = false;
+
+          }
         }
         validateEventInputStartDate()
         {
           if(new Date(this.createEventInputStartDate.nativeElement.value).getTime() < new Date().getTime()){
             this.createEventInputStartDate.nativeElement.value = "";
           }
-          if(this.createEventInputStartDate.nativeElement.value == ""){
+          if(this.createEventInputStartDate.nativeElement.value == "")
+          {
             this.createEventErrorList[1] = true
+
           }
-          else this.createEventErrorList[1] = false;
+          else
+          {
+            this.createEventErrorList[1] = false;
+          
+          }
         }
         validateEventInputEndDate()
         {
@@ -490,25 +517,43 @@ export class ProjectEventsComponent implements OnInit {
            {
              this.createEventInputEndDate.nativeElement.value = "";
              this.createEventWarningList[2] = true;
+            
+
            }
            else
            {
               this.createEventWarningList[2] = false;
+             
+
               if(new Date(this.createEventInputEndDate.nativeElement.value).getTime() < new Date(this.createEventInputStartDate.nativeElement.value).getTime()){
                 this.createEventInputEndDate.nativeElement.value = "";
                 this.createEventErrorList[2] = true;
+                
+
               }
               else
               {
                 this.createEventErrorList[2] = false;
+             
+
               }
            }
         }
         validateEventInputDetails()
         {
           this.createEventInputDetails.nativeElement.value = this.createEventInputDetails.nativeElement.value.replace(/^\s+/g, '');
-          if(this.createEventInputDetails.nativeElement.value.trim() == "") this.createEventErrorList[3] = true;
-          else this.createEventErrorList[3] = false;
+          if(this.createEventInputDetails.nativeElement.value.trim() == "") 
+          {
+            this.createEventErrorList[3] = true;
+  
+
+          }
+          else
+          {
+           this.createEventErrorList[3] = false;
+   
+
+          }
         }
         //FUNCTIONS FOR HANDLING INPUT VALIDATION FOR CREATING AN EVENT
         createNewEvent()
@@ -534,8 +579,16 @@ export class ProjectEventsComponent implements OnInit {
 //============================================
         validateGoalInputTitle(){
           this.createGoalInputTitle.nativeElement.value = this.createGoalInputTitle.nativeElement.value.replace(/^\s+/g, '');
-          if(this.createGoalInputTitle.nativeElement.value.trim() == "") this.createGoalErrorList[0] = true;
-          else this.createGoalErrorList[0] = false;
+          if(this.createGoalInputTitle.nativeElement.value.trim() == "")
+          {
+            this.createGoalErrorList[0] = true;
+            this.createGoalValuesValid[0] = false;
+          }
+          else
+          {
+            this.createGoalErrorList[0] = false;
+            this.createGoalValuesValid[0] = true;
+          }
         }
         validateGoalInputStartDate(){
           if(new Date(this.createGoalInputStartDate.nativeElement.value).getTime() < new Date().getTime()){
@@ -543,32 +596,49 @@ export class ProjectEventsComponent implements OnInit {
           }
           if(this.createGoalInputStartDate.nativeElement.value == ""){
             this.createGoalErrorList[1] = true;
+            this.createGoalValuesValid[1] = false;
           }
-          else this.createGoalErrorList[1] = false;
+          else
+          {
+            this.createGoalErrorList[1] = false;
+            this.createGoalValuesValid[1] = true;
+          }
         }
         validateGoalInputEndDate(){
           //Firsty check if the date has been entered
           if(this.createGoalInputStartDate.nativeElement.value == ""){
             this.createGoalInputEndDate.nativeElement.value = "";
             this.createGoalWarningList[2] = true;
+            this.createGoalValuesValid[2] = false;
           }
           else
           {
             this.createGoalWarningList[2] = false;
+            this.createGoalValuesValid[2] = true;
             if(new Date(this.createGoalInputEndDate.nativeElement.value).getTime() < new Date(this.createGoalInputStartDate.nativeElement.value).getTime()){
               this.createGoalInputEndDate.nativeElement.value = "";
               this.createGoalErrorList[2] = true;
+              this.createGoalValuesValid[2] = false;
             }
             else
             {
               this.createGoalErrorList[2] = false;
+              this.createGoalValuesValid[2] = true;
             }
           }
         }
         validateGoalInputDescription(){
           this.createGoalInputDecription.nativeElement.value = this.createGoalInputDecription.nativeElement.value.replace(/^\s+/g, '');
-          if(this.createGoalInputDecription.nativeElement.value.trim() == "") this.createGoalErrorList[3] = true;
-          else this.createGoalErrorList[3] = false;
+          if(this.createGoalInputDecription.nativeElement.value.trim() == "")
+          {
+            this.createGoalErrorList[3] = true;
+            this.createGoalValuesValid[3] = false;
+          }
+          else
+          {
+            this.createGoalErrorList[3] = false;
+            this.createGoalValuesValid[3] = true;
+          }
         }
         validateGoalInputAcceptanceCriteria(){
           //There are two events here - firstly when type
@@ -578,10 +648,12 @@ export class ProjectEventsComponent implements OnInit {
           {
             this.createGoalErrorList[4] = true;
             this.tempAcceptanceCriteriaList  = "";
+            this.createGoalValuesValid[4] = false;
           } 
           else
           {
             this.createGoalErrorList[4] = false;
+            this.createGoalValuesValid[4] = true;
             this.tempAcceptanceCriteriaList = this.createGoalInputAcceptanceCriteria.nativeElement.value;
           } 
         }
@@ -591,7 +663,11 @@ export class ProjectEventsComponent implements OnInit {
           this.tempAcceptanceCriteriaList = this.createGoalInputAcceptanceCriteria.nativeElement.value;
           if(this.tempAcceptanceCriteriaList == "")
           {
-            this.createGoalErrorList[4] = true;
+            if(this.acceptanceCriteriaList.length  > 0)
+            {
+              this.createGoalErrorList[4] = true;
+              this.createGoalValuesValid[4] = false;
+            }
           }
           else
           {
@@ -603,7 +679,6 @@ export class ProjectEventsComponent implements OnInit {
               this.showNumAcceptanceCriteriaItem = this.acceptanceCriteriaList.length;
             }        
           }
-
         }
         removeFromAcceptanceCriteriaList(index:any)
         {
@@ -612,6 +687,8 @@ export class ProjectEventsComponent implements OnInit {
           if(this.acceptanceCriteriaList.length < 1)
           {
             this.showAddIconOnAddGoal = true;
+            this.createGoalErrorList[4] = true;
+            this.createGoalValuesValid[4] = false;
             this.showNumAcceptanceCriteriaItem = this.acceptanceCriteriaList.length;
           }    
         }
@@ -627,14 +704,66 @@ export class ProjectEventsComponent implements OnInit {
           }
           console.log(event.keyCode);
         }
+        createNewGoal()
+        {
+          console.log(" I am used " + this.createGoalValuesValid.length)
+          let checkAllVariables = 0;
+          for(let x = 0; x < this.createGoalValuesValid.length; x++)
+          {
+            if(this.createGoalValuesValid[x])
+            {
+              checkAllVariables++;
+            }
+            else{
+              this.createGoalErrorList[x]= true;
+            }
+          }
+          if(checkAllVariables == 5)
+          {
+            console.log("We can move forward");
+            this.createGoalObject.title = this.createGoalInputTitle.nativeElement.value;
+            this.createGoalObject.createAt = this.createGoalInputStartDate.nativeElement.value;
+            this.createGoalObject.dueDate = this.createGoalInputEndDate.nativeElement.value;
+            this.createGoalObject.outcome = this.createGoalInputDecription.nativeElement.value;
+            this.createGoalObject.projectId = this.studentData.id;
+            this.createGoalObject.userId = this.userDetails.id
+            //Create Acceptance Criteria -----
+            let tempAcceptanceCriteriaString = "";
+            for(let x = 0; x < this.acceptanceCriteriaList.length; x++)
+            {
+              tempAcceptanceCriteriaString +=  "/" + this.acceptanceCriteriaList[x];
+            }
+            this.createGoalObject.acceptanceCriteria = tempAcceptanceCriteriaString;
+            this.createGoalObject.acceptanceCriteria += this.createGoalInputAcceptanceCriteria.nativeElement.value;
+            //Create The goal
+            this.projectObjectService.apiCreateNewGoal(this.createGoalObject).subscribe((res)=>{
+              console.log(res, "res==>");
+              if(res.status == 'success')
+              {
+                this.createGoalInputTitle.nativeElement.value = "";
+                this.createGoalInputStartDate.nativeElement.value = "";
+                this.createGoalInputEndDate.nativeElement.value = "";
+                this.createGoalInputDecription.nativeElement.value = "";
+                this.createGoalInputAcceptanceCriteria.nativeElement.value = "";
+                this.acceptanceCriteriaList = [];
+                this.isGoalSuccessfullyCreated = true;
+              }
+              else
+              {
+                this.isGoalNotSuccessfullyCreated = true;
+              }
+            })
+            console.log(this.createGoalObject);
+          }
+        }
+
+
+
   showCreateNewGoal(event: any) {
 
   }
 
-  createNewGoal()
-  {
 
-  }
 
   goalSettingsCardCloseButton() {
 

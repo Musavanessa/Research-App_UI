@@ -259,9 +259,19 @@
               <div class="card" style="width:42rem; border:none; background-color: rgb(239, 239, 239);">
                 <caption style="background-color:transparent; text-align: center;user-select: none;">
                   <div>
-                    <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" >New Goal
+                    <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" >New Goal Form
                   </div>
                 </caption>
+                <div *ngIf="isGoalSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
+                  <div class="alert alert-success" role="alert">
+                    <strong>Success:</strong> Goal Created Successfully
+                  </div>
+                </div>
+                <div *ngIf="isGoalNotSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
+                  <div class="alert alert-danger" role="alert">
+                    <strong>Error:</strong> Something went wrong!
+                  </div>
+                </div>
                 <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 40rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
                   <div #createGoalCard class="card chatGroupSettingsClass"  style="border:none">
                     <div class="card-header" style="background-color: rgb(178, 231, 178);color:darkgreen; border:none;">
