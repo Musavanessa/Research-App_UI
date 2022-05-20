@@ -81,6 +81,7 @@ import { GoalsService } from './services/project-events-goals/goals.service';
     NotesService,
     ProjectObjectService,
     ChatboxServiceService,
+    GoalsService,
 
     DatePipe,{
       provide: HTTP_INTERCEPTORS,

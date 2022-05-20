@@ -405,12 +405,10 @@
                   Goals Created
               </div>
             </caption>
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding:0 0 0 0; margin: 0 0 0 0; height: 750px;overflow: scroll;">
-              <div>
+            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding:0 0 0 0; margin: 0 0 0 0; height: 710px;overflow: scroll;">
+              <div *ngFor="let goal of goals; let i = index">
                 <div class="col"style="padding:none;">
                   <div class="card" style="width:42rem; border:none; background-color:transparent">
-    
-
                     <div *ngIf="isGoalSuccessfullyCreated" (click)="updateIsGoalSuccessfullDisplay()" style="margin-left:auto; margin-right:auto; width: 95%">
                       <div class="alert alert-success" role="alert">
                         <strong>Success:</strong> Goal Created Successfully
@@ -424,20 +422,17 @@
                     <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 40rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
                       <div #createGoalCard class="card chatGroupSettingsClass"  style="border:none">
                         <div class="card-header" style="background-color: rgb(215, 216, 215);color:rgb(71, 71, 71); border:none;">
-                          <!-- {{goal.title}} -->
                           <div class="container">
-                            <div class="row">
+                            <div class="row" (click)="displayGoalCard(i)" style="user-select:none">
                               <div class="col" style="display: table-cell; vertical-align: sub;" >
                                 <div style="position:relative; top: 5px">
-                                  Goal Name
+                                  {{goal.title}}
                                 </div>
                               </div>
                               <div class="col-md-auto" style="display: table-cell; vertical-align: sub;">
                                 <div style="background-color:transparent; border-radius: 50px;">
                                    &nbsp; Time status
                                   <img src="../../../../../../../assets/media/icons/circle/circle_green.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" [style]="transformElement" >
-
-
                                 </div>
                               </div>
                               <div class="col col-lg-2">
@@ -445,11 +440,10 @@
                               </div>
                             </div>
                           </div>
- 
                         </div>
                         <ul class="list-group list-group-flush">
-                          <!-- <li class="list-group-item" style="border:none">
-                            <input (keyup)="validateGoalInputTitle()" #createGoalInputTitle type="text" class="form-control input_table" placeholder="Goal title" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">               
+                          <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item" style="border:none">
+                            <input (keyup)="validateGoalInputTitle()" #createGoalInputTitle type="text" disabled value="{{goal.title}}" class="form-control input_table" placeholder="Goal title" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">               
                             <div *ngIf="createGoalErrorList[0]">
                               <br>
                               <div class="alert alert-danger" role="alert">
@@ -457,14 +451,15 @@
                               </div>
                             </div>
                           </li>
-                          <li class="list-group-item">
+                          <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item">
                             <div class="container">
                               <div class="row">
                                 <div class="col-sm">
                                   <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                                     Start date
                                   </h3>
-                                  <input (change)="validateGoalInputStartDate()" #createGoalInputStartDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                                  <input (click)="formatDateFull(goal.createdAt)" format="dd-MMM-yyyy hh:mm" (change)="validateGoalInputStartDate()" #createGoalInputStartDate type="datetime-local" style="cursor:default" [value]=formatDateFull(goal.createdAt) disabled>
+
                                   <div *ngIf="createGoalErrorList[1]">
                                     <br>
                                     <div class="alert alert-danger" role="alert">
@@ -476,7 +471,7 @@
                                   <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                                     End date
                                   </h3>
-                                  <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">  
+                                  <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" [value]=formatDateFull(goal.dueDate)>  
                                   <div *ngIf="createGoalWarningList[2]">
                                     <br>
                                     <div class="alert alert-warning" role="alert">
@@ -493,13 +488,13 @@
                               </div>
                             </div>
                             <br>
-                          </li> -->
-                          <li class="list-group-item" style="border:none">
+                          </li>
+                          <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item" style="border:none">
                             <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                               Goal Description
                             </h3>
                               <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
-                                <textarea (keyup)="validateGoalInputDescription()" #createGoalInputDecription class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="1" placeholder="Goal Description..."></textarea>
+                                <textarea (keyup)="validateGoalInputDescription()" #createGoalInputDecription class="form-control input_table" id="exampleFormControlTextarea1" disabled style=" resize: none;" placeholder="Goal Description...">{{removeWhiteSpace(goal.outcome)}}</textarea>
                                 <div *ngIf="createGoalErrorList[3]">
                                   <br>
                                   <div class="alert alert-danger" role="alert">
@@ -508,7 +503,7 @@
                                 </div>
                               </div>
                           </li>
-                          <li class="list-group-item" style="border:none">
+                          <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item" style="border:none">
                             <div>
                               <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                                 Acceptance Criteria
@@ -549,25 +544,18 @@
                               </div>
                             </div>
                           </li>
-                          <li class="list-group-item">
-                            <div>
-                              <tr style="user-select:none">
-                                <td>
-                                  <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" >Create</button>
-                                </td>
-                              </tr>
-                            </div>
+                          <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item">
+                            <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" >Update</button>&nbsp;
+                            <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" >Create</button>
                           </li>
                         </ul>
                       </div>
                     </div>
                     <br>
-    
-    
-    
                   </div>
                 </div>
               </div>
+              <br>
             </div>
          </div>
 

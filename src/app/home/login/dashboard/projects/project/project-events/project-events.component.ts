@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ProjectObjectService } from '../../project-object.service';
+import { GoalsService } from 'src/app/services/project-events-goals/goals.service';
 import { elementAt, first, startWith } from 'rxjs';
 import { ChatboxServiceService } from 'src/app/services/chatbox/chatbox-service.service';
 import { HttpClient } from '@angular/common/http';
@@ -25,7 +26,7 @@ import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
 export class ProjectEventsComponent implements OnInit {
 
 
-  constructor(public projectObjectService : ProjectObjectService, public datepipe: DatePipe, public router: Router, public authService: AuthService) { }
+  constructor(public goalsService:GoalsService, public projectObjectService : ProjectObjectService, public datepipe: DatePipe, public router: Router, public authService: AuthService) { }
   selected: Date | null | undefined;
 
   //=====================
@@ -106,6 +107,13 @@ export class ProjectEventsComponent implements OnInit {
   isGoalSuccessfullyCreated:boolean = false;
   isGoalNotSuccessfullyCreated:boolean = false;
   goalsObject:any;
+
+  //==========================
+  //GOALS VARIABLES
+  //==========================
+  goals: any;
+  goalsListDisplayStatus:any = [];
+  svgImageAccordionGoals = {};
 
 
   // @ViewChild(isTodayDateTemplate)
@@ -257,6 +265,27 @@ export class ProjectEventsComponent implements OnInit {
         this.template_statuses[x] = false;
       }
     }
+    if(this.template_statuses[3])
+    {
+      //Get all goals again.
+      this.goalsService.getAllGoalsWhere(14).subscribe((data:any)=>{
+        console.log(data);
+        this.goals = data.goal;
+        let svgImage =  "../../../../../../../assets/media/icons/circle/circle_green.svg"
+        let svgImageAccordionGoal = {image: svgImage}
+        for(let x = 0; x < this.goals.length; x++)
+        {
+          this.goalsListDisplayStatus.push(false)
+        }
+      });
+      console.log("This is the goals object " + this.goals)
+      console.log(this.goalsListDisplayStatus);
+    }
+  }
+
+  removeWhiteSpace(tempString:string)
+  {
+    return tempString.trim();
   }
 
   formatDate(date: any) {
@@ -277,6 +306,20 @@ export class ProjectEventsComponent implements OnInit {
   formatTodayDate(date:any)
   {
     return this.datepipe.transform(date, "dd MMM y")
+  }
+
+  exampleDate = "2022-05-19T07:33";
+  formatDateFull(date:any)
+  {
+    /*A string representing a global date and time.
+    Value: A valid date-time as defined in [RFC 3339], with these additional qualifications:
+      •the literal letters T and Z in the date/time syntax must always be uppercase
+      •the date-fullyear production is instead defined as four or more digits representing a number greater than 0
+    Examples:
+      1990-12-31T23:59:60Z
+      1996-12-19T16:39:57-08:00
+    */
+    return this.datepipe.transform(date, "y-MM-dd") + "T" + this.datepipe.transform(date, "hh:mm");
   }
 
   dateDiff(start: any, end: any) {
@@ -327,7 +370,7 @@ export class ProjectEventsComponent implements OnInit {
 
 
   //GOAL
-  goals: any;
+
   moreDetails: any;
   getDateClickedDay:any;
   finalShowDate:any;
@@ -763,7 +806,33 @@ export class ProjectEventsComponent implements OnInit {
         {
           this.isGoalSuccessfullyCreated = false; 
         }
-
+        //======================================
+        //GOAL CARDS TO DISPLAY
+        //======================================
+            displayGoalCard(index:number)
+            {
+              //Turn the all the the value to true
+              //Set everything else to false
+              if(this.goalsListDisplayStatus[index] == false)
+              {
+                this.goalsListDisplayStatus[index] = true;
+                for(let x = 0; x < this.goalsListDisplayStatus.length; x++)
+                {
+                    if(x == index)
+                    {
+                      this.goalsListDisplayStatus[x] = true;
+                    }
+                    else
+                    {
+                      this.goalsListDisplayStatus[x] = false;
+                    }
+                }
+              }
+              else
+              {
+                this.goalsListDisplayStatus[index] = false;
+              }
+            }
 
   showCreateNewGoal(event: any) {
 
