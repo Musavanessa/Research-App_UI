@@ -29,6 +29,10 @@ export class UserService {
     // UserService.userType = this.getUserType();
   }
 
+  getUser_():Observable<any>
+  {
+    return this.http.get<any>(this.URL+'/getUser');
+  }
   getUserID()
   {
     this.getUser().subscribe((data: any) => {

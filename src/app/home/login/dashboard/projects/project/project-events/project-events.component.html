@@ -390,8 +390,6 @@
                 <br>
               </div>
             </div>
-
-            
             <br>
           </ng-template>
          </div>
@@ -432,7 +430,7 @@
                               <div class="col-md-auto" style="display: table-cell; vertical-align: sub; ">
                                 <div *ngIf="goalTimeOut[i]">
                                   <div style="background-color:transparent; border-radius: 50px;">
-                                    &nbsp; Time status : 
+                                    &nbsp; {{goalsStatuses[i]}}
                                    <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="30px" height="30px" [style]="transformElement">
                                  </div>
                                 </div>
@@ -470,6 +468,24 @@
                                     End date
                                   </h3>
                                   <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" [value]=formatDateFull(goal.dueDate)>  
+                                </div>
+ 
+                                <div class="col-sm">
+                                  <br><br>
+                                  <!-- Here we are going to show our date difference -->
+                                  <div class="card">
+                                    <div class="card-body" style="border:none; ">
+                                      <div class="container">
+
+                                      </div>
+                                      <div class="container">
+                                        <!-- ... -->
+                                      </div>
+                                      <div class="container">
+                                        <!-- ... -->
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>

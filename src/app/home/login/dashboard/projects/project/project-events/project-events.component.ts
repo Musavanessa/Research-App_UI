@@ -126,7 +126,7 @@ export class ProjectEventsComponent implements OnInit {
     "../../../../../../../assets/media/icons/circle/circle_black.svg"
   ]
   goalsStatuses:any = [];
-  goalStatus:any = ["Created", "Overdue", "Completed", "Inprogress"];
+  goalStatus:any = [ "Inprogress", "Completed", "Cancelled", "Overdue"];
 
 
   // @ViewChild(isTodayDateTemplate)
@@ -296,16 +296,30 @@ export class ProjectEventsComponent implements OnInit {
           let today = new Date().getTime();
           let goalPercentage =  ((today - createdAt) / ( endDate - createdAt)) * 100;
           //I just need to know the goals status - but the goals status also affects its 
+          switch (data.goal[x].project_status.id) {
+            case 1:
+              this.goalsStatuses.push(this.goalStatus[0])
+              break;
+            case 2:
+              this.goalsStatuses.push(this.goalStatus[1])
+              break;
+            case 9:
+              this.goalsStatuses.push(this.goalStatus[2])
+              break;
+            case 11:
+              this.goalsStatuses.push(this.goalStatus[3])
+              break;
+          }
           if(goalPercentage <= 50 && goalPercentage >= 0)
           {
             console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
             this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
             this.goalTimeOut.push(false);
-            if(data.goal[x].project_status.id == 1)
-            {
-              this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[3]);
-              this.goalsStatuses.push(this.goalStatus[3])
-            }
+            // if(data.goal[x].project_status.id == 1)
+            // {
+            //   this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
+            //   this.goalsStatuses.push(this.goalStatus[2])
+            // }
           }
           else
           {
@@ -314,22 +328,22 @@ export class ProjectEventsComponent implements OnInit {
               console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
               this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[1]);
               this.goalTimeOut.push(false);
-              if(data.goal[x].project_status.id == 1)
-              {
-                this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[3]);
-                this.goalsStatuses.push(this.goalStatus[3])
-              }
+              // if(data.goal[x].project_status.id == 1)
+              // {
+              //   this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
+              //   this.goalsStatuses.push(this.goalStatus[2])
+              // }
             }
             else
             {
               console.log(goalPercentage + " < 0");
               this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
               this.goalTimeOut.push(true);
-              if(data.goal[x].project_status.id == 1)
-              {
-                this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[3]);
-                this.goalsStatuses.push(this.goalStatus[3])
-              }
+              // if(data.goal[x].project_status.id == 1)
+              // {
+              //   this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[3]);
+              //   this.goalsStatuses.push(this.goalStatus[3])
+              // }
             }
           }
           if(goalPercentage < 0)
@@ -339,7 +353,6 @@ export class ProjectEventsComponent implements OnInit {
             this.goalTimeOut.push(true);
             if(data.goal[x].project_status.id == 1)
             {
-              this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[3]);
               this.goalsStatuses.push(this.goalStatus[3])
             }
           }
