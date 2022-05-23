@@ -113,12 +113,20 @@ export class ProjectEventsComponent implements OnInit {
   //==========================
   goals: any;
   goalsListDisplayStatus:any = [];
-  svgImageAccordionGoals = {};
+  svgImageAccordionGoals:any = [];
+  transFormElements:any = [];
+  goalsTimeStatus:any = [];
+  percentageToCompletion:any = [];
+  typeOfIconToUseOnPercentage:any = [];
+  typeOfIconToUseOnPercentageList:any = [
+    "../../../../../../../assets/media/icons/circle/circle_red.svg",
+    "../../../../../../../assets/media/icons/circle/circle_orange.svg",
+    "../../../../../../../assets/media/icons/circle/circle_green.svg"
+  ]
 
 
   // @ViewChild(isTodayDateTemplate)
   templateName = "template_calendar";
-
 
   //TEMPLATE VARIABLES
   appointment_tempate_status: boolean = false;
@@ -272,15 +280,53 @@ export class ProjectEventsComponent implements OnInit {
         console.log(data);
         this.goals = data.goal;
         let svgImage =  "../../../../../../../assets/media/icons/circle/circle_green.svg"
-        let svgImageAccordionGoal = {image: svgImage}
+        let svgImageAccordionGoal = {
+          image: svgImage,
+          isCardExpanded: false,
+          transformElement: this.transFormElements[1]
+        }
         for(let x = 0; x < this.goals.length; x++)
         {
-          this.goalsListDisplayStatus.push(false)
+          let createdAt = new Date(data.goal[x].createdAt).getTime();
+          let endDate = new Date(data.goal[x].dueDate).getTime();
+          let today = new Date().getTime();
+          let goalPercentage =  ((today - createdAt) / ( endDate - createdAt)) * 100;
+          if(goalPercentage <= 50)
+          {
+            this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
+          }
+          else
+          {
+            if(goalPercentage > 50)
+            {
+              this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[1]);
+            }
+            else
+            {
+              this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
+            }
+          }
+          this.percentageToCompletion.push((parseInt(String(goalPercentage))));
+          this.goalsListDisplayStatus.push(false);
+          this.transFormElements.push("transform: rotate(0deg);");
+          //To get the time status - I need 3 dates - Firstly I need need the start date
+          //Take the start date and substract it with today date - 
+          //Take the final date and substract it with the start date
+          //Get the percentage
+          /*
+          ((todayDate - startDate)/(startDate - endDate)) * 100
+          */
+          this.svgImageAccordionGoals.push(svgImageAccordionGoal);
         }
+  
+      
       });
       console.log("This is the goals object " + this.goals)
       console.log(this.goalsListDisplayStatus);
+      console.log(this.svgImageAccordionGoals);
     }
+    console.log(this.svgImageAccordionGoals);
+
   }
 
   removeWhiteSpace(tempString:string)
@@ -816,21 +862,25 @@ export class ProjectEventsComponent implements OnInit {
               if(this.goalsListDisplayStatus[index] == false)
               {
                 this.goalsListDisplayStatus[index] = true;
+                this.transFormElements[index] = "transform: rotate(180deg);"
                 for(let x = 0; x < this.goalsListDisplayStatus.length; x++)
                 {
                     if(x == index)
                     {
                       this.goalsListDisplayStatus[x] = true;
+                      this.transFormElements[x] = "transform: rotate(180deg);"
                     }
                     else
                     {
                       this.goalsListDisplayStatus[x] = false;
+                      this.transFormElements[x] = "transform: rotate(0deg);"
                     }
                 }
               }
               else
               {
                 this.goalsListDisplayStatus[index] = false;
+                this.transFormElements[index] = "transform: rotate(0deg);"
               }
             }
 
