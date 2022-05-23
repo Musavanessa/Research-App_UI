@@ -117,12 +117,16 @@ export class ProjectEventsComponent implements OnInit {
   transFormElements:any = [];
   goalsTimeStatus:any = [];
   percentageToCompletion:any = [];
+  goalTimeOut:any = [];
   typeOfIconToUseOnPercentage:any = [];
   typeOfIconToUseOnPercentageList:any = [
     "../../../../../../../assets/media/icons/circle/circle_red.svg",
     "../../../../../../../assets/media/icons/circle/circle_orange.svg",
-    "../../../../../../../assets/media/icons/circle/circle_green.svg"
+    "../../../../../../../assets/media/icons/circle/circle_green.svg",
+    "../../../../../../../assets/media/icons/circle/circle_black.svg"
   ]
+  goalsStatuses:any = [];
+  goalStatus:any = ["Created", "Overdue", "Completed", "Inprogress"];
 
 
   // @ViewChild(isTodayDateTemplate)
@@ -291,19 +295,52 @@ export class ProjectEventsComponent implements OnInit {
           let endDate = new Date(data.goal[x].dueDate).getTime();
           let today = new Date().getTime();
           let goalPercentage =  ((today - createdAt) / ( endDate - createdAt)) * 100;
-          if(goalPercentage <= 50)
+          //I just need to know the goals status - but the goals status also affects its 
+          if(goalPercentage <= 50 && goalPercentage >= 0)
           {
+            console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
             this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
+            this.goalTimeOut.push(false);
+            if(data.goal[x].project_status.id == 1)
+            {
+              this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[3]);
+              this.goalsStatuses.push(this.goalStatus[3])
+            }
           }
           else
           {
-            if(goalPercentage > 50)
+            if(goalPercentage > 50 && goalPercentage <=100)
             {
+              console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
               this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[1]);
+              this.goalTimeOut.push(false);
+              if(data.goal[x].project_status.id == 1)
+              {
+                this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[3]);
+                this.goalsStatuses.push(this.goalStatus[3])
+              }
             }
             else
             {
+              console.log(goalPercentage + " < 0");
               this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
+              this.goalTimeOut.push(true);
+              if(data.goal[x].project_status.id == 1)
+              {
+                this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[3]);
+                this.goalsStatuses.push(this.goalStatus[3])
+              }
+            }
+          }
+          if(goalPercentage < 0)
+          {
+            console.log(goalPercentage + " < 0");
+            this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
+            this.goalTimeOut.push(true);
+            if(data.goal[x].project_status.id == 1)
+            {
+              this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[3]);
+              this.goalsStatuses.push(this.goalStatus[3])
             }
           }
           this.percentageToCompletion.push((parseInt(String(goalPercentage))));

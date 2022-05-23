@@ -430,10 +430,17 @@
                                 </div>
                               </div>
                               <div class="col-md-auto" style="display: table-cell; vertical-align: sub; ">
-                                <div style="background-color:transparent; border-radius: 50px;">
-                                   &nbsp; Time status : {{100 - percentageToCompletion[i]}}% left
-                                  <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="30px" height="30px" [style]="transformElement" >
-                                  
+                                <div *ngIf="goalTimeOut[i]">
+                                  <div style="background-color:transparent; border-radius: 50px;">
+                                    &nbsp; Time status : 
+                                   <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="30px" height="30px" [style]="transformElement">
+                                 </div>
+                                </div>
+                                <div *ngIf="!goalTimeOut[i]">
+                                  <div style="background-color:transparent; border-radius: 50px;">
+                                    &nbsp; Time status : {{100 - percentageToCompletion[i]}}%
+                                   <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="30px" height="30px" [style]="transformElement">
+                                 </div>
                                 </div>
                               </div>
                               <div class="col col-lg-2">
