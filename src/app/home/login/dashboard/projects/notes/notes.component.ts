@@ -14,7 +14,10 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class NotesComponent implements OnInit {
 
-  constructor(public sidenavService: SidenavService,public globalProjectObject: ProjectObjectService, private service: ApiserviceService, public datepipe: DatePipe, public authService: AuthService, public router: Router ) { }
+  constructor(public sidenavService: SidenavService,public globalProjectObject: ProjectObjectService,
+    private service: ApiserviceService, public datepipe: DatePipe, 
+    public authService: AuthService, public router: Router ) { }
+     
   //Variables to use to update the note.
   @ViewChild('inputNoteTitle') inputNoteTitle: any;
   @ViewChild('inputNoteText') inputNoteText:any;

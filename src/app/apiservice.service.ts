@@ -71,5 +71,24 @@ export class ApiserviceService {
   {
     return this._http.get(`${this.apiUrl+""}`)
   }
+
+  //Blog
+  blogs():Observable<any>
+  {
+    return this._http.get(`${this.apiUrl+"blogs"}`);
+  }
+  createBlog(data:any):Observable<any>
+  {
+    return this._http.get(`${this.apiUrl+"blogs"}`, data);
+  }
+  getBlog(blogId: any):Observable<any>
+  {
+    return this._http.get(`${this.apiUrl+"blogs/"+blogId}`);
+  }
+  deleteBlog(blogId: number):Observable<any>
+  {
+    return this._http.get(`${this.apiUrl+"blogs/"+blogId}`);
+  }
+
 }
   

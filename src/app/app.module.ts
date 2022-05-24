@@ -32,7 +32,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProjectEventsComponent } from './home/login/dashboard/projects/project/project-events/project-events.component';
 
 import { SignupComponent } from './components/signup/signup.component';
-
+import { FormControl } from '@angular/forms';
 
 import { ChatboxServiceService } from './services/chatbox/chatbox-service.service';
 import { MaterialModule } from './material/material.module';
@@ -72,14 +72,6 @@ import { AddsourceComponent } from './home/addsource/addsource.component';
     BrowserAnimationsModule,
     FontAwesomeModule,
     HttpClientModule,
-
-
-    //Material UI Components
-    MatDatepickerModule,
-    MatButtonModule,
-    MatCardModule,
-  
-
 
     ReactiveFormsModule,
     FormsModule

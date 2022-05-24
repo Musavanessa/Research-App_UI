@@ -1,1 +1,59 @@
-<p>blogform works!</p>
+<h1>ResearcherDNA Blog</h1>
+
+
+<img src="tu.png" alt="">
+
+<br><div class="card" >
+    <div class="project-info-box mt-0">
+        <h5>Create a Blog</h5>
+        <hr>
+        
+
+         <form #fData="ngForm">
+
+           <div class="title">
+                <label for="title">Title: &nbsp;</label>
+                <input name="title" id="title" type="text" placeholder="Title/Heading" 
+                 minlength="5"  required>
+
+            </div>
+            
+            <div>
+              <div >
+                Please type in a Title.
+              </div>
+
+              <div >
+                Title is required.
+              </div>
+
+              <div >
+                Title must be at least 10 characters long.
+              </div>
+
+            </div>
+            <br>
+
+
+            <div class="picture">
+                <label for="img">Select image:</label>
+                <input type="file" id="img" name="img" accept="image/*">
+                
+            </div>
+            <br>
+
+            <div class="inputBox">
+                <textarea type="text" width="100" id="content" placeholder="Type content here..."
+                 name="content" cols="49"
+                    rows="7"></textarea>
+            </div>
+
+            <br>
+            <div class="inputButton">
+                <button type="submit" class="btn" routerLink="/blog">Post</button>
+            </div>
+        </form> 
+    </div>
+</div>
+<br>
+<button class="btn" routerLink="/blog">Back</button>
