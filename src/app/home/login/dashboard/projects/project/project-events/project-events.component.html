@@ -397,7 +397,7 @@
 
 
 
-         <div *ngIf="template_statuses[3]" class="d-flex flex-column flex-shrink-0 p-3 bg-light">
+         <div *ngIf="template_statuses[3]" class="d-flex flex-column flex-shrink-0 p-3 bg-light ">
             <caption style="background-color:transparent; text-align: center;user-select: none;">
               <div style="width:10rem; background: transparent;">
                   Goals Created
@@ -405,9 +405,9 @@
             </caption>
             <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding:0 0 0 0; margin: 0 0 0 0; height: 710px;overflow: scroll;">
               <div *ngFor="let goal of goals; let i = index">
-                <div class="col"style="padding:none;">
+                <div class="col"style="padding:none;" (click)="updateIsGoalSuccessfullDisplay()">
                   <div class="card" style="width:42rem; border:none; background-color:transparent">
-                    <div *ngIf="isGoalSuccessfullyCreated" (click)="updateIsGoalSuccessfullDisplay()" style="margin-left:auto; margin-right:auto; width: 95%">
+                    <div *ngIf="isGoalSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
                       <div class="alert alert-success" role="alert">
                         <strong>Success:</strong> Goal Updated Successfully
                       </div>
@@ -419,41 +419,41 @@
                     </div>
                     <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 40rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
                       <div #createGoalCard class="card chatGroupSettingsClass"  style="border:none">
-                        <div class="card-header" style="background-color: rgb(215, 216, 215);color:rgb(71, 71, 71); border:none;">
+                        <div class="card-header" style="background-color:rgb(246, 246, 246);border:none; border: 1px solid rgb(240, 240, 240)">
                           <div class="container">
                             <div class="row" (click)="displayGoalCard(i)" style="user-select:none; cursor:pointer">
                               <div class="col" style="display: table-cell; vertical-align: sub;" >
-                                <div style="position:relative; top: 5px">
+                                <div style="position:relative; top: 5px; font-size: 16px; color:rgb(108, 108, 108)">
                                   {{goal.title}}
                                 </div>
                               </div>
                               <div class="col-md-auto" style="display: table-cell; vertical-align: sub; ">
                                 <div *ngIf="goalTimeOut[i]">
-                                  <div style="background-color:transparent; border-radius: 50px;">
+                                  <div style="background-color:transparent; border-radius: 50px; position:relative; top:5px">
                                     &nbsp; {{goalsStatuses[i]}}
-                                   <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="30px" height="30px" [style]="transformElement">
+                                   <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="15px" height="15px" [style]="transformElement">
                                  </div>
                                 </div>
                                 <div *ngIf="!goalTimeOut[i]">
-                                  <div style="background-color:transparent; border-radius: 50px;">
+                                  <div style="background-color:transparent; border-radius: 50px;position:relative; top:5px">
                                     &nbsp; Time status : {{100 - percentageToCompletion[i]}}%
-                                   <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="30px" height="30px" [style]="transformElement">
+                                   <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="15px" height="15px" [style]="transformElement">
                                  </div>
                                 </div>
                               </div>
                               <div class="col col-lg-2">
-                                <img src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey;" [style]="transFormElements[i]" >
+                                <img src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey;" [style]="transFormElements[i]">
                               </div>
                             </div>
                           </div>
                         </div>
-                        <ul class="list-group list-group-flush">
-                          <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item" style="border:none">
+                        <ul class="list-group list-group-flush" style="border: none">
+                          <!-- <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item" style="border:none">
                             <input (keyup)="validateGoalInputTitle()" #createGoalInputTitle type="text" disabled value="{{goal.title}}" class="form-control input_table" placeholder="Goal title" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">               
                             <div *ngIf="createGoalErrorList[0]">
                               <br>
                             </div>
-                          </li>
+                          </li> -->
                           <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item">
                             <div class="container">
                               <div class="row">
@@ -468,22 +468,61 @@
                                     End date
                                   </h3>
                                   <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" [value]=formatDateFull(goal.dueDate)>  
-                                </div>
- 
+                                </div> 
                                 <div class="col-sm">
-                                  <br><br>
                                   <!-- Here we are going to show our date difference -->
-                                  <div class="card">
+                                  <div class="card" style="border:none; border-radius: 10px;">
                                     <div class="card-body" style="border:none; ">
                                       <div class="container">
-
+                                        <div class="row" >
+                                          <div class="col-sm">
+                                            <div class="card" style="color:rgb(101, 101, 101); padding:8px; border:none; outline:none">
+                                              Time Left
+                                            </div>
+                                          </div>
+                                          <div class="col-sm">
+                                            <div class="card" style="text-align: center; background-color:rgb(130, 197, 255); padding: 8px; outline:none; border:none; color:rgb(10, 39, 86)">
+                                              {{goalsDaysLeft[i]}}
+                                            </div>
+                                          </div>
+                                          <div class="col-sm">
+                                            <div class="card" style="text-align: center; background-color:rgb(130, 197, 255); padding: 8px; outline:none; border:none; color:rgb(10, 39, 86)">
+                                              {{goalsHoursLeft[i]}}
+                                            </div>
+                                          </div>
+                                          <div class="col-sm">
+                                            <div class="card" style="text-align: center; background-color:rgb(130, 197, 255); padding: 8px; outline:none; border:none; color:rgb(10, 39, 86)">
+                                              {{goalsMinsLeft[i]}}
+                                            </div>
+                                          </div>
+                                        </div>
                                       </div>
-                                      <div class="container">
-                                        <!-- ... -->
-                                      </div>
-                                      <div class="container">
-                                        <!-- ... -->
-                                      </div>
+                                      <ng-template>
+                                        <div class="container">
+                                          <div class="row" >
+                                            <div class="col-sm">
+                                              <div class="card" style="color:rgb(101, 101, 101); padding:8px; border:none; outline:none">
+                                                Time Left
+                                              </div>
+                                            </div>
+                                            <div class="col-sm">
+                                              <div class="card" style="text-align: center; background-color:rgb(130, 197, 255); padding: 8px; outline:none; border:none; color:rgb(10, 39, 86)">
+                                                {{goalsDaysLeft[i]}}
+                                              </div>
+                                            </div>
+                                            <div class="col-sm">
+                                              <div class="card" style="text-align: center; background-color:rgb(130, 197, 255); padding: 8px; outline:none; border:none; color:rgb(10, 39, 86)">
+                                                {{goalsHoursLeft[i]}}
+                                              </div>
+                                            </div>
+                                            <div class="col-sm">
+                                              <div class="card" style="text-align: center; background-color:rgb(130, 197, 255); padding: 8px; outline:none; border:none; color:rgb(10, 39, 86)">
+                                                {{goalsMinsLeft[i]}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </ng-template>
                                     </div>
                                   </div>
                                 </div>

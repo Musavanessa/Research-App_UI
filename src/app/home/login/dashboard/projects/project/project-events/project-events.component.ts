@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/user/user.service';
 import { ThisReceiver } from '@angular/compiler';
 import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
 
+
 @Component({
   selector: 'app-project-events',
   templateUrl: './project-events.component.html',
@@ -127,6 +128,11 @@ export class ProjectEventsComponent implements OnInit {
   ]
   goalsStatuses:any = [];
   goalStatus:any = [ "Inprogress", "Completed", "Cancelled", "Overdue"];
+  elementBackgroudColor:any = ["background-color: rgb(234, 240, 184)"];
+  goalsMinsLeft:any = [];
+  goalsHoursLeft:any = [];
+  goalsDaysLeft:any = [];
+  goalTemplate = true;
 
 
   // @ViewChild(isTodayDateTemplate)
@@ -283,6 +289,7 @@ export class ProjectEventsComponent implements OnInit {
       this.goalsService.getAllGoalsWhere(14).subscribe((data:any)=>{
         console.log(data);
         this.goals = data.goal;
+        console.log("console.log(this.goals) = " + this.goals);
         let svgImage =  "../../../../../../../assets/media/icons/circle/circle_green.svg"
         let svgImageAccordionGoal = {
           image: svgImage,
@@ -291,6 +298,19 @@ export class ProjectEventsComponent implements OnInit {
         }
         for(let x = 0; x < this.goals.length; x++)
         {
+          let countDownDate = new Date(this.goals[x].dueDate).getTime();
+          //Push to the goals time left:
+          var now = new Date().getTime();
+          var distance = now - countDownDate;
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          this.goalsMinsLeft[x] = minutes + " M";
+          this.goalsHoursLeft[x] = hours + " H";
+          this.goalsDaysLeft[x] = days + " D"
+
+
           let createdAt = new Date(data.goal[x].createdAt).getTime();
           let endDate = new Date(data.goal[x].dueDate).getTime();
           let today = new Date().getTime();
@@ -902,7 +922,50 @@ export class ProjectEventsComponent implements OnInit {
         {
           this.isGoalSuccessfullyCreated = false; 
         }
-        //======================================
+        countDownDate:any = new  Date("Jan 5, 2024 15:37:25").getTime();
+        x = setInterval(()=>{
+          
+          //Get the items todayDate () - but yet every alement is going to run in its own way
+          var now = new Date().getTime();
+          var distance = this.countDownDate - now;
+
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          
+          console.log( days + "d " + hours + "h "
+          + minutes + "m " + seconds + "s ");
+        }, 1000);
+        refreshTimeLeft(id:any)
+        {
+          // goalsMinsLeft:any = [];
+          // goalsHoursLeft:any = [];
+          // goalsDaysLeft:any = [];
+          //Using the ID I need to get the final date.
+          for(let x = 0; x < this.goals.length; x++)
+          {
+            if(this.goals.id == id)
+            {
+              let countDownDate = new Date(this.goals[x].dueDate).getTime();
+              x = setInterval(()=>{
+                var now = new Date().getTime();
+                var distance = now - countDownDate;
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                this.goalsMinsLeft[x] = minutes + " M";
+                this.goalsHoursLeft[x] = hours + " H";
+                this.goalsDaysLeft[x] = days + " D"
+                x = this.goals.length;
+                //Now let us the goal that we are going to work with - firstly weneed to get the date
+              })
+              //Set the time of the goal - 
+            }
+          }
+        }
+          
         //GOAL CARDS TO DISPLAY
         //======================================
             displayGoalCard(index:number)
