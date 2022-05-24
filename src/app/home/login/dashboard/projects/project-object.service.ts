@@ -13,9 +13,14 @@ import { ApiserviceService } from 'src/app/apiservice.service';
 
 export class ProjectObjectService {
   constructor(private http:HttpClient, public service: ApiserviceService) {}
+  //GOAL SETTINGS, UPDATING VARIABLES
+  
+  
   apiUrl = 'http://localhost:3000/api/v1/';
   student_pass_down_data:any;
   userDatails:any;
+
+
 
   //CREATE A COMPONENT TO SET THE STUDENT_PASS_DOWN_DATA 
   apiCreateNewGoal(data:any):Observable<any>
@@ -86,6 +91,9 @@ export class ProjectObjectService {
   ngOnInit(): void
   {
   }
+
+
+
   //Function to update the project Object
   updateProjectObject(projectId:any)
   {
@@ -111,7 +119,5 @@ export class ProjectObjectService {
     // return ProjectObjectService.noteObject;
   }
 }
-// function studentData(studentData: any) {
-//   throw new Error('Function not implemented.');
-// }
+
 

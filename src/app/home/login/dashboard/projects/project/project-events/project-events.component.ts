@@ -133,6 +133,11 @@ export class ProjectEventsComponent implements OnInit {
   goalsHoursLeft:any = [];
   goalsDaysLeft:any = [];
   goalTemplate = true;
+  goalsTimeStatusTextColors = ["darkgreen", "rgb(138, 124, 1)", "red"];
+  goalsTimeSTatusBackGroundColors:any = ["rgb(178, 231, 178)","rgb(234, 240, 184)", "rgb(241, 172, 172)"];
+  goalsTimeSTatusBackGroundColor:any = [];
+  goalsTimeStatusTextColor:any = [];
+
 
 
   // @ViewChild(isTodayDateTemplate)
@@ -301,7 +306,7 @@ export class ProjectEventsComponent implements OnInit {
           let countDownDate = new Date(this.goals[x].dueDate).getTime();
           //Push to the goals time left:
           var now = new Date().getTime();
-          var distance = now - countDownDate;
+          var distance = countDownDate - now;
           var days = Math.floor(distance / (1000 * 60 * 60 * 24));
           var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -332,38 +337,35 @@ export class ProjectEventsComponent implements OnInit {
           }
           if(goalPercentage <= 50 && goalPercentage >= 0)
           {
+            //TIME IS GOOD ON GREEN
             console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
             this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
             this.goalTimeOut.push(false);
-            // if(data.goal[x].project_status.id == 1)
-            // {
-            //   this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
-            //   this.goalsStatuses.push(this.goalStatus[2])
-            // }
+            this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[0])
+            this.goalsTimeStatusTextColor.push(this.goalsTimeStatusTextColors[0]);
           }
           else
           {
             if(goalPercentage > 50 && goalPercentage <=100)
             {
+              //TIME IS STILL GOOD BUT ORANGE
               console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
               this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[1]);
               this.goalTimeOut.push(false);
-              // if(data.goal[x].project_status.id == 1)
-              // {
-              //   this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
-              //   this.goalsStatuses.push(this.goalStatus[2])
-              // }
+              this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[1])
+              this.goalsTimeStatusTextColor.push(this.goalsTimeStatusTextColors[1]);
+
             }
             else
             {
-              console.log(goalPercentage + " < 0");
+              //TIME IS OVERDUE
+              console.log(goalPercentage + " > 100");
               this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
               this.goalTimeOut.push(true);
-              // if(data.goal[x].project_status.id == 1)
-              // {
-              //   this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[3]);
-              //   this.goalsStatuses.push(this.goalStatus[3])
-              // }
+              this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[2])
+              this.goalsTimeStatusTextColor.push(this.goalsTimeStatusTextColors[2]);
+
+
             }
           }
           if(goalPercentage < 0)
@@ -934,8 +936,7 @@ export class ProjectEventsComponent implements OnInit {
           var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           var seconds = Math.floor((distance % (1000 * 60)) / 1000);
           
-          console.log( days + "d " + hours + "h "
-          + minutes + "m " + seconds + "s ");
+          // console.log( days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
         }, 1000);
         refreshTimeLeft(id:any)
         {
@@ -950,14 +951,14 @@ export class ProjectEventsComponent implements OnInit {
               let countDownDate = new Date(this.goals[x].dueDate).getTime();
               x = setInterval(()=>{
                 var now = new Date().getTime();
-                var distance = now - countDownDate;
+                var distance = countDownDate -  now;
                 var days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                this.goalsMinsLeft[x] = minutes + " M";
-                this.goalsHoursLeft[x] = hours + " H";
-                this.goalsDaysLeft[x] = days + " D"
+                this.goalsMinsLeft[x] = minutes + " Min";
+                this.goalsHoursLeft[x] = hours + " Hr";
+                this.goalsDaysLeft[x] = days + " Day"
                 x = this.goals.length;
                 //Now let us the goal that we are going to work with - firstly weneed to get the date
               })
@@ -965,7 +966,10 @@ export class ProjectEventsComponent implements OnInit {
             }
           }
         }
-          
+        provideFeedback(goal:any)
+        {
+          //Firstly we need to redirect to the other page
+        }
         //GOAL CARDS TO DISPLAY
         //======================================
             displayGoalCard(index:number)
