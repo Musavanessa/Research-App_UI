@@ -114,6 +114,7 @@ export class ProjectStatusComponent implements OnInit {
   @ViewChild('sendMessageInputSubject') sendMessageInputSubject:any;
   @ViewChild('sendMessageInputText') sendMessageInputText:any;
   messages:any;
+  messageListDisplayStatus:any = [];
 
   ngOnInit(): void {
     this.userDetails = this.projectObjectService.getUserDetails();
@@ -541,6 +542,37 @@ export class ProjectStatusComponent implements OnInit {
           this.goalsListDisplayStatus[index] = false;
           this.transFormElements[index] = "transform: rotate(0deg);"
         }
+      }
+
+      showGoalMessages(index:any)
+      {
+        //Turn all goal list display off
+        if(this.messageListDisplayStatus[index] == false)
+        {
+          this.messageListDisplayStatus[index] = true;
+          this.transFormElements[index] = "transform: rotate(180deg);"
+          for(let x = 0; x < this.messageListDisplayStatus.length; x++)
+          {
+              if(x == index)
+              {
+                this.messageListDisplayStatus[x] = true;
+                this.transFormElements[x] = "transform: rotate(180deg);"
+              }
+              else
+              {
+                this.messageListDisplayStatus[x] = false;
+                this.transFormElements[x] = "transform: rotate(0deg);"
+              }
+          }
+        }
+        else
+        {
+          this.messageListDisplayStatus[index] = false;
+          this.transFormElements[index] = "transform: rotate(0deg);"
+        }
+        //TURN ON OR OFF THE GOALS LIST
+        
+
       }
 
 
