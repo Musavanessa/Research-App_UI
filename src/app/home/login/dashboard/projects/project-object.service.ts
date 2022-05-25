@@ -19,7 +19,25 @@ export class ProjectObjectService {
   apiUrl = 'http://localhost:3000/api/v1/';
   student_pass_down_data:any;
   userDatails:any;
+  messageReplyTo = "";
+  messageObject = {
+    text: "",
+    title: "",
+    userId: 0,
+    goalId: 0,
+    projectStatusId: 13
+  };
 
+  setMessageObject(messageObject:any, replyingTo:any)
+  {
+    this.messageObject = messageObject;
+
+  }
+
+  getMessageObject()
+  {
+    return this.messageObject;
+  }
 
 
   //CREATE A COMPONENT TO SET THE STUDENT_PASS_DOWN_DATA 
