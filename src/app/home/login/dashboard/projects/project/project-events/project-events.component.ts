@@ -174,6 +174,7 @@ export class ProjectEventsComponent implements OnInit {
 
   ngOnInit(): void {
    this.userDetails = this.projectObjectService.getUserDetails();
+
    this.studentData = this.projectObjectService.getPassStudentData();
    // console.log(this.requestNewAppointment);
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {

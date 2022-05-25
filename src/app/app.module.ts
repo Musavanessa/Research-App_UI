@@ -40,6 +40,7 @@ import { MaterialModule } from './material/material.module';
 import { ChatgroupComponent } from './home/login/dashboard/chatbox/chatgroup/chatgroup/chatgroup.component';
 
 import { GoalsService } from './services/project-events-goals/goals.service';
+import { FeedbackService } from './services/feedback/feedback.service';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { GoalsService } from './services/project-events-goals/goals.service';
     ProjectObjectService,
     ChatboxServiceService,
     GoalsService,
+    FeedbackService,
 
     DatePipe,{
       provide: HTTP_INTERCEPTORS,
