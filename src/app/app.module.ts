@@ -41,6 +41,7 @@ import { ChatgroupComponent } from './home/login/dashboard/chatbox/chatgroup/cha
 
 import { GoalsService } from './services/project-events-goals/goals.service';
 import { FeedbackService } from './services/feedback/feedback.service';
+import { GuidelinesService } from './services/guidelines/guidelines.service';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { FeedbackService } from './services/feedback/feedback.service';
     ChatboxServiceService,
     GoalsService,
     FeedbackService,
+    GuidelinesService,
 
     DatePipe,{
       provide: HTTP_INTERCEPTORS,

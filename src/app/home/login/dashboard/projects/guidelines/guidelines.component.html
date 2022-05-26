@@ -10,7 +10,7 @@
             &nbsp;
             <div class="card border-light mb-3" style="width: 100%;margin-left: auto; margin-right: auto; border: none;">
               <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">Guidelines
-                <button type="button" routerLink ="" class="btn btn-success btn-sm">Add</button>&nbsp;
+                <button type="button" (click)="isUpdate = false; isAddGuideline = true; isViewGuideline = false; addNewGuideline()" class="btn btn-success btn-sm">Add</button>&nbsp;
                 &nbsp;&nbsp;
               </div>  
               &nbsp;&nbsp;
@@ -20,7 +20,7 @@
                     <div class="row">
                       <div class="col-8">{{us.name}}</div>
                       <div class="col">
-                        <a style="color:rgb(0, 0, 0); cursor: pointer;" (click)="openGuideline(us.id)" id="{{us.id}}">
+                        <a style="color:rgb(0, 0, 0); cursor: pointer;" (click)="isUpdate = false; isAddGuideline = false; isViewGuideline = true; openGuideline(us.id)" id="{{us.id}}">
                           <img src="../../../../../../../assets/media/logos/launch_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="float:right">
                         </a>
                       </div>
@@ -35,17 +35,40 @@
               &nbsp;
               <div class="card" style="width: 18rem;" style="width: 90%;">
                 <div class="card-body">
-                  <p class="card-text">{{guideLineObject.name}}</p>
-                  <div style="height: 400px">
-                    <h5 class="card-title">
-                      {{guideLineObject.text}}
-                    </h5>
+                  <div *ngIf="isGuidelineUpdateFalse" class="alert alert-danger" (click)="isAddGuideline = !isAddGuideline" role="alert">
+                    <strong>Error</strong> Some value(s) are missing
                   </div>
-                  <h6 class="card-subtitle mb-2 text-muted">16 March 2022, Wednesday</h6>
-                  <button type="button" routerLink ="" class="btn btn-primary btn-xs">Next</button>&nbsp;
-                  <button type="button" routerLink ="" class="btn btn-danger btn-xs">Delete</button>&nbsp;
-                  <button type="button" routerLink ="" class="btn btn-success btn-xs">Update</button>&nbsp;
-                  <button type="button" routerLink ="" class="btn btn-primary btn-xs">Save</button>&nbsp;
+                  <div *ngIf="isGuidelineCreateFalse" class="alert alert-danger" (click)="isAddGuideline = !isAddGuideline" role="alert">
+                    <strong>Error</strong> Some value(s) are missing
+                  </div>
+                  <div *ngIf="isViewGuideline" class="card-body">
+                    <p class="card-text">{{guideLineObject.name}}</p>
+                    <hr>
+                    <div style="height: 400px">
+                      <h5 class="card-title">
+                        {{guideLineObject.text}}
+                      </h5>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted">16 March 2022, Wednesday</h6>
+                  </div>
+                  <div *ngIf="isUpdate" class="card-body">
+                    <input #updateGuidelineTitle class="input_table" type="text" style="outline:none; width:100%" value="{{guideLineObject.name}}">
+                    <div style="height: 400px">
+                      <textarea #updateGuidelineText name="" id="" cols="65" rows="15" class="input_table" style="width:100%;margin-left:auto; margin-right:auto">{{guideLineObject.text}}</textarea>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted">16 March 2022, Wednesday</h6>
+                  </div>
+                  <div *ngIf="isAddGuideline" class="card-body">
+                    <input #addGuidelineTitle class="input_table" placeholder="Enter Title" type="text" style="outline:none; width:100%">
+                    <div style="height: 400px">
+                      <textarea #addGuidelineText name="" placeholder="Guideline Details" id="" cols="65" rows="15" class="input_table" style="width:100%;margin-left:auto; margin-right:auto"></textarea>
+                    </div>
+                    <h6 class="card-subtitle mb-2 text-muted"></h6>
+                  </div>
+                  <button type="button" (click)="isUpdate = true; isAddGuideline = false; isViewGuideline = false" class="btn btn-primary btn-xs">Edit</button>&nbsp;
+                  <button type="button" (click)="deleteGuideline(guideLineObject.name, guideLineObject.id)" class="btn btn-danger btn-xs">Delete</button>&nbsp;
+                  <!-- <button type="button" class="btn btn-success btn-xs">Update</button>&nbsp;     -->
+                  <button type="button" (click)="saveUpdatedGuideline(guideLineObject.id)" class="btn btn-success btn-xs">Save</button>&nbsp;
                 </div>
               </div>
               <div class="row">
