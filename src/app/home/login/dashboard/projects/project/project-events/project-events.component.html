@@ -424,22 +424,23 @@
                               </div>
                               <div class="col" style="display: table-cell; vertical-align: sub;" >
                                 <div style="position:relative; top: 5px; font-size: 14px;color:black">
+                                  <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="15px" height="15px" [style]="transformElement">
                                   {{goal.title}}
                                 </div>
                               </div>
                               <div class="col-md-auto" style="display: table-cell; vertical-align: sub; ">
-                                <div *ngIf="goalTimeOut[i]">
+                                <!-- <div *ngIf="goalTimeOut[i]">
                                   <div style="background-color:transparent; border-radius: 50px; position:relative; top:5px">
                                     &nbsp; {{goalsStatuses[i]}}
                                    <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="15px" height="15px" [style]="transformElement">
                                  </div>
-                                </div>
-                                <div *ngIf="!goalTimeOut[i]">
+                                </div> -->
+                                <!-- <div *ngIf="!goalTimeOut[i]">
                                   <div style="background-color:transparent; border-radius: 50px;position:relative; top:5px">
                                     &nbsp; {{goalsStatuses[i]}}
                                    <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="15px" height="15px" [style]="transformElement">
                                  </div>
-                                </div>
+                                </div> -->
                               </div>
                               <div class="col col-lg-2">
                                 <img src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey;" [style]="transFormElements[i]">
@@ -472,7 +473,7 @@
                                         <div class="row" >
                                           <div class="col-sm">
                                             <div class="card" style="color:rgb(101, 101, 101); padding:8px; border:none; outline:none">
-                                              Time Left
+                                              {{goalsStatuses[i]}}
                                             </div>
                                           </div>
                                           <div class="col-sm">

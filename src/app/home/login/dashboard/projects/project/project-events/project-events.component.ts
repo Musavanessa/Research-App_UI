@@ -311,6 +311,8 @@ export class ProjectEventsComponent implements OnInit {
           var days = Math.floor(distance / (1000 * 60 * 60 * 24));
           var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          //Update the time status - if the value is minutes 0
+          
           var seconds = Math.floor((distance % (1000 * 60)) / 1000);
           this.goalsMinsLeft[x] = minutes + " M";
           this.goalsHoursLeft[x] = hours + " H";
@@ -957,9 +959,9 @@ export class ProjectEventsComponent implements OnInit {
                 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                this.goalsMinsLeft[x] = minutes + " Min";
-                this.goalsHoursLeft[x] = hours + " Hr";
-                this.goalsDaysLeft[x] = days + " Day"
+                this.goalsMinsLeft[x] = minutes + " M";
+                this.goalsHoursLeft[x] = hours + " H";
+                this.goalsDaysLeft[x] = days + " D"
                 x = this.goals.length;
                 //Now let us the goal that we are going to work with - firstly weneed to get the date
               })
