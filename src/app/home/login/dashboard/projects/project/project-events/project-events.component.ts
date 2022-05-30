@@ -76,7 +76,7 @@ export class ProjectEventsComponent implements OnInit {
     endDate: undefined,
     details: ""
   }
-
+  createEventValuesValid = [false, false, false, false];
 
   //========================================================
   //VARIABLES ----- FOR CREATE GOAL TEMPLATE
@@ -651,12 +651,12 @@ export class ProjectEventsComponent implements OnInit {
           if(this.createEventInputTitle.nativeElement.value.trim() == "") 
           {
             this.createEventErrorList[0] = true;
-
+            this.createEventValuesValid[0] = false;
           }
           else 
           {
             this.createEventErrorList[0] = false;
-
+            this.createEventValuesValid[0] = true;
           }
         }
         validateEventInputStartDate()
@@ -667,11 +667,14 @@ export class ProjectEventsComponent implements OnInit {
           if(this.createEventInputStartDate.nativeElement.value == "")
           {
             this.createEventErrorList[1] = true
+            this.createEventValuesValid[1] = false;
 
           }
           else
           {
             this.createEventErrorList[1] = false;
+            this.createEventValuesValid[1] = true;
+
           
           }
         }
@@ -682,25 +685,28 @@ export class ProjectEventsComponent implements OnInit {
            {
              this.createEventInputEndDate.nativeElement.value = "";
              this.createEventWarningList[2] = true;
+             this.createEventValuesValid[2] = false;
             
 
            }
            else
            {
               this.createEventWarningList[2] = false;
+              this.createEventValuesValid[2] = true;
              
 
               if(new Date(this.createEventInputEndDate.nativeElement.value).getTime() < new Date(this.createEventInputStartDate.nativeElement.value).getTime()){
                 this.createEventInputEndDate.nativeElement.value = "";
                 this.createEventErrorList[2] = true;
+              this.createEventValuesValid[2] = false;
+
                 
 
               }
               else
               {
                 this.createEventErrorList[2] = false;
-             
-
+                this.createEventValuesValid[2] = true;
               }
            }
         }
@@ -710,33 +716,62 @@ export class ProjectEventsComponent implements OnInit {
           if(this.createEventInputDetails.nativeElement.value.trim() == "") 
           {
             this.createEventErrorList[3] = true;
-  
-
+            this.createEventValuesValid[3] = false;
           }
           else
           {
            this.createEventErrorList[3] = false;
-   
-
+           this.createEventValuesValid[3] = true;
           }
         }
         //FUNCTIONS FOR HANDLING INPUT VALIDATION FOR CREATING AN EVENT
         createNewEvent()
         {
-          this.newEventObject.title = this.createEventInputTitle.nativeElement.value;
-          this.newEventObject.createdAt = this.createEventInputStartDate.nativeElement.value;
-          this.newEventObject.endDate = this.createEventInputEndDate.nativeElement.value;
-          this.newEventObject.details = this.createEventInputDetails.nativeElement.value;
-          
+          let checkAllVariables = 0;
+          for(let x =0; x < this.createEventValuesValid.length; x++){
+            if(this.createEventValuesValid[x]){
+              checkAllVariables++;
+            }
+            else{
+              this.createEventErrorList[x] = true;
+            }
+          }
+          if(checkAllVariables == 4)
+          {
+            console.log("You are winning");
+            this.newEventObject.title = this.createEventInputTitle.nativeElement.value;
+            this.newEventObject.createdAt = this.createEventInputStartDate.nativeElement.value;
+            this.newEventObject.endDate = this.createEventInputEndDate.nativeElement.value;
+            this.newEventObject.details = this.createEventInputDetails.nativeElement.value;
+            
+            console.log(this.newEventObject);
+            //Now we can begin to connect
+            //Clear the space
+            this.createEventInputTitle.nativeElement.value = "";
+            this.createEventInputStartDate.nativeElement.value = "";
+            this.createEventInputEndDate.nativeElement.value = "";
+            this.createEventInputDetails.nativeElement.value = "";
+            checkAllVariables = 0;
+            //Set everything back to false
+            for(let x =0; x < this.createEventValuesValid.length; x++){
+              this.createEventErrorList[x] = false;
+              this.createEventValuesValid[x] = false;
+            }
+
+          }
+          else
+          {
+            console.log("You are not winning");
+          }
           // if(this.createEventInputTitle.nativeElement.value == "") this.createEventErrorList[0] = true;
           // if(this.createEventInputDetails.nativeElement.value == "") this.createEventErrorList[3] = true;
           // if(this.createEventInputStartDate.nativeElement.value == "") this.createEventErrorList[1] = true;
           // if(this.createEventInputEndDate.nativeElement.value == "") this.createEventErrorList[2] = true;
-          if(!this.createEventErrorList[0] && !this.createEventErrorList[1] && !this.createEventErrorList[2] && !this.createEventErrorList[3])
-          {
-            console.log("Console.log Enter Missing Information")
+          // if(!this.createEventErrorList[0] && !this.createEventErrorList[1] && !this.createEventErrorList[2] && !this.createEventErrorList[3])
+          // {
+          //   console.log("Console.log Enter Missing Information")
 
-          }
+          // }
         }
 
 //===========================================
