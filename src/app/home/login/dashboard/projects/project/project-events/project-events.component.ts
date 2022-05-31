@@ -324,19 +324,33 @@ export class ProjectEventsComponent implements OnInit {
           let today = new Date().getTime();
           let goalPercentage =  ((today - createdAt) / ( endDate - createdAt)) * 100;
           //I just need to know the goals status - but the goals status also affects its 
-          switch (data.goal[x].project_status.id) {
-            case 1:
-              this.goalsStatuses.push(this.goalStatus[0])
-              break;
-            case 2:
-              this.goalsStatuses.push(this.goalStatus[1])
-              break;
-            case 9:
-              this.goalsStatuses.push(this.goalStatus[2])
-              break;
-            case 11:
-              this.goalsStatuses.push(this.goalStatus[3])
-              break;
+          //Update the date and set to the right date if the the percentance is greater than 100
+          if(goalPercentage > 100 && data.goal[x].projectStatusId != 11)//Update the goal only when the status is not overdue but the goal percentage is greater than 100
+          {
+            //Update the goal
+            this.goalsStatuses.push(this.goalStatus[3])
+            let goal = {id: data.goal[x].id, projectStatusId: 11}
+            console.log(goal);
+            this.goalsService.goalUpdateStatus(goal).subscribe((res)=>{
+              console.log(res);
+            });
+          }
+          else
+          {
+            switch (data.goal[x].project_status.id) {
+              case 1:
+                this.goalsStatuses.push(this.goalStatus[0])
+                break;
+              case 2:
+                this.goalsStatuses.push(this.goalStatus[1])
+                break;
+              case 9:
+                this.goalsStatuses.push(this.goalStatus[2])
+                break;
+              case 11:
+                this.goalsStatuses.push(this.goalStatus[3])
+                break;
+            }
           }
           if(goalPercentage <= 50 && goalPercentage >= 0)
           {

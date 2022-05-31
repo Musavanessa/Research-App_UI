@@ -16,4 +16,9 @@ export class GoalsService {
     return this.http.get(`${this.apiUrl + "goal/whereprojectId/" + projectId}`);
   }
 
+  goalUpdateStatus(goal:any):Observable<any>
+  {
+    return this.http.patch(`${this.apiUrl + "goal/" + goal.id}`, goal);
+  }
+
 }
