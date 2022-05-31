@@ -1,7 +1,35 @@
 
 
 
+[data-tooltip]:before{
+  /* needed - do not touch */
+  content: attr(data-tooltip);
+  position: absolute;
+  opacity: 0;
+  
+  /* customizable */
+  transition: all 0.25s ease;
+  padding: 10px;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 2px 2px 1px silver;    
+}
 
+[data-tooltip]:hover:before {
+/* needed - do not touch */
+transition-delay: 0.5s;
+opacity: 1;
+position: fixed;
+z-index: 1;
+/* customizable */
+background: rgb(214, 214, 214);
+margin-top: -50px;
+margin-left: 20px;    
+}
+
+[data-tooltip]:not([data-tooltip-persistent]):before {
+pointer-events: none;
+}
 
 
 
