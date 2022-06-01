@@ -1018,9 +1018,12 @@ export class ProjectEventsComponent implements OnInit {
             }
           }
         }
-        provideFeedback(goal:any)
+        provideFeedback(goal:any, index:any)
         {
           //Firstly we need to redirect to the other page
+          this.goalsService.setGoalFeedbackOpened(goal, index);
+  
+
         }
         //GOAL CARDS TO DISPLAY
         //======================================

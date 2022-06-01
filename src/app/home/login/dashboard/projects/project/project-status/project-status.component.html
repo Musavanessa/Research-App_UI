@@ -1,4 +1,4 @@
-<main style="background-color:rgb(255, 255, 255); height: 93%; position: fixed; top: 125px; width:83%">
+  <main style="background-color:rgb(255, 255, 255); height: 93%; position: fixed; top: 125px; width:83%">
   <div>
     <app-topnav></app-topnav>
     <div style="height: 100%;">
@@ -304,7 +304,7 @@
                           </li>
                           <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item">
                             <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" >Update</button>&nbsp;
-                            <button #createGoalButton routerLink="/project-status" (click)="provideFeedback(goal)" type="button" class="btn btn-success btn-sm" >Feedback</button>
+                            <button #createGoalButton routerLink="/project-status" (click)="provideFeedback(goal, i)" type="button" class="btn btn-success btn-sm" >Feedback</button>
                           </li>
                         </ul>
                       </div>

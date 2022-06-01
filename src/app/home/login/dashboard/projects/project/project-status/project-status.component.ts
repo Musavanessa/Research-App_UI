@@ -120,6 +120,18 @@ export class ProjectStatusComponent implements OnInit {
     this.userDetails = this.projectObjectService.getUserDetails();
     console.log(this.projectObjectService.getUserDetails());
     this.studentData = this.projectObjectService.getPassStudentData();
+
+    console.log(this.goalsService.getIsGoalFeedbackOpened());
+    if(this.goalsService.getIsGoalFeedbackOpened())
+    {
+      let goal = this.goalsService.getGoalFeedbackOpened();
+      // console.log("The goal has been opened");
+      this.changeActiveStatus(2);
+      this.messageReplyTo = goal.title
+      console.log(goal.id + " Is the goal ID");
+      // console.log("messageReplyTo = " + goal.title)
+      // this.displayGoalCard(index:number)
+    }
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
@@ -266,7 +278,11 @@ export class ProjectStatusComponent implements OnInit {
               */
               this.svgImageAccordionGoals.push(svgImageAccordionGoal);
             }
-      
+            if(this.goalsService.getIsGoalFeedbackOpened())
+            {
+              this.displayGoalCard(this.goalsService.getIndexOfGoalToReply());
+            }
+
           
           });
           console.log("This is the goals object " + this.goals)
@@ -507,9 +523,10 @@ export class ProjectStatusComponent implements OnInit {
           }
         }
       }
-      provideFeedback(goal:any)
+      provideFeedback(goal:any, index:any)
       {
         //Firstly we need to redirect to the other page
+        this.goalsService.setGoalFeedbackOpened(goal, index);
       }
 
 //===============================
@@ -597,14 +614,25 @@ export class ProjectStatusComponent implements OnInit {
             text: this.sendMessageInputText.nativeElement.value,
             title: this.sendMessageInputSubject.nativeElement.value,
             userId: user.id,
-            goalId: this.goalToReply.id,
+            goalId: 0,
             projectStatusId: 13
           };
+
+          if(this.goalsService.getIsGoalFeedbackOpened())
+          {
+            let goal = this.goalsService.getGoalFeedbackOpened();
+            messageObject.goalId = goal.id;
+          }
+          else
+          {
+            messageObject.goalId = this.goalToReply.id;
+          }
+
           this.messageObject = messageObject;          
           console.log(this.messageObject);
-          this.feedbackService.sendFeedback(this.messageObject).subscribe((res)=>{
-            console.log(res, "res==>");
-          })
+          // this.feedbackService.sendFeedback(this.messageObject).subscribe((res)=>{
+          //   console.log(res, "res==>");
+          // })
         }
 
 }
