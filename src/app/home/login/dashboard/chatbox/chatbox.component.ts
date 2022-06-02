@@ -15,6 +15,8 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class ChatboxComponent implements OnInit {
 
+
+
   constructor(public userService: UserService, public chatBoxService: ChatboxServiceService, public authService: AuthService, public datepipe: DatePipe, public http: HttpClient, public router: Router) { }
   @ViewChild('inputChatBox') inputChatBox: any;
   @ViewChild('chatBoxPage') chatBoxPage: any;
@@ -23,7 +25,7 @@ export class ChatboxComponent implements OnInit {
   @ViewChild('switchRestrictInput') switchRestrictInput:any;
   @ViewChild('updateChatGroupTitle') updateChatGroupTitle:any;
   updateChatGroupModel= {id: 0, title: 0, privileges: 0};
-
+  userData:any  = {};
   //Group Setting Variables
   noticeBoardName: string ="";
   openChatGroupName = 0;
@@ -33,6 +35,13 @@ export class ChatboxComponent implements OnInit {
   displaySettingsCard = "none";
   isformPopupInsertAttachmentOpen = false;
   openCardId = 0;
+
+  //=================================================
+  //VARIABLES NEEDED TO HIGHLIGHT ACTIVE GROUP CHAT
+  //==================================================
+  isGroupChatActive:any = [];
+  activeChatGroupBackgroundColor:any = [];
+
 
   //Variables for creating a new chatGroup
   svgImage = "add_circle_green_24dp.svg";
@@ -147,14 +156,29 @@ onResize(event: any) {
 
   }
 
-  openChatGroup(chatGroupId: any)
+  openChatGroup(chatGroupId: any, i:any)
   {
     console.log("ChatGroupID " + chatGroupId);
     this.chatGroupID =  chatGroupId;
+    for(let x = 0; x < this.activeChatGroupBackgroundColor.length; x++)
+    {
+      if(x == i)
+      {
+        this.activeChatGroupBackgroundColor[x] = "transparent";
+      }
+      else
+      {
+        this.activeChatGroupBackgroundColor[x] = "white";
+      }
+    }
     this.chatBoxService.viewChats(chatGroupId).subscribe((data:any)=>{
       console.log(data.chat);
       this.chats = data.chat;
     });
+
+    //Set this ID to be true - set the rest to be false
+    //Set every othre row to be false
+
   }
   auto_grow() {
     this.inputChatBox.nativeElement.style.height = "5px";
@@ -167,6 +191,8 @@ onResize(event: any) {
     this.userType = UserService.userType;
     this.userService.getUser().subscribe((data: any)=>{
       this.newChatGroupModel.userId = data.user.id;
+      this.userData = data.user;
+      console.log(this.userData);
       this.userID = data.user.id;
       this.newChatGroupModel.disciplineId = data.user.disciplineId;
       console.log(this.newChatGroupModel.disciplineId);
@@ -229,6 +255,14 @@ onResize(event: any) {
     this.chatBoxService.chat_groups().subscribe((res)=>{
       this.chatGroups = res.chatGroups;
       console.log(this.chatGroups);
+      for(let x  = 0; x < res.chatGroups.length; x++)
+      {
+        this.isGroupChatActive.push(false);
+        this.activeChatGroupBackgroundColor.push("white");
+        console.log(this.isGroupChatActive);
+        console.log(x);
+      }
+
     });
   }
 
@@ -246,6 +280,8 @@ onResize(event: any) {
 
     this.userService.getUser().subscribe((data: any) => {
     this.userType = data.user.userType;
+    //Create a for loop that is going to get the.
+    
     })
   }
   closeCreateNewGroup()

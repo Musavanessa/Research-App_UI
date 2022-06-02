@@ -41,14 +41,13 @@
               </ul>
             </div>
           </div>
-          <caption style="background-color:transparent; text-align: center;user-select: none;">
-            
-            <div >
+          <caption *ngIf="userData.userType == 2" style="background-color:transparent; text-align: center;user-select: none;">
+            <div>
               <img  title="New Chat Group" (click)="showCreateNewGroup($event)" src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" >New Chatgroup
             </div>
           </caption>
-          <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position: absolute;" [style.top]="editGroupChatDataDetailsTop" [style.left]="editGroupChatDataDetailsLeft">
-            <div #groupSettingsCard class="card chatGroupSettingsClass"  [style.display]="displaySettingsCard">
+          <div *ngIf="userData.userType == 2"  style="border-radius: 20px; background-color: rgb(255, 255, 255); position: absolute;" [style.top]="editGroupChatDataDetailsTop" [style.left]="editGroupChatDataDetailsLeft">
+            <div   #groupSettingsCard class="card chatGroupSettingsClass"  [style.display]="displaySettingsCard">
               <div class="card-header" style="background-color:rgb(0, 129, 172);color:white">
                 Settings
                 <span title="close settings" class="time-right" style="cursor:pointer">
@@ -96,9 +95,9 @@
           </div>
           <table class="table table table-hover">
             <tbody>
-              <tr *ngFor ='let chatGroup of chatGroups' (click)="openChatGroup(chatGroup.id)" style="background-color:rgb(255, 255, 255); cursor:pointer">
+              <tr *ngFor ='let chatGroup of chatGroups; let i = index;' (click)="openChatGroup(chatGroup.id, i)" style="background-color:rgb(255, 255, 255); cursor:pointer" [style.backgroundColor]="activeChatGroupBackgroundColor[i]">
                 <td>{{chatGroup.title}}</td>
-                <td (click)="closeSettingsCard($event, chatGroup.id)">
+                <td *ngIf="userData.userType == 2" (click)="closeSettingsCard($event, chatGroup.id)">
                   <div #moreDetails  data-tooltip="Settings" class="removeFocus" (click)="getElementPosition(moreDetails)"  >
                     <img src="../../../../../assets/media/icons/more_vert_black_24dp.svg" atl="More Options" width="24px" height="24px">
                   </div>
@@ -120,11 +119,12 @@
                           <img src="../../../../../assets/media/logos/authorised_green.svg"  width="24px" height="24px">
                       </div>
                       <div class="col" style="color:rgb(79, 79, 79)">&nbsp;&nbsp; ~ {{chat.user.email}}
-                        <div data-tooltip="Delete Chat" *ngIf="chat.isSender || isUserSupervisor(chat.user.userType) "  class="time-right " (click)="deleteChatMessage(chat.chatId)" style="cursor:pointer">
+                        <div  data-tooltip="Delete Chat" *ngIf=" chat.isSender || userData.userType == 2 "  class="time-right " (click)="deleteChatMessage(chat.chatId)" style="cursor:pointer">
                           <span>
                             <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                           </span>
                         </div>
+
                       </div>
                       <br>
                       <div class="card-body" style="background-color:white; border-radius: 10px; width:95%; margin-left: auto; margin-right: auto;">
