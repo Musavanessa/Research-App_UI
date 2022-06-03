@@ -33,6 +33,8 @@ export class ProjectComponent implements OnInit {
   //We need to get the total number of items so that we can allow the user to click the next button.
   backgroundColor = "white";
   ngOnInit(): void {
+    console.log(this.globalProjectObject.getOpenedProjectObject());
+
     this.service.notes().subscribe((res)=>{
       console.log(res.notes, "res==>");
       this.notesData = res.notes;

@@ -11,8 +11,8 @@ export class InnernavComponent implements OnInit {
 
   // public projectObject: ProjectObject
   constructor(public globalProjectObject : ProjectObjectService) { }
-  // projectName = ProjectObject.projectObject.name;
-  projectObject = this.globalProjectObject.getPassStudentData();
+
+  projectObject = this.globalProjectObject.getOpenedProjectObject();
   userDetails = this.globalProjectObject.getUserDetails();
   ngOnInit(): void {
     // console.log(ProjectObject.projectObject.name);

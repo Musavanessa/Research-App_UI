@@ -41,6 +41,8 @@ export class ChatboxComponent implements OnInit {
   //==================================================
   isGroupChatActive:any = [];
   activeChatGroupBackgroundColor:any = [];
+  @ViewChild('fileUpload') fileUpload:any;
+  // fileUpload:any;
 
 
   //Variables for creating a new chatGroup
@@ -226,6 +228,16 @@ onResize(event: any) {
   onFileSelected(event:any)
   {
     this.selectedFile = <File>event.target.files[0];
+    let fileObject = {filename: this.selectedFile.name, selectedFile:this.selectedFile}
+    let formData = new FormData();
+    formData.set("document", this.selectedFile);
+    formData.set("text", this.selectedFile.name)
+    console.log(event);
+    console.log(this.selectedFile);
+    
+    this.chatBoxService.uploadChatFile(formData, this.chatGroupID).subscribe((res)=>{
+      console.log(res);
+    })
   }
 
   openFormPopupInsertAttachment()

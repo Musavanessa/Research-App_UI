@@ -53,4 +53,10 @@ export class ChatboxServiceService {
   {
     return this._http.post(`${this.apiUrl + "chats/ " + chatObject.chatGroupId}`, chatObject);
   }
+
+
+  uploadChatFile(selectedFile:any, chatGroupId:any):Observable<any>
+  {
+    return this._http.post(`${this.apiUrl + "chats/uploadDocument/" + chatGroupId}`, selectedFile)
+  }
 }

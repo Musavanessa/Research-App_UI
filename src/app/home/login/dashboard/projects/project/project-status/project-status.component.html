@@ -1,14 +1,290 @@
-  <main style="background-color:rgb(255, 255, 255); height: 93%; position: fixed; top: 125px; width:83%">
-  <div>
+  <main class="bg-light" style="background-color:rgb(255, 255, 255); height: 93%; position:fixed; top:125px; width:100%">
     <app-topnav></app-topnav>
-    <div style="height: 100%;">
-      <app-innernav></app-innernav>
-      <!-- GRID SYSTEM -->
-      <div class="row">
-        <div class="col" style="width: 100%">
-          &nbsp;
-          <div class="card border-light mb-3" style="width: 100%; border: none">
-            <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">Feedback History
+    <div style="height: 100%; width:84%">
+      <app-innernav style="border-left: none; border-right: none; background-color:rgb(255, 255, 255); user-select: none;  box-shadow: 2px 2px rgb(238, 238, 238);"></app-innernav>
+      <br>
+        <div class="row">
+          <div style="width:5%">
+            <ul class="list-group" style="width: 60px; background-color:transparent;">
+              <li class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
+                <img (click)="changeActiveStatus(1)" src="../../../../../../../assets/media/icons/write/description_purple_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-appointment" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;">
+              </li>
+              <li class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
+                <img (click)="changeActiveStatus(2)" src="../../../../../../../assets/media/icons/goal_flag_FILL1_wght400_GRAD0_opsz48.svg" alt="New Event" width="30px" height="30px" class="project-event-goal" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;"  >
+              </li>
+            </ul>
+          </div>
+          <div style="width:45%">
+            <div style="margin-left:auto; margin-right:auto; padding:none">
+              <div  *ngIf="template_statuses[0] then template_messages;">
+              </div>
+              <div *ngIf="template_statuses[1] then template_paperSubmitted;">
+              </div>
+              <div *ngIf="template_statuses[2] then template_goalsList;" >
+              </div>
+              <ng-template #template_messages>
+                <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll; position:relative; padding: 0 0 0 0;">
+                  <div class="card border-light mb-3" style="border: none; user-select: none;">
+                    <div class="card-header" style="background-color:#ffffff; color:rgb(27, 27, 27);">
+                      Sent Messages
+                      &nbsp;&nbsp;
+                    </div>
+                    <div class="card border-light mb-3" style="width: 95%;margin-left: auto; margin-right: auto; border: none;">
+                      &nbsp;&nbsp;
+                      <ul class="list-group" style="user-select:none">
+                        <li *ngFor="let message of messages; let i = index" class="list-group-item">
+                          <div class="row" style="user-select:none">
+                            <div class="col-9" style="user-select:text">
+                              <img style="user-select:none" src="../../../../../../../assets/media/logos/file_download_black_24dp (1).svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                              &nbsp;
+                              
+                            </div>
+                            <div class="col"  style="margin-left:auto; margin-right:auto; cursor: pointer;">
+                              <img src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                              <img src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey; float: right;">
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template #template_paperSubmitted>
+                <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll; position:relative; width:100%; padding: 0 0 0 0;">
+                  <div class="card border-light mb-3" style="width:100%; border: none; user-select: none;">
+                    <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">
+                      Papers Submitted
+                      &nbsp;&nbsp;
+                    </div>
+                    <div class="card border-light mb-3" style="width: 95%;margin-left: auto; margin-right: auto; border: none;">
+                      &nbsp;&nbsp;
+                      <ul class="list-group" style="user-select:none">
+                        <li class="list-group-item">
+                          <div class="row" style="user-select:none">
+                            <div class="col-9" style="user-select:text">
+                              <img style="user-select:none" src="../../../../../../../assets/media/logos/file_download_black_24dp (1).svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                              &nbsp;
+                              File Name
+                            </div>
+                            <div class="col"  style="margin-left:auto; margin-right:auto; cursor: pointer;">
+                              <img src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                              <img src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey; float: right;">
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;
+                  </div>
+                </div>
+              </ng-template>
+              <ng-template #template_goalsList>
+                <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding:0 0 0 0; margin: 0 0 0 0; height: 710px; overflow: scroll; margin-left: auto; margin-right: auto;">
+                  <div *ngFor="let goal of goals; let i = index">
+                    <div class="col"style="padding:none;" (click)="updateIsGoalSuccessfullDisplay()">
+                      <div class="card" style="width:42rem; border:none; background-color:transparent">
+                        <div *ngIf="isGoalSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
+                          <div class="alert alert-success" role="alert">
+                            <strong>Success:</strong> Goal Updated Successfully
+                          </div>
+                        </div>
+                        <div *ngIf="isGoalNotSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
+                          <div class="alert alert-danger" role="alert">
+                            <strong>Error:</strong> Something went wrong!
+                          </div>
+                        </div>
+                        <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 40rem; margin-left: auto; margin-right: auto;">
+                          <div #createGoalCard class="card chatGroupSettingsClass"  style="border:none">
+                            <div class="card-header" style="border:none; background-color: rgb(239, 239, 239);" [style.color]="goalsTimeStatusTextColor[i]">
+                              <div class="container">
+                                <div class="row"  style="user-select:none; cursor:pointer">
+                                  <div (click)="displayGoalCard(i)" class="col" style="display: table-cell; vertical-align: sub;" >
+                                    <div style="position:relative; top: 5px; font-size: 14px;color:black">
+                                      <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="15px" height="15px" [style]="transformElement">
+                                      {{goal.title}}
+                                    </div>
+                                  </div>
+                                  <div class="col-md-auto" style="display: table-cell; vertical-align: sub; ">
+                                  </div>
+                                  <div class="col-md-auto">
+                                    <img (click)="replytoGoal(goal)"  src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                  </div>
+                                  <div class="col-md-auto">
+                                    <img (click)="showGoalMessages(i)" src="../../../../../../../assets/media/icons/message/email_blue_24dp.svg" alt="New Event" width="24px" height="24px" class="project-event-event" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;"  >
+                                  </div>
+                                  <div class="col-md-auto">
+                                    &nbsp;&nbsp;&nbsp;
+                                    <img (click)="displayGoalCard(i)" src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey;" [style]="transFormElements[i]">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <ul class="list-group list-group-flush" style="border: none">
+                              <li *ngIf="messageListDisplayStatus[i]" class="list-group-item">
+                                <ul class="list-group list-group-flush" style="border: none">
+                                  <li *ngFor="let feedback of goal.feedbacks" class="list-group-item">
+                                    {{feedback.title}}
+                                  </li>
+                                </ul>
+                              </li>
+                              <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item">
+                                <div class="container">
+                                  <div class="row">
+                                    <div class="col-sm">
+                        
+                                      <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
+                                        Start date
+                                      </h3>
+                                      <input (click)="formatDateFull(goal.createdAt)" format="dd-MMM-yyyy hh:mm" (change)="validateGoalInputStartDate()" #createGoalInputStartDate type="datetime-local" style="cursor:default" [value]=formatDateFull(goal.createdAt) disabled>
+                                    </div>
+                                    <div class="col-sm">
+                                      <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
+                                        End date
+                                      </h3>
+                                      <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" [value]=formatDateFull(goal.dueDate)>  
+                                    </div> 
+                                    <div class="col-sm">
+                                      <!-- Here we are going to show our date difference -->
+                                      <div class="card" style="border:none; border-radius: 10px;">
+                                        <div class="card-body" style="border:none; ">
+                                          <div class="container">
+                                            <div class="row" >
+                                              <div class="col-sm">
+                                                <div class="card" style="color:rgb(101, 101, 101); padding:8px; border:none; outline:none">
+                                                  {{goalsStatuses[i]}}
+                                                </div>
+                                              </div>
+                                              <div class="col-sm">
+                                                <div class="card" style="text-align: center;  padding: 8px; outline:none; border:none;" [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
+                                                  {{goalsDaysLeft[i]}}
+                                                </div>
+                                              </div>
+                                              <div class="col-sm">
+                                                <div class="card" style="text-align: center;padding: 8px; outline:none; border:none;"  [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
+                                                  {{goalsHoursLeft[i]}}
+                                                </div>
+                                              </div>
+                                              <div class="col-sm">
+                                                <div class="card" style="text-align: center; padding: 8px; outline:none; border:none;"  [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
+                                                  {{goalsMinsLeft[i]}}
+                                                </div>
+                                              </div>
+                                              <div class="col-sm">
+                                                <div class="card"  style="width: 100px; text-align: center; padding: 8px; outline:none; border:none;"  [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
+                                                  &nbsp; Time {{percentageToCompletion[i]}}%
+                                                </div>
+    
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <ng-template>
+                                            <div class="container">
+                                              <div class="row" >
+                                                <div class="col-sm">
+                                                  <div class="card" style="color:rgb(101, 101, 101); padding:8px; border:none; outline:none">
+                                                    {{goalsStatuses[i]}}
+                                                  </div>
+                                                </div>
+                                                <div class="col-sm">
+                                                  <div class="card" style="text-align: center; padding: 8px; outline:none; border:none;" [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
+                                                    {{goalsDaysLeft[i]}}
+                                                  </div>
+                                                </div>
+                                                <div class="col-sm">
+                                                  <div class="card" style="text-align: center; padding: 8px; outline:none; border:none;" [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
+                                                    {{goalsHoursLeft[i]}}
+                                                  </div>
+                                                </div>
+                                                <div class="col-sm">
+                                                  <div class="card" style="text-align: center; padding: 8px; outline:none; border:none;"  [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
+                                                    {{goalsMinsLeft[i]}}
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </ng-template>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <br>
+                              </li>
+                              <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item" style="border:none">
+                                <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
+                                  Goal Description
+                                </h3>
+                                <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
+                                  <pre #createGoalInputDecription class="input_table" id="exampleFormControlTextarea1" style="white-space: pre-wrap;       /* Since CSS 2.1 */
+                                  white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+                                  white-space: -pre-wrap;      /* Opera 4-6 */
+                                  white-space: -o-pre-wrap;    /* Opera 7 */
+                                  word-wrap: break-word;       /* Internet Explorer 5.5+ */">{{removeWhiteSpace(goal.outcome)}}</pre>
+                                </div>
+                              </li>
+                              <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item" style="border:none">
+                                <div>
+                                  <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
+                                    Acceptance Criteria
+                                  </h3>
+                                  <div class="input-group mb-3">
+                                    <input (keyup)="validateGoalInputAcceptanceCriteria()" #createGoalInputAcceptanceCriteria type="text" class="form-control GeneralRemoveActiveStatus" placeholder="Acceptance Criteria" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                      <button (mouseup)="refreshAcceptanceCriteriaInput()" (mousedown)="addToAcceptanceCriteriaList()"  (keyup)="refreshAcceptanceCriteriaInputOnEnter($event)" (keydown)="addToAcceptanceCriteriaList()" class="btn btn-outline-secondary addAcceptanceCriteriaButton" type="button">
+                                        <img *ngIf="showAddIconOnAddGoal" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
+                                        <span *ngIf="!showAddIconOnAddGoal" class="badge" style="background-color:darkgreen; border-radius:50px">{{showNumAcceptanceCriteriaItem}}</span>
+                                        Add</button>
+                                    </div>
+                                  </div>
+                                  <div *ngIf="createGoalErrorList[4]">
+                                    <br>
+                                    <div class="alert alert-danger" role="alert">
+                                      <strong>Error: </strong> Invalid Acceptance Criteria
+                                    </div>
+                                  </div>
+                                  <div class="container-fluid" style="padding: 0 0 0 0; border:none; height: 150px; overflow: scroll; ">
+                                    <div class="container" style="border:none" >
+                                      <div class="row" style="border:none; --bs-gutter-x: 0rem;">
+                                        <ul class="list-group" style="padding: 0 0 0 0; border:none;">
+                                          <li *ngFor="let accptanceCriteria of acceptanceCriteriaList.slice().reverse(); let i = index" class="list-group-item" style="padding: 0 0 0 0; border:none">
+                                            <div class="input-group mb-3" style=" border-bottom: 1px solid rgb(212, 212, 212);">
+                                              <input type="text" readonly disabled value="{{accptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color: transparent; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                              <div class="input-group-append">
+                                                <button (click)="removeFromAcceptanceCriteriaList(i)" class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
+                                                  <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                                  Delete
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </li>
+                              <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item">
+                                <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" >Update</button>&nbsp;
+                                <button #createGoalButton routerLink="/project-status" (click)="provideFeedback(goal, i)" type="button" class="btn btn-success btn-sm" >Feedback</button>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                        <br>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+          <div style="width:40%; background-color: white;">
+            <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">
+              <strong>Replying to</strong>
+              {{messageReplyTo}}
               &nbsp;&nbsp;
             </div>
             <div class="card border-light mb-3" style="width: 95%;margin-left: auto; margin-right: auto; border: none;">
@@ -16,363 +292,35 @@
               <ul class="list-group">
                 <li class="list-group-item">
                   <div class="row">
-                    <div class="col-9">Problem with the definition of your project</div>
-                    <div class="col"  style="margin-left:auto; margin-right:auto; cursor: pointer;">
-                        <img src="../../../../../../../assets/media/logos/launch_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                    <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
+                      Subject
+                    </h3>
+                    <input  #sendMessageInputSubject type="text" class="form-control  input_table" placeholder="Message Subject" aria-label="message subject" aria-describedby="basic-addon2">               
+                    
+                    <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;padding-top: 10px">
+                      Message
+                    </h3>
+                    &nbsp;&nbsp;
+                    <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
+                      <textarea #sendMessageInputText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="13" placeholder="Write Message here..."></textarea>
                     </div>
+                    <tr style="user-select:none">
+                        <button (click)="sendMessage()" #createRequestAppointmentButton  type="button" class="btn btn-primary btn-sm" >Send</button>
+                        &nbsp;
+                    </tr>
                   </div>
                 </li>
               </ul>
+              <div class="card-body">
+                <div class="input-group">
+                  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"  >Submit</button>
+                </div>
+              </div>
             </div>
             &nbsp;&nbsp;&nbsp;
           </div>
         </div>
-        <div class="col-10"  style="padding-left:none; display: flex; flex-grow: grow;">
-          <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll; position: relative; width:100px">
-            <ul class="list-group">
-              <li class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
-                <img (click)="changeActiveStatus(1)" src="../../../../../../../assets/media/icons/write/description_purple_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-appointment" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;">
-              </li>
-              <li class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
-                <img (click)="changeActiveStatus(2)" src="../../../../../../../assets/media/icons/goal_flag_FILL1_wght400_GRAD0_opsz48.svg" alt="New Event" width="30px" height="30px" class="project-event-goal" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;"  >
-              </li>
-            </ul>
-          </div>
-          <div  *ngIf="template_statuses[0] then template_messages;">
-
-          </div>
-          <div *ngIf="template_statuses[1] then template_paperSubmitted;">
-
-          </div>
-          <div *ngIf="template_statuses[2] then template_goalsList;" >
-
-          </div>
-          <ng-template #template_messages>
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll; position:relative; width:35%; padding: 0 0 0 0;">
-              <div class="card border-light mb-3" style="width:100%; border: none; user-select: none;">
-                <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">
-                  Sent Messages
-                  &nbsp;&nbsp;
-                </div>
-                <div class="card border-light mb-3" style="width: 95%;margin-left: auto; margin-right: auto; border: none;">
-                  &nbsp;&nbsp;
-                  <ul class="list-group" style="user-select:none">
-                    <li *ngFor="let message of messages; let i = index" class="list-group-item">
-                      <div class="row" style="user-select:none">
-                        <div class="col-9" style="user-select:text">
-                          <img style="user-select:none" src="../../../../../../../assets/media/logos/file_download_black_24dp (1).svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                          &nbsp;
-                          
-                        </div>
-                        <div class="col"  style="margin-left:auto; margin-right:auto; cursor: pointer;">
-                          <img src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                          <img src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey; float: right;">
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                &nbsp;&nbsp;&nbsp;
-              </div>
-            </div>
-          </ng-template>
-          <ng-template #template_paperSubmitted>
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll; position:relative; width:35%; padding: 0 0 0 0;">
-              <div class="card border-light mb-3" style="width:100%; border: none; user-select: none;">
-                <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">
-                  Papers Submitted
-                  &nbsp;&nbsp;
-                </div>
-                <div class="card border-light mb-3" style="width: 95%;margin-left: auto; margin-right: auto; border: none;">
-                  &nbsp;&nbsp;
-                  <ul class="list-group" style="user-select:none">
-                    <li class="list-group-item">
-                      <div class="row" style="user-select:none">
-                        <div class="col-9" style="user-select:text">
-                          <img style="user-select:none" src="../../../../../../../assets/media/logos/file_download_black_24dp (1).svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                          &nbsp;
-                          File Name
-                        </div>
-                        <div class="col"  style="margin-left:auto; margin-right:auto; cursor: pointer;">
-                          <img src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                          <img src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey; float: right;">
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-                &nbsp;&nbsp;&nbsp;
-              </div>
-            </div>
-          </ng-template>
-          <ng-template #template_goalsList>
-            <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding:0 0 0 0; margin: 0 0 0 0; height: 710px;overflow: scroll;">
-              <div *ngFor="let goal of goals; let i = index">
-                <div class="col"style="padding:none;" (click)="updateIsGoalSuccessfullDisplay()">
-                  <div class="card" style="width:42rem; border:none; background-color:transparent">
-                    <div *ngIf="isGoalSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
-                      <div class="alert alert-success" role="alert">
-                        <strong>Success:</strong> Goal Updated Successfully
-                      </div>
-                    </div>
-                    <div *ngIf="isGoalNotSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
-                      <div class="alert alert-danger" role="alert">
-                        <strong>Error:</strong> Something went wrong!
-                      </div>
-                    </div>
-                    <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 40rem; margin-left: auto; margin-right: auto;">
-                      <div #createGoalCard class="card chatGroupSettingsClass"  style="border:none">
-                        <div class="card-header" style="border:none; background-color: rgb(239, 239, 239);" [style.color]="goalsTimeStatusTextColor[i]">
-                          <div class="container">
-                            <div class="row"  style="user-select:none; cursor:pointer">
-                              <div (click)="displayGoalCard(i)" class="col" style="display: table-cell; vertical-align: sub;" >
-                                <div style="position:relative; top: 5px; font-size: 14px;color:black">
-                                  <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="15px" height="15px" [style]="transformElement">
-                                  {{goal.title}}
-                                </div>
-                              </div>
-                              <div class="col-md-auto" style="display: table-cell; vertical-align: sub; ">
-                                <!-- <div *ngIf="goalTimeOut[i]">
-                                  <div style="background-color:transparent; border-radius: 50px; position:relative; top:5px">
-                                    &nbsp; {{goalsStatuses[i]}}
-                                   <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="15px" height="15px" [style]="transformElement">
-                                 </div>
-                                </div> -->
-                                <!-- <div *ngIf="!goalTimeOut[i]">
-                                  <div style="background-color:transparent; border-radius: 50px;position:relative; top:5px">
-                                    &nbsp; {{goalsStatuses[i]}}
-                                   <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="15px" height="15px" [style]="transformElement">
-                                 </div>
-                                </div> -->
-                              </div>
-                              <div class="col-md-auto">
-                                <img (click)="replytoGoal(goal)"  src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                              </div>
-                              <div class="col-md-auto">
-                                <img (click)="showGoalMessages(i)" src="../../../../../../../assets/media/icons/message/email_blue_24dp.svg" alt="New Event" width="24px" height="24px" class="project-event-event" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;"  >
-                              </div>
-                              <div class="col-md-auto">
-                                &nbsp;&nbsp;&nbsp;
-                                <img (click)="displayGoalCard(i)" src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey;" [style]="transFormElements[i]">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <ul class="list-group list-group-flush" style="border: none">
-                          <li *ngIf="messageListDisplayStatus[i]" class="list-group-item">
-                            <ul class="list-group list-group-flush" style="border: none">
-                              <li *ngFor="let feedback of goal.feedbacks" class="list-group-item">
-                                {{feedback.title}}
-                              </li>
-                            </ul>
-                          </li>
-                          <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item">
-                            <div class="container">
-                              <div class="row">
-                                <div class="col-sm">
-                     
-                                  <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
-                                    Start date
-                                  </h3>
-                                  <input (click)="formatDateFull(goal.createdAt)" format="dd-MMM-yyyy hh:mm" (change)="validateGoalInputStartDate()" #createGoalInputStartDate type="datetime-local" style="cursor:default" [value]=formatDateFull(goal.createdAt) disabled>
-                                </div>
-                                <div class="col-sm">
-                                  <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
-                                    End date
-                                  </h3>
-                                  <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" [value]=formatDateFull(goal.dueDate)>  
-                                </div> 
-                                <div class="col-sm">
-                                  <!-- Here we are going to show our date difference -->
-                                  <div class="card" style="border:none; border-radius: 10px;">
-                                    <div class="card-body" style="border:none; ">
-                                      <div class="container">
-                                        <div class="row" >
-                                          <div class="col-sm">
-                                            <div class="card" style="color:rgb(101, 101, 101); padding:8px; border:none; outline:none">
-                                              {{goalsStatuses[i]}}
-                                            </div>
-                                          </div>
-                                          <div class="col-sm">
-                                            <div class="card" style="text-align: center;  padding: 8px; outline:none; border:none;" [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
-                                              {{goalsDaysLeft[i]}}
-                                            </div>
-                                          </div>
-                                          <div class="col-sm">
-                                            <div class="card" style="text-align: center;padding: 8px; outline:none; border:none;"  [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
-                                              {{goalsHoursLeft[i]}}
-                                            </div>
-                                          </div>
-                                          <div class="col-sm">
-                                            <div class="card" style="text-align: center; padding: 8px; outline:none; border:none;"  [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
-                                              {{goalsMinsLeft[i]}}
-                                            </div>
-                                          </div>
-                                          <div class="col-sm">
-                                            <div class="card"  style="width: 100px; text-align: center; padding: 8px; outline:none; border:none;"  [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
-                                              &nbsp; Time {{percentageToCompletion[i]}}%
-                                            </div>
-
-                                          </div>
-                                        </div>
-                                      </div>
-                                      <ng-template>
-                                        <div class="container">
-                                          <div class="row" >
-                                            <div class="col-sm">
-                                              <div class="card" style="color:rgb(101, 101, 101); padding:8px; border:none; outline:none">
-                                                {{goalsStatuses[i]}}
-                                              </div>
-                                            </div>
-                                            <div class="col-sm">
-                                              <div class="card" style="text-align: center; padding: 8px; outline:none; border:none;" [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
-                                                {{goalsDaysLeft[i]}}
-                                              </div>
-                                            </div>
-                                            <div class="col-sm">
-                                              <div class="card" style="text-align: center; padding: 8px; outline:none; border:none;" [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
-                                                {{goalsHoursLeft[i]}}
-                                              </div>
-                                            </div>
-                                            <div class="col-sm">
-                                              <div class="card" style="text-align: center; padding: 8px; outline:none; border:none;"  [style.color]="goalsTimeStatusTextColor[i]" [style.backgroundColor]="goalsTimeSTatusBackGroundColor[i]">
-                                                {{goalsMinsLeft[i]}}
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </ng-template>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <br>
-                          </li>
-                          <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item" style="border:none">
-                            <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
-                              Goal Description
-                            </h3>
-                            <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
-                              <pre #createGoalInputDecription class="input_table" id="exampleFormControlTextarea1" style="white-space: pre-wrap;       /* Since CSS 2.1 */
-                              white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
-                              white-space: -pre-wrap;      /* Opera 4-6 */
-                              white-space: -o-pre-wrap;    /* Opera 7 */
-                              word-wrap: break-word;       /* Internet Explorer 5.5+ */">{{removeWhiteSpace(goal.outcome)}}</pre>
-                            </div>
-                          </li>
-                          <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item" style="border:none">
-                            <div>
-                              <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
-                                Acceptance Criteria
-                              </h3>
-                              <div class="input-group mb-3">
-                                <input (keyup)="validateGoalInputAcceptanceCriteria()" #createGoalInputAcceptanceCriteria type="text" class="form-control GeneralRemoveActiveStatus" placeholder="Acceptance Criteria" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                  <button (mouseup)="refreshAcceptanceCriteriaInput()" (mousedown)="addToAcceptanceCriteriaList()"  (keyup)="refreshAcceptanceCriteriaInputOnEnter($event)" (keydown)="addToAcceptanceCriteriaList()" class="btn btn-outline-secondary addAcceptanceCriteriaButton" type="button">
-                                    <img *ngIf="showAddIconOnAddGoal" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
-                                    <span *ngIf="!showAddIconOnAddGoal" class="badge" style="background-color:darkgreen; border-radius:50px">{{showNumAcceptanceCriteriaItem}}</span>
-                                    Add</button>
-                                </div>
-                              </div>
-                              <div *ngIf="createGoalErrorList[4]">
-                                <br>
-                                <div class="alert alert-danger" role="alert">
-                                  <strong>Error: </strong> Invalid Acceptance Criteria
-                                </div>
-                              </div>
-                              <div class="container-fluid" style="padding: 0 0 0 0; border:none; height: 150px; overflow: scroll; ">
-                                <div class="container" style="border:none" >
-                                  <div class="row" style="border:none; --bs-gutter-x: 0rem;">
-                                    <ul class="list-group" style="padding: 0 0 0 0; border:none;">
-                                      <li *ngFor="let accptanceCriteria of acceptanceCriteriaList.slice().reverse(); let i = index" class="list-group-item" style="padding: 0 0 0 0; border:none">
-                                        <div class="input-group mb-3" style=" border-bottom: 1px solid rgb(212, 212, 212);">
-                                          <input type="text" readonly disabled value="{{accptanceCriteria}}" class="form-control GeneralRemoveActiveStatus" style="cursor: default;border:none; background-color: transparent; border-radius: 8px; border-bottom-right-radius: 0; border-top-right-radius: 0;color:#404242" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                                          <div class="input-group-append">
-                                            <button (click)="removeFromAcceptanceCriteriaList(i)" class="btn btn-outline-secondary deleteAcceptanceCriteriaButton" type="button">
-                                              <img src="../../../../../../../assets/media/logos/delete_red_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                                              Delete
-                                            </button>
-                                          </div>
-                                        </div>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                          <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item">
-                            <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" >Update</button>&nbsp;
-                            <button #createGoalButton routerLink="/project-status" (click)="provideFeedback(goal, i)" type="button" class="btn btn-success btn-sm" >Feedback</button>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                    <br>
-                  </div>
-                </div>
-              </div>
-              <br>
-            </div>
-          </ng-template>
-
-          <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll; position:relative; width:55%;  padding: 0 0 0 0; ">
-            <div class="card border-light mb-3" style="width:100%; border: none">
-              <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">
-                <strong>Replying to</strong>
-                {{messageReplyTo}}
-                &nbsp;&nbsp;
-              </div>
-              <div class="card border-light mb-3" style="width: 95%;margin-left: auto; margin-right: auto; border: none;">
-                &nbsp;&nbsp;
-                <ul class="list-group">
-                  <li class="list-group-item">
-                    <div class="row">
-                      <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
-                        Subject
-                      </h3>
-                      <input  #sendMessageInputSubject type="text" class="form-control  input_table" placeholder="Message Subject" aria-label="message subject" aria-describedby="basic-addon2">               
-                      
-                      <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;padding-top: 10px">
-                        Message
-                      </h3>
-                      &nbsp;&nbsp;
-                      <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
-                        <textarea #sendMessageInputText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="13" placeholder="Write Message here..."></textarea>
-                      </div>
-                      <tr style="user-select:none">
-                          <button (click)="sendMessage()" #createRequestAppointmentButton  type="button" class="btn btn-primary btn-sm" >Send</button>
-                          &nbsp;
-                      </tr>
-                    </div>
-                  </li>
-                </ul>
-                <div class="card-body">
-                  <div class="input-group">
-                    <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                    <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"  >Submit</button>
-                  </div>
-                </div>
-              </div>
-              &nbsp;&nbsp;&nbsp;
-            </div>
-          </div>
-        </div>
-
-
-      </div>
-      <div class="row">
-        <div class="col-sm">col-sm</div>
-        <div class="col-sm">col-sm</div>
-        <div class="col-sm">col-sm</div>
-      </div>
-      <!-- END GRID -->
-      &nbsp;
-      &nbsp;
-        &nbsp;
     </div>
-        &nbsp;
-  </div>
 </main>
   

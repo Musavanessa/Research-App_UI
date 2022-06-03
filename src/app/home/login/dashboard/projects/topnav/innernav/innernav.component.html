@@ -1,7 +1,8 @@
 <br>
+<div class="container-fluid" style="width:100%; border-left: none; border-right: none; background-color:rgb(255, 255, 255); user-select: none;  box-shadow: 2px 2px rgb(238, 238, 238);">
 <!-- <div class="row" style="background-color:rgb(235, 235, 240)"></div> -->
 <!-- <div class="row" style="background-image: linear-gradient(to right,rgb(201, 201, 201) , rgb(252, 82, 255))"></div> -->
-<div class="row" style="background-color:rgb(255, 255, 255);  border: 1px solid rgb(239, 239, 239); user-select: none;">
+  <div class="row" style="border-left: none; border-right: none; background-color:rgb(255, 255, 255); user-select: none;  box-shadow: 2px 2px rgb(238, 238, 238);">
     <div class="col-sm">
       <!-- NAV BAR TO NAVIGATE THROUGH THE PROJECTS PART -->
       <nav class="navbar navbar-expand-lg navbar-light" style="width: 30%;">
@@ -41,15 +42,15 @@
       </ul>
     </div>
   </div>
-
   <ng-template #studentTemplate_toShowStudentName>
-    <li class="list-group-item" style="border:none">Project Name <strong>{{projectObject.name}}</strong></li>
+  <li class="list-group-item" style="border:none">Project Name <strong>{{projectObject.name}}</strong></li>
   </ng-template>
-
   <ng-template #supervisorTemplate>
-    <li class="list-group-item" style="border:none; font-size: 20px;">{{projectObject.user.id}} | 
-      <strong>{{projectObject.user.firstName}} {{projectObject.user.lastName}}</strong>
-      | {{projectObject.name}}
-    </li>
+  <li class="list-group-item" style="border:none; font-size: 20px;">{{projectObject.user.id}} | 
+    <strong>{{projectObject.user.firstName}} {{projectObject.user.lastName}}</strong>
+    | {{projectObject.name}}
+  </li>
   </ng-template>
+</div>
+
 

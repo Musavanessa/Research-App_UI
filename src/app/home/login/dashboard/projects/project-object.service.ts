@@ -14,7 +14,22 @@ import { ApiserviceService } from 'src/app/apiservice.service';
 export class ProjectObjectService {
   constructor(private http:HttpClient, public service: ApiserviceService) {}
   //GOAL SETTINGS, UPDATING VARIABLES
-  
+
+  //================
+  //PROJECT OBJECT
+  //================
+  projectObject:any;
+
+
+  setOpenedProjectObject(projectObject:any)
+  {
+    this.projectObject = projectObject;
+  }
+
+  getOpenedProjectObject()
+  {
+    return this.projectObject;
+  }
   
   apiUrl = 'http://localhost:3000/api/v1/';
   student_pass_down_data:any;

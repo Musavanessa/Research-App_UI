@@ -105,7 +105,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor= "let project of first2Projects;" style="cursor:pointer" routerLink="/project" (click)="projectObject.updateProjectObject(project.id)">
+                  <tr *ngFor= "let project of first2Projects;" style="cursor:pointer" routerLink="/project" (click)="openProjectSelected(project)" (click)="projectObject.updateProjectObject(project.id)">
                     <th scope="row" >{{project.id}}</th>
                     <td>{{project.name}}</td>
                     <td>{{project.description}}</td>

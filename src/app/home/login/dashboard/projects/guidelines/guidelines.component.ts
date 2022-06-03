@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ApiserviceService } from 'src/app/apiservice.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GuidelinesService } from 'src/app/services/guidelines/guidelines.service';
+import { UserService } from 'src/app/services/user/user.service';
+
 
 @Component({
   selector: 'app-guidelines',
@@ -12,7 +14,7 @@ import { GuidelinesService } from 'src/app/services/guidelines/guidelines.servic
 })
 export class GuidelinesComponent implements OnInit {
 
-  constructor(public guidelineSerivce: GuidelinesService, public datepipe: DatePipe, public router: Router, private service: ApiserviceService, public authService: AuthService ) { }
+  constructor(public userService: UserService, public guidelineSerivce: GuidelinesService, public datepipe: DatePipe, public router: Router, private service: ApiserviceService, public authService: AuthService ) { }
 
 
 
@@ -46,9 +48,22 @@ export class GuidelinesComponent implements OnInit {
     collaboratorId: null,
     userId: null };
 
+  //======================
+  //USER DETAILS
+  //=================
+  userData:any;
+  userType:any;
+  userID:any;
+
     ngOnInit(): void {
       this.guidelines();
       this.isUpdate = false; this.isAddGuideline = false; this.isViewGuideline = true; 
+      this.userService.getUser().subscribe((data: any)=>{
+        this.userData = data.user;
+        this.userType = data.user.userType;
+        console.log(this.userData);
+        this.userID = data.user.id;
+      });
       // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
       //   queryParams: { message: 'Please log out first ' }
       // });

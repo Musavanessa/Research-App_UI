@@ -306,6 +306,9 @@ export class DashboardComponent implements OnInit {
       this.projectObject.passStudentData(project_student);
   }
 
-  
+  openProjectSelected(project:any)
+  {
+    this.projectObject.setOpenedProjectObject(project);
+  }
 
 }
