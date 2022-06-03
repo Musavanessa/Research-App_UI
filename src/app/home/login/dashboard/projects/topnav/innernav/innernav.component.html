@@ -36,7 +36,7 @@
     <div class="col-sm-10">
       <!-- TITLE OF THE SYSTEM - WHICH ALSO FUNCTIONS LIKE THE HOME BUTTON -->
       <ul class="list-group" style="width:80%; border: none; position: relative; top: 10px">
-        <ng-template *ngIf="isUserSupervisor(userDetails.userType); then supervisorTemplate; else studentTemplate_toShowStudentName">
+        <ng-template *ngIf="userDetails.userType==2; then supervisorTemplate; else studentTemplate_toShowStudentName">
 
         </ng-template>
       </ul>

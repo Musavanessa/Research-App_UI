@@ -25,6 +25,8 @@ export class ProjectStatusComponent implements OnInit {
   //=====================
   userDetails:any;
   studentData:any;
+  projectData:any;
+  userType:any;
 
   //========================================================
   //VARIABLES ----- FOR CREATE GOAL TEMPLATE
@@ -118,8 +120,10 @@ export class ProjectStatusComponent implements OnInit {
 
   ngOnInit(): void {
     this.userDetails = this.projectObjectService.getUserDetails();
+    this.userType = this.userDetails.userType;
     console.log(this.projectObjectService.getUserDetails());
     this.studentData = this.projectObjectService.getPassStudentData();
+    this.projectData = this.projectObjectService.getOpenedProjectObject();
 
     console.log(this.goalsService.getIsGoalFeedbackOpened());
     if(this.goalsService.getIsGoalFeedbackOpened())
@@ -179,7 +183,7 @@ export class ProjectStatusComponent implements OnInit {
         if(this.template_statuses[2])
         {
           //Get all goals again.
-          this.goalsService.getAllGoalsWhere(14).subscribe((data:any)=>{
+          this.goalsService.getAllGoalsWhere(this.projectData.id).subscribe((data:any)=>{
             console.log(data);
             this.goals = data.goal;
             console.log("console.log(this.goals) = " + this.goals);

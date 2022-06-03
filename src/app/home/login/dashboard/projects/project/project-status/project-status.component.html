@@ -16,11 +16,11 @@
           </div>
           <div style="width:45%">
             <div style="margin-left:auto; margin-right:auto; padding:none">
-              <div  *ngIf="template_statuses[0] then template_messages;">
+              <div *ngIf="template_statuses[0] then template_messages;">
               </div>
               <div *ngIf="template_statuses[1] then template_paperSubmitted;">
               </div>
-              <div *ngIf="template_statuses[2] then template_goalsList;" >
+              <div *ngIf="template_statuses[2] then template_goalsList; else template_goals4Project">
               </div>
               <ng-template #template_messages>
                 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll; position:relative; padding: 0 0 0 0;">
@@ -278,6 +278,9 @@
                   </div>
                   <br>
                 </div>
+              </ng-template>
+              <ng-template #template_goals4Project>
+
               </ng-template>
             </div>
           </div>
