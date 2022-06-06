@@ -6,22 +6,21 @@
     </div>
     
     <div class="row">
-      <div class="leftcolumn" style="height: 400px;">
-        <div class="card" style="height: 45rem;">
-          <h2>TITLE HEADING</h2>
-          <h5>Title description, Dec 7, 2017</h5>
+      <div class="leftcolumn" style="height: 45rem;  overflow:scroll; border:none">
+        <div class="card" style="border:none">
+          <h2 *ngIf="userId != blogObject.userId">{{blogObject.title}}</h2>
+          <input *ngIf="userId == blogObject.userId" (focusout)="restoreBlogTitle()" (keyup)="validateBlogInputTitle()" #createBlogInputTitle type="text" class="form-control  input_table" placeholder="Blog title..." aria-label="event name" aria-describedby="basic-addon2" value="{{blogObject.title}}">   
+          <h5>{{formatDate(blogObject.createdAt)}}</h5>
           <div class="fakeimg" style="height:300px;">
             <img src="/../assets/orch.jpg" alt="blog"  style="height:250px; width: 940px; "> 
           </div>
-          <p>Some text..</p>
-          <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam officia nulla, consequatur assumenda soluta quis numquam atque ex rerum odio saepe, laborum, consequuntur laudantium explicabo in molestias nostrum nobis aspernatur?</p>
-
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium iste consectetur, hic minus in similique laudantium nihil quos, itaque quas iusto voluptatem quo temporibus rerum provident sed totam nesciunt repudiandae!</p>
-        
-      
-    <button class="btn" style="float: right; width:10%; position: relative; bottom: -65px ; " >Update</button>
-  </div>
+          <p *ngIf="userId != blogObject.userId">{{blogObject.post}}</p>
+          <!-- <textarea name="" id="" cols="55" rows="4"></textarea><br><br> -->
+          <div styl="height:20rem;">
+            <textarea #createBlogInputDetails (focusout)="restoreBlogPost()" *ngIf="userId == blogObject.userId" (keyup)="validateBlogInputPost()" #createGoalInputDecription class="form-control  input-blog-description" id="exampleFormControlTextarea1" minlength=""  rows="6"  placeholder="Write here...">{{blogObject.post}}</textarea>
+          </div>
+          <button #submitUpdateBlog (click)="updateBlog()" class="btn" style="float: right; width:10%; position: relative; bottom: -65px ;" >Update</button>
+        </div>
         
       </div>
       <div class="rightcolumn" style=" width:500px;">

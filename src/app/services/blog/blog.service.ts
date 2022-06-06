@@ -14,6 +14,18 @@ export class BlogService {
   constructor(private http:HttpClient) { }
 
 
+  //SET OPENED BLOG OBJET
+  blogObject:any;
+  setOpenedBlogObject(blogObject:any)
+  {
+    this.blogObject = blogObject;
+  }
+  getOpenedBlogObject()
+  {
+    return this.blogObject;
+  }
+
+  
   public createBlog(data: any){
     return this.http.post(this.URL,data);
   }

@@ -7,7 +7,7 @@
         <!--heading--->
         <div class="blog-heading"><br>
             <h3><hr><br>Research Blog<br><br><hr></h3>
-            <button type="button" class="btn btn-primary bat" routerLink="/blogform">Create Post</button>
+            <button *ngIf="userType == '2'" type="button" class="btn btn-primary bat" routerLink="/blogform">Create Post</button>
         </div><br>
         <!-- <button class="bat">Create post</button> -->
     </div>
@@ -15,7 +15,7 @@
         <section id="blog">
             <!---blog-container--->
             <div class="row" >
-                <div class="blog-container" >
+                <div class="blog-container">
                     <!---box-2--->
                     <div class="blog-box">
                         <!---img--->
@@ -24,170 +24,18 @@
                         </div>
                         <!---text--->
                         <div class="blog-text">
-                            <span>12 April 2022 / Web Design</span><br>
-                            <a href="#" class="blog-title">What Has Happened of All of the web Design Ideas?</a>
-                            <p>Lorem ipsum</p>
-                            <h4 routerLink="/blog-op">Read More</h4>
-                            <i class="fa fa-trash" aria-hidden="true" style="float: right;"></i>
-                        </div>	
-                    </div>
-                </div>
-                <div class="blog-container">
-                    <!---box-1--->
-                    <div class="blog-box">
-                        <!---img--->
-                        <div class="blog-img">
-                           <img src="/../assets/method.jpg" alt="blog"> 
-                        </div>
-                        <!---text--->
-                        <div class="blog-text">
-                            <span>11 April 2022 / Web Design</span><br>
-                            <a href="#" class="blog-title">What Has Happened of All of the web Design Ideas?</a>
-                            <p>Lorem ipsum</p>
-                            <h4 routerLink="/blog-op">Read More</h4>
-                            <i class="fa fa-trash" aria-hidden="true" style="float: right;"></i>
-                        </div>	
-                    </div>
-                </div>
-                <div class="blog-container">
-                    <!---box-3--->
-                    <div class="blog-box">
-                        <!---img--->
-                        <div class="blog-img">
-                            <img src="/../assets/orch.jpg" alt="blog">
-                        </div>
-                        <!---text--->
-                        <div class="blog-text">
-                            <span>13 April 2022 / Web Design</span><br>
-                            <a href="#" class="blog-title">What Has Happened of All of the web Design Ideas?</a>
-                            <p>Lorem ipsum</p>
-                            <h4 routerLink="/blog-op">Read More</h4>
-                           <i class="fa fa-trash" aria-hidden="true" style="float: right;"></i>
-                        </div>	
-                    </div>
-                </div> 
-            </div> 
-        </section>
-        <section id="blog">
-            <!--heading--->
-            <div class="blog-heading"><br>
-                <br><br><br>
-            </div>
-            <!---blog-container--->
-            <div class="row">	
-            <div class="blog-container">
-                <!---box-2--->
-                <div class="blog-box">
-                    <!---img--->
-                    <div class="blog-img">
-                        <img src="/../assets/orch.jpg" alt="blog">
-                    </div>
-                    <!---text--->
-                    <div class="blog-text">
-                        <span>12 April 2022 / Web Design</span><br>
-                        <a href="#" class="blog-title">What Has Happened of All of the web Design Ideas?</a>
-                        <p>Lorem ipsum</p>
-                        <h4 routerLink="/blog-op">Read More</h4>
-                        <i class="fa fa-trash" aria-hidden="true" style="float: right;"></i>
-                    </div>	
-                </div>
-            </div>
-            <div class="blog-container">
-                <!---box-1--->
-                <div class="blog-box">
-                    <!---img--->
-                    <div class="blog-img">
-                        <img src="/../assets/method.jpg" alt="blog"> 
-                    </div>
-                    <!---text--->
-                    <div class="blog-text">
-                        <span>11 April 2022 / Web Design</span>
-                        <a href="#" class="blog-title">What Has Happened of All of the web Design Ideas?</a>
-                        <p>Lorem ipsum</p>
-                        <h4 routerLink="/blog-op" >Read More</h4>
-                       <i class="fa fa-trash" aria-hidden="true" style="float: right;"></i>
-                    </div>	
-                </div>
-            </div>
-            <div class="blog-container">
-                <!---box-3--->
-                <div class="blog-box">
-                    <!---img--->
-                    <div class="blog-img">
-                        <img src="/../assets/orch.jpg" alt="blog">
-                    </div>
-                    <!---text--->
-                    <div class="blog-text">
-                        <span>13 April 2022 / Web Design</span><br>
-                        <a href="#" class="blog-title">What Has Happened of All of the web Design Ideas?</a>
-                        <p>Lorem ipsum</p>
-                        <h4 routerLink="/blog-op">Read More</h4>
-                        <i class="fa fa-trash" aria-hidden="true" style="float: right;"></i>
-                    </div>	
-                </div>
-            </div>
-        </div>
-        </section>
+                            <span>{{formatDate(testBlogObject.createdAt)}}</span><br>
+                            <a routerLink="/blog-op" (click)="getBlogDetails(testBlogObject)" class="blog-title">{{testBlogObject.title}}</a>
 
-        <section id="blog">
-            <!--heading--->
-            <div class="blog-heading"><br>
-                <br><br><br>
-            </div>
-            <!---blog-container--->
-            <div class="row">	
-            <div class="blog-container">
-                <!---box-2--->
-                <div class="blog-box">
-                    <!---img--->
-                    <div class="blog-img">
-                        <img src="/../assets/orch.jpg" alt="blog">
+                            <br>
+                            <i *ngIf="userId == testBlogObject.userId" class="fa fa-trash" aria-hidden="true" style="float: right;"></i>
+                        </div>	
                     </div>
-                    <!---text--->
-                    <div class="blog-text">
-                        <span>12 April 2022 / Web Design</span><br>
-                        <a href="#" class="blog-title">What Has Happened of All of the web Design Ideas?</a>
-                        <p>Lorem ipsum</p>
-                        <h4 routerLink="/blog-op">Read More</h4>
-                        <i class="fa fa-trash" aria-hidden="true" style="float: right;"></i>
-                    </div>	
                 </div>
-            </div>
-            <div class="blog-container">
-                <!---box-1--->
-                <div class="blog-box">
-                    <!---img--->
-                    <div class="blog-img">
-                        <img src="/../assets/method.jpg" alt="blog"> 
-                    </div>
-                    <!---text--->
-                    <div class="blog-text">
-                        <span>11 April 2022 / Web Design</span>
-                        <a href="#" class="blog-title">What Has Happened of All of the web Design Ideas?</a>
-                        <p>Lorem ipsum</p>
-                        <h4 routerLink="/blog-op" >Read More</h4>
-                        <i class="fa fa-trash" aria-hidden="true" style="float: right;"></i>
-                    </div>	
-                </div>
-            </div>
-            <div class="blog-container">
-                <!---box-3--->
-                <div class="blog-box">
-                    <!---img--->
-                    <div class="blog-img">
-                        <img src="/../assets/orch.jpg" alt="blog">
-                    </div>
-                    <!---text--->
-                    <div class="blog-text">
-                        <span>13 April 2022 / Web Design</span><br>
-                        <a href="#" class="blog-title">What Has Happened of All of the web Design Ideas?</a>
-                        <p>Lorem ipsum</p>
-                        <h4 routerLink="/blog-op">Read More</h4>
-                        <i class="fa fa-trash" aria-hidden="true" style="float: right;"></i>
-                    </div>	
-                </div>
-            </div>
-        </div>
+
+
+
+            </div> 
         </section>
     </div>
 </main>

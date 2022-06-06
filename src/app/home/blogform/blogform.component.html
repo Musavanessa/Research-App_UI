@@ -1,32 +1,39 @@
-<h1>ResearcherDNA Blog</h1>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-<img src="tu.png" alt="">
-
-<br><div class="card" >
+<h1 style="margin-left:auto; margin-right:auto">ResearcherDNA Blog</h1>
+<br><div class="card">
     <div class="project-info-box mt-0">
-        <h5>Create a Blog</h5>
-        <hr>
-        
-
+        <!-- <h5>Create a Blog</h5> -->
+        <!-- <hr> -->
         <form >
-
             <div class="title">
-                <input id="name" type="text" placeholder="Title">
+                <input #createBlogTitle (keyup)="validateBlogInputTitle()" #createBlogInputTitle type="text" class="form-control  input_table" placeholder="Create Blog Title..." aria-label="event name" aria-describedby="basic-addon2">   
             </div>
             <br>
-
-            <div class="picture">
-                <label for="img">Select image:</label>
-                <input type="file" id="img" name="img" accept="image/*">
+            <div class="avatar-upload">
+                <div class="avatar-edit">
+                Add Picture
+                    
+                    <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                    <label for="imageUpload"></label>
+                </div>
             </div>
-            <br>
+            <!-- <div class="picture">
+                <label  for="img">Select image:</label>
+                <i class="fa fa-paperclip" aria-hidden="true">
+                    <input #createBlogImage type="file" id="img" name="img" accept="image/*">
+                </i>
+                <button data-tooltip="Attach File"  class="btn btn-primary removeFocus " style="border-radius: 50%; background-color: white; border:none; width:50px; height: 50px;">
+                    <img src="../../../../../assets/media/logos/Phaidi/attach_file_grey_24dp.svg"  width="auto" height="auto">
+                    <input #createBlogImage type="file" id="img" name="img" accept="image/*">
 
+                </button>
+            </div> -->
+            <br>
             <div class="inputBox">
-                <textarea type="text" width="100" id="description" placeholder="Type content here..." name="" id="" cols="49"
+                <textarea #createBloPost type="text" width="100" id="description" placeholder="Type content here..." name="" id="" cols="49"
                     rows="7"></textarea>
             </div>
-
             <br>
             <div class="inputButton">
                 <button type="submit" class="btn" routerLink="/blog">Post</button>

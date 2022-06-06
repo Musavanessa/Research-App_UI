@@ -45,6 +45,7 @@ import { AddsourceComponent } from './home/addsource/addsource.component';
 import { GoalsService } from './services/project-events-goals/goals.service';
 import { FeedbackService } from './services/feedback/feedback.service';
 import { GuidelinesService } from './services/guidelines/guidelines.service';
+import { BlogService } from './services/blog/blog.service';
 
 @NgModule({
   declarations: [
@@ -90,6 +91,7 @@ import { GuidelinesService } from './services/guidelines/guidelines.service';
     GoalsService,
     FeedbackService,
     GuidelinesService,
+    BlogService,
 
     DatePipe,{
       provide: HTTP_INTERCEPTORS,

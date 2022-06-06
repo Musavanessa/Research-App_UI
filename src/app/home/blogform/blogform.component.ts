@@ -46,16 +46,6 @@ export class BlogformComponent implements OnInit {
   }
 
   blogForm(){
-
-    // console.log('Welcome to blog')
-    // this.authService.createBlog(this.createBlog).subscribe(data => {
-    //   console.log(data)
-    // }, err => {
-    //   console.log('Hello from errors', err)
-    // })
-
-   
-
     this.blogService.createBlog(this.createBlog).subscribe({
       next: (data: any) => {
         console.log('Create blog data:',data)
@@ -68,13 +58,11 @@ export class BlogformComponent implements OnInit {
     })
   }
 
+  validateBlogInputTitle()
+  {
+    
+  }
 
-  // blogform(){
-  //   console.log('Thobela from blog:',this.blogForm)
-
-  // }
-
-  //////////////////
 
 
 
