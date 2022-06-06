@@ -35,11 +35,14 @@ import { SignupComponent } from './components/signup/signup.component';
 import { FormControl } from '@angular/forms';
 
 import { ChatboxServiceService } from './services/chatbox/chatbox-service.service';
+import { NotesService } from './home/login/dashboard/projects/notes/notes.service';
 import { MaterialModule } from './material/material.module';
 import { ChatgroupComponent } from './home/login/dashboard/chatbox/chatgroup/chatgroup/chatgroup.component';
 import { BlogformComponent } from './home/blogform/blogform.component';
 import { AddsourceComponent } from './home/addsource/addsource.component';
 
+
+import { GoalsService } from './services/project-events-goals/goals.service';
 
 @NgModule({
   declarations: [
@@ -79,8 +82,11 @@ import { AddsourceComponent } from './home/addsource/addsource.component';
   providers: [SidenavService, 
     GlobalVariables, 
     ApiserviceService,
+    NotesService,
     ProjectObjectService,
     ChatboxServiceService,
+    GoalsService,
+
     DatePipe,{
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

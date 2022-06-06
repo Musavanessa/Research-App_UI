@@ -51,6 +51,10 @@ export class ApiserviceService {
   {
     return this._http.get(`${this.apiUrl+"guidelines/"+ guidelineId}`);
   }
+  updateGuideline(guidelineUpdated:any)
+  {
+
+  }
 
   projects():Observable<any>
   {

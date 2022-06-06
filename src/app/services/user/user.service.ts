@@ -29,6 +29,10 @@ export class UserService {
     // UserService.userType = this.getUserType();
   }
 
+  getUser_():Observable<any>
+  {
+    return this.http.get<any>(this.URL+'/getUser');
+  }
   getUserID()
   {
     this.getUser().subscribe((data: any) => {
@@ -36,5 +40,10 @@ export class UserService {
       UserService.userType = data.user.userType;
       UserService.userId = data.user.id;
     });
+  }
+
+  getAllUsersWhere(supervisorId:any): Observable<any>
+  {
+    return this.http.get(`${this.URL + "/getAllUsersWhere/" + supervisorId}`);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 // import {MatCardModule} from '@angular/material/card';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { UserService } from 'src/app/services/user/user.service';
 import { ProjectObjectService } from './projects/project-object.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { of } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -16,30 +17,25 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 
 export class DashboardComponent implements OnInit {
 
+
+
+
   constructor(public userService: UserService,  public projectObject : ProjectObjectService, public datepipe: DatePipe, public router:Router, public globalVariables: GlobalVariables, private service: ApiserviceService, public authService: AuthService ) { }
   userType: string = "1";
 
+  userData:any;
+  studentList:any;
+
   isDisplaySuccessMessage = false;
   isDisplayErrorInputMessage = false;
+  allStudents:any;
 
-  closeErrorInputMessage()
-  {
-    if(this.isDisplayErrorInputMessage)
-      this.isDisplayErrorInputMessage = false;
-    else
-      this.isDisplayErrorInputMessage = true;
-  }
-  closeDisplaySuccessMessage()
-  {
-    if(this.isDisplaySuccessMessage)
-    {
-      this.isDisplaySuccessMessage = false;
-    }
-    else
-    {
-      this.isDisplaySuccessMessage = true;
-    }
-  }
+  // openStudentInferface(userData:any)
+  // {
+
+  // }
+
+
   faCoffee = faCoffee;
   //This variable increments each time we populate an input box the reason for having this variable is so that when we get to a certain number then we should enable the input button
   inputButtonEnabler = 0;
@@ -67,11 +63,59 @@ export class DashboardComponent implements OnInit {
     this.myProjects();
     this.allDisciplines();
 
+    this.userService.getUser().subscribe((data: any) => {
+      this.userType = data.user.userType;
+      this.userData = data.user;
+      console.log(data.user.userType + " = User Type");
+      this.getAllUsers(this.userData.id);
+      console.log('show: ',this.userData);
+      this.projectObject.setUserDetails(data.user);
+    });
+    this.testObservable();
+    // this.projectObject.sequenceSubscriber(this.userType)
+    this.projectObject.sequence.subscribe({
+      next(num) {console.log(num);},
+      complete() {console.log('Finished sequence');}
+    });
+
+
+    
 
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
   }
+
+
+
+  getAllUsers(id:any)
+  {
+    this.userService.getAllUsersWhere(id).subscribe((data:any)=>{
+      console.log("Hi there");
+      this.allStudents = data;
+      console.log("All Student", data);
+    })
+  }
+
+  closeErrorInputMessage()
+  {
+    if(this.isDisplayErrorInputMessage)
+      this.isDisplayErrorInputMessage = false;
+    else
+      this.isDisplayErrorInputMessage = true;
+  }
+  closeDisplaySuccessMessage()
+  {
+    if(this.isDisplaySuccessMessage)
+    {
+      this.isDisplaySuccessMessage = false;
+    }
+    else
+    {
+      this.isDisplaySuccessMessage = true;
+    }
+  }
+
   disableProjectSaveButtons()
   {
     this.inputButtonEnabler = 0;
@@ -225,10 +269,24 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  testObservable()
+  {
+    //Create simple observable that emits three values
+    const myObservable = of(1, 2, 3);
 
+    //Create observer object
+    const myObserver = {
+      next: (x: number) => console.log('Observer got a next value: ' + x),
+      error: (err: Error) => console.error('Observarble got an error: ' + err),
+      complete: ()=> console.log('Observable got a complete notification '), 
+    };
+
+    //Execute with the observer object
+    myObservable.subscribe(myObserver);
+  }
   isUserSupervisor(data:string)
   {
-    if(data == "1")
+    if(data == "2")
     {
       console.log(data + " The user type is ");
       return true;
@@ -242,5 +300,12 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  openStudentPortal(project_student:any)
+  {
+      // this.projectObject.myObservable = project_student;
+      this.projectObject.passStudentData(project_student);
+  }
+
+  
 
 }

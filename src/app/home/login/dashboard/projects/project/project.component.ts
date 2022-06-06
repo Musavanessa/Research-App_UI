@@ -6,7 +6,7 @@ import { ApiserviceService } from 'src/app/apiservice.service';
 import { ProjectObjectService } from '../project-object.service';
 import { SidenavService } from 'src/app/services/navs/sidenav.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-
+import { NotesService } from '../notes/notes.service';
 
 @Component({
   selector: 'app-project',
@@ -16,7 +16,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 export class ProjectComponent implements OnInit {
 
   // public projectObject: ProjectObject,
-  constructor(public sidenavService: SidenavService, public globalProjectObject : ProjectObjectService,public authService: AuthService, public datepipe: DatePipe, public router: Router, private service: ApiserviceService) { }
+  constructor(public noteService: NotesService, public sidenavService: SidenavService, public globalProjectObject : ProjectObjectService,public authService: AuthService, public datepipe: DatePipe, public router: Router, private service: ApiserviceService) { }
 
   @ViewChild('noteText') noteText:any;
   @ViewChild('noteTitle') noteTitle:any;
@@ -38,17 +38,25 @@ export class ProjectComponent implements OnInit {
       this.notesData = res.notes;
     });
     this.projectObject = ProjectObjectService.projectObject;
+
     // this.innerNav.ngOnInit();
     console.log(this.projectObject)
     //The one issue that I am getting here, is that when I create a project - I am not able to synchronise the project right away - 
     //I do not know how I can takle this issue and get it done with.
     
     this.guidelines();
-
+    console.log(this.globalProjectObject.getPassStudentData());
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
+
+    //Listen to myObservable
+    // this.projectObject.myObserver.subscribe(this.projectObject.myObservable)
+    // this.projectObject.my.subscribe(this.projectObject.myObservable);
+    // this.projectObject.myObservable.subscribe(this.projectObject.myObserver)
+    
   }
+
 
   isDisplayErrorInputMessage = false;
   isDisplaySuccessNoteMessage = false;
@@ -79,7 +87,7 @@ export class ProjectComponent implements OnInit {
     else
     {
       // this.noteObject.projectId = this.projectObject
-      this.noteObject.id = ProjectObjectService.projectObject.id;
+                                                           
       this.noteObject.text = this.noteText.nativeElement.value;
       this.noteObject.title = this.noteTitle.nativeElement.value;
       this.noteObject.userId = ProjectObjectService.projectObject.userId;
@@ -162,11 +170,11 @@ export class ProjectComponent implements OnInit {
       this.guideLinesObject = res.guidelines;
     });
   }
-  openInNotes(noteId:number)
+  openInNotes(noteObject:any)
   {
-    this.globalProjectObject.updateNoteObject(noteId);
+    // this.globalProjectObject.updateNoteObject(noteId);
+    this.noteService.setNoteObject(noteObject);
     this.sidenavService.makeLinkActive(2);
-
   }
 
 }

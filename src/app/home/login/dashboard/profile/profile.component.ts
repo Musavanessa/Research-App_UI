@@ -4,23 +4,24 @@ import { UserService } from 'src/app/services/user/user.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-  public innerWidth: any;
-  public innerHeight: any;
-  public inputDivHeigh: any;
+  public innerWidth: any = 0;
+  public innerHeight: any  = 0;
+  public inputDivHeigh: any  = 0;
 
   disable: boolean = true;
   formV: any = {lastName: false, firstName: false, password: false};
   pCheck: string = '';
   data: User = new User;
-  userType: string = "1";
+  userType: string = "2";
   profileForm : User = new User;
-  constructor(private userService: UserService, public router: Router, public authService: AuthService) { }
+  constructor( private userService: UserService, public router: Router, public authService: AuthService) { }
 
 
 
@@ -34,11 +35,6 @@ export class ProfileComponent implements OnInit {
 
     this.getMe();
 
-    // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-    //   queryParams: { message: 'Please log out first ' }
-    // });
-
-    
   }
 
   @HostListener('window:resize', ['$event'])
@@ -81,15 +77,15 @@ export class ProfileComponent implements OnInit {
 
   isUserSupervisor(data:string)
   {
-    if(data == "1")
+    if(data == "2")
     {
-      console.log(data + " The user type is ");
+      console.log(data + " The user type is");
       return true;
       
     }
     else
     {
-      console.log(data + " The user type is ");
+      console.log(data + " The user type is");
       return false;
     }
 

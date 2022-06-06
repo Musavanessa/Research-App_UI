@@ -1,4 +1,7 @@
 
+
+
+
 .input_
 {
   width: 250px;
@@ -95,7 +98,12 @@
 }
 
 
-img:hover{
+/* img:hover{
+  animation: shake-animation 6.72s ease infinite;
+  transform-origin: 50% 50%;
+} */
+
+.shakeImg:hover{
   animation: shake-animation 6.72s ease infinite;
   transform-origin: 50% 50%;
 }
@@ -172,8 +180,8 @@ img:hover{
 table
 {
   table-layout:fixed;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: none;
+  margin-right: none;
   text-align: left;
 }
 tr
@@ -223,6 +231,92 @@ td
   display: block;
   padding: 1px 25px;
 }
+
+
+
+.highlightTodayDate
+{
+  position:relative; top:-25px; left: 8px; background-color: #ffffff; padding:5px; border-radius: 50px; width:30px;
+  text-align: center;
+}
+
+.highlightTodayDate:hover
+{
+  position:relative; top:-25px; left: 8px; padding:5px; border-radius: 50px; width:30px;
+  color:rgb(255, 255, 255);background-color: darkgreen;
+}
+
+
+.project-event-calendar
+{
+  background-color: transparent;
+}
+
+.project-event-calendar:hover
+{
+  
+  background-color: rgba(165, 203, 239, 0.568) ;
+  border-radius: 8px;
+  box-shadow: 0.1rem 0.1rem 2rem 0.5rem rgba(3, 95, 181, 0.189);
+}
+
+
+
+.project-event-appointment
+{
+  background-color: transparent;
+}
+
+.project-event-appointment:hover
+{
+  
+  background-color: rgb(232, 242, 141) ;
+  border-radius: 8px;
+  box-shadow: 0.1rem 0.1rem 2rem 0.5rem rgb(234, 240, 189);
+}
+
+
+.project-event-event
+{
+  background-color: transparent;
+}
+
+.project-event-event:hover
+{
+  
+  background-color: rgb(196, 237, 253) ;
+  border-radius: 8px;
+  box-shadow: 0.1rem 0.1rem 2rem 0.5rem rgba(0, 125, 175, 0.189);
+}
+
+
+.project-event-goal
+{
+  background-color: transparent;
+}
+
+.project-event-goal:hover
+{
+  
+  background-color: rgba(5, 161, 5, 0.389) ;
+  border-radius: 8px;
+  box-shadow: 0.1rem 0.1rem 2rem 0.1rem rgba(5, 161, 5, 0.389);
+}
+
+
+.showTodayDate
+{
+  position:relative; top:-25px; left: 8px; background-color: rgb(182, 182, 182); padding:5px; border-radius: 50px; width:30px;
+  text-align: center;
+  color:white;
+}
+
+.showTodayDate:hover
+{
+  position:relative; top:-25px; left: 8px; padding:5px; border-radius: 50px; width:30px;
+  color:rgb(255, 255, 255);background-color: darkgreen;
+}
+
 
 
 .input_weak
@@ -296,10 +390,17 @@ td
 .groupsTable tr{
   border: 1px lightgrey solid;
   background-color: white;
-  
-
 }
 
+.appointments-card-in-today
+{
+  background-color: white;
+}
+
+/* .appointments-card-in-today:hover
+{
+  background-color: rgb(234, 240, 184);
+} */
 
 
 .groupsTable thead 
@@ -324,7 +425,7 @@ td
 
 .groupsTable td
 {
-  height: 100px;
+  height: 90px;
   border: 1px lightgrey solid;
   text-align: left;
   
@@ -333,7 +434,7 @@ td
 
 .groupsTable td:hover
 {
-  background-color: #cfcfcf;
+  background-color: #eeeeee;
   cursor: pointer;
   
 }
@@ -447,12 +548,60 @@ input[type="datetime-local"]:hover::-webkit-calendar-picker-indicator:hover { op
   color: rgb(255, 0, 0);
 }
 
-
+.time-right {
+  float: right;
+  color: #aaa;
+}
 .addAcceptanceCriteriaButton
 {
   border-top-left-radius: 0;border-bottom-left-radius: 0;border-left:none; border-color: #d8d8d8;
 
 }
+
+.whatWouldYouLikeToChooseEvent
+{
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.whatWouldYouLikeToChooseEvent:focus
+{
+  outline: none;
+  box-shadow: none;
+  color:rgb(0, 126, 175);
+  background-color: rgb(184, 224, 240);
+  border-color: rgb(184, 224, 240);
+}
+
+.whatWouldYouLikeToChooseEvent:hover
+{
+  color: rgb(0, 126, 175);
+  background-color: rgb(184, 224, 240);
+  border-color: rgb(184, 224, 240);
+}
+
+
+.whatWouldYouLikeToChooseGoal
+{
+  border: 1px solid rgb(255, 255, 255);
+}
+
+
+.whatWouldYouLikeToChooseGoal:focus
+{
+  outline: none;
+  box-shadow: none;
+  color: darkgreen;
+  background-color: rgb(178, 231, 178);
+  border-color: rgb(178, 231, 178);
+}
+
+.whatWouldYouLikeToChooseGoal:hover
+{
+  border-color: rgb(178, 231, 178);
+  background-color: rgb(178, 231, 178);
+  color: darkgreen;
+}
+
 
 .addAcceptanceCriteriaButton:focus
 {
@@ -738,4 +887,14 @@ element.style{
         
         .fw-semibold { font-weight: 600; }
         .lh-tight { line-height: 1.25; }
-        
+
+
+.rotateIcon90
+{
+
+}
+
+.rotateIcon0
+{
+  
+}

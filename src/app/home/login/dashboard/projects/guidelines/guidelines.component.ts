@@ -24,7 +24,7 @@ export class GuidelinesComponent implements OnInit {
   guideLineObject = {
     id: 1,
     text: "The title summarizes the main idea or ideas of your study. A good title contains the fewest possible words that adequately describe the contents and/or purpose of your research paper.\n\nThe title is without doubt the part of a paper that is read the most, and it is usually read first. If the title is too long it usually contains too many unnecessary words, e.g., \"A Study to Investigate the....\" On the other hand, a title which is too short often uses words which are too general. For example, \"African Politics\" could be the title of a book, but it does not provide any information on the focus of a research paper.",
-    name: "Title",
+    name: "Shiko",
     g_order: 1,
     createdAt: "2022-03-17T09:20:03.000Z",
     updatedAt: "2022-03-17T09:20:03.000Z",
