@@ -32,12 +32,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProjectEventsComponent } from './home/login/dashboard/projects/project/project-events/project-events.component';
 
 import { SignupComponent } from './components/signup/signup.component';
-
+import { FormControl } from '@angular/forms';
 
 import { ChatboxServiceService } from './services/chatbox/chatbox-service.service';
 import { NotesService } from './home/login/dashboard/projects/notes/notes.service';
 import { MaterialModule } from './material/material.module';
 import { ChatgroupComponent } from './home/login/dashboard/chatbox/chatgroup/chatgroup/chatgroup.component';
+import { BlogformComponent } from './home/blogform/blogform.component';
+import { AddsourceComponent } from './home/addsource/addsource.component';
+
 
 import { GoalsService } from './services/project-events-goals/goals.service';
 import { FeedbackService } from './services/feedback/feedback.service';
@@ -65,7 +68,8 @@ import { GuidelinesService } from './services/guidelines/guidelines.service';
     BlogOpComponent,
     ProjectEventsComponent,
     SignupComponent,
-    ChatgroupComponent
+    BlogformComponent,
+    AddsourceComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +77,7 @@ import { GuidelinesService } from './services/guidelines/guidelines.service';
     BrowserAnimationsModule,
     FontAwesomeModule,
     HttpClientModule,
-    MaterialModule,
+
     ReactiveFormsModule,
     FormsModule
   ],

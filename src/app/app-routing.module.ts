@@ -26,9 +26,12 @@ import { InnernavComponent } from './home/login/dashboard/projects/topnav/innern
 import { ProjectWriteComponent } from './home/login/dashboard/projects/project/project-write/project-write.component';
 import { ProjectStatusComponent } from './home/login/dashboard/projects/project/project-status/project-status.component';
 import { BlogOpComponent } from './home/blog-op/blog-op.component';
+import { BlogformComponent } from './home/blogform/blogform.component';
 import { ProjectEventsComponent } from './home/login/dashboard/projects/project/project-events/project-events.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { SessionGuardService } from './services/auth/session-guard.service';
+import { AddsourceComponent } from './home/addsource/addsource.component';
+import { BlogService } from './services/blog/blog.service';
 
 
 const routes: Routes = [
@@ -52,8 +55,11 @@ const routes: Routes = [
   {path: 'project-write', component:ProjectWriteComponent, canActivate:[SessionGuardService]},
   {path: 'project-status', component:ProjectStatusComponent, canActivate:[SessionGuardService]},
   {path: 'blog-op', component:BlogOpComponent},
+  {path: 'blogform', component:BlogformComponent},
+  {path: 'addsource', component:AddsourceComponent},
   {path: 'project-events', component:ProjectEventsComponent},
-  {path: 'signup', component:SignupComponent}
+  {path: 'signup', component:SignupComponent},
+  {path: 'blog', component:BlogService}
 ];
 
 @NgModule({

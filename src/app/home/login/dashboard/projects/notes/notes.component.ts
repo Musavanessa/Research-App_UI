@@ -15,7 +15,9 @@ import { NotesService } from './notes.service';
 })
 export class NotesComponent implements OnInit {
 
-  constructor(public noteService: NotesService, public sidenavService: SidenavService,public globalProjectObject: ProjectObjectService, private service: ApiserviceService, public datepipe: DatePipe, public authService: AuthService, public router: Router ) { }
+  constructor(public noteService: NotesService, public sidenavService: SidenavService,
+    public globalProjectObject: ProjectObjectService, private service: ApiserviceService, 
+    public datepipe: DatePipe, public authService: AuthService, public router: Router ) { }
   //Variables to use to update the note.
   @ViewChild('inputNoteTitle') inputNoteTitle: any;
   @ViewChild('inputNoteText') inputNoteText:any;
