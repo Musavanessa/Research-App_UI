@@ -11,10 +11,14 @@
           <h2 *ngIf="userId != blogObject.userId">{{blogObject.title}}</h2>
           <input *ngIf="userId == blogObject.userId" (focusout)="restoreBlogTitle()" (keyup)="validateBlogInputTitle()" #createBlogInputTitle type="text" class="form-control  input_table" placeholder="Blog title..." aria-label="event name" aria-describedby="basic-addon2" value="{{blogObject.title}}">   
           <h5>{{formatDate(blogObject.createdAt)}}</h5>
-          <div class="fakeimg" style="height:300px;">
-            <img src="/../assets/orch.jpg" alt="blog"  style="height:250px; width: 940px; "> 
-          </div>
-          <p *ngIf="userId != blogObject.userId">{{blogObject.post}}</p>
+            <!-- <img src="/../assets/orch.jpg" alt="blog"  style="height:250px; width: 940px; ">  -->
+          <hr>
+          <pre style="            overflow-x: auto;
+          white-space: pre-wrap;
+          white-space: -moz-pre-wrap;
+          white-space: -pre-wrap;
+          white-space: -o-pre-wrap;
+          word-wrap: break-word; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 15px;" *ngIf="userId != blogObject.userId">{{blogObject.post}}</pre>
           <!-- <textarea name="" id="" cols="55" rows="4"></textarea><br><br> -->
           <div styl="height:20rem;">
             <textarea #createBlogInputDetails (focusout)="restoreBlogPost()" *ngIf="userId == blogObject.userId" (keyup)="validateBlogInputPost()" #createGoalInputDecription class="form-control  input-blog-description" id="exampleFormControlTextarea1" minlength=""  rows="6"  placeholder="Write here...">{{blogObject.post}}</textarea>
@@ -27,6 +31,7 @@
         <div class="card">
           <h2>Comments</h2><hr>
           <div class="card" style="height:50px; width:auto; background-color: azure;">
+            
             <p>Some text about me in culpa qui officia deserunt mollit anim..<i class="fa fa-trash" aria-hidden="true" style="float: right;"></i></p>
           </div>
           

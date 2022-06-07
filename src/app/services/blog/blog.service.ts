@@ -25,8 +25,8 @@ export class BlogService {
     return this.blogObject;
   }
 
-  
-  public createBlog(data: any){
+  //CREATE A NEW BLOG
+  public createBlog(data: any):Observable<any>{
     return this.http.post(this.URL,data);
   }
   // public updateBlog(data: any){
@@ -35,7 +35,10 @@ export class BlogService {
   public deleteBlog(data: any){
     return this.http.delete(this.URL,data);
   }
-  public getAllBlogs(data: any){
+
+
+  public getAllBlogs():Observable<any>{
+
     return this.http.get(this.URL);
   }
   public getBlog(id: Number){

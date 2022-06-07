@@ -21,7 +21,11 @@ export class BlogOpComponent implements OnInit {
   createBlogErrorList = [false, false, false];
   createBlogValuesValid = [false, false, false];
   userId:any = 1;
-
+   
+  //==================================
+  //VARIABLES USED TO CREATE COMMENTS
+  //==================================
+  // @ViewChild('')
 
 
 

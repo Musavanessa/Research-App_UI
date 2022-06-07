@@ -8,14 +8,18 @@
         <form >
             <div class="title">
                 <input #createBlogTitle (keyup)="validateBlogInputTitle()" #createBlogInputTitle type="text" class="form-control  input_table" placeholder="Create Blog Title..." aria-label="event name" aria-describedby="basic-addon2">   
+                <div *ngIf="createBlogErrorList[0]">
+                    <br>
+                    <div class="alert alert-danger" role="alert" >
+                      <strong>Error: </strong> Enter Blog Title
+                    </div>
+                  </div>
             </div>
-            <br>
-            <div class="avatar-upload">
+            <br style="user-select:none">
+            <div class="avatar-upload" style="user-select:none; color: grey">
                 <div class="avatar-edit">
-                Add Picture
-                    
                     <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-                    <label for="imageUpload"></label>
+                    <label  for="imageUpload"></label>Add Picture
                 </div>
             </div>
             <!-- <div class="picture">
@@ -29,14 +33,21 @@
 
                 </button>
             </div> -->
-            <br>
+            <br style="user-select:none">
             <div class="inputBox">
-                <textarea #createBloPost type="text" width="100" id="description" placeholder="Type content here..." name="" id="" cols="49"
-                    rows="7"></textarea>
+            <textarea #createBlogPost (keyup)="validateBlogInputDetails()" type="text" width="100" id="description" placeholder="Type content here..." name="" id="" cols="49" rows="7"></textarea>
+                <div *ngIf="createBlogErrorList[1]">
+                    <br>
+                    <div class="alert alert-danger" role="alert" >
+                        <strong>Error: </strong> Blog Post cannot be empty
+                    </div>
+                    </div>
             </div>
             <br>
             <div class="inputButton">
-                <button type="submit" class="btn" routerLink="/blog">Post</button>
+                <!-- <button type="submit" (click)="createNewBlogPost()" class="btn" routerLink="/blog">Post</button> -->
+                <button type="submit" (click)="createNewBlogPost()" class="btn" >Post</button>
+
             </div>
         </form>
     </div>

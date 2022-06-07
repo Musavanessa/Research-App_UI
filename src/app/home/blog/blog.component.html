@@ -15,23 +15,24 @@
         <section id="blog">
             <!---blog-container--->
             <div class="row" >
-                <div class="blog-container">
+                <div *ngFor="let blog of blogs" class="blog-container">
                     <!---box-2--->
                     <div class="blog-box">
                         <!---img--->
-                        <div class="blog-img">
-                            <img src="/../assets/orch.jpg" alt="blog">
-                        </div>
                         <!---text--->
                         <div class="blog-text">
-                            <span>{{formatDate(testBlogObject.createdAt)}}</span><br>
-                            <a routerLink="/blog-op" (click)="getBlogDetails(testBlogObject)" class="blog-title">{{testBlogObject.title}}</a>
+                            
+                            <a routerLink="/blog-op" (click)="getBlogDetails(blog)" class="blog-title">{{blog.title}}</a>
+                            <br>
+                            <span>{{formatDate(blog.createdAt)}}</span>
+                            <p>{{blog.post}}</p>
 
                             <br>
                             <i *ngIf="userId == testBlogObject.userId" class="fa fa-trash" aria-hidden="true" style="float: right;"></i>
                         </div>	
                     </div>
                 </div>
+                
 
 
 
