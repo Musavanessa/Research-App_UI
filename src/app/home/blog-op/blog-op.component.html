@@ -6,72 +6,66 @@
     </div>
     
     <div class="row">
-      <div class="leftcolumn" style="height: 45rem;  overflow:scroll; border:none">
+      <div class="leftcolumn" style="height: 45rem;  overflow:scroll; border:none; width:auto">
         <div class="card" style="border:none">
-          <h2 *ngIf="userId != blogObject.userId">{{blogObject.title}}</h2>
-          <input *ngIf="userId == blogObject.userId" (focusout)="restoreBlogTitle()" (keyup)="validateBlogInputTitle()" #createBlogInputTitle type="text" class="form-control  input_table" placeholder="Blog title..." aria-label="event name" aria-describedby="basic-addon2" value="{{blogObject.title}}">   
+          <h2 *ngIf="userDetails.id != blogObject.userId">{{blogObject.title}}</h2>
+          <input *ngIf="userDetails.id == blogObject.userId" (focusout)="restoreBlogTitle()" (keyup)="validateBlogInputTitle()" #createBlogInputTitle type="text" class="form-control  input_table" placeholder="Blog title..." aria-label="event name" aria-describedby="basic-addon2" value="{{blogObject.title}}">   
+          <br *ngIf="userDetails.id == blogObject.userId">
           <h5>{{formatDate(blogObject.createdAt)}}</h5>
             <!-- <img src="/../assets/orch.jpg" alt="blog"  style="height:250px; width: 940px; ">  -->
           <hr>
-          <pre style="            overflow-x: auto;
-          white-space: pre-wrap;
-          white-space: -moz-pre-wrap;
-          white-space: -pre-wrap;
-          white-space: -o-pre-wrap;
-          word-wrap: break-word; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 15px;" *ngIf="userId != blogObject.userId">{{blogObject.post}}</pre>
+          <pre *ngIf="userDetails.id != blogObject.userId" style="overflow-x: auto; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; -family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 15px;">{{blogObject.post}}</pre>
           <!-- <textarea name="" id="" cols="55" rows="4"></textarea><br><br> -->
-          <div styl="height:20rem;">
-            <textarea #createBlogInputDetails (focusout)="restoreBlogPost()" *ngIf="userId == blogObject.userId" (keyup)="validateBlogInputPost()" #createGoalInputDecription class="form-control  input-blog-description" id="exampleFormControlTextarea1" minlength=""  rows="6"  placeholder="Write here...">{{blogObject.post}}</textarea>
-          </div>
-          <button #submitUpdateBlog (click)="updateBlog()" class="btn" style="float: right; width:10%; position: relative; bottom: -65px ;" >Update</button>
+          <pre *ngIf="userDetails.id == blogObject.userId" #createBlogInputDetails contenteditable style="border:none; outline: none; overflow-x: auto; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; -family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 15px;">{{blogObject.post}}</pre>
+          <!-- <textarea *ngIf="userDetails.id == blogObject.userId" #createBlogInputDetails (focusout)="restoreBlogPost()" (keyup)="validateBlogInputPost()" #createGoalInputDecription class="form-control  input-blog-description" id="exampleFormControlTextarea1" style="height:fit-content" placeholder="Write here...">{{blogObject.post}}</textarea> -->
+          <button *ngIf="userDetails.id == blogObject.userId"  #submitUpdateBlog (click)="updateBlog()" class="btn" style="float: right; width:10%; position: relative; bottom: -65px ;" >Update</button>
         </div>
         
       </div>
-      <div class="rightcolumn" style=" width:500px;">
-        <div class="card">
-          <h2>Comments</h2><hr>
-          <div class="card" style="height:50px; width:auto; background-color: azure;">
-            
-            <p>Some text about me in culpa qui officia deserunt mollit anim..<i class="fa fa-trash" aria-hidden="true" style="float: right;"></i></p>
+      <div class="rightcolumn" style=" width:auto; max-height: 49rem; overflow: scroll; overflow-y: scroll;">
+        <div class="card" style="border:none">
+          <div data-tooltip="Show comments">
+            <img  (click)="showComments = !showComments" data-tooltip="Show comments" src="../../../../../../../assets/media/icons/comment/comment_grey_24dp.svg " alt="New Event" width="30px" height="30px" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;">
           </div>
-          
-          <div class="card" style="height:50px; width:auto; background-color:bisque;">
-            <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-          </div>
+          <div *ngIf="showComments">
+            <h2 style="text-align:center">Comments</h2>
+            <div *ngIf="postCommmentSuccess">
+              <br>
+              <div class="alert alert-success" role="alert" >
+                <strong>Error: </strong> Enter Blog Title
+                <span (click)="postCommmentSuccess = !postCommmentSuccess" style="position:relative; text-align:right; top:-15px; left: 85px; cursor: pointer;">
+                  X
+                </span>
+              </div>
+            </div>
+            <hr>
 
-          <div class="card" style="height:50px; width:auto; background-color: azure;">
-            <p>Some text about me in culpa qui officia deserunt mollit anim..<i class="fa fa-trash" aria-hidden="true" style="float: right;"></i></p>
+            <div style="height: 350px; overflow:scroll;">
+              <div *ngFor="let comment of blogComments; let i index" class="card" style="height:auto; width:auto; max-width: 430px; background-color: azure; border:none">
+                <p style="color:grey">
+                  <span>
+                    <img *ngIf="comment.user.userType=='2'" src="../../../../../assets/media/logos/authorised_green.svg"  width="20px" height="20px">
+                  </span> ~ 
+                  {{comment.user.firstName}} {{comment.user.lastName}} 
+                </p>
+                <pre  style="overflow-x: auto; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 15px;">{{comment.comment}}<span (click)="deleteComment(comment.id)" *ngIf="userDetails.userType == '2' || comment.userId == userDetails.id" class="fa fa-trash" aria-hidden="true" style="float: right;cursor: pointer;"></span></pre>
+              </div>
+            </div>
+            <div class="card" style="border:none">
+              <hr>
+              <!-- <h2>Leave a comment</h2><hr> -->
+               <textarea (keyup)="validateBlogComment()" #inputBlogComment class="form-control  input_table" style="font-size: 15px; min-height: 150px;" name="" id=""   placeholder="Leave a comment..."></textarea>
+               <div *ngIf="createCommentErrorList[0]">
+                <br>
+                <div (click)="createCommentErrorList[0] = !createCommentErrorList[0]" class="alert alert-danger" role="alert" style="cursor:not-allowed" >
+                  <strong>Error: </strong> Enter Blog Title
+                </div>
+              </div>
+              <br>
+               <button (click)="postComment()" class="btn">Send</button>
+            </div>
           </div>
-
-          <div class="card" style="height:50px; width:auto; background-color:bisque;">
-            <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-          </div>
-
-          <div class="card" style="height:50px; width:auto; background-color: azure;">
-            <p>Some text about me in culpa qui officia deserunt mollit anim..<i class="fa fa-trash" aria-hidden="true" style="float: right;"></i></p>
-          </div>
-
-          <div class="card">
-            <h2>Leave a comment: </h2>
-             <textarea name="" id="" cols="55" rows="4"></textarea><br><br>
-             <button class="btn">Send</button>
-          </div>
-        
-
         </div>
-       <!--
-        <div class="card">
-          <h3>Follow Us</h3>
-          
-            <i class="fa fa-instagram" aria-hidden="true"></i>
-            <i class="fa fa-facebook-square" aria-hidden="true"></i>
-            <i class="fa fa-twitter" aria-hidden="true"></i>
-            <i class="fa fa-github" aria-hidden="true"></i>
-            
-        </div>-->
-
-        
-
       </div> 
 
     </div>

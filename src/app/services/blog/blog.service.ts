@@ -8,7 +8,8 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 })
 export class BlogService {
 
-  URL: string = `http://localhost:3000/api/v1/blogs`
+  URL: string = `http://localhost:3000/api/v1/blogs`;
+  COMMENT_URL: string = `http://localhost:3000/api/v1/comments`;
   //private decodedToken: DecodedToken = new DecodedToken;
 
   constructor(private http:HttpClient) { }
@@ -29,12 +30,36 @@ export class BlogService {
   public createBlog(data: any):Observable<any>{
     return this.http.post(this.URL,data);
   }
-  // public updateBlog(data: any){
-  //   return this.http.patch(this.URL,data);
-  // }
+  //UPDATE BLOG
+  public updateBlog(data: any):Observable<any>{
+
+    return this.http.patch(this.URL + "/" +  data.id, data);
+
+  }
+
   public deleteBlog(data: any){
     return this.http.delete(this.URL,data);
   }
+
+  //===============================
+  //COMMENTS FUNCTIONS
+  //=========================
+        //GET A SEPECIFIC BLOG COMMENT
+        public getAllCommentsWhere(blogId:any):Observable<any>
+        {
+          // console.log(this.http.get(this.URL + "/blogId/" + blogId));
+          return this.http.get(this.COMMENT_URL + "/blogId/" + blogId);
+        }
+        //DELETE A SPECIFIC COMMENT
+        public deleteComment(id:any):Observable<any>
+        {
+          return this.http.delete(this.COMMENT_URL + "/" + id);
+        }
+        //CREATE A COMMENT
+        public postComment(commentObject:any):Observable<any>
+        {
+          return this.http.post(this.COMMENT_URL, commentObject);
+        }
 
 
   public getAllBlogs():Observable<any>{
