@@ -108,6 +108,7 @@ export class ProjectEventsComponent implements OnInit {
   isGoalSuccessfullyCreated:boolean = false;
   isGoalNotSuccessfullyCreated:boolean = false;
   goalsObject:any;
+  presentWorkingProject:any;
 
   //==========================
   //GOALS VARIABLES
@@ -292,7 +293,11 @@ export class ProjectEventsComponent implements OnInit {
     if(this.template_statuses[3])
     {
       //Get all goals again.
-      this.goalsService.getAllGoalsWhere(14).subscribe((data:any)=>{
+      //I need to get the project details.
+      let openedProject = this.projectObjectService.getOpenedProjectObject();
+      this.presentWorkingProject = this.projectObjectService.getOpenedProjectObject();
+      console.log(openedProject); 
+      this.goalsService.getAllGoalsWhere(openedProject.id).subscribe((data:any)=>{
         console.log(data);
         this.goals = data.goal;
         console.log("console.log(this.goals) = " + this.goals);
@@ -797,6 +802,7 @@ export class ProjectEventsComponent implements OnInit {
           {
             this.createGoalErrorList[0] = true;
             this.createGoalValuesValid[0] = false;
+
           }
           else
           {
@@ -811,11 +817,14 @@ export class ProjectEventsComponent implements OnInit {
           if(this.createGoalInputStartDate.nativeElement.value == ""){
             this.createGoalErrorList[1] = true;
             this.createGoalValuesValid[1] = false;
+            console.log(new Date(this.createGoalInputStartDate.nativeElement.value).getTime());
           }
           else
           {
             this.createGoalErrorList[1] = false;
             this.createGoalValuesValid[1] = true;
+            console.log(new Date(this.createGoalInputStartDate.nativeElement.value).getTime());
+            
           }
         }
         validateGoalInputEndDate(){
@@ -935,11 +944,12 @@ export class ProjectEventsComponent implements OnInit {
           if(checkAllVariables == 5)
           {
             console.log("We can move forward");
+            console.log(this.presentWorkingProject);
             this.createGoalObject.title = this.createGoalInputTitle.nativeElement.value;
             this.createGoalObject.createAt = this.createGoalInputStartDate.nativeElement.value;
             this.createGoalObject.dueDate = this.createGoalInputEndDate.nativeElement.value;
             this.createGoalObject.outcome = this.createGoalInputDecription.nativeElement.value;
-            this.createGoalObject.projectId = this.studentData.id;
+            this.createGoalObject.projectId = this.presentWorkingProject.id;
             this.createGoalObject.userId = this.userDetails.id
             //Create Acceptance Criteria -----
             let tempAcceptanceCriteriaString = "";

@@ -419,7 +419,8 @@
                         <div class="card-header" style="border:none; background-color: rgb(239, 239, 239);" [style.color]="goalsTimeStatusTextColor[i]">
                           <div class="container">
                             <div class="row" (click)="displayGoalCard(i)" style="user-select:none; cursor:pointer">
-                              <div data-tooltip="Send Reply" class="col col-lg-2">
+                              <!-- SHOW THE ONLY WHEN THE SUPERVISOR IS THE ONE THAT SET THE GOAL -- THIS MEANS THAT WE NEED TO KNOW WHO ACTUALLY SET THE GOAL -->
+                              <div *ngIf="goal.user.userType == '2'" data-tooltip="Send Reply" class="col col-lg-2">
                                 <img  class="project-event-event" (click)="provideFeedback(goal, i)" routerLink="/project-status" src="../../../../../../../assets/media/icons/message/email_blue_24dp.svg" alt="ResearcherDNA-Logo" width="25px" height="25px" style="cursor: pointer; position:relative; top:5px">
                               </div>
                               <div class="col" style="display: table-cell; vertical-align: sub;" >
@@ -587,7 +588,7 @@
                           </li>
                           <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item">
                             <button #createGoalButton (click)="createNewGoal()" type="button" class="btn btn-primary btn-sm" >Update</button>&nbsp;
-                            <button #createGoalButton routerLink="/project-status" (click)="provideFeedback(goal, i)" type="button" class="btn btn-success btn-sm" >Feedback</button>
+                            <button *ngIf="goal.user.userType == '2'" #createGoalButton routerLink="/project-status" (click)="provideFeedback(goal, i)" type="button" class="btn btn-success btn-sm" >Feedback</button>
                           </li>
                         </ul>
                       </div>

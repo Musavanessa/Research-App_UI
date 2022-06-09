@@ -70,6 +70,13 @@ export class ApiserviceService {
     return this._http.get(`${this.apiUrl+"projects/"+projectId}`);
   }
 
+  getUserProjects(userId: any):Observable<any>
+  {
+    return this._http.get(`${this.apiUrl+"projects/userId/"+userId}`);
+  }
+
+
+
 
   getChats():Observable<any>
   {

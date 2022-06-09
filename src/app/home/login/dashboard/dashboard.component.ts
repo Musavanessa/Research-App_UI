@@ -60,16 +60,19 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.globalVariables.showSideNav();
     console.log(GlobalVariables.isToBeShown + ' is ');
-    this.myProjects();
+   
     this.allDisciplines();
 
     this.userService.getUser().subscribe((data: any) => {
       this.userType = data.user.userType;
       this.userData = data.user;
-      console.log(data.user.userType + " = User Type");
-      this.getAllUsers(this.userData.id);
+
+        this.getAllUsers(this.userData.id);
+      
+  
       console.log('show: ',this.userData);
       this.projectObject.setUserDetails(data.user);
+      this.myUserProjects(data.user);
     });
     this.testObservable();
     // this.projectObject.sequenceSubscriber(this.userType)
@@ -152,13 +155,6 @@ export class DashboardComponent implements OnInit {
 
   saveProject()
   {
-    // this.projectSaveButton.nativeElement.disabled = true;
-    this.newProjectObject.descipline = "";
-    this.newProjectObject.description  = "";
-    this.newProjectObject.researchType = "";
-    this.newProjectObject.name = "";
-    this.newProjectObject.descipline =  this.inputDescipline.nativeElement.value;
-    this.newProjectObject.description  = this.inputDescription.nativeElement.value;
     if(this.inputResearchP.nativeElement.checked)
     {
       this.newProjectObject.researchType = this.inputResearchP.nativeElement.value;
@@ -167,15 +163,19 @@ export class DashboardComponent implements OnInit {
     {
       this.newProjectObject.researchType = this.inputResearch.nativeElement.value;
     }
-    this.newProjectObject.name = this.inputTitle.nativeElement.value;
-    console.log(this.newProjectObject);
+    let createProjectObject = {
+      description: this.inputDescription.nativeElement.value,
+      name:this.inputTitle.nativeElement.value,
+      descipine: this.inputDescipline.nativeElement.value,
+      projectStatusId: 1,
+      projectTypeId:this.newProjectObject.researchType, 
+      userId:  this.userData.id
+    }
     if(this.disableProjectSaveButtons() == 3)
     {
-      this.createNewProject(this.newProjectObject);
+      this.createNewProject(createProjectObject);
       this.clearCreateProject();
       this.showCreateProject();
-      // console.log("Creating a new Project");
-      // this.ngOnInit();
     }
     else
     {
@@ -192,6 +192,8 @@ export class DashboardComponent implements OnInit {
   }
   createNewProject(data:any)
   {
+    console.log("We are creating a new project");
+    console.log(data);
     this.service.createNewProject(data).subscribe((res)=>{
       console.log(res, 'res=>');
       this.ngOnInit();
@@ -241,21 +243,23 @@ export class DashboardComponent implements OnInit {
       console.log(this.allDisciplinesObject)
     })
   }
-  myProjects()
+  myUserProjects(userData:any)
   {
-    this.service.projects().subscribe((res)=>{
+    this.service.getUserProjects(userData.id).subscribe((res)=>{
+      // this.service.projects().subscribe((res)=>{
+      // console.log(this.userData.id);
+        console.log(res);
       // console.log(res.projects);
       // this.myProjectsObject = res.projects;
+
+      
       this.first2Projects = Array.prototype.slice.call(res.projects,);
       this.myProjectsObject = Array.prototype.slice.call(res.projects, 1);
-      console.log(this.myProjectsObject);
-      // for( var i=0; i < 2; i++)
-      // {
-      //   this.first2Projects[i] = res.projects[i];
-      // }
+
+      console.log("My projects");
       console.log(this.first2Projects);
     })
-    // this.first2Projects = this.myProjectsObject.slice(0,2);
+
   }
 
 
