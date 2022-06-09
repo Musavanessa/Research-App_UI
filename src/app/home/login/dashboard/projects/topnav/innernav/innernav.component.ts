@@ -14,10 +14,21 @@ export class InnernavComponent implements OnInit {
 
   projectObject:any;
   userDetails:any;
+  studentDetails:any;
   ngOnInit(): void {
     // console.log(ProjectObject.projectObject.name);
     this.userDetails = this.globalProjectObject.getUserDetails();
-    this.projectObject = this.globalProjectObject.getOpenedProjectObject();
+    console.log("User Details", this.userDetails);
+    if(this.userDetails.userType == '2')
+    {
+      //Get the details of the student
+      this.studentDetails = this.globalProjectObject.getPassStudentData();
+      console.log("Student Details", this.studentDetails);
+    }
+    else
+    {
+      this.projectObject = this.globalProjectObject.getOpenedProjectObject();
+    }
     console.log(this.projectObject);
     console.log(this.userDetails);
   }

@@ -27,6 +27,8 @@ export class ProjectStatusComponent implements OnInit {
   studentData:any;
   projectData:any;
   userType:any;
+  presentWorkingProject:any;
+
 
   //========================================================
   //VARIABLES ----- FOR CREATE GOAL TEMPLATE
@@ -109,6 +111,7 @@ export class ProjectStatusComponent implements OnInit {
   svgImage = "add_circle_green_24dp.svg";
   transformElement = "transform: rotate(0deg);"
 
+
   //=============================
   //MESSAGE REPLY BACK VARIABLES
   //=============================
@@ -117,6 +120,9 @@ export class ProjectStatusComponent implements OnInit {
   @ViewChild('sendMessageInputText') sendMessageInputText:any;
   messages:any;
   messageListDisplayStatus:any = [];
+  messageNotifications:any =[];
+  inputSubjectReadMode:any = [false, false];
+  messageRead:any;
 
   ngOnInit(): void {
     this.userDetails = this.projectObjectService.getUserDetails();
@@ -144,6 +150,10 @@ export class ProjectStatusComponent implements OnInit {
   //================================
   //OTHER FUNCTIONS
   //==============================
+      formatTodayDate(date:any)
+      {
+        return this.datepipe.transform(date, "hh:mm dd/MMM/y ")
+      }
       formatDateFull(date:any)
       {
         /*A string representing a global date and time.
@@ -182,113 +192,228 @@ export class ProjectStatusComponent implements OnInit {
 
         if(this.template_statuses[2])
         {
+          let openedProject = this.projectObjectService.getPassStudentData();
+          this.presentWorkingProject = this.projectObjectService.getOpenedProjectObject();
           //Get all goals again.
-          this.goalsService.getAllGoalsWhere(this.projectData.id).subscribe((data:any)=>{
-            console.log(data);
-            this.goals = data.goal;
-            console.log("console.log(this.goals) = " + this.goals);
-            let svgImage =  "../../../../../../../assets/media/icons/circle/circle_green.svg"
-            let svgImageAccordionGoal = {
-              image: svgImage,
-              isCardExpanded: false,
-              transformElement: this.transFormElements[1]
-            }
-            for(let x = 0; x < this.goals.length; x++)
-            {
-              let countDownDate = new Date(this.goals[x].dueDate).getTime();
-              //Push to the goals time left:
-              var now = new Date().getTime();
-              var distance = countDownDate - now;
-              var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-              var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-              var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-              var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-              this.goalsMinsLeft[x] = minutes + " M";
-              this.goalsHoursLeft[x] = hours + " H";
-              this.goalsDaysLeft[x] = days + " D"
-
-
-              let createdAt = new Date(data.goal[x].createdAt).getTime();
-              let endDate = new Date(data.goal[x].dueDate).getTime();
-              let today = new Date().getTime();
-              let goalPercentage =  ((today - createdAt) / ( endDate - createdAt)) * 100;
-              //I just need to know the goals status - but the goals status also affects its 
-              switch (data.goal[x].project_status.id) {
-                case 1:
-                  this.goalsStatuses.push(this.goalStatus[0])
-                  break;
-                case 2:
-                  this.goalsStatuses.push(this.goalStatus[1])
-                  break;
-                case 9:
-                  this.goalsStatuses.push(this.goalStatus[2])
-                  break;
-                case 11:
-                  this.goalsStatuses.push(this.goalStatus[3])
-                  break;
+          if(this.userDetails.userType == '2')
+          {
+            this.goalsService.getAllGoalsWhere(openedProject.id).subscribe((data:any)=>{
+              console.log(data);
+              this.goals = data.goal;
+              console.log("console.log(this.goals) = " + this.goals);
+              let svgImage =  "../../../../../../../assets/media/icons/circle/circle_green.svg"
+              let svgImageAccordionGoal = {
+                image: svgImage,
+                isCardExpanded: false,
+                transformElement: this.transFormElements[1]
               }
-              if(goalPercentage <= 50 && goalPercentage >= 0)
+              for(let x = 0; x < this.goals.length; x++)
               {
-                //TIME IS GOOD ON GREEN
-                console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
-                this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
-                this.goalTimeOut.push(false);
-                this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[0])
-                this.goalsTimeStatusTextColor.push(this.goalsTimeStatusTextColors[0]);
-              }
-              else
-              {
-                if(goalPercentage > 50 && goalPercentage <=100)
+                let countDownDate = new Date(this.goals[x].dueDate).getTime();
+                //Push to the goals time left:
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                this.goalsMinsLeft[x] = minutes + " M";
+                this.goalsHoursLeft[x] = hours + " H";
+                this.goalsDaysLeft[x] = days + " D"
+  
+  
+                let createdAt = new Date(data.goal[x].createdAt).getTime();
+                let endDate = new Date(data.goal[x].dueDate).getTime();
+                let today = new Date().getTime();
+                let goalPercentage =  ((today - createdAt) / ( endDate - createdAt)) * 100;
+                //I just need to know the goals status - but the goals status also affects its 
+                switch (data.goal[x].project_status.id) {
+                  case 1:
+                    this.goalsStatuses.push(this.goalStatus[0])
+                    break;
+                  case 2:
+                    this.goalsStatuses.push(this.goalStatus[1])
+                    break;
+                  case 9:
+                    this.goalsStatuses.push(this.goalStatus[2])
+                    break;
+                  case 11:
+                    this.goalsStatuses.push(this.goalStatus[3])
+                    break;
+                }
+                if(goalPercentage <= 50 && goalPercentage >= 0)
                 {
-                  //TIME IS STILL GOOD BUT ORANGE
-                  console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
-                  this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[1]);
+                  //TIME IS GOOD ON GREEN
+                  console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
+                  this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
                   this.goalTimeOut.push(false);
-                  this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[1])
-                  this.goalsTimeStatusTextColor.push(this.goalsTimeStatusTextColors[1]);
-
+                  this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[0])
+                  this.goalsTimeStatusTextColor.push(this.goalsTimeStatusTextColors[0]);
                 }
                 else
                 {
-                  //TIME IS OVERDUE
-                  console.log(goalPercentage + " > 100");
+                  if(goalPercentage > 50 && goalPercentage <=100)
+                  {
+                    //TIME IS STILL GOOD BUT ORANGE
+                    console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
+                    this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[1]);
+                    this.goalTimeOut.push(false);
+                    this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[1])
+                    this.goalsTimeStatusTextColor.push(this.goalsTimeStatusTextColors[1]);
+  
+                  }
+                  else
+                  {
+                    //TIME IS OVERDUE
+                    console.log(goalPercentage + " > 100");
+                    this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
+                    this.goalTimeOut.push(true);
+                    this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[2])
+                    this.goalsTimeStatusTextColor.push(this.goalsTimeStatusTextColors[2]);
+  
+  
+                  }
+                }
+                if(goalPercentage < 0)
+                {
+                  console.log(goalPercentage + " < 0");
                   this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
                   this.goalTimeOut.push(true);
-                  this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[2])
-                  this.goalsTimeStatusTextColor.push(this.goalsTimeStatusTextColors[2]);
-
-
+                  if(data.goal[x].project_status.id == 1)
+                  {
+                    this.goalsStatuses.push(this.goalStatus[3])
+                  }
                 }
+                this.percentageToCompletion.push((parseInt(String(goalPercentage))));
+                this.goalsListDisplayStatus.push(false);
+                this.transFormElements.push("transform: rotate(0deg);");
+                //To get the time status - I need 3 dates - Firstly I need need the start date
+                //Take the start date and substract it with today date - 
+                //Take the final date and substract it with the start date
+                //Get the percentage
+                /*
+                ((todayDate - startDate)/(startDate - endDate)) * 100
+                */
+                this.svgImageAccordionGoals.push(svgImageAccordionGoal);
               }
-              if(goalPercentage < 0)
+              if(this.goalsService.getIsGoalFeedbackOpened())
               {
-                console.log(goalPercentage + " < 0");
-                this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
-                this.goalTimeOut.push(true);
-                if(data.goal[x].project_status.id == 1)
-                {
-                  this.goalsStatuses.push(this.goalStatus[3])
-                }
+                this.displayGoalCard(this.goalsService.getIndexOfGoalToReply());
               }
-              this.percentageToCompletion.push((parseInt(String(goalPercentage))));
-              this.goalsListDisplayStatus.push(false);
-              this.transFormElements.push("transform: rotate(0deg);");
-              //To get the time status - I need 3 dates - Firstly I need need the start date
-              //Take the start date and substract it with today date - 
-              //Take the final date and substract it with the start date
-              //Get the percentage
-              /*
-              ((todayDate - startDate)/(startDate - endDate)) * 100
-              */
-              this.svgImageAccordionGoals.push(svgImageAccordionGoal);
-            }
-            if(this.goalsService.getIsGoalFeedbackOpened())
-            {
-              this.displayGoalCard(this.goalsService.getIndexOfGoalToReply());
-            }
+  
+            
+            });
+          }
+          else
+          {
+            this.goalsService.getAllGoalsWhere(this.presentWorkingProject.id).subscribe((data:any)=>{
+              console.log(data);
+              this.goals = data.goal;
+              console.log("console.log(this.goals) = " + this.goals);
+              let svgImage =  "../../../../../../../assets/media/icons/circle/circle_green.svg"
+              let svgImageAccordionGoal = {
+                image: svgImage,
+                isCardExpanded: false,
+                transformElement: this.transFormElements[1]
+              }
+              for(let x = 0; x < this.goals.length; x++)
+              {
+                let countDownDate = new Date(this.goals[x].dueDate).getTime();
+                //Push to the goals time left:
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                this.goalsMinsLeft[x] = minutes + " M";
+                this.goalsHoursLeft[x] = hours + " H";
+                this.goalsDaysLeft[x] = days + " D"
+  
+  
+                let createdAt = new Date(data.goal[x].createdAt).getTime();
+                let endDate = new Date(data.goal[x].dueDate).getTime();
+                let today = new Date().getTime();
+                let goalPercentage =  ((today - createdAt) / ( endDate - createdAt)) * 100;
+                //I just need to know the goals status - but the goals status also affects its 
+                switch (data.goal[x].project_status.id) {
+                  case 1:
+                    this.goalsStatuses.push(this.goalStatus[0])
+                    break;
+                  case 2:
+                    this.goalsStatuses.push(this.goalStatus[1])
+                    break;
+                  case 9:
+                    this.goalsStatuses.push(this.goalStatus[2])
+                    break;
+                  case 11:
+                    this.goalsStatuses.push(this.goalStatus[3])
+                    break;
+                }
+                if(goalPercentage <= 50 && goalPercentage >= 0)
+                {
+                  //TIME IS GOOD ON GREEN
+                  console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
+                  this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
+                  this.goalTimeOut.push(false);
+                  this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[0])
+                  this.goalsTimeStatusTextColor.push(this.goalsTimeStatusTextColors[0]);
+                }
+                else
+                {
+                  if(goalPercentage > 50 && goalPercentage <=100)
+                  {
+                    //TIME IS STILL GOOD BUT ORANGE
+                    console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
+                    this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[1]);
+                    this.goalTimeOut.push(false);
+                    this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[1])
+                    this.goalsTimeStatusTextColor.push(this.goalsTimeStatusTextColors[1]);
+  
+                  }
+                  else
+                  {
+                    //TIME IS OVERDUE
+                    console.log(goalPercentage + " > 100");
+                    this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
+                    this.goalTimeOut.push(true);
+                    this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[2])
+                    this.goalsTimeStatusTextColor.push(this.goalsTimeStatusTextColors[2]);
+  
+  
+                  }
+                }
+                if(goalPercentage < 0)
+                {
+                  console.log(goalPercentage + " < 0");
+                  this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
+                  this.goalTimeOut.push(true);
+                  if(data.goal[x].project_status.id == 1)
+                  {
+                    this.goalsStatuses.push(this.goalStatus[3])
+                  }
+                }
+                this.percentageToCompletion.push((parseInt(String(goalPercentage))));
+                this.goalsListDisplayStatus.push(false);
+                this.transFormElements.push("transform: rotate(0deg);");
+                //To get the time status - I need 3 dates - Firstly I need need the start date
+                //Take the start date and substract it with today date - 
+                //Take the final date and substract it with the start date
+                //Get the percentage
+                /*
+                ((todayDate - startDate)/(startDate - endDate)) * 100
+                */
+                this.svgImageAccordionGoals.push(svgImageAccordionGoal);
+              }
+              if(this.goalsService.getIsGoalFeedbackOpened())
+              {
+                this.displayGoalCard(this.goalsService.getIndexOfGoalToReply());
+              }
+  
+            
+            });
+          }
 
-          
-          });
           console.log("This is the goals object " + this.goals)
           console.log(this.goalsListDisplayStatus);
           console.log(this.svgImageAccordionGoals);
@@ -634,9 +759,14 @@ export class ProjectStatusComponent implements OnInit {
 
           this.messageObject = messageObject;          
           console.log(this.messageObject);
-          // this.feedbackService.sendFeedback(this.messageObject).subscribe((res)=>{
-          //   console.log(res, "res==>");
-          // })
+          this.feedbackService.sendFeedback(this.messageObject).subscribe((res)=>{
+            console.log(res, "res==>");
+            this.ngOnInit();
+          })
+        }
+        readMessage(feedback:any)
+        {
+          this.messageRead = feedback;
         }
 
 }

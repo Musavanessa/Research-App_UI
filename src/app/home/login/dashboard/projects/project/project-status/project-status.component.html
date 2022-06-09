@@ -6,10 +6,10 @@
         <div class="row">
           <div style="width:5%">
             <ul class="list-group" style="width: 60px; background-color:transparent;">
-              <li class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
+              <li data-tooltip="Submitted Files" class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
                 <img (click)="changeActiveStatus(1)" src="../../../../../../../assets/media/icons/write/description_purple_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-appointment" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;">
               </li>
-              <li class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
+              <li data-tooltip="Goals and Feedbacks" class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
                 <img (click)="changeActiveStatus(2)" src="../../../../../../../assets/media/icons/goal_flag_FILL1_wght400_GRAD0_opsz48.svg" alt="New Event" width="30px" height="30px" class="project-event-goal" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;"  >
               </li>
             </ul>
@@ -83,7 +83,7 @@
               <ng-template #template_goalsList>
                 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding:0 0 0 0; margin: 0 0 0 0; height: 710px; overflow: scroll; margin-left: auto; margin-right: auto;">
                   <div *ngFor="let goal of goals; let i = index">
-                    <div class="col"style="padding:none;" (click)="updateIsGoalSuccessfullDisplay()">
+                    <div *ngIf="goal.user.userType == '2'" class="col"style="padding:none;" (click)="updateIsGoalSuccessfullDisplay()">
                       <div class="card" style="width:42rem; border:none; background-color:transparent">
                         <div *ngIf="isGoalSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
                           <div class="alert alert-success" role="alert">
@@ -94,7 +94,7 @@
                           <div class="alert alert-danger" role="alert">
                             <strong>Error:</strong> Something went wrong!
                           </div>
-                        </div>
+                        </div>  
                         <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 40rem; margin-left: auto; margin-right: auto;">
                           <div #createGoalCard class="card chatGroupSettingsClass"  style="border:none">
                             <div class="card-header" style="border:none; background-color: rgb(239, 239, 239);" [style.color]="goalsTimeStatusTextColor[i]">
@@ -104,17 +104,19 @@
                                     <div style="position:relative; top: 5px; font-size: 14px;color:black">
                                       <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="15px" height="15px" [style]="transformElement">
                                       {{goal.title}}
+                                      <span *ngIf="!showAddIconOnAddGoal" class="badge" style="background-color:red; border-radius:50px">{{showNumAcceptanceCriteriaItem}}</span>
+
                                     </div>
                                   </div>
                                   <div class="col-md-auto" style="display: table-cell; vertical-align: sub; ">
                                   </div>
-                                  <div class="col-md-auto">
+                                  <div data-tooltip="Reply to Goal" class="col-md-auto">
                                     <img (click)="replytoGoal(goal)"  src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                                   </div>
-                                  <div class="col-md-auto">
+                                  <div  data-tooltip="View Sent Messages" class="col-md-auto">
                                     <img (click)="showGoalMessages(i)" src="../../../../../../../assets/media/icons/message/email_blue_24dp.svg" alt="New Event" width="24px" height="24px" class="project-event-event" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;"  >
                                   </div>
-                                  <div class="col-md-auto">
+                                  <div data-tooltip="Expand / Collapse details" class="col-md-auto">
                                     &nbsp;&nbsp;&nbsp;
                                     <img (click)="displayGoalCard(i)" src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey;" [style]="transFormElements[i]">
                                   </div>
@@ -125,7 +127,25 @@
                               <li *ngIf="messageListDisplayStatus[i]" class="list-group-item">
                                 <ul class="list-group list-group-flush" style="border: none">
                                   <li *ngFor="let feedback of goal.feedbacks" class="list-group-item">
-                                    {{feedback.title}}
+                                    <div class="row" style="cursor:pointer" (click)="inputSubjectReadMode[0] = true; inputSubjectReadMode[1]=true; readMessage(feedback)">
+                                      <div class="col-8">
+                                        <td>
+                                          <span *ngIf="feedback.projectStatusId == 13 && feedback.userId == userDetails.id" class="badge" style="background-color:rgb(84, 84, 84); border-radius:50px; font-weight:lighter;">sent</span>
+                                        </td>
+                                        <td>
+                                          <span *ngIf="feedback.projectStatusId == 13 && feedback.userId != userDetails.id" class="badge" style="background-color:darkgreen; border-radius:50px; font-weight:lighter;">new</span>
+                                        </td>
+                                        <td>&nbsp;{{feedback.title}}</td>
+                                      </div>
+                                      <!-- <div class="col-sm">col-sm</div> -->
+                                      <div class="col-sm">                                    
+                                        <td style="text-align:right">
+                                          <div style="text-align:right; color:#868686; float:inline-end;">{{formatTodayDate(feedback.createdAt)}}</div>
+                                        </td>
+                                      </div>
+                                    </div>
+
+
                                   </li>
                                 </ul>
                               </li>
@@ -292,20 +312,25 @@
             </div>
             <div class="card border-light mb-3" style="width: 95%;margin-left: auto; margin-right: auto; border: none;">
               &nbsp;&nbsp;
-              <ul class="list-group">
-                <li class="list-group-item">
+              <ul class="list-group" style="border:none">
+                <li class="list-group-item" style="border:none">
                   <div class="row">
                     <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                       Subject
                     </h3>
-                    <input  #sendMessageInputSubject type="text" class="form-control  input_table" placeholder="Message Subject" aria-label="message subject" aria-describedby="basic-addon2">               
+                    <input *ngIf="!inputSubjectReadMode[0]" #sendMessageInputSubject type="text" class="form-control  input_table" placeholder="Message Subject" aria-label="message subject" aria-describedby="basic-addon2">   
+                    <input disabled *ngIf="inputSubjectReadMode[0]" #sendMessageInputSubject type="text" class="form-control  input_table" placeholder="Message Subject" aria-label="message subject" aria-describedby="basic-addon2" value="{{messageRead.title}}">   
+
+
                     
                     <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;padding-top: 10px">
                       Message
                     </h3>
                     &nbsp;&nbsp;
                     <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
-                      <textarea #sendMessageInputText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="13" placeholder="Write Message here..."></textarea>
+                      <textarea *ngIf="!inputSubjectReadMode[1]" #sendMessageInputText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="13" placeholder="Write Message here..."></textarea>
+                      <pre  *ngIf="inputSubjectReadMode[1]" #sendMessageInputText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">{{messageRead.text}}</pre>
+                      
                     </div>
                     <tr style="user-select:none">
                         <button (click)="sendMessage()" #createRequestAppointmentButton  type="button" class="btn btn-primary btn-sm" >Send</button>
