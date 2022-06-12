@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 export class ProjectEventsService {
 
   constructor(private _http:HttpClient) { }
-  apiUrl = 'http://168.172.189.59:3000/api/v1/';
+  // apiUrl = 'http://168.172.189.59:3000/api/v1/';
+  apiUrl = 'http://localhost:3000/api/v1/';
   //Create an API request for creating a goal
   goalObject:any;
   // createNewGoal(): Observable<any>

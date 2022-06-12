@@ -105,7 +105,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor= "let project of first2Projects;" style="cursor:pointer" routerLink="/project" (click)="openProjectSelected(project)" (click)="projectObject.updateProjectObject(project.id)">
+                  <tr *ngFor="let project of first2Projects; let i = index" style="cursor:pointer" routerLink="/project" (click)="openProjectSelected(project)" (click)="projectObject.updateProjectObject(project.id)">
                     <th scope="row" >{{project.id}}</th>
                     <td>{{project.name}}</td>
                     <td>{{project.description}}</td>
@@ -114,6 +114,7 @@
                     <td>{{project.startDate}}</td>
                     <td></td>
                     <td>
+                      <span *ngIf="countAllNotifications[i] > 0" class="badge" style="background-color:red; border-radius:50px; position:relative; top:20px; left:25px">{{countAllNotifications[i]}}</span>
                       <a class="nav-link"  style="color:black" routerLink="/project-write">
                         <img src="../../../../../../../assets/media/logos/notification_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                       </a>

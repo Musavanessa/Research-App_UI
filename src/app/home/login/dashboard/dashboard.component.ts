@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { UserService } from 'src/app/services/user/user.service';
 import { ProjectObjectService } from './projects/project-object.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { FeedbackService } from 'src/app/services/feedback/feedback.service';
 import { of } from 'rxjs';
 @Component({
   selector: 'app-dashboard',
@@ -20,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
 
 
-  constructor(public userService: UserService,  public projectObject : ProjectObjectService, public datepipe: DatePipe, public router:Router, public globalVariables: GlobalVariables, private service: ApiserviceService, public authService: AuthService ) { }
+  constructor(public feedbackService:FeedbackService, public userService: UserService,  public projectObject : ProjectObjectService, public datepipe: DatePipe, public router:Router, public globalVariables: GlobalVariables, private service: ApiserviceService, public authService: AuthService ) { }
   userType: string = "1";
 
   userData:any;
@@ -57,7 +58,18 @@ export class DashboardComponent implements OnInit {
   @ViewChild('inputTitle') inputTitle:any;
   @ViewChild('projectSaveButton') projectSaveButton:any;
 
+  //=============================
+  //NOTIFICATION VARIABLES
+  //=======================
+  countAllNotifications:any = [];
+  isNotificationFound:any = [];
+
+
   ngOnInit(): void {
+
+    this.service.getAllLinks().subscribe((data:any)=>{
+      console.log(data);
+    })
     this.globalVariables.showSideNav();
     console.log(GlobalVariables.isToBeShown + ' is ');
    
@@ -252,9 +264,29 @@ export class DashboardComponent implements OnInit {
       // console.log(res.projects);
       // this.myProjectsObject = res.projects;
 
-      
+      // console.log(r)
       this.first2Projects = Array.prototype.slice.call(res.projects,);
       this.myProjectsObject = Array.prototype.slice.call(res.projects, 1);
+
+      //Here we need to create a for loop and go through all the notifications for all the projects that the user has.
+      for(let x = 0; x < this.first2Projects.length; x++)
+      {
+        // console.log("Project ID: " + this.first2Projects[x].id);
+        this.feedbackService.getAllStudentProjectNotifications(this.first2Projects[x].id).subscribe((data)=>{
+          console.log(data.notifications[0].countfeedback);
+          if(data.notifications.length > 0)
+          {
+            this.isNotificationFound.push(true);
+            this.countAllNotifications.push(data.notifications[0].countfeedback);
+            console.log(this.countAllNotifications[x]);
+          }
+          else
+          {
+            this.countAllNotifications.push(0);
+            this.isNotificationFound.push(false);            
+          }
+        });
+      }
 
       console.log("My projects");
       console.log(this.first2Projects);
@@ -313,6 +345,8 @@ export class DashboardComponent implements OnInit {
   openProjectSelected(project:any)
   {
     this.projectObject.setOpenedProjectObject(project);
+    //We alos need to get the project count for notifications.
+    
   }
 
 }

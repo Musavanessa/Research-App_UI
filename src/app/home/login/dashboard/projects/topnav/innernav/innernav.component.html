@@ -20,6 +20,7 @@
             </a>
             </li>
             <li data-tooltip="Feedbacks & Chapter files"  class="nav-item">
+              <span *ngIf="countAllNotifications > 0" class="badge" style="background-color:red; border-radius:50px; position:absolute; top:13px; left:115px;z-index: 10;">{{countAllNotifications}}</span>
                 <a class="nav-link" routerLink="/project-status">
                 <img src="../../../../../../../assets/media/logos/email_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                 </a>

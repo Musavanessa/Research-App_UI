@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectObjectService } from '../../project-object.service';
+import { FeedbackService } from 'src/app/services/feedback/feedback.service';
 // import { ProjectObject } from '../../project-viewer';
 
 @Component({
@@ -10,11 +11,14 @@ import { ProjectObjectService } from '../../project-object.service';
 export class InnernavComponent implements OnInit {
 
   // public projectObject: ProjectObject
-  constructor(public globalProjectObject : ProjectObjectService) { }
+  constructor(public feedbackService: FeedbackService, public globalProjectObject : ProjectObjectService) { }
 
   projectObject:any;
   userDetails:any;
   studentDetails:any;
+
+  //NOTIFICATIONS VARIABLS
+  countAllNotifications = 0;
   ngOnInit(): void {
     // console.log(ProjectObject.projectObject.name);
     this.userDetails = this.globalProjectObject.getUserDetails();
@@ -24,10 +28,23 @@ export class InnernavComponent implements OnInit {
       //Get the details of the student
       this.studentDetails = this.globalProjectObject.getPassStudentData();
       console.log("Student Details", this.studentDetails);
+
     }
     else
     {
+      //I think the best way to do this is to get the information using the feedback service 
       this.projectObject = this.globalProjectObject.getOpenedProjectObject();
+      //We can call the same request....
+      this.feedbackService.getAllStudentProjectNotifications(this.projectObject.id).subscribe((data)=>{
+        console.log(data.notifications.length);
+        if(data.notifications.length > 0)
+        {
+          this.countAllNotifications = data.notifications[0].countfeedback;
+        }
+        console.log(this.countAllNotifications);
+        // this.countAllNotifications.push(data.notifications);
+        // console.log(this.countAllNotifications);
+      });
     }
     console.log(this.projectObject);
     console.log(this.userDetails);

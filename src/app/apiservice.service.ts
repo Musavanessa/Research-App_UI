@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 export class ApiserviceService {
 
   constructor(private _http:HttpClient) { }
-  // apiUrl = 'http://localhost:3000/api/v1/';
-  apiUrl = 'http://168.172.189.59:3000/api/v1/';
+  apiUrl = 'http://localhost:3000/api/v1/';
+  // apiUrl = 'http://168.172.189.59:3000/api/v1/';
 
 
   disciplines(): Observable<any>
@@ -101,6 +101,11 @@ export class ApiserviceService {
   deleteBlog(blogId: number):Observable<any>
   {
     return this._http.get(`${this.apiUrl+"blogs/"+blogId}`);
+  }
+
+  getAllLinks():Observable<any>
+  {
+    return this._http.get(`${this.apiUrl+"links"}`);
   }
 
 }

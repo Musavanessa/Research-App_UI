@@ -6,6 +6,7 @@ import { Pipe } from '@angular/core';
 import { GoalsService } from 'src/app/services/project-events-goals/goals.service';
 import { DatePipe } from '@angular/common';
 import { FeedbackService } from 'src/app/services/feedback/feedback.service';
+import { faUnderline } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-project-status',
@@ -98,7 +99,7 @@ export class ProjectStatusComponent implements OnInit {
   goal_tempate_status: boolean = false;
   event_tempate_status: boolean = false;
   calendar_tempate_status: boolean = true;
-  template_statuses = [true, false, false]
+  template_statuses = [false, false, true]
   todayDate = new Date();
 
 
@@ -115,7 +116,7 @@ export class ProjectStatusComponent implements OnInit {
   //=============================
   //MESSAGE REPLY BACK VARIABLES
   //=============================
-  messageReplyTo:any = "New Message"
+  messageReplyTo:any = "..."
   @ViewChild('sendMessageInputSubject') sendMessageInputSubject:any;
   @ViewChild('sendMessageInputText') sendMessageInputText:any;
   messages:any;
@@ -123,6 +124,8 @@ export class ProjectStatusComponent implements OnInit {
   messageNotifications:any =[];
   inputSubjectReadMode:any = [false, false];
   messageRead:any;
+  isMessageSuccessfullySent:boolean = false;
+  goalNotifications:any = [{countfeedbacks:0}];
 
   ngOnInit(): void {
     this.userDetails = this.projectObjectService.getUserDetails();
@@ -141,6 +144,10 @@ export class ProjectStatusComponent implements OnInit {
       console.log(goal.id + " Is the goal ID");
       // console.log("messageReplyTo = " + goal.title)
       // this.displayGoalCard(index:number)
+    }
+    else
+    {
+      this.changeActiveStatus(2);
     }
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
@@ -197,6 +204,7 @@ export class ProjectStatusComponent implements OnInit {
           //Get all goals again.
           if(this.userDetails.userType == '2')
           {
+            // this.goalNotifications = [];
             this.goalsService.getAllGoalsWhere(openedProject.id).subscribe((data:any)=>{
               console.log(data);
               this.goals = data.goal;
@@ -209,6 +217,19 @@ export class ProjectStatusComponent implements OnInit {
               }
               for(let x = 0; x < this.goals.length; x++)
               {
+                this.feedbackService.CountFeedbacksForAGivenGoal(this.goals[x].id).subscribe((data)=>{
+                  console.log(data.notifications[x]);
+                  if(data.notifications[x] == undefined)
+                  {
+                    console.log("Error");
+                    let data = {countfeedbacks:0}
+                    this.goalNotifications.push(data);
+                  }
+                  else
+                  {
+                    this.goalNotifications.push(data.notifications[x]);
+                  }
+                })
                 let countDownDate = new Date(this.goals[x].dueDate).getTime();
                 //Push to the goals time left:
                 var now = new Date().getTime();
@@ -318,6 +339,20 @@ export class ProjectStatusComponent implements OnInit {
               }
               for(let x = 0; x < this.goals.length; x++)
               {
+                //Get the notification for very goal
+                this.feedbackService.CountFeedbacksForAGivenGoal(this.goals[x].id).subscribe((data)=>{
+                  console.log(data.notifications[x]);
+                  if(data.notifications[x] == undefined)
+                  {
+                    console.log("Error");
+                    let data = {countfeedbacks:0}
+                    this.goalNotifications.push(data);
+                  }
+                  else
+                  {
+                    this.goalNotifications.push(data.notifications[x]);
+                  }
+                })
                 let countDownDate = new Date(this.goals[x].dueDate).getTime();
                 //Push to the goals time left:
                 var now = new Date().getTime();
@@ -761,12 +796,30 @@ export class ProjectStatusComponent implements OnInit {
           console.log(this.messageObject);
           this.feedbackService.sendFeedback(this.messageObject).subscribe((res)=>{
             console.log(res, "res==>");
+            this.isMessageSuccessfullySent = true;
+            this.sendMessageInputText.nativeElement.value = "";
+            this.sendMessageInputSubject.nativeElement.value = "";
             this.ngOnInit();
+            //One of the things that I would like to do is to show what has been sent
           })
         }
         readMessage(feedback:any)
         {
+
           this.messageRead = feedback;
+          console.log(feedback.userId);
+          console.log(this.userDetails.id);
+          //Update the messages status. but not the messages that this user sent.
+          if(feedback.projectStatusId == 13 && this.userDetails.id != feedback.userId)
+          {
+            this.feedbackService.marksFeedbackAsRead(feedback.id).subscribe((res)=>{
+              console.log(res);
+              this.ngOnInit();
+            })
+          }
+
+          
+
         }
 
 }

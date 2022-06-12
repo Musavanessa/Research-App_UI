@@ -6,11 +6,11 @@
         <div class="row">
           <div style="width:5%">
             <ul class="list-group" style="width: 60px; background-color:transparent;">
-              <li data-tooltip="Submitted Files" class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
-                <img (click)="changeActiveStatus(1)" src="../../../../../../../assets/media/icons/write/description_purple_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-appointment" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;">
-              </li>
               <li data-tooltip="Goals and Feedbacks" class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
                 <img (click)="changeActiveStatus(2)" src="../../../../../../../assets/media/icons/goal_flag_FILL1_wght400_GRAD0_opsz48.svg" alt="New Event" width="30px" height="30px" class="project-event-goal" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;"  >
+              </li>
+              <li data-tooltip="Submitted Files" class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
+                <img (click)="changeActiveStatus(1)" src="../../../../../../../assets/media/icons/write/description_purple_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-appointment" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;">
               </li>
             </ul>
           </div>
@@ -20,7 +20,7 @@
               </div>
               <div *ngIf="template_statuses[1] then template_paperSubmitted;">
               </div>
-              <div *ngIf="template_statuses[2] then template_goalsList; else template_goals4Project">
+              <div *ngIf="template_statuses[2] then template_goalsList;">
               </div>
               <ng-template #template_messages>
                 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll; position:relative; padding: 0 0 0 0;">
@@ -104,7 +104,6 @@
                                     <div style="position:relative; top: 5px; font-size: 14px;color:black">
                                       <img src="{{typeOfIconToUseOnPercentage[i]}}" alt="ResearcherDNA-Logo" width="15px" height="15px" [style]="transformElement">
                                       {{goal.title}}
-                                      <span *ngIf="!showAddIconOnAddGoal" class="badge" style="background-color:red; border-radius:50px">{{showNumAcceptanceCriteriaItem}}</span>
 
                                     </div>
                                   </div>
@@ -115,6 +114,7 @@
                                   </div>
                                   <div  data-tooltip="View Sent Messages" class="col-md-auto">
                                     <img (click)="showGoalMessages(i)" src="../../../../../../../assets/media/icons/message/email_blue_24dp.svg" alt="New Event" width="24px" height="24px" class="project-event-event" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;"  >
+                                    <span *ngIf="goalNotifications[i].countfeedbacks > 0" class="badge" style="background-color:red; border-radius:50px; position:relative;left:-8px; top:-6px">{{goalNotifications[i].countfeedbacks}}</span>
                                   </div>
                                   <div data-tooltip="Expand / Collapse details" class="col-md-auto">
                                     &nbsp;&nbsp;&nbsp;
@@ -300,12 +300,16 @@
                 </div>
               </ng-template>
               <ng-template #template_goals4Project>
-
               </ng-template>
             </div>
           </div>
           <div style="width:40%; background-color: white;">
             <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">
+              <div *ngIf="isMessageSuccessfullySent" (click)="isMessageSuccessfullySent = !isMessageSuccessfullySent" style="margin-left:auto; margin-right:auto; width: 95%">
+                <div class="alert alert-success" role="alert">
+                  <strong>Success:</strong> Message sent successfully
+                </div>
+              </div>
               <strong>Replying to</strong>
               {{messageReplyTo}}
               &nbsp;&nbsp;
