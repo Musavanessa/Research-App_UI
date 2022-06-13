@@ -127,8 +127,8 @@
                               <li *ngIf="messageListDisplayStatus[i]" class="list-group-item">
                                 <ul class="list-group list-group-flush" style="border: none">
                                   <li *ngFor="let feedback of goal.feedbacks" class="list-group-item">
-                                    <div class="row" style="cursor:pointer" (click)="inputSubjectReadMode[0] = true; inputSubjectReadMode[1]=true; readMessage(feedback)">
-                                      <div class="col-8">
+                                    <div class="row" style="cursor:pointer" >
+                                      <div class="col-8" (click)="inputSubjectReadMode[0] = true; inputSubjectReadMode[1]=true; readMessage(feedback)">
                                         <td>
                                           <span *ngIf="feedback.projectStatusId == 13 && feedback.userId == userDetails.id" class="badge" style="background-color:rgb(84, 84, 84); border-radius:50px; font-weight:lighter;">sent</span>
                                         </td>
@@ -138,9 +138,16 @@
                                         <td>&nbsp;{{feedback.title}}</td>
                                       </div>
                                       <!-- <div class="col-sm">col-sm</div> -->
-                                      <div class="col-sm">                                    
+                                      <div class="col-sm" (click)="inputSubjectReadMode[0] = true; inputSubjectReadMode[1]=true; readMessage(feedback)" >                                    
                                         <td style="text-align:right">
                                           <div style="text-align:right; color:#868686; float:inline-end;">{{formatTodayDate(feedback.createdAt)}}</div>
+                                        </td>
+                                      </div>
+                                      <div class="col-sm">                                    
+                                        <td  (click)="replyToFeedback(feedback, goal); inputSubjectReadMode[0]=false; inputSubjectReadMode[1]=false;"  style="text-align:right">
+                                          <div  data-tooltip="Reply to Feedback" style="text-align:right; color:#868686; float:inline-end;">
+                                            <img src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                          </div>
                                         </td>
                                       </div>
                                     </div>
@@ -322,7 +329,7 @@
                     <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                       Subject
                     </h3>
-                    <input *ngIf="!inputSubjectReadMode[0]" #sendMessageInputSubject type="text" class="form-control  input_table" placeholder="Message Subject" aria-label="message subject" aria-describedby="basic-addon2">   
+                    <input *ngIf="!inputSubjectReadMode[0]" #sendMessageInputSubject type="text" class="form-control  input_table" placeholder="Message Subject" aria-label="message subject" aria-describedby="basic-addon2" value="{{messageSubject}}">   
                     <input disabled *ngIf="inputSubjectReadMode[0]" #sendMessageInputSubject type="text" class="form-control  input_table" placeholder="Message Subject" aria-label="message subject" aria-describedby="basic-addon2" value="{{messageRead.title}}">   
 
 
@@ -333,7 +340,7 @@
                     &nbsp;&nbsp;
                     <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto; height:50%; overflow: scroll;">
                       <textarea *ngIf="!inputSubjectReadMode[1]" #sendMessageInputText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="13" placeholder="Write Message here..."></textarea>
-                      <pre  *ngIf="inputSubjectReadMode[1]" #sendMessageInputText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">{{messageRead.text}}</pre>
+                      <pre  *ngIf="inputSubjectReadMode[1]" #sendMessageInputText class="form-control  input_table" id="exampleFormControlTextarea1" style="height: 350px; resize: none; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">{{messageRead.text}}</pre>
                       
                     </div>
                     <tr style="user-select:none">

@@ -123,11 +123,12 @@ export class ProjectStatusComponent implements OnInit {
   messages:any;
   messageListDisplayStatus:any = [];
   messageNotifications:any =[];
-  inputSubjectReadMode:any = [false, false];
+  inputSubjectReadMode:any = [false, false, true, true];
   messageRead:any;
   isMessageSuccessfullySent:boolean = false;
   goalNotifications:any = [];
   goalNotificationObjects:any = [];
+  messageSubject:any = "";
 
   ngOnInit(): void {
     this.userDetails = this.projectObjectService.getUserDetails();
@@ -782,6 +783,30 @@ export class ProjectStatusComponent implements OnInit {
           this.goalToReply = goal;
           this.goalsService.setGoalOpenedFromFeedback(goal);
           // this.sendMessage(messageObject);
+        }
+        
+        replyToFeedback(feedback:any, goal:any)
+        {
+          this.messageReplyTo = goal.title;
+          let  firstName = this.userDetails.firstName[0];
+          let lastName = this.userDetails.lastName;
+          let subjectName = firstName + "." + lastName;
+          if(feedback.title.search(/Re\: \[/))
+          {
+            let now = this.datepipe.transform(new Date(), "hh:mm a EEE dd-MMM-y ");
+            this.messageSubject = "Re: ["+ subjectName +  " - " + now + "] " + feedback.title ;
+            //If they do match then add - because if they do match then the user might not understand which message is more recent. - except if the get the message ID
+
+          }
+          else
+          {
+            this.messageSubject = feedback.title;
+          }
+          console.log(this.messageSubject);
+          this.goalToReply = goal;
+          this.goalsService.setGoalOpenedFromFeedback(goal);
+
+
         }
         sendMessage()
         {
