@@ -114,7 +114,7 @@
                                   </div>
                                   <div  data-tooltip="View Sent Messages" class="col-md-auto">
                                     <img (click)="showGoalMessages(i)" src="../../../../../../../assets/media/icons/message/email_blue_24dp.svg" alt="New Event" width="24px" height="24px" class="project-event-event" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;"  >
-                                    <span *ngIf="goalNotifications[i].countfeedbacks > 0" class="badge" style="background-color:red; border-radius:50px; position:relative;left:-8px; top:-6px">{{goalNotifications[i].countfeedbacks}}</span>
+                                    <span  *ngIf="goalNotifications[i] > 0"  class="badge" style="background-color:red; border-radius:50px; position:relative;left:-8px; top:-6px">{{goalNotifications[i]}}</span>
                                   </div>
                                   <div data-tooltip="Expand / Collapse details" class="col-md-auto">
                                     &nbsp;&nbsp;&nbsp;
@@ -331,7 +331,7 @@
                       Message
                     </h3>
                     &nbsp;&nbsp;
-                    <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
+                    <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto; height:50%; overflow: scroll;">
                       <textarea *ngIf="!inputSubjectReadMode[1]" #sendMessageInputText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="13" placeholder="Write Message here..."></textarea>
                       <pre  *ngIf="inputSubjectReadMode[1]" #sendMessageInputText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">{{messageRead.text}}</pre>
                       

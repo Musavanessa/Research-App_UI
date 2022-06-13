@@ -17,24 +17,13 @@ import { of } from 'rxjs';
 })
 
 export class DashboardComponent implements OnInit {
-
-
-
-
   constructor(public feedbackService:FeedbackService, public userService: UserService,  public projectObject : ProjectObjectService, public datepipe: DatePipe, public router:Router, public globalVariables: GlobalVariables, private service: ApiserviceService, public authService: AuthService ) { }
   userType: string = "1";
-
   userData:any;
   studentList:any;
-
   isDisplaySuccessMessage = false;
   isDisplayErrorInputMessage = false;
   allStudents:any;
-
-  // openStudentInferface(userData:any)
-  // {
-
-  // }
 
 
   faCoffee = faCoffee;
@@ -63,10 +52,11 @@ export class DashboardComponent implements OnInit {
   //=======================
   countAllNotifications:any = [];
   isNotificationFound:any = [];
+  sumNotifications:any = 0;
 
 
   ngOnInit(): void {
-
+    this.countAllNotifications = [];
     this.service.getAllLinks().subscribe((data:any)=>{
       console.log(data);
     })
@@ -93,12 +83,6 @@ export class DashboardComponent implements OnInit {
       complete() {console.log('Finished sequence');}
     });
 
-
-    
-
-    // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
-    //   queryParams: { message: 'Please log out first ' }
-    // });
   }
 
 
@@ -108,6 +92,32 @@ export class DashboardComponent implements OnInit {
     this.userService.getAllUsersWhere(id).subscribe((data:any)=>{
       console.log("Hi there");
       this.allStudents = data;
+      this.countAllNotifications = [];
+      // console.log(data);
+      // Now for every student I want to get the notifacations - 
+      for(let x = 0; x < data.length; x++)
+      {
+        // console.log("Project ID: " + this.first2Projects[x].id);
+        // this.feedbackService.
+        this.feedbackService.getAllSupervisorProjectNotifications(data[x].id).subscribe((res)=>{
+          console.log(res.notifications.length);
+          if(res.notifications.length > 0)
+          {
+            //Now we need to make sure that we count all the notifications for a given project.
+            //But here we need to count all notifications for a given student. -
+            this.isNotificationFound.push(true);
+            let countResult  = res.notifications[0];
+            this.countAllNotifications.push(countResult.countfeedbacks);
+            console.log(this.countAllNotifications[x]);
+            this.sumNotifications += this.countAllNotifications[x];
+          }
+          else
+          {
+            this.countAllNotifications.push(0);
+            this.isNotificationFound.push(false);            
+          }
+        });
+      }
       console.log("All Student", data);
     })
   }
@@ -263,19 +273,19 @@ export class DashboardComponent implements OnInit {
         console.log(res);
       // console.log(res.projects);
       // this.myProjectsObject = res.projects;
-
       // console.log(r)
       this.first2Projects = Array.prototype.slice.call(res.projects,);
       this.myProjectsObject = Array.prototype.slice.call(res.projects, 1);
-
       //Here we need to create a for loop and go through all the notifications for all the projects that the user has.
       for(let x = 0; x < this.first2Projects.length; x++)
       {
         // console.log("Project ID: " + this.first2Projects[x].id);
         this.feedbackService.getAllStudentProjectNotifications(this.first2Projects[x].id).subscribe((data)=>{
-          console.log(data.notifications[0].countfeedback);
+          // console.log(data.notifications[0].countfeedback);
           if(data.notifications.length > 0)
           {
+            //Now we need to make sure that we count all the notifications for a given project.
+            //But here we need to count all notifications for a given student. -
             this.isNotificationFound.push(true);
             this.countAllNotifications.push(data.notifications[0].countfeedback);
             console.log(this.countAllNotifications[x]);
@@ -287,14 +297,12 @@ export class DashboardComponent implements OnInit {
           }
         });
       }
-
+      //We want to get all projectNotifications or
+      //Now how can we ensure that the person that sent the project is not the user? that is corrently logged in?
       console.log("My projects");
       console.log(this.first2Projects);
     })
-
   }
-
-
   getMe(){
 
     this.userService.getUser().subscribe((data: any) => {

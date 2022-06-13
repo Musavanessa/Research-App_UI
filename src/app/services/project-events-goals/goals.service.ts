@@ -33,6 +33,11 @@ export class GoalsService {
     this.openedGoalFeedback = goal;
     this.indexOfGoalToReply = index;
   }
+  setGoalOpenedFromFeedback(goal:any)
+  {
+    this.isGoalFeedbackOpened = true;
+    this.openedGoalFeedback = goal;
+  }
 
   getIsGoalFeedbackOpened()
   {

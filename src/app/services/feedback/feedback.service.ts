@@ -26,11 +26,20 @@ export class FeedbackService {
     return this.http.get(`${this.apiUrl + "feedback/studentprojectnotifications/" + projectId}`);
   }
 
+  supervisorGetAllStudentProjectNotifications(userDetails:any):Observable<any>
+  {
+    return this.http.get(`${this.apiUrl + "feedback/supervisorGetAllStudentProjectNotifications/" + userDetails.id + "/" + userDetails.user.id}`);
+  }
+
   CountFeedbacksForAGivenGoal(goalId:any):Observable<any>
   {
     return this.http.get(`${this.apiUrl + "feedback/CountFeedbacksForAGivenGoal/" + goalId}`)
   }
 
+  getAllSupervisorProjectNotifications(projectId:any):Observable<any>
+  {
+    return this.http.get(`${this.apiUrl + "feedback/getAllSupervisorProjectNotifications/" + projectId}`)
+  }
 
   marksFeedbackAsRead(feedbackId:any):Observable<any>
   {

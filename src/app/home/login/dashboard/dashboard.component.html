@@ -114,10 +114,12 @@
                     <td>{{project.startDate}}</td>
                     <td></td>
                     <td>
-                      <span *ngIf="countAllNotifications[i] > 0" class="badge" style="background-color:red; border-radius:50px; position:relative; top:20px; left:25px">{{countAllNotifications[i]}}</span>
-                      <a class="nav-link"  style="color:black" routerLink="/project-write">
-                        <img src="../../../../../../../assets/media/logos/notification_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                      </a>
+                      <div  *ngIf="countAllNotifications[i] > 0">
+                        <span class="badge" style="background-color:red; border-radius:50px; position:relative; top:20px; left:25px">{{countAllNotifications[i]}}</span>
+                        <a class="nav-link"  style="color:black" routerLink="/project-write">
+                          <img src="../../../../../../../assets/media/logos/notification_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                        </a>
+                      </div>
                     </td>
                   </tr>
                 </tbody>
@@ -135,20 +137,26 @@
                     <th scope="col">Name & Surname</th>
                     <th scope="col">Project Name</th>
                     <th scope="col">Project Description</th>
-                    <th scope="col">Notification</th>
+                    <th scope="col">
+                      <span  class="badge" style="background-color:red; border-radius:50px; position:relative; top:20px; left:85px; z-index: 10;">{{sumNotifications}}</span>
+                      Notifications
+                    </th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor= "let project_student of allStudents;" style="cursor:pointer" routerLink="/project" (click)="openStudentPortal(project_student)" >
+                  <tr *ngFor="let project_student of allStudents; let i = index" style="cursor:pointer" routerLink="/project" (click)="openStudentPortal(project_student)" >
                     <th scope="row" >{{project_student.user.id}}</th>
                     <td>{{project_student.user.firstName}} {{project_student .user.lastName}}</td>
                     <td>{{project_student.name}}</td>
                     <td>{{project_student.description}}</td>
-                    <td>
-                      <a class="nav-link"  style="color:black" routerLink="/project-write">
-                        <img src="../../../../../../../assets/media/logos/notification_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                      </a>
+                    <td >
+                      <div *ngIf="countAllNotifications[i] > 0">
+                        <span  class="badge" style="background-color:red; border-radius:50px; position:relative; top:20px; left:25px">{{countAllNotifications[i]}}</span>
+                        <a  class="nav-link"  style="color:black" routerLink="/project-write">
+                          <img src="../../../../../../../assets/media/logos/notification_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                        </a>
+                      </div>
                     </td>
                   </tr>
                 </tbody>

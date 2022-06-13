@@ -28,6 +28,16 @@ export class InnernavComponent implements OnInit {
       //Get the details of the student
       this.studentDetails = this.globalProjectObject.getPassStudentData();
       console.log("Student Details", this.studentDetails);
+      this.feedbackService.supervisorGetAllStudentProjectNotifications(this.studentDetails).subscribe((data)=>{
+        console.log(data.notifications.length);
+        if(data.notifications.length > 0)
+        {
+          this.countAllNotifications = data.notifications[0].countfeedback;
+        }
+        console.log("Count all notifications", this.countAllNotifications);
+        // this.countAllNotifications.push(data.notifications);
+        // console.log(this.countAllNotifications);
+      });
 
     }
     else

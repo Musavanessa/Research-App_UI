@@ -7,6 +7,7 @@ import { GoalsService } from 'src/app/services/project-events-goals/goals.servic
 import { DatePipe } from '@angular/common';
 import { FeedbackService } from 'src/app/services/feedback/feedback.service';
 import { faUnderline } from '@fortawesome/free-solid-svg-icons';
+// import { DashboardComponent } from '../../../dashboard.component';
 
 @Component({
   selector: 'app-project-status',
@@ -15,7 +16,7 @@ import { faUnderline } from '@fortawesome/free-solid-svg-icons';
 })
 export class ProjectStatusComponent implements OnInit {
 
-  constructor(public feedbackService: FeedbackService, public goalsService: GoalsService, public projectObjectService: ProjectObjectService, public datepipe: DatePipe , public router: Router, public authService: AuthService) { }
+  constructor( public feedbackService: FeedbackService, public goalsService: GoalsService, public projectObjectService: ProjectObjectService, public datepipe: DatePipe , public router: Router, public authService: AuthService) { }
   selected: Date | null | undefined;
 
   
@@ -125,7 +126,8 @@ export class ProjectStatusComponent implements OnInit {
   inputSubjectReadMode:any = [false, false];
   messageRead:any;
   isMessageSuccessfullySent:boolean = false;
-  goalNotifications:any = [{countfeedbacks:0}];
+  goalNotifications:any = [];
+  goalNotificationObjects:any = [];
 
   ngOnInit(): void {
     this.userDetails = this.projectObjectService.getUserDetails();
@@ -204,31 +206,34 @@ export class ProjectStatusComponent implements OnInit {
           //Get all goals again.
           if(this.userDetails.userType == '2')
           {
-            // this.goalNotifications = [];
+            this.goalNotifications = [];
             this.goalsService.getAllGoalsWhere(openedProject.id).subscribe((data:any)=>{
-              console.log(data);
+              console.log("Goals Data", data);
               this.goals = data.goal;
-              console.log("console.log(this.goals) = " + this.goals);
               let svgImage =  "../../../../../../../assets/media/icons/circle/circle_green.svg"
               let svgImageAccordionGoal = {
                 image: svgImage,
                 isCardExpanded: false,
                 transformElement: this.transFormElements[1]
               }
+              console.log("goals.length", this.goals.length);
               for(let x = 0; x < this.goals.length; x++)
               {
+
+                console.log("X", x);
                 this.feedbackService.CountFeedbacksForAGivenGoal(this.goals[x].id).subscribe((data)=>{
-                  console.log(data.notifications[x]);
-                  if(data.notifications[x] == undefined)
-                  {
-                    console.log("Error");
-                    let data = {countfeedbacks:0}
-                    this.goalNotifications.push(data);
-                  }
-                  else
-                  {
-                    this.goalNotifications.push(data.notifications[x]);
-                  }
+                  // console.log("data", data);
+                  let feedback = data.notifications[0];
+                  this.goalNotificationObjects.push(data);
+                    if(this.goalNotificationObjects[x].results > 0)
+                    {
+                      console.log(this.goalNotificationObjects[x].notifications[0].countfeedbacks);
+                      this.goalNotifications.push(this.goalNotificationObjects[x].notifications[0].countfeedbacks);
+                    }
+                    else
+                    {
+                      this.goalNotifications.push(0);
+                    }
                 })
                 let countDownDate = new Date(this.goals[x].dueDate).getTime();
                 //Push to the goals time left:
@@ -317,6 +322,7 @@ export class ProjectStatusComponent implements OnInit {
                 */
                 this.svgImageAccordionGoals.push(svgImageAccordionGoal);
               }
+
               if(this.goalsService.getIsGoalFeedbackOpened())
               {
                 this.displayGoalCard(this.goalsService.getIndexOfGoalToReply());
@@ -340,17 +346,25 @@ export class ProjectStatusComponent implements OnInit {
               for(let x = 0; x < this.goals.length; x++)
               {
                 //Get the notification for very goal
+                console.log(this.goals[x].id + " ------")
                 this.feedbackService.CountFeedbacksForAGivenGoal(this.goals[x].id).subscribe((data)=>{
                   console.log(data.notifications[x]);
-                  if(data.notifications[x] == undefined)
+                  if(data.notifications.length < 1)
                   {
                     console.log("Error");
-                    let data = {countfeedbacks:0}
-                    this.goalNotifications.push(data);
+                    console.log(data);
+                    this.goalNotifications.push(0);
+
+                    // this.goalNotifications.push(data.notifications[0].countfeedback);
                   }
                   else
                   {
-                    this.goalNotifications.push(data.notifications[x]);
+                    console.log(this.goalNotifications);
+                    console.log(data.notifications[0].countfeedbacks)
+                    //Now the issue that I have here is that I am not getting all the goals that I am looking for - I need to get only goals for a supervisor
+                    // this.goalNotifications.push(data.notifications[x]);
+                    this.goalNotifications.push(data.notifications[0].countfeedbacks);
+
                   }
                 })
                 let countDownDate = new Date(this.goals[x].dueDate).getTime();
@@ -766,6 +780,7 @@ export class ProjectStatusComponent implements OnInit {
         {
           this.messageReplyTo = goal.title;
           this.goalToReply = goal;
+          this.goalsService.setGoalOpenedFromFeedback(goal);
           // this.sendMessage(messageObject);
         }
         sendMessage()
@@ -781,15 +796,11 @@ export class ProjectStatusComponent implements OnInit {
             goalId: 0,
             projectStatusId: 13
           };
-
+          // messageObject.goalId = this.goalToReply.id;
           if(this.goalsService.getIsGoalFeedbackOpened())
           {
             let goal = this.goalsService.getGoalFeedbackOpened();
             messageObject.goalId = goal.id;
-          }
-          else
-          {
-            messageObject.goalId = this.goalToReply.id;
           }
 
           this.messageObject = messageObject;          
@@ -815,6 +826,8 @@ export class ProjectStatusComponent implements OnInit {
             this.feedbackService.marksFeedbackAsRead(feedback.id).subscribe((res)=>{
               console.log(res);
               this.ngOnInit();
+              // this.dashboradComponent.ngOnInit();
+            
             })
           }
 
