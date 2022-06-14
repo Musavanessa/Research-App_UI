@@ -885,8 +885,10 @@ export class ProjectStatusComponent implements OnInit {
         attachUpload(event:any)
         {
           console.log(event);
-          let description = "";
+          let description = this.sendMessageInputText.nativeElement.value;
           let goalId = 0
+          let goal = this.goalsService.getGoalFeedbackOpened()
+          goalId = goal.id;
           if(description == "" || goalId == 0)
           {
             console.log("Values are empty")
@@ -894,8 +896,13 @@ export class ProjectStatusComponent implements OnInit {
           else
           {
             let selectedFile = <File>event.target.files[0];
-            let fileObject = { selectedFile:selectedFile, description:description}
-            this.goalFileService.postGoalFile(goalId, selectedFile, description)
+            let formData = new FormData();
+            formData.set("document", selectedFile);
+            formData.set("description", description)
+
+            this.goalFileService.postGoalFile(goalId, formData).subscribe((res)=>{
+              console.log(res);
+            })
           }
         }
 
