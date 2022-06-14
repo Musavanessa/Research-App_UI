@@ -277,3 +277,56 @@ element.style{
         .fw-semibold { font-weight: 600; }
         .lh-tight { line-height: 1.25; }
         
+
+
+
+        /* ==============================
+        || *******************************
+        || -- UPLOADING A PICTURE STYLES ---
+        || ******************************
+        ================================== */
+
+        
+.avatar-upload {
+  /* position: relative; */
+  max-width: 205px;
+  /* margin: 50px auto; */
+}
+.avatar-upload .avatar-edit {
+  /* position: absolute; */
+  /* right: 12px; */
+  z-index: 1;
+  /* top: 10px; */
+}
+.avatar-upload .avatar-edit input {
+  display: none;
+}
+.avatar-upload .avatar-edit input + label {
+  /* display: inline-block; */
+  width: 34px;
+  height: 34px;
+  margin-bottom: 0;
+  border-radius: 100%;
+  background: #FFFFFF;
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+}
+.avatar-upload .avatar-edit input + label:hover {
+  background: #ffffff;
+  border-color: #ffffff;
+}
+
+.avatar-upload .avatar-edit input + label:after {
+  /* content: "\e3c2"; */
+  font-family: 'FontAwesome';
+  color: #757575;
+  /* position: absolute; */
+  /* top: 10px; */
+  /* left: 0; */
+  /* right: 0; */
+  /* text-align: center; */
+  /* margin: auto; */
+}

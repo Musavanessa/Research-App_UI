@@ -46,6 +46,7 @@ import { GoalsService } from './services/project-events-goals/goals.service';
 import { FeedbackService } from './services/feedback/feedback.service';
 import { GuidelinesService } from './services/guidelines/guidelines.service';
 import { BlogService } from './services/blog/blog.service';
+import { GoalFilesService } from './services/goal-file/goal-files.service';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { BlogService } from './services/blog/blog.service';
     FeedbackService,
     GuidelinesService,
     BlogService,
+    GoalFilesService,
 
     DatePipe,{
       provide: HTTP_INTERCEPTORS,

@@ -1,4 +1,8 @@
-  <main class="bg-light" style="background-color:rgb(255, 255, 255); height: 93%; position:fixed; top:125px; width:100%">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="https://kit.fontawesome.com/82906f57e4.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script> -->
+<main class="bg-light" style="background-color:rgb(255, 255, 255); height: 93%; position:fixed; top:125px; width:100%">
     <app-topnav></app-topnav>
     <div style="height: 100%; width:84%">
       <app-innernav style="border-left: none; border-right: none; background-color:rgb(255, 255, 255); user-select: none;  box-shadow: 2px 2px rgb(238, 238, 238);"></app-innernav>
@@ -110,7 +114,7 @@
                                   <div class="col-md-auto" style="display: table-cell; vertical-align: sub; ">
                                   </div>
                                   <div data-tooltip="Reply to Goal" class="col-md-auto">
-                                    <img (click)="replytoGoal(goal)"  src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                    <img (click)="replytoGoal(goal);  inputSubjectReadMode[0]=false; inputSubjectReadMode[1]=false;"  src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                                   </div>
                                   <div  data-tooltip="View Sent Messages" class="col-md-auto">
                                     <img (click)="showGoalMessages(i)" src="../../../../../../../assets/media/icons/message/email_blue_24dp.svg" alt="New Event" width="24px" height="24px" class="project-event-event" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;"  >
@@ -146,7 +150,7 @@
                                       <div class="col-sm">                                    
                                         <td  (click)="replyToFeedback(feedback, goal); inputSubjectReadMode[0]=false; inputSubjectReadMode[1]=false;"  style="text-align:right">
                                           <div  data-tooltip="Reply to Feedback" style="text-align:right; color:#868686; float:inline-end;">
-                                            <img src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                            <img src="../../../../../../../assets/media/icons/reply/reply_grey_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                                           </div>
                                         </td>
                                       </div>
@@ -317,6 +321,11 @@
                   <strong>Success:</strong> Message sent successfully
                 </div>
               </div>
+              <div *ngIf="isMessageNotSuccessfullySent" (click)="isMessageNotSuccessfullySent = !isMessageNotSuccessfullySent" style="margin-left:auto; margin-right:auto; width: 95%">
+                <div class="alert alert-danger" role="alert">
+                  <strong>Error:</strong> Enter input fields
+                </div>
+              </div>
               <strong>Replying to</strong>
               {{messageReplyTo}}
               &nbsp;&nbsp;
@@ -346,16 +355,17 @@
                     <tr style="user-select:none">
                         <button (click)="sendMessage()" #createRequestAppointmentButton  type="button" class="btn btn-primary btn-sm" >Send</button>
                         &nbsp;
+                        <input type="file" (change)="attachUpload($event)"  id="inputGroupFile04">
                     </tr>
                   </div>
                 </li>
               </ul>
-              <div class="card-body">
+              <!-- <div class="card-body">
                 <div class="input-group">
                   <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
                   <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"  >Submit</button>
                 </div>
-              </div>
+              </div> -->
             </div>
             &nbsp;&nbsp;&nbsp;
           </div>

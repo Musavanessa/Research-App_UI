@@ -7,6 +7,7 @@ import { GoalsService } from 'src/app/services/project-events-goals/goals.servic
 import { DatePipe } from '@angular/common';
 import { FeedbackService } from 'src/app/services/feedback/feedback.service';
 import { faUnderline } from '@fortawesome/free-solid-svg-icons';
+import { GoalFilesService } from 'src/app/services/goal-file/goal-files.service';
 // import { DashboardComponent } from '../../../dashboard.component';
 
 @Component({
@@ -16,7 +17,7 @@ import { faUnderline } from '@fortawesome/free-solid-svg-icons';
 })
 export class ProjectStatusComponent implements OnInit {
 
-  constructor( public feedbackService: FeedbackService, public goalsService: GoalsService, public projectObjectService: ProjectObjectService, public datepipe: DatePipe , public router: Router, public authService: AuthService) { }
+  constructor(public goalFileService: GoalFilesService, public feedbackService: FeedbackService, public goalsService: GoalsService, public projectObjectService: ProjectObjectService, public datepipe: DatePipe , public router: Router, public authService: AuthService) { }
   selected: Date | null | undefined;
 
   
@@ -129,6 +130,7 @@ export class ProjectStatusComponent implements OnInit {
   goalNotifications:any = [];
   goalNotificationObjects:any = [];
   messageSubject:any = "";
+  isMessageNotSuccessfullySent = false;
 
   ngOnInit(): void {
     this.userDetails = this.projectObjectService.getUserDetails();
@@ -793,7 +795,7 @@ export class ProjectStatusComponent implements OnInit {
           let subjectName = firstName + "." + lastName;
           if(feedback.title.search(/Re\: \[/))
           {
-            let now = this.datepipe.transform(new Date(), "hh:mm a EEE dd-MMM-y ");
+            let now = this.datepipe.transform(new Date(), "hh:mm:ss a EEE dd-MMM-y ");
             this.messageSubject = "Re: ["+ subjectName +  " - " + now + "] " + feedback.title ;
             //If they do match then add - because if they do match then the user might not understand which message is more recent. - except if the get the message ID
 
@@ -815,8 +817,8 @@ export class ProjectStatusComponent implements OnInit {
           let user = this.projectObjectService.getUserDetails();
           //THE MESSSAGE OBJECT
           let messageObject = {
-            text: this.sendMessageInputText.nativeElement.value,
-            title: this.sendMessageInputSubject.nativeElement.value,
+            text: this.sendMessageInputText.nativeElement.value.trim(),
+            title: this.sendMessageInputSubject.nativeElement.value.trim(),
             userId: user.id,
             goalId: 0,
             projectStatusId: 13
@@ -830,14 +832,34 @@ export class ProjectStatusComponent implements OnInit {
 
           this.messageObject = messageObject;          
           console.log(this.messageObject);
-          this.feedbackService.sendFeedback(this.messageObject).subscribe((res)=>{
-            console.log(res, "res==>");
-            this.isMessageSuccessfullySent = true;
-            this.sendMessageInputText.nativeElement.value = "";
-            this.sendMessageInputSubject.nativeElement.value = "";
-            this.ngOnInit();
-            //One of the things that I would like to do is to show what has been sent
-          })
+          //Make sure that the message is not empty
+          let isSendMessageGood = [false, false];
+          if(messageObject.title.length > 0)
+          {
+            isSendMessageGood[0] = true;
+          }
+          if(messageObject.text.length > 0)
+          {
+            isSendMessageGood[1] = true;
+          }
+          if(isSendMessageGood[0] && isSendMessageGood[1])
+          {
+            this.feedbackService.sendFeedback(this.messageObject).subscribe((res)=>{
+              console.log(res, "res==>");
+              this.isMessageSuccessfullySent = true;
+              this.isMessageNotSuccessfullySent = false;
+              this.sendMessageInputText.nativeElement.value = "";
+              this.sendMessageInputSubject.nativeElement.value = "";
+              this.ngOnInit();
+              //One of the things that I would like to do is to show what has been sent
+            })
+          }
+          else
+          {
+            this.isMessageNotSuccessfullySent = true;
+            this.isMessageSuccessfullySent = false;
+
+          }
         }
         readMessage(feedback:any)
         {
@@ -858,6 +880,23 @@ export class ProjectStatusComponent implements OnInit {
 
           
 
+        }
+
+        attachUpload(event:any)
+        {
+          console.log(event);
+          let description = "";
+          let goalId = 0
+          if(description == "" || goalId == 0)
+          {
+            console.log("Values are empty")
+          }
+          else
+          {
+            let selectedFile = <File>event.target.files[0];
+            let fileObject = { selectedFile:selectedFile, description:description}
+            this.goalFileService.postGoalFile(goalId, selectedFile, description)
+          }
         }
 
 }
