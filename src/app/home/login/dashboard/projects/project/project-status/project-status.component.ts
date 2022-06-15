@@ -898,9 +898,11 @@ export class ProjectStatusComponent implements OnInit {
             let selectedFile = <File>event.target.files[0];
             let formData = new FormData();
             formData.set("document", selectedFile);
-            formData.set("description", description)
-
+            formData.set("description", description);
+            formData.set("goalId", goalId.toString());
+            console.log(goalId);
             this.goalFileService.postGoalFile(goalId, formData).subscribe((res)=>{
+              console.log(goalId);
               console.log(res);
             })
           }

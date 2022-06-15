@@ -330,3 +330,21 @@ element.style{
   /* text-align: center; */
   /* margin: auto; */
 }
+
+input[type="file"]
+{
+  display:none;
+}
+
+.custom-file-upload
+{
+  background-color: white;
+}
+
+.custom-file-upload:hover
+{
+  background-color: #ebebeb;
+  width:30px;
+  height:30px;
+  border-radius: 50px;
+}

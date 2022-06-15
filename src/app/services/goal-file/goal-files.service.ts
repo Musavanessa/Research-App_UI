@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { convertToObject } from 'typescript';
 
 
 
@@ -15,6 +16,7 @@ export class GoalFilesService {
 
     postGoalFile(goalId:any, formData:any):Observable<any>
     {
+      // console.log(goalId);
       return this.http.post(`${this.apiUrl + goalId}`, formData);
     }
 }

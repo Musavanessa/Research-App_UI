@@ -310,7 +310,7 @@
                   <br>
                 </div>
               </ng-template>
-              <ng-template #template_goals4Project>
+              <ng-template #template_goals4Project> 
               </ng-template>
             </div>
           </div>
@@ -355,7 +355,12 @@
                     <tr style="user-select:none">
                         <button (click)="sendMessage()" #createRequestAppointmentButton  type="button" class="btn btn-primary btn-sm" >Send</button>
                         &nbsp;
-                        <input type="file" (change)="attachUpload($event)"  id="inputGroupFile04">
+                        <div style="position:relative; top:-30px; left:60px">
+                          <input type="file" (change)="attachUpload($event)"  id="inputGroupFile04">
+                          <label style="position:relative; top:-2px" class="custom-file-upload" for="inputGroupFile04" style="cursor:pointer">
+                            <img style="position:relative; top:3px; left:2px" src="../../../../../assets/media/logos/Phaidi/attach_file_grey_24dp.svg"  width="auto" height="auto">
+                          </label>
+                        </div>
                     </tr>
                   </div>
                 </li>
