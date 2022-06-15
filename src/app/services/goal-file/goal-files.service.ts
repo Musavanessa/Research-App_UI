@@ -19,4 +19,9 @@ export class GoalFilesService {
       // console.log(goalId);
       return this.http.post(`${this.apiUrl + goalId}`, formData);
     }
+
+    getGoalFiles(goalId:any):Observable<any>
+    {
+      return this.http.get(`${this.apiUrl + goalId}`);
+    }
 }

@@ -14,7 +14,7 @@
                 <img (click)="changeActiveStatus(2)" src="../../../../../../../assets/media/icons/goal_flag_FILL1_wght400_GRAD0_opsz48.svg" alt="New Event" width="30px" height="30px" class="project-event-goal" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;"  >
               </li>
               <li data-tooltip="Submitted Files" class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
-                <img (click)="changeActiveStatus(1)" src="../../../../../../../assets/media/icons/write/description_purple_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-appointment" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;">
+                <img (click)="changeActiveStatus(1);fileUploadValuesValid[0] = false; fileUploadValuesValid[1] = false" src="../../../../../../../assets/media/icons/write/description_purple_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-appointment" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;">
               </li>
             </ul>
           </div>
@@ -44,7 +44,7 @@
                               
                             </div>
                             <div class="col"  style="margin-left:auto; margin-right:auto; cursor: pointer;">
-                              <img src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                              <img src="../../../../../../../assets/media/icons/reply/reply_gForblack_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                               <img src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey; float: right;">
                             </div>
                           </div>
@@ -57,30 +57,39 @@
               </ng-template>
               <ng-template #template_paperSubmitted>
                 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll; position:relative; width:100%; padding: 0 0 0 0;">
-                  <div class="card border-light mb-3" style="width:100%; border: none; user-select: none;">
-                    <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">
-                      Papers Submitted
-                      &nbsp;&nbsp;
-                    </div>
-                    <div class="card border-light mb-3" style="width: 95%;margin-left: auto; margin-right: auto; border: none;">
-                      &nbsp;&nbsp;
-                      <ul class="list-group" style="user-select:none">
-                        <li class="list-group-item">
-                          <div class="row" style="user-select:none">
-                            <div class="col-9" style="user-select:text">
-                              <img style="user-select:none" src="../../../../../../../assets/media/logos/file_download_black_24dp (1).svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                              &nbsp;
-                              File Name
-                            </div>
-                            <div class="col"  style="margin-left:auto; margin-right:auto; cursor: pointer;">
-                              <img src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-                              <img src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey; float: right;">
-                            </div>
+                  <div *ngFor="let goal of goals; let i = index"  class="card border-light mb-3" style="width:100%; border: none; user-select: none;">
+                    <div *ngIf="goal.user.userType == '2'" >
+                      <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">
+                        <div class="row">
+                          <div class="col" style="cursor:pointer">
+                            {{goal.title}}
                           </div>
-                        </li>
-                      </ul>
+                          <div data-tooltip="Attach File To Goal" class="col-md-auto" style="cursor:pointer">
+                            <img (click)="replytoGoal(goal);"  src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                          </div>
+                          <div data-tooltip="Collapse" class="col-md-auto">
+                            <img src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey; float: right;">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card border-light mb-3" style="width: 95%;margin-left: auto; margin-right: auto; border: none;">
+                        &nbsp;&nbsp;
+                        <ul class="list-group" style="user-select:none">
+                          <li *ngFor="let goalFile of goal.goal_files" class="list-group-item">
+                            <div class="row" style="user-select:none">
+                              <div class="col-9" style="user-select:text">
+                                <img style="user-select:none" src="../../../../../../../assets/media/logos/file_download_black_24dp (1).svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
+                                &nbsp;
+                                                                                        <!-- C:\Users\ICEP\Shiko\ResearcherDNA\Research-App_UI\src\assets\userfiles\documents -->
+                                <a class="icon file" download draggable="true" href="../../../../../../../assets/userfiles/documents/{{goalFile.file_name}}">{{goalFile.file_name}}</a>
+                              </div>
+                              <div class="col"  style="margin-left:auto; margin-right:auto; cursor: pointer;">
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
                     </div>
-                    &nbsp;&nbsp;&nbsp;
                   </div>
                 </div>
               </ng-template>
@@ -314,7 +323,7 @@
               </ng-template>
             </div>
           </div>
-          <div style="width:40%; background-color: white;">
+          <div  *ngIf="template_statuses[2]" style="width:40%; background-color: white;">
             <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">
               <div *ngIf="isMessageSuccessfullySent" (click)="isMessageSuccessfullySent = !isMessageSuccessfullySent" style="margin-left:auto; margin-right:auto; width: 95%">
                 <div class="alert alert-success" role="alert">
@@ -355,12 +364,82 @@
                     <tr style="user-select:none">
                         <button (click)="sendMessage()" #createRequestAppointmentButton  type="button" class="btn btn-primary btn-sm" >Send</button>
                         &nbsp;
-                        <div style="position:relative; top:-30px; left:60px">
+                        <!-- <div style="position:relative; top:-30px; left:60px">
                           <input type="file" (change)="attachUpload($event)"  id="inputGroupFile04">
                           <label style="position:relative; top:-2px" class="custom-file-upload" for="inputGroupFile04" style="cursor:pointer">
                             <img style="position:relative; top:3px; left:2px" src="../../../../../assets/media/logos/Phaidi/attach_file_grey_24dp.svg"  width="auto" height="auto">
                           </label>
-                        </div>
+                        </div> -->
+                    </tr>
+                  </div>
+                </li>
+              </ul>
+              <!-- <div class="card-body">
+                <div class="input-group">
+                  <input type="file" class="form-control" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+                  <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04"  >Submit</button>
+                </div>
+              </div> -->
+            </div>
+            &nbsp;&nbsp;&nbsp;
+          </div>
+
+          <div *ngIf="template_statuses[1]" style="width:40%; background-color: white;">
+            <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">
+              <div *ngIf="isMessageSuccessfullySent" (click)="isMessageSuccessfullySent = !isMessageSuccessfullySent" style="margin-left:auto; margin-right:auto; width: 95%">
+                <div class="alert alert-success" role="alert">
+                  <strong>Success:</strong> Document sent successfully
+                </div>
+              </div>
+              <div *ngIf="isMessageNotSuccessfullySent" (click)="isMessageNotSuccessfullySent = !isMessageNotSuccessfullySent" style="margin-left:auto; margin-right:auto; width: 95%">
+                <div class="alert alert-danger" role="alert">
+                  <strong>Error:</strong> Enter input fields
+                </div>
+              </div>
+              <strong>Attaching Document to</strong>
+              {{messageReplyTo}}
+              &nbsp;&nbsp;
+            </div>
+            <div class="card border-light mb-3" style="width: 95%;margin-left: auto; margin-right: auto; border: none;">
+              &nbsp;&nbsp;
+              <ul class="list-group" style="border:none">
+                <li class="list-group-item" style="border:none">
+                  <div class="row">
+                    <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
+                      File Name
+                    </h3>
+                    <input id="inputFileName" readonly  #attachFileName type="text" class="form-control  input_table" placeholder="Click fileclip to attach a file" aria-label="message subject" aria-describedby="basic-addon2" value="{{messageSubject}}">   
+                    <div style="position:relative; top:-40px;left:80%">
+                      <input type="file" (change)="attachUpload($event)"  id="inputGroupFile04">
+                      <label style="position:relative; top:-2px" class="custom-file-upload" for="inputGroupFile04" style="cursor:pointer">
+                        <img style="position:relative; top:3px; left:2px" src="../../../../../assets/media/logos/Phaidi/attach_file_grey_24dp.svg" >
+                      </label>
+                    </div>
+                    <div *ngIf="isFileUploadNotValid[0]"  style="margin-left:auto; margin-right:auto; width: 95%">
+                      <div class="alert alert-danger" role="alert">
+                        <strong>Invalid File Type:</strong><br>File should be of type .docx only
+                      </div>
+                    </div>
+
+                    <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;padding-top: 10px">
+                      File Description
+                    </h3>
+                    &nbsp;&nbsp;
+                    <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto; height:50%; overflow: scroll;">
+                      <textarea (keyup)="validateFileDescrition()" #attachFileDescription class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="13" placeholder="Write file description here..."></textarea>
+                      
+                    </div>
+                    <tr style="user-select:none">
+                        <button *ngIf="fileUploadValuesValid[0] && fileUploadValuesValid[1]"  (click)="uploadSelectedFile()" #createRequestAppointmentButton  type="button" class="btn btn-primary btn-sm" >Upload</button>
+                        <button *ngIf="!fileUploadValuesValid[0] || !fileUploadValuesValid[1]" disabled (click)="uploadSelectedFile()" #createRequestAppointmentButton  type="button" class="btn btn-primary btn-sm" >Upload</button>
+                        
+                        &nbsp;
+                        <!-- <div style="position:relative; top:-30px; left:60px">
+                          <input type="file" (change)="attachUpload($event)"  id="inputGroupFile04">
+                          <label style="position:relative; top:-2px" class="custom-file-upload" for="inputGroupFile04" style="cursor:pointer">
+                            <img style="position:relative; top:3px; left:2px" src="../../../../../assets/media/logos/Phaidi/attach_file_grey_24dp.svg"  width="auto" height="auto">
+                          </label>
+                        </div> -->
                     </tr>
                   </div>
                 </li>

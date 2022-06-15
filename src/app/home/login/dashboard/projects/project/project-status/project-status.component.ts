@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { FeedbackService } from 'src/app/services/feedback/feedback.service';
 import { faUnderline } from '@fortawesome/free-solid-svg-icons';
 import { GoalFilesService } from 'src/app/services/goal-file/goal-files.service';
+import { ContentObserver } from '@angular/cdk/observers';
 // import { DashboardComponent } from '../../../dashboard.component';
 
 @Component({
@@ -31,6 +32,7 @@ export class ProjectStatusComponent implements OnInit {
   projectData:any;
   userType:any;
   presentWorkingProject:any;
+
 
 
   //========================================================
@@ -132,6 +134,23 @@ export class ProjectStatusComponent implements OnInit {
   messageSubject:any = "";
   isMessageNotSuccessfullySent = false;
 
+  //==========================================
+  //---- VIEWING GOALS AND ATTACHED FILES ---
+  //==========================================
+  filesAttachedToGoal:any = [];
+
+  //===========================
+  //ATTACH FILE VARIABLES
+  //========================
+  @ViewChild('attachFileName') attachFileName:any;
+  @ViewChild('attachFileDescription') attachFileDescription:any;
+  isFileUploadNotValid = [false, false];
+  fileUploadValuesValid = [false, false];
+  selectedFile:any;
+  fileDescription:any;
+
+
+
   ngOnInit(): void {
     this.userDetails = this.projectObjectService.getUserDetails();
     this.userType = this.userDetails.userType;
@@ -200,6 +219,23 @@ export class ProjectStatusComponent implements OnInit {
         if(this.template_statuses[0])
         {
           // this.feedbackService.getFeedback()
+          // console.log("Attaching files");
+        }
+
+        if(this.template_statuses[1])
+        {
+          console.log("Attaching files");
+          //Now when we get here we need to get all the goal and creat a for loop.
+          for(let x = 0; x < this.goals.length; x++)
+          {
+            // console.log()
+            //Now get all the attached files.
+            console.log(this.goals[x].id)
+            this.goalFileService.getGoalFiles(this.goals[x].id).subscribe((res)=>{
+              console.log(res);
+            })
+          }
+          
         }
 
         if(this.template_statuses[2])
@@ -465,12 +501,11 @@ export class ProjectStatusComponent implements OnInit {
             
             });
           }
-
           console.log("This is the goals object " + this.goals)
           console.log(this.goalsListDisplayStatus);
-          console.log(this.svgImageAccordionGoals);
+          // console.log(this.svgImageAccordionGoals);
         }
-        console.log(this.svgImageAccordionGoals);
+        // console.log(this.svgImageAccordionGoals);
 
       }
 
@@ -885,27 +920,122 @@ export class ProjectStatusComponent implements OnInit {
         attachUpload(event:any)
         {
           console.log(event);
-          let description = this.sendMessageInputText.nativeElement.value;
+          // let description = this.sendMessageInputText.nativeElement.value;
+          
+            let selectedFile = <File>event.target.files[0];
+            this.selectedFile = <File>event.target.files[0];
+            console.log(selectedFile);
+
           let goalId = 0
           let goal = this.goalsService.getGoalFeedbackOpened()
-          goalId = goal.id;
-          if(description == "" || goalId == 0)
+          // goalId = goal.id;
+          this.attachFileName.nativeElement.value = selectedFile.name;
+          let extention = selectedFile.type;
+          console.log(extention);
+          let allowedExtensions = /(\.doc|\.docx|\.odt|\.pdf|\.tex|\.txt|\.rtf|\.wps|\.wks|\.wpd)$/i;
+          let allowedFileUpload = "docx";
+          console.log(selectedFile.name.substring(selectedFile.name.length -3))
+          //create a for loop that will loop from the end of the file.
+          let newFileExtention = "";
+          for(let x = selectedFile.name.length-1; x >= 0; x--)
           {
-            console.log("Values are empty")
+
+            if(selectedFile.name[x] == ".")
+            {
+              x = -1;
+            }
+            else
+            {
+              console.log(selectedFile.name[x]);
+              newFileExtention += selectedFile.name[x];
+            }
+
+          }
+          let finalExention = "";
+          // console.log(newFileExtention.length);
+          for(let x = newFileExtention.length-1; x >= 0; x--)
+          {
+            finalExention += newFileExtention[x];
+          } 
+          if(allowedFileUpload == finalExention)
+          {
+            this.isFileUploadNotValid[0] = false;
+            this.fileUploadValuesValid[0] = true;
           }
           else
           {
-            let selectedFile = <File>event.target.files[0];
+            this.isFileUploadNotValid[0] = true;
+            this.fileUploadValuesValid[0] = false;
+            
+          }
+          console.log(finalExention);
+
+
+          
+          // if(description == "" || goalId == 0)
+          // {
+          //   console.log("Values are empty")
+          // }
+          // else
+          // {
+          //   let selectedFile = <File>event.target.files[0];
+          //   let formData = new FormData();
+          //   formData.set("document", selectedFile);
+          //   formData.set("description", description);
+          //   formData.set("goalId", goalId.toString());
+          //   console.log(goalId);
+          //   this.goalFileService.postGoalFile(goalId, formData).subscribe((res)=>{
+          //     console.log(goalId);
+          //     console.log(res);
+          //   })
+          // }
+        }
+
+        validateFileDescrition()
+        {
+          //Check if the value is valid or not
+          // this.attachFileDescription.nativeElement.value = this.attachFileDescription.nativeElement.value.trim()
+          if(this.attachFileDescription.nativeElement.value.trim() == "")
+          {
+            //This file is empty therefore 
+            // fileUploadValuesValid[0] && fileUploadValuesValid[1]
+            this.fileUploadValuesValid[1] = false;
+          }
+          else
+          {
+            this.fileUploadValuesValid[1] = true;
+            this.fileDescription = this.attachFileDescription.nativeElement.value.trim();
+            // if(this.fileUploadValuesValid[0])
+            // {
+
+            // }
+          }
+        }
+
+        uploadSelectedFile()
+        {
+          if(this.attachFileDescription.nativeElement.value.trim().length > 0)
+          {
+            //We are good to send this upload the file.
+            let goalId:any;
+            let goal = this.goalsService.getGoalFeedbackOpened()
+            goalId = goal.id;
             let formData = new FormData();
-            formData.set("document", selectedFile);
-            formData.set("description", description);
+            formData.set("document", this.selectedFile);
+            formData.set("description", this.fileDescription);
             formData.set("goalId", goalId.toString());
             console.log(goalId);
             this.goalFileService.postGoalFile(goalId, formData).subscribe((res)=>{
               console.log(goalId);
               console.log(res);
+              //Reset everything
+              this.attachFileDescription.nativeElement.value = "";
+              this.attachFileName.nativeElement.value = "";
+              this.fileUploadValuesValid[0] = false; 
+              this.fileUploadValuesValid[1] = false
+              this.ngOnInit();
             })
           }
         }
 
-}
+  }
