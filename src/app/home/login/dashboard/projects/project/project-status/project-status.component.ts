@@ -148,8 +148,9 @@ export class ProjectStatusComponent implements OnInit {
   fileUploadValuesValid = [false, false];
   selectedFile:any;
   fileDescription:any;
-
-
+  displayFiles:any = [];
+  transformFileCollapseElements:any =[];
+  transformFileCollapseElementsStatus:any = [];
 
   ngOnInit(): void {
     this.userDetails = this.projectObjectService.getUserDetails();
@@ -231,6 +232,9 @@ export class ProjectStatusComponent implements OnInit {
             // console.log()
             //Now get all the attached files.
             console.log(this.goals[x].id)
+            this.displayFiles.push("none");
+            this.transformFileCollapseElements.push("transform: rotate(0deg);");
+            this.transformFileCollapseElementsStatus.push(false);
             this.goalFileService.getGoalFiles(this.goals[x].id).subscribe((res)=>{
               console.log(res);
             })
@@ -1038,4 +1042,49 @@ export class ProjectStatusComponent implements OnInit {
           }
         }
 
+        changeFileDisplayStatus(index:any)
+        {
+          console.log("Displaying our file");
+          console.log(this.displayFiles[index]);
+          if(this.displayFiles[index] == "none")
+          {
+            this.displayFiles[index] = "inline"
+          }
+          else
+          {
+            this.displayFiles[index] = "none"
+
+          }
+
+          // if(this.transformFileCollapseElements[index] == "transform: rotate(180deg);")
+          // {
+          //   this.transformFileCollapseElements[index] = "transform: rotate(0deg);"
+          // }
+          // else
+          // {
+          //   this.transformFileCollapseElements[index] = "transform: rotate(180deg);"
+
+          // }
+          if(this.transformFileCollapseElementsStatus[index])
+          {
+            this.transformFileCollapseElements[index] = "transform: rotate(0deg);"
+            this.transformFileCollapseElementsStatus[index] = false;
+            
+          }
+          else
+          {
+            this.transformFileCollapseElements[index] = "transform: rotate(180deg);"
+            this.transformFileCollapseElementsStatus[index] = true;
+
+          }
+          // this.transformFileCollapseElements[index] = "transform: rotate(180deg);"
+          for(let x = 0; x < this.goals.length; x++)
+          {
+              if(x != index)
+              {
+                this.transformFileCollapseElements[x] = "transform: rotate(0deg);"
+                this.transformFileCollapseElementsStatus[index] = false;
+              }
+          }
+        }
   }

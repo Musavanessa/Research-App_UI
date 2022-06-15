@@ -59,23 +59,23 @@
                 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll; position:relative; width:100%; padding: 0 0 0 0;">
                   <div *ngFor="let goal of goals; let i = index"  class="card border-light mb-3" style="width:100%; border: none; user-select: none;">
                     <div *ngIf="goal.user.userType == '2'" >
-                      <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">
+                      <div class="card-header" style="width:100%; background-color:#f2f2f2; color:rgb(27, 27, 27);">
                         <div class="row">
-                          <div class="col" style="cursor:pointer">
+                          <div class="col" style="cursor:pointer" (click)="changeFileDisplayStatus(i)">
                             {{goal.title}}
                           </div>
                           <div data-tooltip="Attach File To Goal" class="col-md-auto" style="cursor:pointer">
                             <img (click)="replytoGoal(goal);"  src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                           </div>
-                          <div data-tooltip="Collapse" class="col-md-auto">
-                            <img src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey; float: right;">
+                          <div data-tooltip="Collapse" (click)="changeFileDisplayStatus(i)" class="col-md-auto">
+                            <img src="../../../../../../../assets/media/icons/expand/expand_circle_grey.svg" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 0.5s; user-select: none; color: grey; float: right;"  [style]="transformFileCollapseElements[i]">
                           </div>
                         </div>
                       </div>
                       <div class="card border-light mb-3" style="width: 95%;margin-left: auto; margin-right: auto; border: none;">
                         &nbsp;&nbsp;
-                        <ul class="list-group" style="user-select:none">
-                          <li *ngFor="let goalFile of goal.goal_files" class="list-group-item">
+                        <ul class="list-group" style="user-select:none; transition-delay: 0.5s;" [style.display]="displayFiles[i]">
+                          <li *ngFor="let goalFile of goal.goal_files" class="list-group-item" style="border:none">
                             <div class="row" style="user-select:none">
                               <div class="col-9" style="user-select:text">
                                 <img style="user-select:none" src="../../../../../../../assets/media/logos/file_download_black_24dp (1).svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
