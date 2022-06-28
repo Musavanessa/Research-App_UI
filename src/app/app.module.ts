@@ -30,23 +30,22 @@ import { BlogOpComponent } from './home/blog-op/blog-op.component';
 import { TokenInterceptor } from './services/auth/interceptors/token.interceptors';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ProjectEventsComponent } from './home/login/dashboard/projects/project/project-events/project-events.component';
-
 import { SignupComponent } from './components/signup/signup.component';
 import { FormControl } from '@angular/forms';
-
 import { ChatboxServiceService } from './services/chatbox/chatbox-service.service';
 import { NotesService } from './home/login/dashboard/projects/notes/notes.service';
 import { MaterialModule } from './material/material.module';
 import { ChatgroupComponent } from './home/login/dashboard/chatbox/chatgroup/chatgroup/chatgroup.component';
 import { BlogformComponent } from './home/blogform/blogform.component';
 import { AddsourceComponent } from './home/addsource/addsource.component';
-
-
 import { GoalsService } from './services/project-events-goals/goals.service';
 import { FeedbackService } from './services/feedback/feedback.service';
 import { GuidelinesService } from './services/guidelines/guidelines.service';
 import { BlogService } from './services/blog/blog.service';
 import { GoalFilesService } from './services/goal-file/goal-files.service';
+import { GuidelineTitleComponent } from './home/login/dashboard/projects/guidelines/guideline-title/guideline-title.component';
+import { TemplatePipesPipe } from './home/login/dashboard/projects/guidelines/pipes/template-pipes.pipe';
+import { AppointmentService } from './services/project-appointment/appointment.service';
 
 @NgModule({
   declarations: [
@@ -71,7 +70,9 @@ import { GoalFilesService } from './services/goal-file/goal-files.service';
     ProjectEventsComponent,
     SignupComponent,
     BlogformComponent,
-    AddsourceComponent
+    AddsourceComponent,
+    GuidelineTitleComponent,
+    TemplatePipesPipe
   ],
   imports: [
     BrowserModule,
@@ -79,7 +80,6 @@ import { GoalFilesService } from './services/goal-file/goal-files.service';
     BrowserAnimationsModule,
     FontAwesomeModule,
     HttpClientModule,
-
     ReactiveFormsModule,
     FormsModule
   ],
@@ -94,7 +94,7 @@ import { GoalFilesService } from './services/goal-file/goal-files.service';
     GuidelinesService,
     BlogService,
     GoalFilesService,
-
+    AppointmentService,
     DatePipe,{
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

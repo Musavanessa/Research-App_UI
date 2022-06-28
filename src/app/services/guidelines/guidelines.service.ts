@@ -25,4 +25,10 @@ export class GuidelinesService {
   {
     return this.http.post(`${this.apiUrl + "guidelines?projectTypeId=" + guidelineObject.projectTypeId}` , guidelineObject);
   }
+
+  getHtmlDetails(guidelineId:any):Observable<any>
+  {
+    return this.http.get(`${this.apiUrl + "guidelines/userHtml/details/" + guidelineId}`);
+  }
+
 }

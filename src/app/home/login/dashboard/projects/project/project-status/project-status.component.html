@@ -6,6 +6,9 @@
     <app-topnav></app-topnav>
     <div style="height: 100%; width:84%">
       <app-innernav style="border-left: none; border-right: none; background-color:rgb(255, 255, 255); user-select: none;  box-shadow: 2px 2px rgb(238, 238, 238);"></app-innernav>
+      <div #testingView>
+
+      </div>
       <br>
         <div class="row">
           <div style="width:5%">
@@ -62,7 +65,7 @@
                       <div class="card-header" style="width:100%; background-color:#f2f2f2; color:rgb(27, 27, 27);">
                         <div class="row">
                           <div class="col" style="cursor:pointer" (click)="changeFileDisplayStatus(i)">
-                            {{goal.title}}
+                            <span class="badge" style="background-color:rgb(22, 160, 224); border-radius:50px; font-weight:lighter;">{{goal.goal_files.length}}</span>{{goal.title}}
                           </div>
                           <div data-tooltip="Attach File To Goal" class="col-md-auto" style="cursor:pointer">
                             <img (click)="replytoGoal(goal);"  src="../../../../../../../assets/media/icons/reply/reply_black_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
@@ -75,7 +78,7 @@
                       <div class="card border-light mb-3" style="width: 95%;margin-left: auto; margin-right: auto; border: none;">
                         &nbsp;&nbsp;
                         <ul class="list-group" style="user-select:none; transition-delay: 0.5s;" [style.display]="displayFiles[i]">
-                          <li *ngFor="let goalFile of goal.goal_files" class="list-group-item" style="border:none">
+                          <li *ngFor="let goalFile of goal.goal_files; let i = index;" class="list-group-item" style="border:none">
                             <div class="row" style="user-select:none">
                               <div class="col-9" style="user-select:text">
                                 <img style="user-select:none" src="../../../../../../../assets/media/logos/file_download_black_24dp (1).svg" alt="ResearcherDNA-Logo" width="24px" height="24px">

@@ -95,8 +95,8 @@
           </div>
           <table class="table table table-hover">
             <tbody>
-              <tr *ngFor ='let chatGroup of chatGroups; let i = index;' (click)="openChatGroup(chatGroup.id, i)" style="background-color:rgb(255, 255, 255); cursor:pointer" [style.backgroundColor]="activeChatGroupBackgroundColor[i]">
-                <td>{{chatGroup.title}}</td>
+              <tr *ngFor ='let chatGroup of chatGroups; let i = index;'  style="background-color:rgb(255, 255, 255); cursor:pointer" [style.backgroundColor]="activeChatGroupBackgroundColor[i]">
+                <td (click)="openChatGroup(chatGroup.id, i)">{{chatGroup.title}}</td>
                 <td *ngIf="userData.userType == 2" (click)="closeSettingsCard($event, chatGroup.id)">
                   <div #moreDetails  data-tooltip="Settings" class="removeFocus" (click)="getElementPosition(moreDetails)"  >
                     <img src="../../../../../assets/media/icons/more_vert_black_24dp.svg" atl="More Options" width="24px" height="24px">

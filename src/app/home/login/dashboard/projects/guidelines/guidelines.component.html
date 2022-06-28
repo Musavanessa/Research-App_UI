@@ -1,12 +1,24 @@
 <main style="background-color:rgb(255, 255, 255); height: 93%; position: fixed; top: 75px; width:82%">
     <div style="width: 100%; position:relative; top:70px;">
+      <!-- <template></template> -->
+      <!-- <app-guidelines></app-guidelines> -->
       <app-topnav></app-topnav>
       <div style="overflow: auto; height: 100%;">
         <!-- GRID SYSTEM -->
-        <div class="row">
+        <div>
+        <!-- <div [innerHTML]="newTemplate | templatePipes"></div> -->
+          
+        </div>
+        <img (click)="showGuideline = !showGuideline" src="../../../../../../../assets/media/icons/list/format_list_numbered_grey_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="text-align:left">
+        <!-- <div [innerHTML]="heading"></div>
+        <div [innerHTML]="newTemplate | templatePipes"></div> -->
+        <!-- <hr> -->
+        <!-- <h1 id="user-id-1656066916" [style]="userClass">we are testing me out</h1> -->
+        <div class="row overflow-auto" style="height:90%; overflow: scroll;">
           <!-- BACKLOG LIST -->
           <!-- CREATE PROJECT CARD -->
-          <div class="col-sm" style="width: 100%">
+          <!-- <div class="overflow-auto">...</div> -->
+          <div class="col-sm" style="width: 100%;" *ngIf="showGuideline" >
             &nbsp;
             <div class="card border-light mb-3" style="width: 100%;margin-left: auto; margin-right: auto; border: none;">
               <div class="card-header" style="width:100%; background-color:#ffffff; color:rgb(27, 27, 27);">Guidelines
@@ -31,32 +43,38 @@
               </div>
             </div>
           </div>
-          <div class="col-8">
+          <div class="col overflow-auto">
               &nbsp;
-              <div class="card" style="width: 18rem;" style="width: 90%;">
-                <div class="card-body">
+              <div class="card" style="width: 18rem;" style="width: 90%; border:none;">
+                <div class="card-body" style="border:none; width: 100%; padding:0 0 0 0; margin:none">
                   <div *ngIf="isGuidelineUpdateFalse" class="alert alert-danger" (click)="isAddGuideline = !isAddGuideline" role="alert">
                     <strong>Error</strong> Some value(s) are missing
                   </div>
                   <div *ngIf="isGuidelineCreateFalse" class="alert alert-danger" (click)="isAddGuideline = !isAddGuideline" role="alert">
                     <strong>Error</strong> Some value(s) are missing
                   </div>
-                  <div *ngIf="isViewGuideline" class="card-body">
-                    <p class="card-text">{{guideLineObject.name}}</p>
-                    <hr>
-                    <div style="height: 400px">
-                      <h5 class="card-title">
-                        {{guideLineObject.text}}
-                      </h5>
+                  <div *ngIf="isViewGuideline" class="card-body" style="width:100%; padding: 0 0; box-sizing: none; border-top: 8px;">
+                      <!-- <div *ngFor="let htmlTemplate of htmlDetails; let i = index">
+                        <div #myId [innerHTML]="htmlDetails[i].userHTML | templatePipes" (click)="editElement($event)"></div>
+                    </div> -->
+                  <div class="container-fluid" style="background-color:rgb(255, 255, 255); box-sizing: none; border-top-right-radius: 8px; border-top-left-radius: 8px;">
+                      <h1 class="display-1" style="color: grey; font-family:'Times New Roman', Times, serif; font-size:40px;">{{guideLineObject.name}}</h1>
+                      <!-- <h1 class="display-1">Display 1</h1> -->
                     </div>
-                    <h6 class="card-subtitle mb-2 text-muted">16 March 2022, Wednesday</h6>
+                      <!-- <img src="..." class="img-fluid" alt="Responsive image"> -->
+                    <!-- <p class="card-text">{{guideLineObject.name}}</p> -->
+                    <hr>
+                    <div>
+                      <pre class="card-title" style="overflow-x: auto; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 15px;" >{{guideLineObject.text}}</pre>
+                    </div>
+                    <!-- <h6 class="card-subtitle mb-2 text-muted">16 March 2022, Wednesday</h6> -->
                   </div>
                   <div *ngIf="isUpdate" class="card-body">
                     <input #updateGuidelineTitle class="input_table" type="text" style="outline:none; width:100%" value="{{guideLineObject.name}}">
                     <div style="height: 400px">
                       <textarea #updateGuidelineText name="" id="" cols="65" rows="15" class="input_table" style="width:100%;margin-left:auto; margin-right:auto">{{guideLineObject.text}}</textarea>
                     </div>
-                    <h6 class="card-subtitle mb-2 text-muted">16 March 2022, Wednesday</h6>
+                    <!-- <h6 class="card-subtitle mb-2 text-muted">16 March 2022, Wednesday</h6> -->
                   </div>
                   <div *ngIf="isAddGuideline" class="card-body">
                     <input #addGuidelineTitle class="input_table" placeholder="Enter Title" type="text" style="outline:none; width:100%">
@@ -65,53 +83,31 @@
                     </div>
                     <h6 class="card-subtitle mb-2 text-muted"></h6>
                   </div>
+                  <div>
+                    <div *ngFor="let subGuide of subGuides">
+                      <div>
+                        <pre class="card-title" style="overflow-x: auto; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 15px;" >{{subGuide.text}}</pre>
+
+                      </div>
+
+                    </div>
+                  </div>
+                  <div>
+                    <div class="col-sm">
+                      <ul class="nav flex-column " id="myDetails">
+                        <li *ngFor="let link of links" >
+                          <img src="assets/media/icons/link/link_FILL0_wght400_GRAD0_opsz48.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="float:left; margin: 5px;"><a href="{{link.link}}"  target="_blank" class="nav-link link-dark hoverTile ng-click-active centerText">{{link.name}}</a>
+                        </li>&nbsp;
+                    </ul>
+                    </div>
+                  </div>
                   <button *ngIf="userType == 2"  type="button" (click)="isUpdate = true; isAddGuideline = false; isViewGuideline = false" class="btn btn-primary btn-xs">Edit</button>&nbsp;
                   <button *ngIf="userType == 2"  type="button" (click)="deleteGuideline(guideLineObject.name, guideLineObject.id)" class="btn btn-danger btn-xs">Delete</button>&nbsp;
                   <!-- <button type="button" class="btn btn-success btn-xs">Update</button>&nbsp;     -->
                   <button *ngIf="userType == 2"  type="button" (click)="saveUpdatedGuideline(guideLineObject.id)" class="btn btn-success btn-xs">Save</button>&nbsp;
                 </div>
               </div>
-              <div class="row">
-                <div class="col-sm">col-sm</div>
-                <div class="col-sm">col-sm</div>
-                <div class="col-sm">col-sm</div>
-              </div>
-
           </div>
-          <!-- <div class="col-sm-3">
-            <div class="col">
-              &nbsp;
-              <div class="card" style="width: 18rem;" style="width: 100%; ">
-                <div class="card-body" style="padding: 15px; margin: 0;">
-                  <div class="mb-3" style="margin: 0px 0px 0px;">
-                    <h6 class="card-subtitle mb-2 text-muted">Create Title</h6>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Enter Title" style="border:none;  background-color: rgb(245, 245, 245); outline:none">
-                  </div>
-                  <div class="mb-3">
-                    <h6 class="card-subtitle mb-2 text-muted">Take Note </h6>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" style=" resize: none;" rows="13"></textarea>
-                  </div>
-                  <button type="button" routerLink="" class="btn btn-primary btn-xs">Save</button>&nbsp;
-                  <button type="button" class="btn btn-default">Clear</button>
-                  <hr >
-                  <div style="overflow:scroll; height:auto; width: 100%; background-color: rgb(255, 255, 255);">
-                    <h6 class="card-subtitle mb-2 text-muted">Notes</h6>
-                    <hr style="margin: 0px">
-                    <div class="row">
-                      <div class="card" style="border: none; ">
-                        <div class="card-body" style="border:none; padding: none; ">
-                          <div class="row">
-                            <div class="col-sm-9"><h4 class="card-subtitle mb-1">Kat is going home...</h4></div>
-                            <div class="col-sm-2"><h6 class="card-subtitle mb-1"><button routerLink="/notes" type="button" class="btn btn-success btn-sm">Edit</button></h6></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> -->
         </div>
         <!-- END GRID -->
         &nbsp;

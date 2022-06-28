@@ -12,6 +12,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { ThisReceiver } from '@angular/compiler';
 import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
+import { AppointmentService } from 'src/app/services/project-appointment/appointment.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ import { EVENT_MANAGER_PLUGINS } from '@angular/platform-browser';
 export class ProjectEventsComponent implements OnInit {
 
 
-  constructor(public goalsService:GoalsService, public projectObjectService : ProjectObjectService, public datepipe: DatePipe, public router: Router, public authService: AuthService) { }
+  constructor(public appointmentService:AppointmentService, public goalsService:GoalsService, public projectObjectService : ProjectObjectService, public datepipe: DatePipe, public router: Router, public authService: AuthService) { }
   selected: Date | null | undefined;
 
   //=====================
@@ -56,9 +57,17 @@ export class ProjectEventsComponent implements OnInit {
       details: "",
       approved: false,
       type:1,
-      updatedAt: Date()
+      updatedAt: Date(),
+      projectId:0
     }
     requestApointmentFocused:any;
+    createAppointmentIsSuccess:boolean = false;
+    createAppointmentIsNotSuccess:boolean = false;
+    expandAppointmentViewList: any = [];
+    createAppointmentStatus = {
+      status: "",
+      message: ""
+    }
 
   //========================================================
   //VARIABLES ----- FOR EVENT TEMPLATE
@@ -545,6 +554,26 @@ export class ProjectEventsComponent implements OnInit {
       console.log(this.goalsListDisplayStatus);
       console.log(this.svgImageAccordionGoals);
     }
+    if(this.template_statuses[1])
+    {
+      console.log("Appointments");
+      //Get all the appointments
+      if(this.userDetails.userType == "2")
+      {
+        console.log("User is a supervisor");
+        console.log(this.studentData.id);//The 4 here is the projectID
+        this.appointmentService.getAppointments(this.studentData.id).subscribe((data)=>{
+          this.appointments = data.appointment;
+          for(let x =0; x < this.appointments.length; x++)
+          {
+            //Create a for loop and loop all the items
+            this.expandAppointmentViewList.push(false);
+
+          }
+        })
+        //Get all apointments
+      }
+    }
     console.log(this.svgImageAccordionGoals);
 
   }
@@ -782,7 +811,58 @@ export class ProjectEventsComponent implements OnInit {
             this.requestNewAppointment.endDate = this.requestAppointmentInputEndDate.nativeElement.value;
             this.requestNewAppointment.details = this.requestAppointmentInputDetails.nativeElement.value;
             console.log(this.requestNewAppointment);
+            //When I am logged in as a supervisor
+            if(this.userDetails.userType == "2")
+            {
+              //Get the projectId from the student data
+              this.requestNewAppointment.projectId = this.studentData.id;
+              console.log(this.requestNewAppointment.projectId);
+            }
+            // else
+            // {
+
+            // }
+            // console.log(this.studentData.id);
+            this.appointmentService.createApppoitment(this.requestNewAppointment).subscribe((res)=>{
+              console.log(res);
+              if(res.status == "success")
+              {
+                //Show the user the the appointment request has been sent.
+                this.createAppointmentStatus.message = res.message;
+                this.createAppointmentIsSuccess = true;
+                this.ngOnInit();
+                //Now we need to make sure that out appointments do not all on the same date or time.
+                //Now how can we define the same time?
+                //The same time is defined is one appointment is within the duration of another apppointment.
+
+              }
+            })
           }
+        }
+        expandAppointmentView(i:any)
+        {
+          //disable all others first except for this one.
+          console.log(i);
+          if(this.expandAppointmentViewList[i])
+          {
+            this.expandAppointmentViewList[i] = false;
+          }
+          else
+          {
+            for(let x =0; x < this.appointments.length;x++)
+            {
+              if(i == x)
+              {
+                this.expandAppointmentViewList[x] = true;
+              }
+              else
+              {
+                this.expandAppointmentViewList[x] = false;
+  
+              }
+            }
+          }
+
         }
   
 //===========================================
@@ -908,15 +988,6 @@ export class ProjectEventsComponent implements OnInit {
           {
             console.log("You are not winning");
           }
-          // if(this.createEventInputTitle.nativeElement.value == "") this.createEventErrorList[0] = true;
-          // if(this.createEventInputDetails.nativeElement.value == "") this.createEventErrorList[3] = true;
-          // if(this.createEventInputStartDate.nativeElement.value == "") this.createEventErrorList[1] = true;
-          // if(this.createEventInputEndDate.nativeElement.value == "") this.createEventErrorList[2] = true;
-          // if(!this.createEventErrorList[0] && !this.createEventErrorList[1] && !this.createEventErrorList[2] && !this.createEventErrorList[3])
-          // {
-          //   console.log("Console.log Enter Missing Information")
-
-          // }
         }
 
 //===========================================

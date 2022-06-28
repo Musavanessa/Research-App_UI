@@ -14,7 +14,7 @@ import { ContentObserver } from '@angular/cdk/observers';
 @Component({
   selector: 'app-project-status',
   templateUrl: './project-status.component.html',
-  styleUrls: ['./project-status.component.css']
+  styleUrls: ['./project-status.component.css'],
 })
 export class ProjectStatusComponent implements OnInit {
 
@@ -151,8 +151,39 @@ export class ProjectStatusComponent implements OnInit {
   displayFiles:any = [];
   transformFileCollapseElements:any =[];
   transformFileCollapseElementsStatus:any = [];
-
+  @ViewChild('testingView') testingView:any
+  showMeSomething:any = `<body contenteditable="false" data-new-gr-c-s-check-loaded="14.1063.0" data-gr-ext-installed="">
+  <h1>The display Property</h1>
+  
+  <h2>display: none:</h2>
+  <div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex1">HELLO WORLD!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+  </div>
+  
+  <h2>display: inline:</h2>
+  <div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex2">HELLO WORLD!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+  </div>
+  
+  <h2>display: block:</h2>
+  <div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex3">HELLO WORLD!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+  </div>
+  
+  <h2>display: inline-block:</h2>
+  <div>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam semper diam at erat pulvinar, at pulvinar felis blandit. <p class="ex4">HELLO WORLD!</p> Vestibulum volutpat tellus diam, consequat gravida libero rhoncus ut.
+  </div>
+  
+  
+  
+  </body>`
+  
+ 
   ngOnInit(): void {
+    // this.attachFileDescription.innerHTML = this.showMeSomething;
+    // console.log(this.attachFileName.nativeElement.value);
+    console.log(this.attachFileName);
     this.userDetails = this.projectObjectService.getUserDetails();
     this.userType = this.userDetails.userType;
     console.log(this.projectObjectService.getUserDetails());
@@ -780,7 +811,6 @@ export class ProjectStatusComponent implements OnInit {
           this.transFormElements[index] = "transform: rotate(0deg);"
         }
       }
-
       showGoalMessages(index:any)
       {
         //Turn all goal list display off
@@ -825,7 +855,6 @@ export class ProjectStatusComponent implements OnInit {
           this.goalsService.setGoalOpenedFromFeedback(goal);
           // this.sendMessage(messageObject);
         }
-        
         replyToFeedback(feedback:any, goal:any)
         {
           this.messageReplyTo = goal.title;

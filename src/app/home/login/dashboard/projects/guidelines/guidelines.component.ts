@@ -1,24 +1,31 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { ApiserviceService } from 'src/app/apiservice.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { GuidelinesService } from 'src/app/services/guidelines/guidelines.service';
 import { UserService } from 'src/app/services/user/user.service';
+import { faAmericanSignLanguageInterpreting } from '@fortawesome/free-solid-svg-icons';
+import { ElementFlags } from 'typescript';
+import { identifierName } from '@angular/compiler';
 
 
 @Component({
   selector: 'app-guidelines',
   templateUrl: './guidelines.component.html',
-  styleUrls: ['./guidelines.component.css']
+  styleUrls: ['./guidelines.component.css'],
+  template: `<h1>ShikoMatlala</h1>`
 })
 export class GuidelinesComponent implements OnInit {
 
-  constructor(public userService: UserService, public guidelineSerivce: GuidelinesService, public datepipe: DatePipe, public router: Router, private service: ApiserviceService, public authService: AuthService ) { }
+  constructor(private el:ElementRef, public userService: UserService, public guidelineSerivce: GuidelinesService, public datepipe: DatePipe, public router: Router, private service: ApiserviceService, public authService: AuthService ) { }
 
 
 
   //UPDATE  GUIDELINE VARIABLES
+  // @ViewChildren('myId') myId:any = QueryList<any>;
+  // @ViewChildren("div") divs!: QueryList<ElementRef>;
+  // @ViewChildren()
   @ViewChild('updateGuidelineTitle') updateGuidelineTitle:any;
   @ViewChild('updateGuidelineText') updateGuidelineText:any;
   @ViewChild('addGuidelineText') addGuidelineText:any = "";
@@ -46,7 +53,16 @@ export class GuidelinesComponent implements OnInit {
     guidelineId: null,
     projectId: null,
     collaboratorId: null,
-    userId: null };
+    userId: null }; 
+    showGuideline = true;
+    htmlDetails:any;
+    htmlClasses:any;
+    userClass = "color:red;font-size: 50px;";
+    whatAreYouTellingMe =  `<h1 id="user-id-1656066916" style="${this.userClass}">we are testing me out</h1>`;
+    newTemplate = `<h1 id="user-id-1656066916" style="${this.userClass}">we are testing me out</h1>`;
+    anotherTemplate = `<h1 id="user-id-1656066916" style="${this.userClass}">we are testing me out</h1>`;
+    links:any;
+    subGuides:any;
 
   //======================
   //USER DETAILS
@@ -56,6 +72,7 @@ export class GuidelinesComponent implements OnInit {
   userID:any;
 
     ngOnInit(): void {
+
       this.guidelines();
       this.isUpdate = false; this.isAddGuideline = false; this.isViewGuideline = true; 
       this.userService.getUser().subscribe((data: any)=>{
@@ -72,10 +89,32 @@ export class GuidelinesComponent implements OnInit {
   {
     this.service.getGuideline(id).subscribe((res)=>{
       console.log(res.guideline);
+      this.links = res.guideline.links;
+      console.log(this.links);
       this.guideLineObject = res.guideline;
       this.guideLine = res.guideline;
+      this.subGuides = res.guideline.subuides;
+      console.log(this.subGuides);
+
       
+    });
+    this.guidelineSerivce.getHtmlDetails(id).subscribe((data:any)=>{
+      // console.log(data.htmlDetails[0].userHTML);
+      this.htmlDetails = data.htmlDetails;
+      console.log(data);
+      this.htmlClasses = data.htmlDetails;
+      console.log(this.htmlDetails);
+      console.log(this.htmlClasses.length);
+      // console.log(this.myId.componets.toArray());
+      // for(let x = 0; x < this.htmlClasses.length; x++)
+      // {
+      //   this.myId.push("id-" + this.htmlDetails[x].id);
+      //   // console.log(this.htmlDetails[x].id);
+      // }
+      
+      // console.log(data);
     })
+
   }
   guidelines()
   {
@@ -167,5 +206,16 @@ export class GuidelinesComponent implements OnInit {
   addNewGuideline()
   {
     this.guideLineObject.id = -1;
+  }
+
+  editElement(id:any)
+  {
+    console.log(this.el.nativeElement.children[0].childNodes);
+    console.log(id.path[0].style.color);
+    id.path[0].style.color = "red";
+    // console.log(this.divs.nativeElement);
+    // this.divs.forEach((div:ElementRef)=> console.log(div.nativeElement));
+    
+    // console.log(this.myId);
   }
 }
