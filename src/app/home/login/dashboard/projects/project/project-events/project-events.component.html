@@ -130,7 +130,7 @@
                             <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                               End Date / Time
                             </h3>
-                            <input (change)="validateRequestAppointmentEndDate()" (keyup)="validateRequestAppointmentEndDate()" (input)="validateRequestAppointmentEndDate()" #requestAppointmentInputEndDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
+                            <input  type="time" >
                             <div *ngIf="createAppointmentWarningList[2]">
                               <br>
                               <div class="alert alert-warning" role="alert">
@@ -186,8 +186,8 @@
                 </caption>
                 <div *ngFor="let appointment of appointments; let i = index;" style="border-radius: 20px; background-color: transparent; position:relative; width: 20rem; margin-left: auto; margin-right: auto;" [style.display]="createGoalDisplay" [style.top]="createGoalDataDetailsTop" [style.left]="createGroupChatDataDetailsLeft">
                   <div>
-                    <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border:none;">
-                      <div class="card-header" style="background-color: rgb(234, 240, 184);color:rgb(138, 124, 1); border:none;">
+                    <div #createChatGroupCard class="card chatGroupSettingsClass"  style="border-left:5px;border-left-style:solid; border-left-color:rgb(255, 0, 0); border-bottom:none; border-top:none; border-right:none">
+                      <div class="card-header" style="border:none; background-color: rgb(234, 240, 184);color:rgb(138, 124, 1);padding-left: 5px;">
                         {{appointment.title}}
                         <div (click)="expandAppointmentView(i)"  data-tooltip="Expand / Collapse" style="float:right">
                           <img   src="../../../../../../../assets/media/icons/clipboard/assignment_softorange_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-appointment" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none; float: right" [style]="transformElement" > 
