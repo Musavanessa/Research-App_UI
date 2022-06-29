@@ -18,6 +18,11 @@ export class AppointmentService {
     return this.http.get(`${this.apiUrl + id}`);
   } 
 
+  updateAppointment(appointment:any):Observable<any>
+  {
+    return this.http.patch(`${this.apiUrl + appointment.id}`, appointment);
+  }
+
 
 
 }

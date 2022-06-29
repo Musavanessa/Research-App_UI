@@ -42,10 +42,19 @@ export class ProjectEventsComponent implements OnInit {
   //========================================================
   //VARIABLES ----- REQUEST APPOINTMENT VARIABLES & APPOINTMENT VARIABLES
   //========================================================
+    @ViewChild('updateAppointmentInputEndDate') updateAppointmentInputEndDate:any;    
+    @ViewChild('updateAppointmentInputStartDate') updateAppointmentInputStartDate:any;
     @ViewChild('requestAppointmentInputTitle') requestAppointmentInputTitle:any;
     @ViewChild('requestAppointmentInputStartDate') requestAppointmentInputStartDate :any;
     @ViewChild('requestAppointmentInputEndDate') requestAppointmentInputEndDate : any;
     @ViewChild('requestAppointmentInputDetails') requestAppointmentInputDetails : any;
+    createUpdateAppointmentErrorList = [{status:false, startDateStatus: false, endDateStatus:false}];
+    createUpdateAppointmentWarningList = [{startDateStatus:false, endDateStatus:false}];
+    createUpdateAppointmentValuesValid= [{startDateStatus: false, endDateStatus: false}]
+    //view appointments
+    appointmentUpdatedSuccess:any = [];
+    appointmentBorderList = ["border-left-color:rgb(38, 165, 0)", "border-left-color:rgb(135, 135, 135)", "border-left-color:rgb(0, 0, 0)"]
+    appointmentBorderStyle:any = [];
     createAppointmentErrorList = [false, false, false, false];
     createAppointmentValuesValid = [false, false, false, false];
     createAppointmentWarningList = [false, false, false, false];
@@ -564,11 +573,44 @@ export class ProjectEventsComponent implements OnInit {
         console.log(this.studentData.id);//The 4 here is the projectID
         this.appointmentService.getAppointments(this.studentData.id).subscribe((data)=>{
           this.appointments = data.appointment;
+          //Update all appointmen statuses
+          for(let x =0; x < this.appointments.length; x++)
+          {
+            // if(this.appointments[x].)
+            let appointmentCreatedTime = new Date(this.appointments[x].createdAt).getTime();
+            let currentTime = new Date().getTime();
+            if(appointmentCreatedTime < currentTime && this.appointments[x].approved == "0")
+            {
+              let updatedAppointment = {
+                approved: 1,
+                id: this.appointments[x].id
+              }
+              console.log(updatedAppointment)
+              this.appointmentService.updateAppointment(updatedAppointment).subscribe((res)=>{
+                console.log(res);
+              });
+            }
+          }
           for(let x =0; x < this.appointments.length; x++)
           {
             //Create a for loop and loop all the items
+            if(this.appointments[x].approved == "0")
+            {
+              this.appointmentBorderStyle.push(this.appointmentBorderList[0]);
+            }
+            if(this.appointments[x].approved == "1")
+            {
+              this.appointmentBorderStyle.push(this.appointmentBorderList[1]);
+            }
+            if(this.appointments[x].approved == "2")
+            {
+              this.appointmentBorderStyle.push(this.appointmentBorderList[2]);
+            }
+            this.appointmentUpdatedSuccess.push(false);
             this.expandAppointmentViewList.push(false);
-
+            this.createUpdateAppointmentErrorList.push({status:false, startDateStatus: false, endDateStatus:false});
+            this.createUpdateAppointmentValuesValid.push({startDateStatus:false, endDateStatus:false});
+            this.createUpdateAppointmentWarningList.push({startDateStatus:false, endDateStatus:false});
           }
         })
         //Get all apointments
@@ -775,6 +817,22 @@ export class ProjectEventsComponent implements OnInit {
             this.requestAppointmentInputStartDate.nativeElement.value = "";
           }
         }
+        checkAppointmentUpdateStartDate(){
+          if(new Date(this.updateAppointmentInputStartDate.nativeElement.value).getTime()< new Date().getTime()){
+            this.updateAppointmentInputStartDate.nativeElement.value = "";
+          }
+        }
+        checkAppointmentUpdateEndDate(i:any){
+          if( new Date(this.updateAppointmentInputEndDate.nativeElement.value).getTime() <= new Date(this.updateAppointmentInputStartDate.nativeElement.value).getTime()){
+            this.updateAppointmentInputEndDate.nativeElement.value = "";
+            this.createUpdateAppointmentErrorList[i].endDateStatus = true;
+            this.createUpdateAppointmentValuesValid[i].endDateStatus = false;
+          }
+          else{
+            this.createUpdateAppointmentErrorList[i].endDateStatus = false;
+            this.createUpdateAppointmentValuesValid[i].endDateStatus = true;
+          }
+        }
         checkAppointmentEndDate(){
           //If the start date is empty - then make sure that you compare the end date with the current date plus 10 minutes
           if( new Date(this.requestAppointmentInputEndDate.nativeElement.value).getTime() <= new Date(this.requestAppointmentInputStartDate.nativeElement.value).getTime()){
@@ -863,6 +921,81 @@ export class ProjectEventsComponent implements OnInit {
             }
           }
 
+        }
+        updateAppointment(id:any, index:any)
+        {
+          //We need to be able to update the date, the one thing about the date is that we cannot complete the whole date at this one single point.'
+          let appointment = {
+            endDate: this.updateAppointmentInputEndDate.nativeElement.value,
+            createAt: this.updateAppointmentInputStartDate.nativeElement.value,
+            approved: 0,
+            id: id
+          }
+          console.log(appointment);
+          if(new Date(this.updateAppointmentInputStartDate.nativeElement.value).getTime() > new Date().getTime()){
+            this.appointmentService.updateAppointment (appointment).subscribe((res)=>{
+              console.log(res);
+              if(res.status == "success")
+              {
+                this.ngOnInit();
+                this.appointmentUpdatedSuccess[index] = true;
+              }
+            })
+          }
+
+        }
+        validateUpdateRequestAppointmentEndDate(i:any)
+        {
+          //Firstly check if the start date has been entered.
+          if(this.updateAppointmentInputStartDate.nativeElement.value == ""){
+            this.updateAppointmentInputEndDate.nativeElement.value = "";
+            this.createUpdateAppointmentWarningList[i].endDateStatus = true;
+            this.createUpdateAppointmentValuesValid[i].endDateStatus = false;
+          }
+          else
+          {
+            this.createUpdateAppointmentWarningList[i].endDateStatus = false;
+            this.checkAppointmentUpdateEndDate(i);
+          }
+          if(this.updateAppointmentInputEndDate.nativeElement.value == "")
+          {
+            this.createUpdateAppointmentErrorList[i].endDateStatus = true;
+            this.createUpdateAppointmentValuesValid[i].endDateStatus = false;
+          }
+
+        }
+        validateUpdateRequestAppointmentStartDate(i:any)
+        {
+          this.updateAppointmentInputEndDate.nativeElement.value = "";
+          this.createUpdateAppointmentErrorList[i].endDateStatus = true;
+          this.checkAppointmentUpdateStartDate();
+          if(this.updateAppointmentInputStartDate.nativeElement.value == ""){
+            this.createUpdateAppointmentErrorList[i].startDateStatus = true;
+            this.createUpdateAppointmentValuesValid[i].startDateStatus = false;
+          }else{
+            this.createUpdateAppointmentErrorList[i].startDateStatus = false;
+            this.createUpdateAppointmentValuesValid[i].startDateStatus = true;
+          } 
+        }
+        rejectAppointment(appointment:any, index:any)
+        {
+          //Reject the appointment.
+          let updatedAppointment = {
+            id: appointment.id,
+            approved: 2
+          }
+          let confirmText = "You are about reject appointment:\n " + "\" " + appointment.title   + " \"";
+          if(confirm(confirmText) == true)
+          {
+            this.appointmentService.updateAppointment(updatedAppointment).subscribe((res)=>{
+              console.log(res);
+              if(res.status == "success")
+              {
+                this.ngOnInit();
+                this.appointmentUpdatedSuccess[index] = true;
+              }
+            });
+          }
         }
   
 //===========================================
