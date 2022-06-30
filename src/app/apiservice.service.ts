@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class ApiserviceService {
 
   constructor(private _http:HttpClient) { }
-  apiUrl = 'http://localhost:3000/api/v1/';
+  apiUrl = 'https://researcher-dna-api.herokuapp.com/api/v1/';
   // apiUrl = 'http://168.172.189.59:3000/api/v1/';
 
 

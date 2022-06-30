@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class ChatboxServiceService {
 
   constructor(public _http:HttpClient) { }
-  apiUrl = 'http://localhost:3000/api/v1/';
+  apiUrl = 'https://researcher-dna-api.herokuapp.com/api/v1/';
 
   //Get All Chats
   chat_groups(): Observable<any>

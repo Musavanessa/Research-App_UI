@@ -8,8 +8,8 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 })
 export class BlogService {
 
-  URL: string = `http://localhost:3000/api/v1/blogs`;
-  COMMENT_URL: string = `http://localhost:3000/api/v1/comments`;
+  URL: string = `https://researcher-dna-api.herokuapp.com/api/v1/blogs`;
+  COMMENT_URL: string = `https://researcher-dna-api.herokuapp.com/api/v1/comments`;
   //private decodedToken: DecodedToken = new DecodedToken;
 
   constructor(private http:HttpClient) { }

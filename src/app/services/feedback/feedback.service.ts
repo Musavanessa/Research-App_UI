@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class FeedbackService {
 
   constructor(public http:HttpClient) { }
-  apiUrl = 'http://localhost:3000/api/v1/';
+  apiUrl = 'https://researcher-dna-api.herokuapp.com/api/v1/';
 
   sendFeedback(messageObject:any):Observable<any>
   {

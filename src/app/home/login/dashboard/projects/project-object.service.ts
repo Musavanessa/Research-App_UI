@@ -31,7 +31,7 @@ export class ProjectObjectService {
     return this.projectObject;
   }
   
-  apiUrl = 'http://localhost:3000/api/v1/';
+  apiUrl = 'https://researcher-dna-api.herokuapp.com/api/v1/';
   student_pass_down_data:any;
   userDatails:any;
   messageReplyTo = "";
