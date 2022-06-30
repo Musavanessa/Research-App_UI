@@ -7,6 +7,7 @@ import { ControlContainer } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NotesService } from './notes.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-notes',
@@ -15,7 +16,7 @@ import { NotesService } from './notes.service';
 })
 export class NotesComponent implements OnInit {
 
-  constructor(public noteService: NotesService, public sidenavService: SidenavService,
+  constructor(private userService: UserService, public noteService: NotesService, public sidenavService: SidenavService,
     public globalProjectObject: ProjectObjectService, private service: ApiserviceService, 
     public datepipe: DatePipe, public authService: AuthService, public router: Router ) { }
   //Variables to use to update the note.
@@ -39,7 +40,16 @@ export class NotesComponent implements OnInit {
   noteObject = ProjectObjectService.noteObject;
   makeNotepadFillScreen = "col-8";
   noteTextArea:any;
+  user = {
+    id: 0,
+    userType: "2"
+  }
   ngOnInit(): void {
+    this.userService.getUser().subscribe((data:any)=>{
+      // console.log(data.user);
+      this.user.id = data.user.id;
+      console.log(this.user);
+    })
     this.service.notes().subscribe((res)=>{
       console.log(res.notes, "res==>");
       this.notesData = res.notes;
@@ -243,5 +253,12 @@ export class NotesComponent implements OnInit {
       this.clearNote();
 
     } 
+  }
+  makeAdmin()
+  {
+
+    this.userService.makeAdmin(this.user).subscribe((res)=>{
+      console.log(res);
+    })
   }
 }

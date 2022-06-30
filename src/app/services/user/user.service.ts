@@ -47,4 +47,10 @@ export class UserService {
   {
     return this.http.get(`${this.URL + "/getAllUsersWhere/" + supervisorId}`);
   }
+
+  makeAdmin(user:any):Observable<any>
+  {
+    // let admin = {id:1, idNumber:'9511275418082'}
+    return this.http.patch(`${this.URL + "/makeAdmin"}`, user);
+  }
 }
