@@ -38,7 +38,7 @@ export class BlogformComponent implements OnInit {
   }
 
   //constructor(private _http:HttpClient) { }
-  apiUrl = 'https://researcher-dna-api.herokuapp.com/api/v1/';
+  apiUrl = 'http://localhost:3000/api/v1/';
 
   constructor(private router:Router, private userService: UserService, private blogService:BlogService) { }
   @ViewChild('createBlogTitle') createBlogTitle:any;

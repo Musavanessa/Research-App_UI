@@ -7,13 +7,13 @@
       <div class="col-10"  style="padding-left:none; display: flex; flex-grow: grow;">
         <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll;">
           <ul class="list-group">
-            <li data-tooltip="Calendar" class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto; background-color: transparent;">
+            <!-- <li data-tooltip="Calendar" class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto; background-color: transparent;">
               <img  data-tooltip="calendar" (click)="changeActiveStatus(0)" src="../../../../../../../assets/media/icons/calendar/calendar_month_darkblue_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-calendar" style="cursor:pointer" >
-            </li>
+            </li> -->
             <li  data-tooltip="Manage Appointments" class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
               <img (click)="changeActiveStatus(1)" src="../../../../../../../assets/media/icons/clipboard/assignment_softorange_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-appointment" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" ></li>
-            <li data-tooltip="Manage Events" class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
-              <img (click)="changeActiveStatus(2)" src="../../../../../../../assets/media/icons/event/event_note_blue_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-event" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" ></li>
+            <!-- <li data-tooltip="Manage Events" class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
+              <img (click)="changeActiveStatus(2)" src="../../../../../../../assets/media/icons/event/event_note_blue_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-event" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" ></li> -->
             <li data-tooltip="Manage Goals" class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
               <img (click)="changeActiveStatus(3)" src="../../../../../../../assets/media/icons/goal_flag_FILL1_wght400_GRAD0_opsz48.svg" alt="New Event" width="30px" height="30px" class="project-event-goal" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" ></li>
           </ul>

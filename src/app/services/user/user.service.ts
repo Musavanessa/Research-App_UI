@@ -9,7 +9,7 @@ import { User } from 'src/app/models/user.model';
 export class UserService {
 
   // URL: string = `http://168.172.189.59:3000/api/v1/users`
-  URL: string = `https://researcher-dna-api.herokuapp.com/api/v1/users`;
+  URL: string = `http://localhost:3000/api/v1/users`;
 
   constructor(private http:HttpClient) { }
 

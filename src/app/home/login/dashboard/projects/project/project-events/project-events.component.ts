@@ -167,7 +167,7 @@ export class ProjectEventsComponent implements OnInit {
   goal_tempate_status: boolean = false;
   event_tempate_status: boolean = false;
   calendar_tempate_status: boolean = true;
-  template_statuses = [true, false, false, false]
+  template_statuses = [false, false, false, true]
   todayDate = new Date();
 
 

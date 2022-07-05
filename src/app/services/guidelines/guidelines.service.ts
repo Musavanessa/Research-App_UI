@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class GuidelinesService {
 
   constructor(private http:HttpClient) { }
-  apiUrl = 'https://researcher-dna-api.herokuapp.com/api/v1/';
+  apiUrl = 'http://localhost:3000/api/v1/';
 
   //UPDATE GUIDELINES SERVICE / API
   updateGuideline(guidelineObject:any):Observable<any>
