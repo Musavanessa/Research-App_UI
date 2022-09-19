@@ -8,7 +8,8 @@ import { HttpClient } from '@angular/common/http';
 export class GuidelinesService {
 
   constructor(private http:HttpClient) { }
-  apiUrl = 'http://localhost:3000/api/v1/';
+  apiUrl = 'http://44.204.59.197:3000/api/v1/';
+  // apiUrl = 'http://localhost:3000/api/v1/';
 
   //UPDATE GUIDELINES SERVICE / API
   updateGuideline(guidelineObject:any):Observable<any>

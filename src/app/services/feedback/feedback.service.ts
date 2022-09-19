@@ -9,7 +9,8 @@ import { Observable } from 'rxjs';
 export class FeedbackService {
 
   constructor(public http:HttpClient) { }
-  apiUrl = 'http://localhost:3000/api/v1/';
+  apiUrl = 'http://44.204.59.197:3000/api/v1/';
+  // apiUrl = 'http://localhost:3000/api/v1/';
 
   sendFeedback(messageObject:any):Observable<any>
   {

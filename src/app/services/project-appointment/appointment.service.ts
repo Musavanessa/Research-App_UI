@@ -8,7 +8,8 @@ import { Observable } from 'rxjs';
 export class AppointmentService {
 
   constructor(private http: HttpClient) { }
-  apiUrl = 'http://localhost:3000/api/v1/appointments/';
+  apiUrl = 'http://44.204.59.197:3000/api/v1/appointments/';
+  // apiUrl = 'http://localhost:3000/api/v1/appointments/'
   createApppoitment(appointment:any):Observable<any>
   {
     return this.http.post(`${this.apiUrl + appointment.projectId}`, appointment);

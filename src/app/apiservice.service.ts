@@ -10,7 +10,8 @@ export class ApiserviceService {
   constructor(private _http:HttpClient) { }
   // apiUrl = 'https://researcher-dna-api.herokuapp.com/api/v1/';
   // apiUrl = 'http://168.172.189.59:3000/api/v1/';
-  apiUrl = 'http://localhost:3000/api/v1/';
+  apiUrl = 'http://44.204.59.197:3000/api/v1/';
+  // apiUrl = 'http://localhost:3000/api/v1';
 
 
   disciplines(): Observable<any>

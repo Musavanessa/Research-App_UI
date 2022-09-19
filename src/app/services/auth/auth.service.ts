@@ -23,7 +23,8 @@ class DecodedToken {
 })
 export class AuthService {
 
-  URL: string = `http://localhost:3000/api/v1/users`
+  // URL: string = `http://localhost:3000/api/v1/users`;
+  URL: string = `http://44.204.59.197:3000/api/v1/users`;
   private decodedToken: DecodedToken = new DecodedToken;
 
   constructor(private http:HttpClient) {
