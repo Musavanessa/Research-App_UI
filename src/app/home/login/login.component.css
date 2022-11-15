@@ -34,7 +34,7 @@ section{
 
 section .color
 {
-  position: absolute;
+  /* position: absolute; */
   filter: blur(137px);
 }
 
@@ -91,12 +91,12 @@ section .color:nth-child(6)
 
 .box
 {
-  position: relative;
+  /* position: relative; */
 }
 
 .box .square
 {
-  position: absolute;
+  /* position: absolute; */
   backdrop-filter: blur(5px);
   box-shadow: 0 25px 45px rgba(0,0,0,0.1);
   border: 1px solid rgba(255, 255, 255, 0.5);
@@ -165,35 +165,39 @@ section .color:nth-child(6)
 
 .container
 {
-  position: relative;
+  /* position: relative; */
   width: 500px;
   min-height: 500px;
+  height: auto;
   background: rgba(255,255,255,0.1);
   border-radius: 10px;
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   align-items: center;
   backdrop-filter: blur(5px);
   box-shadow: 0 25px 45px rgba(0,0,0,0.1);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+
+
 }
+
+
 
 .img-login
 {
-  width: 90px;
+  width: 190px;
   height: 90px;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 50%;
   
 }
 
 .form
 {
-  position: relative;
+   
+  /* display: inline !important; */
+  position: relative !important;
   width: 100%;
   height: 100%;
   padding: 40px;
@@ -203,23 +207,23 @@ section .color:nth-child(6)
 
 .form h2
 {
-  position: relative;
-  color: #C0C0C0;
-  font-size: 35px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  margin-bottom:90px;
+  color: #004072;
+  text-align: center;
+  font-weight:lighter;
+  letter-spacing: 2px;
+  font-size: 20px;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 .form h2::before
 {
   content: '';
-  position: absolute;
+  /* position: absolute; */
   left: 0;
   bottom: -6px;
   width: 80px;
   height:2px;
-  background: #fff;
+  background: rgb(12, 12, 12);
 }
 
 .form .inputBox
@@ -236,16 +240,16 @@ section .color:nth-child(6)
   border-left: 0;
   border-top: 0;
   border-right: 0;
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid rgb(154, 153, 153);
   outline: none;
   letter-spacing: 1px;
   background: transparent;
-  color: #f5f5f5;
+  color: black;
 }
 
 .form .inputBox input::placeholder
 {
-  color: #f5f5f5;
+  color:black;
 }
 
 .form .inputButton .submit
@@ -279,14 +283,144 @@ section .color:nth-child(6)
 }
 .forget a
 {
-  color: #f5f5f5;
+  color: black;
   font-weight: 600;
+
   
 }
 
 .forget a:hover
 {
-  background-color: #0f4675;
+  /* background-color: #0f4675; */
+  color:#0f4675;
   
 }
 
+
+
+
+@media screen and (max-width: 450px) {
+  
+  .container
+  {
+    position: relative;
+    top:auto;
+    left: auto;
+    width: 30px;
+    min-height: 300px;
+    height: auto;  
+  }
+  
+  .img-login
+  {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .form
+  {
+     
+    /* display: inline !important; */
+    position: relative !important;
+    width: 100%;
+    height: 100%;
+    padding: 40px;
+  }
+  
+  
+  
+  .form h2
+  {
+    color: #004072;
+    text-align: center;
+    font-weight:lighter;
+    letter-spacing: 2px;
+    font-size: 20px;
+    font-family:Arial, Helvetica, sans-serif;
+  }
+  
+  .form h2::before
+  {
+    content: '';
+    /* position: absolute; */
+    left: 0;
+    bottom: -6px;
+    width: 80px;
+    height:2px;
+    background: rgb(12, 12, 12);
+  }
+  
+  .form .inputBox
+  {
+    width:100%;
+    margin-top: 20px;
+  }
+  
+  .form .inputBox input
+  {
+    width: 100%;
+    padding: 10px 0;
+    margin: 3px 0;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-bottom: 1px solid rgb(154, 153, 153);
+    outline: none;
+    letter-spacing: 1px;
+    background: transparent;
+    color: black;
+  }
+  
+  .form .inputBox input::placeholder
+  {
+    color:black;
+  }
+  
+  .form .inputButton .submit
+  {
+    background-color: transparent;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
+    border-color: #0f4675;
+    padding: 07px 30px;
+    color: #f5f5f5;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    backdrop-filter: blur(5px);
+    letter-spacing: 2px;
+  }
+  
+  .form .inputButton  .submit:hover
+  {
+    background-color: #0f4675;
+  }
+  
+  
+  .forget
+  {
+    margin-top: 5px;
+    color: #f5f5f5;
+   
+  }
+  .forget a
+  {
+    color: black;
+    font-weight: 600;
+  
+    
+  }
+  
+  .forget a:hover
+  {
+    /* background-color: #0f4675; */
+    color:#0f4675;
+    
+  }
+  
+  
+  
+  
+}

@@ -1,35 +1,32 @@
-<nav class="navbar navbar-default navbar-fixed-top" style="background-color:white">
-  <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg " style="width: 100%; background-color: 0f4675; height: auto;">
-      &nbsp;&nbsp;
-      <a class="navbar-brand" routerLink="/home">
-        <img src="../../../assets/media/ResearcherDNA_logo/logo.svg" alt="ResearcherDNA-Logo" width="200px" style="background-color:inherit">
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <!-- <li class="nav-item active">
-            <a class="nav-link" routerLink="/home">Home <span class="sr-only"></span></a>
-          </li> -->
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/blog" style="color:white">Blog</a>
-          </li>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-          </li> -->
-          <li class="nav-item"  >
-            <!-- <a class="nav-link" href="#" style="color:white">Logout</a> -->
-            <button  (click)="logout()"  type="button" class="btn btn-light  btn-sm" style="background-color:transparent; float:righ;  left: 1150px; position: relative; border:none;">
-              <span class="badge badge-light">
-                <img src="../../../assets/media/logos/logout_white_24dp.svg" alt="ResearcherDNA-Logo" width="26px" style="background-color:inherit">
-              </span>
-              <span class="sr-only" style="color:rgb(255, 255, 255)">Logout</span>
-            </button>
-          </li>
-        </ul>
+<link href="https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap" rel="stylesheet">
+<div class="header">
+    <div class="header-logo-container">
+      <div class="header-logo-positioner">
+        <svg version="1.2" baseProfile="tiny" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px" width="110px" y="0px" viewBox="247 -40.6 622 198.6" xml:space="preserve">
+        <path fill="black" d="M338.1-25.8c0-8.2,6.6-14.8,14.8-14.8c8.2,0,14.8,6.6,14.8,14.8c0,8.2-6.6,14.8-14.8,14.8
+          C344.7-11.1,338.1-17.7,338.1-25.8L338.1-25.8z"/>
+        <polygon fill="black" points="346.5,11.7 346.5,3.2 314.8,-16.2 314.9,-0.8 "/>
+        <polygon fill="black" points="359.2,11.5 359.2,3.2 390.5,-16 390.5,-0.8 "/>
+        <polygon fill="black" points="346.3,39.6 346.3,17.8 300.3,-0.7 300.3,23.6 "/>
+        <polygon fill="black" points="359.3,39.5 359.3,17.7 405.2,-0.4 405.2,23.8 "/>
+        <polygon fill="black" points="346.4,45.5 278.1,21.6 278.1,70.2 "/>
+        <polygon fill="black" points="359.5,45.5 426.7,21.6 426.7,70.2 "/>
+        <polygon fill="black" points="340.7,54.2 364.6,54.2 364.6,118.9 340.7,118.9 "/>
+        <polygon fill="black" points="333,117.4 333,56.8 304.5,67.1 304.5,105.5 "/>
+        <polygon fill="black" points="371.3,117.4 371.3,56.8 399.8,67.1 399.8,105.5 "/>
+        <path fill="black" d="M436-11.7c13.4,16,21.9,39.6,21.9,64.3c0,58.9-47.3,105.4-105.3,105.4C294.7,158,247,111.3,247,52.4
+          c0-24.2,7.9-45.9,22-64.1c-6.5,10.4-8.8,15.2-12.6,29.2c-2.5,9.5-3.1,19.8-3.1,29.5c1.4,22.5,8.2,37,20.2,55.1
+          c17.9,23.8,45.6,39.2,78.8,39.2c55.1,0,98.4-43.3,99.2-97.5C451.6,23.5,446.5,4.7,436-11.7L436-11.7z"/>
+        </svg>
       </div>
-    </nav>
-  </div>
-</nav>
+      <div>
+        <p class="header-logo-text">ResearcherDNA</p>
+      </div>
+      <div (click)="logout()" style="width:100%; text-align:right; position:absolute; padding-right:30px; padding-top:15px;">
+        <div style="display:inline-flex;cursor:pointer;"  title="Logout" >
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M15.325 16.275q-.275-.325-.275-.738 0-.412.275-.687l1.85-1.85H10q-.425 0-.712-.288Q9 12.425 9 12t.288-.713Q9.575 11 10 11h7.175l-1.85-1.85q-.3-.3-.3-.712 0-.413.3-.713.275-.3.688-.3.412 0 .687.275l3.6 3.6q.15.15.213.325.062.175.062.375t-.062.375q-.063.175-.213.325l-3.6 3.6q-.325.325-.712.287-.388-.037-.663-.312ZM5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h6q.425 0 .713.287Q12 3.575 12 4t-.287.712Q11.425 5 11 5H5v14h6q.425 0 .713.288.287.287.287.712t-.287.712Q11.425 21 11 21Z"/></svg>
+        </div>
+      </div>
+    </div>
+</div>
