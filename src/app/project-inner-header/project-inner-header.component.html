@@ -1,0 +1,47 @@
+
+<!-- <div style="padding-top:8px;margin-top: 90px; margin-left:0;  width: 100%; height: 100%; position:fixed; ; background-color: rgba(255, 255, 255, 0.747);height:60px; backdrop-filter:blur(5px);"> -->
+    <div *ngIf="activeUser.userType == 2 || activeUser.userType == 3" style="padding-left:100px; top:10px; position:fixed; display: inline-flex; font-size: 20px;">
+      {{activeUser.studNumber + " | " + activeUser.firstName + " " + activeUser.lastName}}
+    </div>
+    <div style="text-align:center; margin-left: auto; margin-right: auto;">
+      <div style="display:inline-flex">
+        <div *ngIf="activeUser.userType == 2 || activeUser.userType == 3" class="space-inner-header-icons">
+          <div routerLink="../../projects" class="icons-class">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="grey"><path d="M8 9q-.425 0-.713-.288Q7 8.425 7 8t.287-.713Q7.575 7 8 7h12q.425 0 .712.287Q21 7.575 21 8t-.288.712Q20.425 9 20 9Zm0 4q-.425 0-.713-.288Q7 12.425 7 12t.287-.713Q7.575 11 8 11h12q.425 0 .712.287.288.288.288.713t-.288.712Q20.425 13 20 13Zm0 4q-.425 0-.713-.288Q7 16.425 7 16t.287-.713Q7.575 15 8 15h12q.425 0 .712.287.288.288.288.713t-.288.712Q20.425 17 20 17ZM4 9q-.425 0-.712-.288Q3 8.425 3 8t.288-.713Q3.575 7 4 7t.713.287Q5 7.575 5 8t-.287.712Q4.425 9 4 9Zm0 4q-.425 0-.712-.288Q3 12.425 3 12t.288-.713Q3.575 11 4 11t.713.287Q5 11.575 5 12t-.287.712Q4.425 13 4 13Zm0 4q-.425 0-.712-.288Q3 16.425 3 16t.288-.713Q3.575 15 4 15t.713.287Q5 15.575 5 16t-.287.712Q4.425 17 4 17Z"/></svg>
+            <br>
+            Students
+            </div>
+        </div>
+        <div routerLink="/project-status" class="space-inner-header-icons">
+          <div class="icons-class">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="orange"><path d="M4 20q-.825 0-1.412-.587Q2 18.825 2 18V6q0-.825.588-1.412Q3.175 4 4 4h16q.825 0 1.413.588Q22 5.175 22 6v12q0 .825-.587 1.413Q20.825 20 20 20Zm8-7.175q.125 0 .262-.038.138-.037.263-.112L19.6 8.25q.2-.125.3-.312.1-.188.1-.413 0-.5-.425-.75T18.7 6.8L12 11 5.3 6.8q-.45-.275-.875-.013Q4 7.05 4 7.525q0 .25.1.437.1.188.3.288l7.075 4.425q.125.075.263.112.137.038.262.038Z"/></svg>
+            <br>
+            Messages
+          </div>
+        </div>
+        <!-- <div routerLink="../../projects/goal"  class="space-inner-header-icons">
+          <div class="icons-class">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="darkgreen"><path d="M6 21q-.425 0-.713-.288Q5 20.425 5 20V5q0-.425.287-.713Q5.575 4 6 4h7.175q.35 0 .625.225t.35.575L14.4 6H19q.425 0 .712.287Q20 6.575 20 7v8q0 .425-.288.712Q19.425 16 19 16h-5.175q-.35 0-.625-.225t-.35-.575L12.6 14H7v6q0 .425-.287.712Q6.425 21 6 21Z"/></svg>
+            <br>
+            Goals
+          </div>
+        </div> -->
+        <!-- <div routerLink="/project-status"  class="space-inner-header-icons">
+          <div class="icons-class">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="purple"><path d="M8 18h8v-2H8Zm0-4h8v-2H8Zm-2 8q-.825 0-1.412-.587Q4 20.825 4 20V4q0-.825.588-1.413Q5.175 2 6 2h8l6 6v12q0 .825-.587 1.413Q18.825 22 18 22Zm7-13h5l-5-5Z"/></svg>
+            <br>
+            Sumbitted Chapters
+          </div>
+        </div> -->
+        <div routerLink="/project-events" class="space-inner-header-icons">
+          <div class="icons-class">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="darkblue"><path d="M8 17h5q.425 0 .713-.288Q14 16.425 14 16t-.287-.713Q13.425 15 13 15H8q-.425 0-.713.287Q7 15.575 7 16t.287.712Q7.575 17 8 17Zm0-4h8q.425 0 .712-.288Q17 12.425 17 12t-.288-.713Q16.425 11 16 11H8q-.425 0-.713.287Q7 11.575 7 12t.287.712Q7.575 13 8 13Zm0-4h8q.425 0 .712-.288Q17 8.425 17 8t-.288-.713Q16.425 7 16 7H8q-.425 0-.713.287Q7 7.575 7 8t.287.712Q7.575 9 8 9ZM5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h4.2q.325-.9 1.088-1.45Q11.05 1 12 1t1.713.55Q14.475 2.1 14.8 3H19q.825 0 1.413.587Q21 4.175 21 5v14q0 .825-.587 1.413Q19.825 21 19 21Zm7-16.75q.325 0 .538-.213.212-.212.212-.537 0-.325-.212-.538-.213-.212-.538-.212-.325 0-.537.212-.213.213-.213.538 0 .325.213.537.212.213.537.213Z"/></svg>
+            <br>
+            Appointments & Goals
+          </div>
+          <br>
+        </div>
+      </div>
+   </div>
+  <!-- </div> -->
+  

@@ -46,6 +46,8 @@ import { GoalFilesService } from './services/goal-file/goal-files.service';
 import { GuidelineTitleComponent } from './home/login/dashboard/projects/guidelines/guideline-title/guideline-title.component';
 import { TemplatePipesPipe } from './home/login/dashboard/projects/guidelines/pipes/template-pipes.pipe';
 import { AppointmentService } from './services/project-appointment/appointment.service';
+import { NewInnerHeaderComponent } from './new-inner-header/new-inner-header.component';
+import { ProjectInnerHeaderComponent } from './project-inner-header/project-inner-header.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,9 @@ import { AppointmentService } from './services/project-appointment/appointment.s
     BlogformComponent,
     AddsourceComponent,
     GuidelineTitleComponent,
-    TemplatePipesPipe
+    TemplatePipesPipe,
+    NewInnerHeaderComponent,
+    ProjectInnerHeaderComponent
   ],
   imports: [
     BrowserModule,

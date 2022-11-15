@@ -1,0 +1,28 @@
+.space-inner-header-icons
+{
+  text-align: center;
+  font-size: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: rgb(126, 125, 125);
+  margin: 5px 5px 0px 0px;
+  /* border-bottom: 2px solid rgb(128, 128, 128); */
+}
+
+.space-inner-header-icons :hover
+{
+  border-bottom: 2px solid rgb(20, 94, 96);
+}
+
+.space-inner-header-icons svg:hover
+{
+  border-bottom: 2px solid rgba(41, 83, 86, 0);
+}
+
+
+
+.icons-class
+{
+  padding-bottom:5px;
+  cursor: pointer;
+}
