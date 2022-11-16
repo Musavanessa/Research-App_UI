@@ -48,6 +48,7 @@ import { TemplatePipesPipe } from './home/login/dashboard/projects/guidelines/pi
 import { AppointmentService } from './services/project-appointment/appointment.service';
 import { NewInnerHeaderComponent } from './new-inner-header/new-inner-header.component';
 import { ProjectInnerHeaderComponent } from './project-inner-header/project-inner-header.component';
+import { NewToolboxComponent } from './new-toolbox/new-toolbox.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { ProjectInnerHeaderComponent } from './project-inner-header/project-inne
     GuidelineTitleComponent,
     TemplatePipesPipe,
     NewInnerHeaderComponent,
-    ProjectInnerHeaderComponent
+    ProjectInnerHeaderComponent,
+    NewToolboxComponent
   ],
   imports: [
     BrowserModule,

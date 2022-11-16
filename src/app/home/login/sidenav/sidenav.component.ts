@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 //I need to work with services
 import { SidenavService } from 'src/app/services/navs/sidenav.service';
 import { AppComponent } from 'src/app/app.component';
+import { UserService } from 'src/app/services/user/user.service';
 
 
 
@@ -26,12 +27,17 @@ export class SidenavComponent implements OnInit {
   url : string = `https://avatars.githubusercontent.com/u/58688272?v=4`;
 
 
-  constructor(public sideNavService: SidenavService) { }
+  constructor(public sideNavService: SidenavService, private userService: UserService) { }
+  activeUser:any;
   ngOnInit(): void {
     this.changeSideNav();
     // this.activateProfileElement();
     // this.profileElement.nativeElement.style.backgroundColor="rgb(0, 132, 255)";
     // this.profileElement.nativeElement.style.color="white";
+
+    this.userService.getUser().subscribe((data: any) => {
+      this.activeUser = data.user;
+    });
     
   }
 

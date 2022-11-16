@@ -1049,14 +1049,16 @@ export class ProjectStatusComponent implements OnInit {
         {
           if(this.attachFileDescription.nativeElement.value.trim().length > 0)
           {
+            console.log("We are about to upload a file");
             //We are good to send this upload the file.
             let goalId:any;
-            let goal = this.goalsService.getGoalFeedbackOpened()
+            let goal = this.goalsService.getGoalFeedbackOpened();
             goalId = goal.id;
             let formData = new FormData();
             formData.set("document", this.selectedFile);
             formData.set("description", this.fileDescription);
             formData.set("goalId", goalId.toString());
+            console.log(formData);
             console.log(goalId);
             this.goalFileService.postGoalFile(goalId, formData).subscribe((res)=>{
               console.log(goalId);

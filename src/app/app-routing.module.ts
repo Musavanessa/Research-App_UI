@@ -32,6 +32,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { SessionGuardService } from './services/auth/session-guard.service';
 import { AddsourceComponent } from './home/addsource/addsource.component';
 import { BlogService } from './services/blog/blog.service';
+import { NewToolboxComponent } from './new-toolbox/new-toolbox.component';
 
 
 const routes: Routes = [
@@ -59,7 +60,8 @@ const routes: Routes = [
   {path: 'addsource', component:AddsourceComponent},
   {path: 'project-events', component:ProjectEventsComponent},
   {path: 'signup', component:SignupComponent},
-  {path: 'blog', component:BlogService}
+  {path: 'blog', component:BlogService},
+  {path: 'toolbox', component: NewToolboxComponent}
 ];
 
 @NgModule({
