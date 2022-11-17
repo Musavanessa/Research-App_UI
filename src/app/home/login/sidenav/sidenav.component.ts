@@ -38,7 +38,7 @@ export class SidenavComponent implements OnInit {
     this.userService.getUser().subscribe((data: any) => {
       this.activeUser = data.user;
     });
-    
+
   }
 
   navProperties =  SidenavService.navProperties;
@@ -48,7 +48,7 @@ export class SidenavComponent implements OnInit {
      this.navProperties = SidenavService.navProperties;
   }
 
-  
+
  activateProfileElement()
  {
    this.profileElement.nativeElement.style.backgroundColor="rgb(0, 132, 255)";

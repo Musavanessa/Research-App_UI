@@ -1,7 +1,7 @@
 
 <app-new-inner-header></app-new-inner-header>
 <div  style="background-color:rgb(255, 255, 255); height: 92%; position: fixed; top: 120px; left:75px; width:82%">
-    <app-project-inner-header></app-project-inner-header>
+  <app-innernav></app-innernav>
     <div class="row">
       <div style="width:5%">
         <ul class="list-group" style="width: 60px; background-color:transparent;">
@@ -36,7 +36,7 @@
                         <div class="col-9" style="user-select:text">
                           <img style="user-select:none" src="../../../../../../../assets/media/logos/file_download_black_24dp (1).svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
                           &nbsp;
-                          
+
                         </div>
                         <div class="col"  style="margin-left:auto; margin-right:auto; cursor: pointer;">
                           <img src="../../../../../../../assets/media/icons/reply/reply_gForblack_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
@@ -102,7 +102,7 @@
                       <div class="alert alert-danger" role="alert">
                         <strong>Error:</strong> Something went wrong!
                       </div>
-                    </div>  
+                    </div>
                     <div style="border-radius: 20px; background-color: rgb(255, 255, 255); position:relative; width: 40rem; margin-left: auto; margin-right: auto;">
                       <div #createGoalCard class="card chatGroupSettingsClass"  style="border:none">
                         <div class="card-header" style="border:none; background-color: rgb(239, 239, 239);" [style.color]="goalsTimeStatusTextColor[i]">
@@ -146,12 +146,12 @@
                                     <td>&nbsp;{{feedback.title}}</td>
                                   </div>
                                   <!-- <div class="col-sm">col-sm</div> -->
-                                  <div class="col-sm" (click)="inputSubjectReadMode[0] = true; inputSubjectReadMode[1]=true; readMessage(feedback)" >                                    
+                                  <div class="col-sm" (click)="inputSubjectReadMode[0] = true; inputSubjectReadMode[1]=true; readMessage(feedback)" >
                                     <td style="text-align:right">
                                       <div style="text-align:right; color:#868686; float:inline-end;">{{formatTodayDate(feedback.createdAt)}}</div>
                                     </td>
                                   </div>
-                                  <div class="col-sm">                                    
+                                  <div class="col-sm">
                                     <td  (click)="replyToFeedback(feedback, goal); inputSubjectReadMode[0]=false; inputSubjectReadMode[1]=false;"  style="text-align:right">
                                       <div  data-tooltip="Reply to Feedback" style="text-align:right; color:#868686; float:inline-end;">
                                         <img src="../../../../../../../assets/media/icons/reply/reply_grey_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
@@ -168,7 +168,7 @@
                             <div class="container">
                               <div class="row">
                                 <div class="col-sm">
-                    
+
                                   <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                                     Start date
                                   </h3>
@@ -178,8 +178,8 @@
                                   <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                                     End date
                                   </h3>
-                                  <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" [value]=formatDateFull(goal.dueDate)>  
-                                </div> 
+                                  <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" [value]=formatDateFull(goal.dueDate)>
+                                </div>
                                 <div class="col-sm">
                                   <!-- Here we are going to show our date difference -->
                                   <div class="card" style="border:none; border-radius: 10px;">
@@ -314,7 +314,7 @@
               <br>
             </div>
           </ng-template>
-          <ng-template #template_goals4Project> 
+          <ng-template #template_goals4Project>
           </ng-template>
         </div>
       </div>
@@ -342,11 +342,11 @@
                 <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                   Subject
                 </h3>
-                <input *ngIf="!inputSubjectReadMode[0]" #sendMessageInputSubject type="text" class="form-control  input_table" placeholder="Message Subject" aria-label="message subject" aria-describedby="basic-addon2" value="{{messageSubject}}">   
-                <input disabled *ngIf="inputSubjectReadMode[0]" #sendMessageInputSubject type="text" class="form-control  input_table" placeholder="Message Subject" aria-label="message subject" aria-describedby="basic-addon2" value="{{messageRead.title}}">   
+                <input *ngIf="!inputSubjectReadMode[0]" #sendMessageInputSubject type="text" class="form-control  input_table" placeholder="Message Subject" aria-label="message subject" aria-describedby="basic-addon2" value="{{messageSubject}}">
+                <input disabled *ngIf="inputSubjectReadMode[0]" #sendMessageInputSubject type="text" class="form-control  input_table" placeholder="Message Subject" aria-label="message subject" aria-describedby="basic-addon2" value="{{messageRead.title}}">
 
 
-                
+
                 <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;padding-top: 10px">
                   Message
                 </h3>
@@ -354,7 +354,7 @@
                 <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto; height:50%; overflow: scroll;">
                   <textarea *ngIf="!inputSubjectReadMode[1]" #sendMessageInputText class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="13" placeholder="Write Message here..."></textarea>
                   <pre  *ngIf="inputSubjectReadMode[1]" #sendMessageInputText class="form-control  input_table" id="exampleFormControlTextarea1" style="height: 350px; resize: none; white-space: pre-wrap; white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap; word-wrap: break-word;">{{messageRead.text}}</pre>
-                  
+
                 </div>
                 <tr style="user-select:none">
                     <button (click)="sendMessage()" #createRequestAppointmentButton  type="button" class="btn btn-primary btn-sm" >Send</button>
@@ -403,7 +403,7 @@
                 <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                   File Name
                 </h3>
-                <input id="inputFileName" readonly  #attachFileName type="text" class="form-control  input_table" placeholder="Click fileclip to attach a file" aria-label="message subject" aria-describedby="basic-addon2" value="{{messageSubject}}">   
+                <input id="inputFileName" readonly  #attachFileName type="text" class="form-control  input_table" placeholder="Click fileclip to attach a file" aria-label="message subject" aria-describedby="basic-addon2" value="{{messageSubject}}">
                 <div style="position:relative; top:-40px;left:80%">
                   <input type="file" (change)="attachUpload($event)"  id="inputGroupFile04">
                   <label style="position:relative; top:-2px" class="custom-file-upload" for="inputGroupFile04" style="cursor:pointer">
@@ -422,12 +422,12 @@
                 &nbsp;&nbsp;
                 <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto; height:50%; overflow: scroll;">
                   <textarea (keyup)="validateFileDescrition()" #attachFileDescription class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="13" placeholder="Write file description here..."></textarea>
-                  
+
                 </div>
                 <tr style="user-select:none">
                     <button *ngIf="fileUploadValuesValid[0] && fileUploadValuesValid[1]"  (click)="uploadSelectedFile()" #createRequestAppointmentButton  type="button" class="btn btn-primary btn-sm" >Upload</button>
                     <button *ngIf="!fileUploadValuesValid[0] || !fileUploadValuesValid[1]" disabled (click)="uploadSelectedFile()" #createRequestAppointmentButton  type="button" class="btn btn-primary btn-sm" >Upload</button>
-                    
+
                     &nbsp;
                     <!-- <div style="position:relative; top:-30px; left:60px">
                       <input type="file" (change)="attachUpload($event)"  id="inputGroupFile04">
@@ -449,5 +449,5 @@
         &nbsp;&nbsp;&nbsp;
       </div>
     </div>
-</div>  
+</div>
 

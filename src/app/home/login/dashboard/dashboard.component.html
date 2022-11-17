@@ -1,14 +1,14 @@
-  <div  style="background-color:rgb(255, 255, 255); height: 92%; position: fixed; top: 75px; width:82%">
+  <div style="background-color:rgb(255, 255, 255); height: 92%; position: fixed; top: 50px; width:100%">
     <app-new-inner-header activeUser="{{userData}}"></app-new-inner-header>
     <div style="width: 100%; height: 93%; position:relative;top:64px; background-color: rgb(255, 255, 255); overflow: scroll;">
       &nbsp;
-      <div *ngIf="!isUserSupervisor(userType)" class="card" style="width:95%; margin-right:auto; margin-left: auto;  background-color: aliceblue; border-color: white;" >
+      <div *ngIf="!isUserSupervisor(userType)" class="card" style="width:90%; margin-right:auto; margin-left: auto; left:20px;  background-color: aliceblue; border-color: white;" >
         <div class="card-body" >
           <div style="cursor: pointer;" (click)="showCreateProject()">
                 <img src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="30px" height="30px" style="cursor: pointer; transition:  transform 1s;" (click)="showCreateProject_" [style]="transformElement">
               Create New Project
           </div>
-          <div class="card border-light mb-3" style="width: 100%;" [style.display]= "createProjectDisplay" > 
+          <div class="card border-light mb-3" style="width: 100%;" [style.display]= "createProjectDisplay" >
             <div class="card-header" style="background-color:#2196F3; color:whitesmoke">Create Project</div>
             <div *ngIf="isDisplayErrorInputMessage" class="alert alert-danger alert-dismissible fade show" role="alert"  style="width:100%; margin-right:auto; margin-left: auto;">
               <strong>NB</strong> &nbsp;Enter all fields
@@ -50,7 +50,7 @@
                     </option>
                   </select>
                   <hr>
-  
+
                 </li>
                 <li class="list-group-item"  style="border-color:white">
                   <div class="form-group">
@@ -58,7 +58,7 @@
                     <textarea #inputDescription class="form-control" id="exampleFormControlTextarea1" rows="6" style="resize: none;"  (change)="disableProjectSaveButtons()"></textarea>
                   </div>
                   <hr>
-  
+
                 </li>
                 <li class="list-group-item"  style="border-color:white">
                   <div class="row">
@@ -67,7 +67,7 @@
                     <div class="col-sm"><button type="button" routerLink="/project" class="btn btn-success" style="background-color:darkgreen">Open</button></div>
                     <div class="col-sm"><button type="button" class="btn btn-dark"  (click)="showCreateProject()" >Close</button></div>
                   </div>
-  
+
                 </li>
               </ul>
             </div>
@@ -75,7 +75,7 @@
         </div>
       </div>
       &nbsp;
-      <div class="alert alert-success alert-dismissible fade show" role="alert"  style="width:95%; margin-right:auto; margin-left: auto;" *ngIf="isDisplaySuccessMessage">
+      <div class="alert alert-success alert-dismissible fade show" role="alert"  style="width:90%; margin-right:auto; margin-left: auto;" *ngIf="isDisplaySuccessMessage">
         <strong>Success</strong>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="closeDisplaySuccessMessage()"></button>
       </div>
@@ -137,14 +137,14 @@
                     <th scope="col">Project Name</th>
                     <th scope="col">Project Description</th>
                     <th scope="col">
-                      <span *ngIf="sumNotifications > 0" class="badge" style="background-color:red; border-radius:50px; position:relative; top:20px; left:85px; z-index: 10;">{{sumNotifications}}</span>
+                      <!-- <span *ngIf="sumNotifications > 0" class="badge" style="background-color:red; border-radius:50px; position:relative; top:20px; left:85px; z-index: 10;">{{sumNotifications}}</span> -->
                       Notifications
                     </th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let project_student of allStudents; let i = index" style="cursor:pointer" routerLink="/project" (click)="openStudentPortal(project_student)" >
+                  <tr *ngFor="let project_student of allStudents; let i = index" style="cursor:pointer" routerLink="/project-status" (click)="openStudentPortal(project_student)" >
                     <th scope="row" >{{project_student.user.id}}</th>
                     <td>{{project_student.user.firstName}} {{project_student .user.lastName}}</td>
                     <td>{{project_student.name}}</td>

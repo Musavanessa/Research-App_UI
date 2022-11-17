@@ -1,10 +1,54 @@
-<br>
-<div class="container-fluid" style="width:100%; border-left: none; border-right: none; background-color:rgb(255, 255, 255); user-select: none;  box-shadow: 2px 2px rgb(238, 238, 238);">
-<!-- <div class="row" style="background-color:rgb(235, 235, 240)"></div> -->
-<!-- <div class="row" style="background-image: linear-gradient(to right,rgb(201, 201, 201) , rgb(252, 82, 255))"></div> -->
+<div>
+  <div *ngIf="activeUser.userType == 2 || activeUser.userType == 3">
+    <ng-template *ngIf="userDetails.userType==2; then supervisorTemplate; else studentTemplate_toShowStudentName">
+
+    </ng-template>
+  </div>
+  <div style="text-align:center; margin-left: auto; margin-right: auto;">
+    <div style="display:inline-flex">
+      <ng-template #studentTemplate_toShowStudentName>
+        <div class="list-group-item" style="border:none">Project Name <strong>{{projectObject.name}}</strong></div>
+        </ng-template>
+        <ng-template #supervisorTemplate>
+        <div class="list-group-item" style="border:none; font-size: 20px;">{{studentDetails.user.id}} |
+          <strong>{{studentDetails.user.firstName}} {{studentDetails.user.lastName}}</strong>
+          | {{studentDetails.name}}
+        </div>
+        </ng-template>
+      <div *ngIf="activeUser.userType == 2 || activeUser.userType == 3" class="space-inner-header-icons">
+        <div routerLink="/dashboard" class="icons-class">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="purple"><path d="M2 20q-.425 0-.712-.288Q1 19.425 1 19v-1.8q0-.85.438-1.563.437-.712 1.162-1.087 1.55-.775 3.15-1.163Q7.35 13 9 13t3.25.387q1.6.388 3.15 1.163.725.375 1.162 1.087Q17 16.35 17 17.2V19q0 .425-.288.712Q16.425 20 16 20Zm16.525 0q.225-.175.35-.438.125-.262.125-.587V17q0-1.1-.612-2.113-.613-1.012-1.738-1.737 1.275.15 2.4.512 1.125.363 2.1.888.9.5 1.375 1.112Q23 16.275 23 17v2q0 .425-.288.712Q22.425 20 22 20ZM9 12q-1.65 0-2.825-1.175Q5 9.65 5 8q0-1.65 1.175-2.825Q7.35 4 9 4q1.65 0 2.825 1.175Q13 6.35 13 8q0 1.65-1.175 2.825Q10.65 12 9 12Zm10-4q0 1.65-1.175 2.825Q16.65 12 15 12q-.275 0-.7-.062-.425-.063-.7-.138.675-.8 1.037-1.775Q15 9.05 15 8q0-1.05-.363-2.025Q14.275 5 13.6 4.2q.35-.125.7-.163Q14.65 4 15 4q1.65 0 2.825 1.175Q19 6.35 19 8Z"/></svg>
+          <br>
+          Students
+          </div>
+      </div>
+      <div routerLink="/project-status" class="space-inner-header-icons">
+        <div class="icons-class">
+          <span *ngIf="countAllNotifications > 0" class="badge" style="background-color:red; border-radius:50px; position:relative; top:-9px; left:35px;z-index: 10;">{{countAllNotifications}}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="orange"><path d="M4 20q-.825 0-1.412-.587Q2 18.825 2 18V6q0-.825.588-1.412Q3.175 4 4 4h16q.825 0 1.413.588Q22 5.175 22 6v12q0 .825-.587 1.413Q20.825 20 20 20Zm8-7.175q.125 0 .262-.038.138-.037.263-.112L19.6 8.25q.2-.125.3-.312.1-.188.1-.413 0-.5-.425-.75T18.7 6.8L12 11 5.3 6.8q-.45-.275-.875-.013Q4 7.05 4 7.525q0 .25.1.437.1.188.3.288l7.075 4.425q.125.075.263.112.137.038.262.038Z"/></svg>
+          <br>
+          Messages
+        </div>
+      </div>
+      <div routerLink="/project-events" class="space-inner-header-icons">
+        <div class="icons-class">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="darkblue"><path d="M8 17h5q.425 0 .713-.288Q14 16.425 14 16t-.287-.713Q13.425 15 13 15H8q-.425 0-.713.287Q7 15.575 7 16t.287.712Q7.575 17 8 17Zm0-4h8q.425 0 .712-.288Q17 12.425 17 12t-.288-.713Q16.425 11 16 11H8q-.425 0-.713.287Q7 11.575 7 12t.287.712Q7.575 13 8 13Zm0-4h8q.425 0 .712-.288Q17 8.425 17 8t-.288-.713Q16.425 7 16 7H8q-.425 0-.713.287Q7 7.575 7 8t.287.712Q7.575 9 8 9ZM5 21q-.825 0-1.413-.587Q3 19.825 3 19V5q0-.825.587-1.413Q4.175 3 5 3h4.2q.325-.9 1.088-1.45Q11.05 1 12 1t1.713.55Q14.475 2.1 14.8 3H19q.825 0 1.413.587Q21 4.175 21 5v14q0 .825-.587 1.413Q19.825 21 19 21Zm7-16.75q.325 0 .538-.213.212-.212.212-.537 0-.325-.212-.538-.213-.212-.538-.212-.325 0-.537.212-.213.213-.213.538 0 .325.213.537.212.213.537.213Z"/></svg>
+          <br>
+          Appointments & Goals
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<!-- <div class="container-fluid" style="width:100%; border-left: none; border-right: none; background-color:rgb(255, 255, 255); user-select: none;  box-shadow: 2px 2px rgb(238, 238, 238);">
   <div class="row" style="border-left: none; border-right: none; background-color:rgb(255, 255, 255); user-select: none;  box-shadow: 2px 2px rgb(238, 238, 238);">
     <div class="col-sm">
-      <!-- NAV BAR TO NAVIGATE THROUGH THE PROJECTS PART -->
       <nav class="navbar navbar-expand-lg navbar-light" style="width: 30%;">
         <div class="collapse navbar-collapse" id="navbarText">
           <ul class="navbar-nav mr-auto">
@@ -14,11 +58,6 @@
                 <img src="../../../../../../../assets/media/icons/list/format_list_numbered_grey_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
             </a>
             </li>
-            <!-- <li data-tooltip="Manage Project"  class="nav-item">
-              <a class="nav-link"  style="color:black" routerLink="/project-write">
-                <img src="../../../../../../../assets/media/icons/manage/manage_accounts_grey_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px">
-            </a>
-            </li> -->
             <li data-tooltip="Feedbacks & Chapter files"  class="nav-item">
               <span *ngIf="countAllNotifications > 0" class="badge" style="background-color:red; border-radius:50px; position:absolute; top:13px; left:70px;z-index: 10;">{{countAllNotifications}}</span>
                 <a class="nav-link" routerLink="/project-status">
@@ -35,7 +74,6 @@
       </nav>
     </div>
     <div class="col-sm-10">
-      <!-- TITLE OF THE SYSTEM - WHICH ALSO FUNCTIONS LIKE THE HOME BUTTON -->
       <ul class="list-group" style="width:80%; border: none; position: relative; top: 10px">
         <ng-template *ngIf="userDetails.userType==2; then supervisorTemplate; else studentTemplate_toShowStudentName">
 
@@ -47,11 +85,23 @@
   <li class="list-group-item" style="border:none">Project Name <strong>{{projectObject.name}}</strong></li>
   </ng-template>
   <ng-template #supervisorTemplate>
-  <li class="list-group-item" style="border:none; font-size: 20px;">{{studentDetails.user.id}} | 
+  <li class="list-group-item" style="border:none; font-size: 20px;">{{studentDetails.user.id}} |
     <strong>{{studentDetails.user.firstName}} {{studentDetails.user.lastName}}</strong>
     | {{studentDetails.name}}
   </li>
   </ng-template>
-</div>
+</div> -->
 
+
+
+
+<!-- <div>
+  Project Name <strong>{{projectObject.name}}</strong>
+</div>
+<div>
+  {{studentDetails.user.id}} |
+    <strong>{{studentDetails.user.firstName}} {{studentDetails.user.lastName}}</strong>
+    | {{studentDetails.name}}
+</div>
+<app-project-inner-header></app-project-inner-header> -->
 

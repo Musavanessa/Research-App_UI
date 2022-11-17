@@ -1,9 +1,7 @@
 
   <app-new-inner-header></app-new-inner-header>
   <div  style="background-color:rgb(255, 255, 255); height: 92%; position: fixed; top: 120px; left:75px; width:82%">
-    <app-project-inner-header></app-project-inner-header>
-  <app-topnav></app-topnav>
-  <app-innernav></app-innernav>
+    <app-innernav></app-innernav>
   <div class="row">
     <!-- BACKLOG LIST -->
     <!-- CREATE PROJECT CARD -->
@@ -45,7 +43,7 @@
               <div style="width: 95%; margin-left:auto; margin-right:auto">
                 <h5 class="card-title">
                   {{guideLineObject.text}}
-                </h5>  
+                </h5>
               </div>
             </div>
             <h6 class="card-subtitle mb-2 text-muted">{{datepipe.transform(this.guideLineObject.updatedAt, 'yyyy-MM-dd hh:mm:ss')}}</h6>
@@ -64,12 +62,12 @@
         <div class="card" style="width: 18rem;" style="width: 100%; ">
           <div class="card-body" style="padding: 15px; margin: 0;">
             <div class="mb-3" style="margin: 0px 0px 0px;">
-  
+
               <div *ngIf="isDisplayErrorInputMessage" class="alert alert-danger alert-dismissible fade show" role="alert"  style="width:100%; margin-right:auto; margin-left: auto;">
                 <strong>NB</strong> &nbsp;Enter all fields
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="closeErrorInputMessage()"></button>
               </div>
-  
+
               <div *ngIf="isDisplaySuccessNoteMessage" class="alert alert-success alert-dismissible fade show" role="alert"  style="width:100%; margin-right:auto; margin-left: auto;">
                 <strong>{{createNoteResponse}}:</strong> Note Saved &nbsp;
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="closeSuccessNoteMessage()"></button>

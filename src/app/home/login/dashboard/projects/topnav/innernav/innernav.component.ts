@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectObjectService } from '../../project-object.service';
 import { FeedbackService } from 'src/app/services/feedback/feedback.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { User } from 'src/app/models/user.model';
 // import { ProjectObject } from '../../project-viewer';
 
 @Component({
@@ -11,15 +13,25 @@ import { FeedbackService } from 'src/app/services/feedback/feedback.service';
 export class InnernavComponent implements OnInit {
 
   // public projectObject: ProjectObject
-  constructor(public feedbackService: FeedbackService, public globalProjectObject : ProjectObjectService) { }
+  constructor(public feedbackService: FeedbackService, public globalProjectObject : ProjectObjectService, private userService: UserService) { }
 
   projectObject:any;
   userDetails:any;
   studentDetails:any;
-
+  activeUser:any;
+  userType:any;
   //NOTIFICATIONS VARIABLS
   countAllNotifications = 0;
   ngOnInit(): void {
+    this.userService.getUser().subscribe((data: any) => {
+      this.activeUser = data.user;
+      if(this.activeUser.userType == "1")
+        this.userType = "Student"
+      if(this.activeUser.userType == "2")
+        this.userType = "Supervisor"
+      if(this.activeUser.userType == "3")
+        this.userType = "Admin"
+    });
     // console.log(ProjectObject.projectObject.name);
     this.userDetails = this.globalProjectObject.getUserDetails();
     console.log("User Details", this.userDetails);
@@ -42,7 +54,7 @@ export class InnernavComponent implements OnInit {
     }
     else
     {
-      //I think the best way to do this is to get the information using the feedback service 
+      //I think the best way to do this is to get the information using the feedback service
       this.projectObject = this.globalProjectObject.getOpenedProjectObject();
       //We can call the same request....
       this.feedbackService.getAllStudentProjectNotifications(this.projectObject.id).subscribe((data)=>{

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
+import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -14,7 +15,7 @@ export class SignupComponent implements OnInit {
   errors: any = [];
   pCheck: string ='';
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService,private router: Router ) { }
 
   ngOnInit(): void {
   }
@@ -35,7 +36,13 @@ export class SignupComponent implements OnInit {
     this.authService.signUp(this.signUpForm).subscribe({
       next: data => {
         console.log('Sign in data:',data)
+        var newData:any = data;
+        console.log(newData.status);
         this.errors = [];
+        if(newData.status == "success")
+        {
+          this.router.navigate(['/login']);
+        }
       },
       error: err => {
         this.errors[0] = err.message;

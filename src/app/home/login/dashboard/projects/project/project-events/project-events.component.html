@@ -1,6 +1,6 @@
 <app-new-inner-header></app-new-inner-header>
 <div  style="background-color:rgb(255, 255, 255); height: 92%; position: fixed; top: 120px; left:75px; width:82%">
-  <app-project-inner-header></app-project-inner-header>
+  <app-innernav></app-innernav>
   <div class="col-10"  style="padding-left:none; display: flex; flex-grow: grow;">
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding-right: 0px; margin-left: 0px; height: 750px;overflow: scroll;">
       <ul class="list-group">
@@ -94,7 +94,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item" style="border:none">
-                    <input (keyup)="validateRequestAppointmentInputTitle()" #requestAppointmentInputTitle type="text" class="form-control  input_table" placeholder="Appointment Title" aria-label="Appointment title" aria-describedby="basic-addon2">               
+                    <input (keyup)="validateRequestAppointmentInputTitle()" #requestAppointmentInputTitle type="text" class="form-control  input_table" placeholder="Appointment Title" aria-label="Appointment title" aria-describedby="basic-addon2">
                     <div *ngIf="createAppointmentErrorList[0]">
                       <br>
                       <div class="alert alert-danger" role="alert">
@@ -170,7 +170,7 @@
             </div>
           </div>
           <br>
-        </div>            
+        </div>
         <br>
       </ng-template>
       <ng-template #template_appointment_list>
@@ -193,7 +193,7 @@
                   <div class="card-header" style="border:none; background-color: rgb(234, 240, 184);color:rgb(138, 124, 1);padding-left: 5px;">
                     {{appointment.title}}
                     <div (click)="expandAppointmentView(i)"  data-tooltip="Expand / Collapse" style="float:right">
-                      <img   src="../../../../../../../assets/media/icons/clipboard/assignment_softorange_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-appointment" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none; float: right" [style]="transformElement" > 
+                      <img   src="../../../../../../../assets/media/icons/clipboard/assignment_softorange_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-appointment" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none; float: right" [style]="transformElement" >
                     </div>
                   </div>
                   <ul *ngIf="expandAppointmentViewList[i]" class="list-group list-group-flush">
@@ -216,7 +216,7 @@
                           <strong>Error: </strong> Enter start date & time
                         </div>
                       </div>
-                      
+
                     </li>
                     <li class="list-group-item" style="cursor:default" >
                       <div class="container">
@@ -255,7 +255,7 @@
                         <td>
                           <button *ngIf="appointment.approved != '2'" (click)="updateAppointment(appointment.id, i)" type="button" class="btn btn-primary btn-sm" >Update</button>&nbsp;
                           <button *ngIf="appointment.approved == '0'" (click)="rejectAppointment(appointment, i)" type="button" class="btn btn-danger btn-sm">Reject</button>
-                          
+
                         </td>
                       </tr>
                     </li>
@@ -287,13 +287,13 @@
               </div>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item" style="border:none">
-                  <input (keyup)="validateEventInputTitle()" #createEventInputTitle type="text" class="form-control  input_table" placeholder="Event name" aria-label="event name" aria-describedby="basic-addon2">    
+                  <input (keyup)="validateEventInputTitle()" #createEventInputTitle type="text" class="form-control  input_table" placeholder="Event name" aria-label="event name" aria-describedby="basic-addon2">
                   <div *ngIf="createEventErrorList[0]">
                     <br>
                     <div class="alert alert-danger" role="alert" >
-                      <strong>Error:</strong>Event Title is Missing 
+                      <strong>Error:</strong>Event Title is Missing
                     </div>
-                  </div>           
+                  </div>
                 </li>
                 <li class="list-group-item" style="border:none">
                   <div class="container">
@@ -308,7 +308,7 @@
                           <div class="alert alert-danger" role="alert" >
                             <strong>Error:</strong> Enter start date & time
                           </div>
-                        </div> 
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -332,7 +332,7 @@
                           <div class="alert alert-danger" role="alert">
                             <strong>Error:</strong> Enter end date & time
                           </div>
-                        </div> 
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -347,7 +347,7 @@
                     <div *ngIf="createEventErrorList[3]" >
                       <br>
                       <div class="alert alert-danger" role="alert">
-                        <strong>Error:</strong> Enter Event Details 
+                        <strong>Error:</strong> Enter Event Details
                       </div>
                     </div>
                 </li>
@@ -390,7 +390,7 @@
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item" style="border:none">
-                    <input (keyup)="validateGoalInputTitle()" #createGoalInputTitle type="text" class="form-control input_table" placeholder="Goal title" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">               
+                    <input (keyup)="validateGoalInputTitle()" #createGoalInputTitle type="text" class="form-control input_table" placeholder="Goal title" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">
                     <div *ngIf="createGoalErrorList[0]">
                       <br>
                       <div class="alert alert-danger" role="alert">
@@ -417,7 +417,7 @@
                           <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                             End date
                           </h3>
-                          <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">  
+                          <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" value="2017-01-01" min="2005-01-01" max="2019-01-01">
                           <div *ngIf="createGoalWarningList[2]">
                             <br>
                             <div class="alert alert-warning" role="alert">
@@ -574,8 +574,8 @@
                               <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                                 End date
                               </h3>
-                              <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" [value]=formatDateFull(goal.dueDate)>  
-                            </div> 
+                              <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" [value]=formatDateFull(goal.dueDate)>
+                            </div>
                             <div class="col-sm">
                               <!-- Here we are going to show our date difference -->
                               <div class="card" style="border:none; border-radius: 10px;">
@@ -771,8 +771,8 @@
                               <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
                                 End date
                               </h3>
-                              <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" [value]=formatDateFull(goal.dueDate)>  
-                            </div> 
+                              <input (change)="validateGoalInputEndDate()" #createGoalInputEndDate type="datetime-local" [value]=formatDateFull(goal.dueDate)>
+                            </div>
                             <div class="col-sm">
                               <!-- Here we are going to show our date difference -->
                               <div class="card" style="border:none; border-radius: 10px;">
@@ -956,8 +956,8 @@
           <img src="../../../../../assets/media/logos/Phaidi/attach_file_black_24dp.svg"  width="16px" height="16px">
       </div>
     </div>
-  </div> 
-</div> 
+  </div>
+</div>
 
 
 

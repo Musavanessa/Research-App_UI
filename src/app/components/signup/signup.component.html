@@ -1,7 +1,7 @@
 <div style="position:fixed; width:100%; height:100%; z-index:100; background-color:white; left:0; top:0; overflow: scroll; ">
-  <img class="img-login" src="../../../assets/download.svg" alt="login">
+  <img style="user-select:none" class="img-login" src="../../../assets/download.svg" alt="login">
   <br><br>
-  <h1 style="color:black; font-weight:lighter; text-align: center;">Welcome To ResearcherDNA</h1>
+  <h1 style="color:black; font-weight:lighter; text-align: center;user-select: none;">Welcome To ResearcherDNA</h1>
   <div class="container">
     <div class="form" style="background-color:white; position:fixed; top: 0; left: 0; height: 100%; overflow: scroll;">
 
@@ -9,7 +9,7 @@
         <h3>Sign up</h3>
         <div class="inputBox">
           <input name="firstName" #firstName="ngModel" id="firstName" [(ngModel)]="signUpForm.firstName" type="text"
-            minlength="4" placeholder="First Name" required>
+            minlength="2" placeholder="First Name" required>
 
           <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert alert-danger">
 
@@ -25,7 +25,7 @@
         </div>
         <div class="inputBox">
           <input type="text" placeholder="Last Name" name="lastName" #lastName="ngModel" id="lastName"
-            [(ngModel)]="signUpForm.lastName" type="text" minlength="4" required>
+            [(ngModel)]="signUpForm.lastName" type="text" minlength="2" required>
 
           <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
 
@@ -53,8 +53,8 @@
           </div>
         </div>
         <div class="inputBox">
-          <input 
-          type="idNumber" 
+          <input
+          type="idNumber"
           [(ngModel)]="signUpForm.idNumber"
           name="idNumber"
           #idNumber="ngModel"
@@ -62,12 +62,12 @@
           maxlength="13"
           required
           placeholder="Your I.D Number"
-          class="form-input" 
+          class="form-input"
           id="idNumber">
       <div *ngIf="idNumber.invalid && idNumber.touched" class="alert alert-danger">
           <div *ngIf="idNumber.errors?.['required']">ID Number is required.</div>
           <div *ngIf="idNumber.errors?.['minlength'] || idNumber.errors?.['maxlength']">ID Number must be 13 characters long.</div>
-    
+
       </div>
       </div>
 
@@ -90,11 +90,11 @@
             <div *ngIf="pCheck.length > 0">{{pCheck}}</div>
           </div>
         </div>
-        <br>
+        <br style="user-select:none">
         <div class="submit" >
           <button [disabled] = "fData.invalid" (click)="signUp()" class="btn btn-primary" >Sign Up</button>
         </div>
-        <br>
+        <br  style="user-select:none">
         <p class="forget" style="color:black">Already have an account ?<a  routerLink="/login"> LogIn</a>
         </p>
       </form>
