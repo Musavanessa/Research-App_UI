@@ -32,23 +32,23 @@ export class InnernavComponent implements OnInit {
       if(this.activeUser.userType == "3")
         this.userType = "Admin"
     });
-    // console.log(ProjectObject.projectObject.name);
+    // //console.log(ProjectObject.projectObject.name);
     this.userDetails = this.globalProjectObject.getUserDetails();
-    console.log("User Details", this.userDetails);
+    ////console.log("User Details", this.userDetails);
     if(this.userDetails.userType == '2')
     {
       //Get the details of the student
       this.studentDetails = this.globalProjectObject.getPassStudentData();
-      console.log("Student Details", this.studentDetails);
+      ////console.log("Student Details", this.studentDetails);
       this.feedbackService.supervisorGetAllStudentProjectNotifications(this.studentDetails).subscribe((data)=>{
-        console.log(data.notifications.length);
+        //console.log(data.notifications.length);
         if(data.notifications.length > 0)
         {
           this.countAllNotifications = data.notifications[0].countfeedback;
         }
-        console.log("Count all notifications", this.countAllNotifications);
+        //console.log("Count all notifications", this.countAllNotifications);
         // this.countAllNotifications.push(data.notifications);
-        // console.log(this.countAllNotifications);
+        // //console.log(this.countAllNotifications);
       });
 
     }
@@ -58,18 +58,18 @@ export class InnernavComponent implements OnInit {
       this.projectObject = this.globalProjectObject.getOpenedProjectObject();
       //We can call the same request....
       this.feedbackService.getAllStudentProjectNotifications(this.projectObject.id).subscribe((data)=>{
-        console.log(data.notifications.length);
+        //console.log(data.notifications.length);
         if(data.notifications.length > 0)
         {
           this.countAllNotifications = data.notifications[0].countfeedback;
         }
-        console.log(this.countAllNotifications);
+        //console.log(this.countAllNotifications);
         // this.countAllNotifications.push(data.notifications);
-        // console.log(this.countAllNotifications);
+        // //console.log(this.countAllNotifications);
       });
     }
-    console.log(this.projectObject);
-    console.log(this.userDetails);
+    //console.log(this.projectObject);
+    //console.log(this.userDetails);
   }
 
   isUserSupervisor(data:string)

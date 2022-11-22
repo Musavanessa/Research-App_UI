@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.logIn(this.loginForm).subscribe({
       next: data => {
-        console.log(data);
+        // console.log(data);
         this.appComponent.isAuthenticated = true;
         this.router.navigate(['/dashboard'], {
           queryParams: { message: 'You logged in successfully ' }
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
 
       },
       error: err => {
-        console.log(err)
+        // console.log(err)
         this.errors[0] = err.message
       }
     })

@@ -53,11 +53,11 @@ export class BlogOpComponent implements OnInit {
     this.blogObject = this.blogService.getOpenedBlogObject();
     this.userService.getUser().subscribe((data:any)=>{
       this.userDetails = data.user;
-      console.log(this.userDetails);
+      // console.log(this.userDetails);
     });
     this.blogService.getAllCommentsWhere(this.blogObject.id).subscribe((data:any)=>{
       this.blogComments = data.comments;
-      console.log(this.blogComments);
+      // console.log(this.blogComments);
     })
 
   }
@@ -68,7 +68,7 @@ export class BlogOpComponent implements OnInit {
 
   validateBlogInputTitle()
   {
-    console.log("1 Edited");
+    // console.log("1 Edited");
 
     //Remove trailing white space
     this.createBlogInputTitle.nativeElement.value = this.createBlogInputTitle.nativeElement.value.replace(/^\s+/g, '');;
@@ -89,7 +89,7 @@ export class BlogOpComponent implements OnInit {
 
   validateBlogInputPost()
   {
-    console.log("1 Edited");
+    // console.log("1 Edited");
 
     //Remove trailing white space
     this.createBlogInputDetails.nativeElement.value = this.createBlogInputDetails.nativeElement.value.replace(/^\s+/g, '');;
@@ -107,7 +107,7 @@ export class BlogOpComponent implements OnInit {
 
   restoreBlogTitle()
   {
-    console.log(" 3 Edited");
+    // console.log(" 3 Edited");
     //Remove trailing white space
     this.createBlogInputTitle.nativeElement.value = this.createBlogInputTitle.nativeElement.value.replace(/^\s+/g, '');;
     if(this.createBlogInputTitle.nativeElement.value.trim() == "") 
@@ -119,13 +119,13 @@ export class BlogOpComponent implements OnInit {
 
   restoreBlogPost()
   {
-    console.log(" 3 Edited");
+    // console.log(" 3 Edited");
     //Remove trailing white space
     this.createBlogInputDetails.nativeElement.value = this.createBlogInputDetails.nativeElement.value.replace(/^\s+/g, '');;
     if(this.createBlogInputDetails.nativeElement.value.trim() == "") 
     {
-      console.log(this.blogObject);
-      console.log(this.createBlogInputDetails);
+      // console.log(this.blogObject);
+      // console.log(this.createBlogInputDetails);
       this.createBlogInputDetails.nativeElement.value = this.blogObject.post;
     }
   }
@@ -146,9 +146,9 @@ export class BlogOpComponent implements OnInit {
     // console.log(updatedBlogObject);
     if(updatedBlogObject.post != this.blogObject.post)
     {
-      console.log("You may begin to push to the family");
+      // console.log("You may begin to push to the family");
       this.blogService.updateBlog(updatedBlogObject).subscribe((res)=>{
-        console.log(res);
+        // console.log(res);
         this.ngOnInit();
       })
       
@@ -176,7 +176,7 @@ export class BlogOpComponent implements OnInit {
     if(confirm(confirmText)  == true)
     {
       this.blogService.deleteComment(comment).subscribe((res)=>{
-        console.log(res.status, "res==>");
+        // console.log(res.status, "res==>");
         this.ngOnInit();
       });
     }
@@ -185,7 +185,7 @@ export class BlogOpComponent implements OnInit {
 
   validateBlogComment()
   {
-    console.log("1 Edited");
+    // console.log("1 Edited");
 
     //Remove trailing white space
     this.inputBlogComment.nativeElement.value = this.inputBlogComment.nativeElement.value.replace(/^\s+/g, '');
@@ -222,7 +222,7 @@ export class BlogOpComponent implements OnInit {
           this.ngOnInit();
         }
       })
-      console.log(commentObject);
+      // console.log(commentObject);
     }
     else
     {

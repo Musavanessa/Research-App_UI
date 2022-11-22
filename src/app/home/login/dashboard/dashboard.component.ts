@@ -58,10 +58,10 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.countAllNotifications = [];
     this.service.getAllLinks().subscribe((data:any)=>{
-      console.log(data);
+      // console.log(data);
     })
     this.globalVariables.showSideNav();
-    console.log(GlobalVariables.isToBeShown + ' is ');
+    //console.log(GlobalVariables.isToBeShown + ' is ');
    
     this.allDisciplines();
 
@@ -72,15 +72,19 @@ export class DashboardComponent implements OnInit {
         this.getAllUsers(this.userData.id);
       
   
-      console.log('show: ',this.userData);
+      //console.log('show: ',this.userData);
       this.projectObject.setUserDetails(data.user);
       this.myUserProjects(data.user);
     });
     this.testObservable();
     // this.projectObject.sequenceSubscriber(this.userType)
     this.projectObject.sequence.subscribe({
-      next(num) {console.log(num);},
-      complete() {console.log('Finished sequence');}
+      next(num) {
+        //console.log(num);
+      },
+      complete() {
+        //console.log('Finished sequence');
+      }
     });
 
   }
@@ -90,7 +94,7 @@ export class DashboardComponent implements OnInit {
   getAllUsers(id:any)
   {
     this.userService.getAllUsersWhere(id).subscribe((data:any)=>{
-      console.log("Hi there");
+      //console.log("Hi there");
       this.allStudents = data;
       this.countAllNotifications = [];
       // console.log(data);
@@ -100,7 +104,7 @@ export class DashboardComponent implements OnInit {
         // console.log("Project ID: " + this.first2Projects[x].id);
         // this.feedbackService.
         this.feedbackService.getAllSupervisorProjectNotifications(data[x].id).subscribe((res)=>{
-          console.log(res.notifications.length);
+          //console.log(res.notifications.length);
           if(res.notifications.length > 0)
           {
             //Now we need to make sure that we count all the notifications for a given project.
@@ -108,7 +112,7 @@ export class DashboardComponent implements OnInit {
             this.isNotificationFound.push(true);
             let countResult  = res.notifications[0];
             this.countAllNotifications.push(countResult.countfeedbacks);
-            console.log(this.countAllNotifications[x]);
+            //console.log(this.countAllNotifications[x]);
             this.sumNotifications += this.countAllNotifications[x];
           }
           else
@@ -118,7 +122,7 @@ export class DashboardComponent implements OnInit {
           }
         });
       }
-      console.log("All Student", data);
+      //console.log("All Student", data);
     })
   }
 
@@ -201,7 +205,7 @@ export class DashboardComponent implements OnInit {
     }
     else
     {
-      console.log("Fill in all the fields");
+      //console.log("Fill in all the fields");
       this.closeErrorInputMessage();
     }
   }
@@ -214,10 +218,10 @@ export class DashboardComponent implements OnInit {
   }
   createNewProject(data:any)
   {
-    console.log("We are creating a new project");
-    console.log(data);
+    //console.log("We are creating a new project");
+    //console.log(data);
     this.service.createNewProject(data).subscribe((res)=>{
-      console.log(res, 'res=>');
+      //console.log(res, 'res=>');
       this.ngOnInit();
       this.closeDisplaySuccessMessage()
     });
@@ -262,15 +266,15 @@ export class DashboardComponent implements OnInit {
   {
     this.service.disciplines().subscribe((res)=>{
       this.allDisciplinesObject = res.disciplines;
-      console.log(this.allDisciplinesObject)
+      //console.log(this.allDisciplinesObject)
     })
   }
   myUserProjects(userData:any)
   {
     this.service.getUserProjects(userData.id).subscribe((res)=>{
       // this.service.projects().subscribe((res)=>{
-      // console.log(this.userData.id);
-        console.log(res);
+      // //console.log(this.userData.id);
+        //console.log(res);
       // console.log(res.projects);
       // this.myProjectsObject = res.projects;
       // console.log(r)
@@ -288,7 +292,7 @@ export class DashboardComponent implements OnInit {
             //But here we need to count all notifications for a given student. -
             this.isNotificationFound.push(true);
             this.countAllNotifications.push(data.notifications[0].countfeedback);
-            console.log(this.countAllNotifications[x]);
+            //console.log(this.countAllNotifications[x]);
           }
           else
           {
@@ -299,17 +303,17 @@ export class DashboardComponent implements OnInit {
       }
       //We want to get all projectNotifications or
       //Now how can we ensure that the person that sent the project is not the user? that is corrently logged in?
-      console.log("My projects");
-      console.log(this.first2Projects);
+      //console.log("My projects");
+      //console.log(this.first2Projects);
     })
   }
   getMe(){
 
     this.userService.getUser().subscribe((data: any) => {
       this.userType = data.user.userType;
-      console.log(data.user.userType + " = User Type");
+      //console.log(data.user.userType + " = User Type");
 
-      console.log('show: ',this.userType);
+      //console.log('show: ',this.userType);
     })
   }
 
@@ -332,13 +336,13 @@ export class DashboardComponent implements OnInit {
   {
     if(data == "2")
     {
-      console.log(data + " The user type is ");
+      //console.log(data + " The user type is ");
       return true;
       
     }
     else
     {
-      console.log(data + " The user type is ");
+      //console.log(data + " The user type is ");
       return false;
     }
 

@@ -52,21 +52,21 @@ export class BlogformComponent implements OnInit {
     this.userService.getUser().subscribe((data: any) => {
       this.data = data.user;
       this.userType = data.user.userType;
-      console.log(data.user)
-      console.log(data.user.userType + " = User Type");
-      console.log('show: ',this.userType);
+      //console.log(data.user)
+      //console.log(data.user.userType + " = User Type");
+      //console.log('show: ',this.userType);
     })
   }
 
   blogForm(){
     this.blogService.createBlog(this.createBlog).subscribe({
       next: (data: any) => {
-        console.log('Create blog data:',data)
+        //console.log('Create blog data:',data)
         this.errors = [];
       },
       error: err => {
         this.errors[0] = err.message;
-        console.log("Words with letters", err)
+        //console.log("Words with letters", err)
       }
     })
   }
@@ -105,7 +105,7 @@ export class BlogformComponent implements OnInit {
   {
     //Get all the details and then display them
     let valuesValid = 0;
-    console.log(this.data);
+    //console.log(this.data);
     for(let x =0; x < this.createBlogValuesValid.length; x++)
     {
       if(!this.createBlogValuesValid[x])
@@ -126,7 +126,7 @@ export class BlogformComponent implements OnInit {
     {
       //Push 
       this.blogService.createBlog(newBlogPost).subscribe((res)=>{
-        console.log(res);
+        //console.log(res);
         if(res.status == "success")
         {
           this.router.navigate(['/blog']);

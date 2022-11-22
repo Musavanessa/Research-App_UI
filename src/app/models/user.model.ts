@@ -5,11 +5,12 @@ export class User{
     email: string = '';
     userType: number = 1;
     password: string = '';
+    disciplineId: number = 1;
     confirmPassword: string = '';
     photo: string = '';
     idNumber: number | undefined ;
     title: string = '';
-    verified: boolean = false;
+    verified: boolean = true;
     references: number | undefined;
     createdAt: Date |undefined;
     updatedAt: Date |undefined

@@ -26,6 +26,9 @@
         <div class="inputBox">
           <input type="text" placeholder="Last Name" name="lastName" #lastName="ngModel" id="lastName"
             [(ngModel)]="signUpForm.lastName" type="text" minlength="2" required>
+            <input [(ngModel)]="signUpForm.userType" type="hidden" id="userType" name="userType" value="1">
+            <input [(ngModel)]="signUpForm.disciplineId" type="hidden" id="disciplineId" name="disciplineId" value="1">
+
 
           <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
 
@@ -40,9 +43,7 @@
           </div>
         </div>
         <div class="inputBox">
-          <input type="email" [(ngModel)]="signUpForm.email" #email="ngModel" name="email"
-            pattern="[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{3,}" required placeholder="Your Email"
-            class="form-input" id="email">
+          <input type="email" [(ngModel)]="signUpForm.email" #email="ngModel" name="email" required placeholder="Your Email"  class="form-input" id="email">
           <div *ngIf="email.invalid && email.touched" class="alert alert-danger">
             <div *ngIf="email.errors?.['required']">
               Email is required.

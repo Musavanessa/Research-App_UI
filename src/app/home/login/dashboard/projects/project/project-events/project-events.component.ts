@@ -167,7 +167,7 @@ export class ProjectEventsComponent implements OnInit {
   goal_tempate_status: boolean = false;
   event_tempate_status: boolean = false;
   calendar_tempate_status: boolean = true;
-  template_statuses = [false, false, false, true]
+  template_statuses = [true, false, false, false]
   todayDate = new Date();
 
 
@@ -314,14 +314,14 @@ export class ProjectEventsComponent implements OnInit {
       //I need to get the project details.
       let openedProject = this.projectObjectService.getPassStudentData();
       this.presentWorkingProject = this.projectObjectService.getOpenedProjectObject();
-      console.log("Opened Project ", openedProject); 
+      //console.log("Opened Project ", openedProject); 
       //There are two posibilitise - 
       if(this.userDetails.userType == '2')
       {
         this.goalsService.getAllGoalsWhere(openedProject.id).subscribe((data:any)=>{
-          console.log(data);
+          //console.log(data);
           this.goals = data.goal;
-          console.log("console.log(this.goals) = " + this.goals);
+          //console.log("//console.log(this.goals) = " + this.goals);
           let svgImage =  "../../../../../../../assets/media/icons/circle/circle_green.svg"
           let svgImageAccordionGoal = {
             image: svgImage,
@@ -356,9 +356,9 @@ export class ProjectEventsComponent implements OnInit {
               //Update the goal
               this.goalsStatuses.push(this.goalStatus[3])
               let goal = {id: data.goal[x].id, projectStatusId: 11}
-              console.log(goal);
+              //console.log(goal);
               this.goalsService.goalUpdateStatus(goal).subscribe((res)=>{
-                console.log(res);
+                //console.log(res);
               });
             }
             else
@@ -381,7 +381,7 @@ export class ProjectEventsComponent implements OnInit {
             if(goalPercentage <= 50 && goalPercentage >= 0)
             {
               //TIME IS GOOD ON GREEN
-              console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
+              //console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
               this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
               this.goalTimeOut.push(false);
               this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[0])
@@ -392,7 +392,7 @@ export class ProjectEventsComponent implements OnInit {
               if(goalPercentage > 50 && goalPercentage <=100)
               {
                 //TIME IS STILL GOOD BUT ORANGE
-                console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
+                //console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
                 this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[1]);
                 this.goalTimeOut.push(false);
                 this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[1])
@@ -402,7 +402,7 @@ export class ProjectEventsComponent implements OnInit {
               else
               {
                 //TIME IS OVERDUE
-                console.log(goalPercentage + " > 100");
+                //console.log(goalPercentage + " > 100");
                 this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
                 this.goalTimeOut.push(true);
                 this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[2])
@@ -413,7 +413,7 @@ export class ProjectEventsComponent implements OnInit {
             }
             if(goalPercentage < 0)
             {
-              console.log(goalPercentage + " < 0");
+              //console.log(goalPercentage + " < 0");
               this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
               this.goalTimeOut.push(true);
               if(data.goal[x].project_status.id == 1)
@@ -440,9 +440,9 @@ export class ProjectEventsComponent implements OnInit {
       else
       {
         this.goalsService.getAllGoalsWhere(this.presentWorkingProject.id).subscribe((data:any)=>{
-          console.log(data);
+          //console.log(data);
           this.goals = data.goal;
-          console.log("console.log(this.goals) = " + this.goals);
+          //console.log("//console.log(this.goals) = " + this.goals);
           let svgImage =  "../../../../../../../assets/media/icons/circle/circle_green.svg"
           let svgImageAccordionGoal = {
             image: svgImage,
@@ -477,9 +477,9 @@ export class ProjectEventsComponent implements OnInit {
               //Update the goal
               this.goalsStatuses.push(this.goalStatus[3])
               let goal = {id: data.goal[x].id, projectStatusId: 11}
-              console.log(goal);
+              //console.log(goal);
               this.goalsService.goalUpdateStatus(goal).subscribe((res)=>{
-                console.log(res);
+                //console.log(res);
               });
             }
             else
@@ -502,7 +502,7 @@ export class ProjectEventsComponent implements OnInit {
             if(goalPercentage <= 50 && goalPercentage >= 0)
             {
               //TIME IS GOOD ON GREEN
-              console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
+              //console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
               this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
               this.goalTimeOut.push(false);
               this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[0])
@@ -513,7 +513,7 @@ export class ProjectEventsComponent implements OnInit {
               if(goalPercentage > 50 && goalPercentage <=100)
               {
                 //TIME IS STILL GOOD BUT ORANGE
-                console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
+                //console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
                 this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[1]);
                 this.goalTimeOut.push(false);
                 this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[1])
@@ -523,7 +523,7 @@ export class ProjectEventsComponent implements OnInit {
               else
               {
                 //TIME IS OVERDUE
-                console.log(goalPercentage + " > 100");
+                //console.log(goalPercentage + " > 100");
                 this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
                 this.goalTimeOut.push(true);
                 this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[2])
@@ -534,7 +534,7 @@ export class ProjectEventsComponent implements OnInit {
             }
             if(goalPercentage < 0)
             {
-              console.log(goalPercentage + " < 0");
+              //console.log(goalPercentage + " < 0");
               this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
               this.goalTimeOut.push(true);
               if(data.goal[x].project_status.id == 1)
@@ -559,18 +559,18 @@ export class ProjectEventsComponent implements OnInit {
         });
       }
       //Now we want to get all the goals that have been 
-      console.log("This is the goals object " + this.goals)
-      console.log(this.goalsListDisplayStatus);
-      console.log(this.svgImageAccordionGoals);
+      //console.log("This is the goals object " + this.goals)
+      //console.log(this.goalsListDisplayStatus);
+      //console.log(this.svgImageAccordionGoals);
     }
     if(this.template_statuses[1])
     {
-      console.log("Appointments");
+      //console.log("Appointments");
       //Get all the appointments
       if(this.userDetails.userType == "2")
       {
-        console.log("User is a supervisor");
-        console.log(this.studentData.id);//The 4 here is the projectID
+        //console.log("User is a supervisor");
+        //console.log(this.studentData.id);//The 4 here is the projectID
         this.appointmentService.getAppointments(this.studentData.id).subscribe((data)=>{
           this.appointments = data.appointment;
           //Update all appointmen statuses
@@ -585,9 +585,9 @@ export class ProjectEventsComponent implements OnInit {
                 approved: 1,
                 id: this.appointments[x].id
               }
-              console.log(updatedAppointment)
+              //console.log(updatedAppointment)
               this.appointmentService.updateAppointment(updatedAppointment).subscribe((res)=>{
-                console.log(res);
+                //console.log(res);
               });
             }
           }
@@ -616,7 +616,7 @@ export class ProjectEventsComponent implements OnInit {
         //Get all apointments
       }
     }
-    console.log(this.svgImageAccordionGoals);
+    //console.log(this.svgImageAccordionGoals);
 
   }
 
@@ -636,7 +636,7 @@ export class ProjectEventsComponent implements OnInit {
   }
 
   getMonth(date: any) {
-    // console.log(this.datepipe.transform(date, "dd-MMM-y"))
+    // //console.log(this.datepipe.transform(date, "dd-MMM-y"))
     return this.datepipe.transform(date, "-MM-y")
   }
 
@@ -713,7 +713,7 @@ export class ProjectEventsComponent implements OnInit {
   finalShowDate:any;
   dateClicked(dateId: any, dateObjet:any) {
     //We can make use of the date - 
-    // console.log(dateObjet);
+    // //console.log(dateObjet);
     let tempDateID ="";
     if(dateId.length < 10)
     {
@@ -723,14 +723,14 @@ export class ProjectEventsComponent implements OnInit {
     {
       tempDateID = dateId;
     }
-    // console.log(tempDateID);
+    // //console.log(tempDateID);
     let numMonth = tempDateID[3] + tempDateID[4];
 
     this.finalShowDate  = tempDateID[0] + tempDateID[1] + " " + this.months[+numMonth-1] + " " + tempDateID[6]  + tempDateID[7]  + tempDateID[8]  + tempDateID[9];
     // let startIndex =dateId.indexOf("-");
-    // console.log(dateId.substring(startIndex, 5))
+    // //console.log(dateId.substring(startIndex, 5))
 
-    // console.log("Show the date id = " + dateId);
+    // //console.log("Show the date id = " + dateId);
     this.getDateClickedDay = dateObjet.dateId;
     this.displayWhatWouldYouLikeToDo = "block";
   }
@@ -863,26 +863,26 @@ export class ProjectEventsComponent implements OnInit {
           }
           if(checkAllVariables == 4)
           {
-            console.log("We can move forward");
+            //console.log("We can move forward");
             this.requestNewAppointment.title = this.requestAppointmentInputTitle.nativeElement.value;
             this.requestNewAppointment.createdAt = this.requestAppointmentInputStartDate.nativeElement.value;
             this.requestNewAppointment.endDate = this.requestAppointmentInputEndDate.nativeElement.value;
             this.requestNewAppointment.details = this.requestAppointmentInputDetails.nativeElement.value;
-            console.log(this.requestNewAppointment);
+            //console.log(this.requestNewAppointment);
             //When I am logged in as a supervisor
             if(this.userDetails.userType == "2")
             {
               //Get the projectId from the student data
               this.requestNewAppointment.projectId = this.studentData.id;
-              console.log(this.requestNewAppointment.projectId);
+              //console.log(this.requestNewAppointment.projectId);
             }
             // else
             // {
 
             // }
-            // console.log(this.studentData.id);
+            // //console.log(this.studentData.id);
             this.appointmentService.createApppoitment(this.requestNewAppointment).subscribe((res)=>{
-              console.log(res);
+              //console.log(res);
               if(res.status == "success")
               {
                 //Show the user the the appointment request has been sent.
@@ -900,7 +900,7 @@ export class ProjectEventsComponent implements OnInit {
         expandAppointmentView(i:any)
         {
           //disable all others first except for this one.
-          console.log(i);
+          //console.log(i);
           if(this.expandAppointmentViewList[i])
           {
             this.expandAppointmentViewList[i] = false;
@@ -931,10 +931,10 @@ export class ProjectEventsComponent implements OnInit {
             approved: 0,
             id: id
           }
-          console.log(appointment);
+          //console.log(appointment);
           if(new Date(this.updateAppointmentInputStartDate.nativeElement.value).getTime() > new Date().getTime()){
             this.appointmentService.updateAppointment (appointment).subscribe((res)=>{
-              console.log(res);
+              //console.log(res);
               if(res.status == "success")
               {
                 this.ngOnInit();
@@ -988,7 +988,7 @@ export class ProjectEventsComponent implements OnInit {
           if(confirm(confirmText) == true)
           {
             this.appointmentService.updateAppointment(updatedAppointment).subscribe((res)=>{
-              console.log(res);
+              //console.log(res);
               if(res.status == "success")
               {
                 this.ngOnInit();
@@ -1096,13 +1096,13 @@ export class ProjectEventsComponent implements OnInit {
           }
           if(checkAllVariables == 4)
           {
-            console.log("You are winning");
+            //console.log("You are winning");
             this.newEventObject.title = this.createEventInputTitle.nativeElement.value;
             this.newEventObject.createdAt = this.createEventInputStartDate.nativeElement.value;
             this.newEventObject.endDate = this.createEventInputEndDate.nativeElement.value;
             this.newEventObject.details = this.createEventInputDetails.nativeElement.value;
             
-            console.log(this.newEventObject);
+            //console.log(this.newEventObject);
             //Now we can begin to connect
             //Clear the space
             this.createEventInputTitle.nativeElement.value = "";
@@ -1119,7 +1119,7 @@ export class ProjectEventsComponent implements OnInit {
           }
           else
           {
-            console.log("You are not winning");
+            //console.log("You are not winning");
           }
         }
 
@@ -1147,13 +1147,13 @@ export class ProjectEventsComponent implements OnInit {
           if(this.createGoalInputStartDate.nativeElement.value == ""){
             this.createGoalErrorList[1] = true;
             this.createGoalValuesValid[1] = false;
-            console.log(new Date(this.createGoalInputStartDate.nativeElement.value).getTime());
+            //console.log(new Date(this.createGoalInputStartDate.nativeElement.value).getTime());
           }
           else
           {
             this.createGoalErrorList[1] = false;
             this.createGoalValuesValid[1] = true;
-            console.log(new Date(this.createGoalInputStartDate.nativeElement.value).getTime());
+            //console.log(new Date(this.createGoalInputStartDate.nativeElement.value).getTime());
             
           }
         }
@@ -1255,11 +1255,11 @@ export class ProjectEventsComponent implements OnInit {
           {
             this.refreshAcceptanceCriteriaInput(); 
           }
-          console.log(event.keyCode);
+          //console.log(event.keyCode);
         }
         createNewGoal()
         {
-          console.log(" I am used " + this.createGoalValuesValid.length)
+          //console.log(" I am used " + this.createGoalValuesValid.length)
           let checkAllVariables = 0;
           for(let x = 0; x < this.createGoalValuesValid.length; x++)
           {
@@ -1273,8 +1273,8 @@ export class ProjectEventsComponent implements OnInit {
           }
           if(checkAllVariables == 5)
           {
-            console.log("We can move forward");
-            console.log(this.presentWorkingProject);
+            //console.log("We can move forward");
+            //console.log(this.presentWorkingProject);
             this.createGoalObject.title = this.createGoalInputTitle.nativeElement.value;
             this.createGoalObject.createAt = this.createGoalInputStartDate.nativeElement.value;
             this.createGoalObject.dueDate = this.createGoalInputEndDate.nativeElement.value;
@@ -1301,7 +1301,7 @@ export class ProjectEventsComponent implements OnInit {
             this.createGoalObject.acceptanceCriteria += this.createGoalInputAcceptanceCriteria.nativeElement.value;
             //Create The goal
             this.projectObjectService.apiCreateNewGoal(this.createGoalObject).subscribe((res)=>{
-              console.log(res, "res==>");
+              //console.log(res, "res==>");
               if(res.status == 'success')
               {
                 this.createGoalInputTitle.nativeElement.value = "";
@@ -1319,7 +1319,7 @@ export class ProjectEventsComponent implements OnInit {
                 this.isGoalNotSuccessfullyCreated = true;
               }
             })
-            console.log(this.createGoalObject);
+            //console.log(this.createGoalObject);
           }
         }
         updateIsGoalSuccessfullDisplay()
@@ -1338,7 +1338,7 @@ export class ProjectEventsComponent implements OnInit {
           var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           var seconds = Math.floor((distance % (1000 * 60)) / 1000);
           
-          // console.log( days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
+          // //console.log( days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
         }, 1000);
         refreshTimeLeft(id:any)
         {

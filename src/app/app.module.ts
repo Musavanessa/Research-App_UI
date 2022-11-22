@@ -49,6 +49,8 @@ import { AppointmentService } from './services/project-appointment/appointment.s
 import { NewInnerHeaderComponent } from './new-inner-header/new-inner-header.component';
 import { ProjectInnerHeaderComponent } from './project-inner-header/project-inner-header.component';
 import { NewToolboxComponent } from './new-toolbox/new-toolbox.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common'
+
 
 @NgModule({
   declarations: [
@@ -101,6 +103,7 @@ import { NewToolboxComponent } from './new-toolbox/new-toolbox.component';
     BlogService,
     GoalFilesService,
     AppointmentService,
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     DatePipe,{
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

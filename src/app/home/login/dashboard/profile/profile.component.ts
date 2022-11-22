@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
     this.innerHeight= (window.innerHeight * 0.9);
     this.inputDivHeigh = (this.innerHeight * 0.7) + "px";
     this.innerHeight= (window.innerHeight * 0.87) + "px";
-    console.log(this.innerWidth + "H " + this.innerHeight + "W");
+    ////console.log(this.innerWidth + "H " + this.innerHeight + "W");
 
     this.getMe();
 
@@ -43,20 +43,20 @@ export class ProfileComponent implements OnInit {
     this.innerHeight= (window.innerHeight * 0.9);
     this.inputDivHeigh = (this.innerHeight * 0.7) + "px";
     this.innerHeight= (window.innerHeight * 0.87) + "px";
-    console.log(this.innerWidth + "H " + this.innerHeight + "W");
+    //console.log(this.innerWidth + "H " + this.innerHeight + "W");
   }
 
 
   checkPassword():void{this.pCheck = this.profileForm.password !== this.profileForm.confirmPassword ? 'Password does not match' : '' }
   
   checkValues(d : any, feild : string, v?: any):void{
-    // console.log('form:', d)
-    console.log('Input:', v.valid)
+    // //console.log('form:', d)
+    //console.log('Input:', v.valid)
    
     this.formV[feild] = d.form.value[feild] == '' ? false: v.invalid;
 
 
-  //  console.log('test:', Object.values(d.form.value).every(el => el == ''), Object.values(this.formV).includes(true))
+  //  //console.log('test:', Object.values(d.form.value).every(el => el == ''), Object.values(this.formV).includes(true))
 
    this.disable = Object.values(d.form.value).every(el => el == '') ? Object.values(d.form.value).every(el => el == '') : Object.values(this.formV).includes(true)
     
@@ -69,9 +69,9 @@ export class ProfileComponent implements OnInit {
     this.userService.getUser().subscribe((data: any) => {
       this.data = data.user;
       this.userType = data.user.userType;
-      console.log(data.user.userType + " = User Type");
+      //console.log(data.user.userType + " = User Type");
 
-      console.log('show: ',this.userType);
+      //console.log('show: ',this.userType);
     })
   }
 
@@ -79,13 +79,13 @@ export class ProfileComponent implements OnInit {
   {
     if(data == "2")
     {
-      console.log(data + " The user type is");
+      //console.log(data + " The user type is");
       return true;
       
     }
     else
     {
-      console.log(data + " The user type is");
+      //console.log(data + " The user type is");
       return false;
     }
 

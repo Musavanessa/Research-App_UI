@@ -182,23 +182,23 @@ export class ProjectStatusComponent implements OnInit {
  
   ngOnInit(): void {
     // this.attachFileDescription.innerHTML = this.showMeSomething;
-    // console.log(this.attachFileName.nativeElement.value);
-    console.log(this.attachFileName);
+    // //console.log(this.attachFileName.nativeElement.value);
+    //console.log(this.attachFileName);
     this.userDetails = this.projectObjectService.getUserDetails();
     this.userType = this.userDetails.userType;
-    console.log(this.projectObjectService.getUserDetails());
+    //console.log(this.projectObjectService.getUserDetails());
     this.studentData = this.projectObjectService.getPassStudentData();
     this.projectData = this.projectObjectService.getOpenedProjectObject();
 
-    console.log(this.goalsService.getIsGoalFeedbackOpened());
+    //console.log(this.goalsService.getIsGoalFeedbackOpened());
     if(this.goalsService.getIsGoalFeedbackOpened())
     {
       let goal = this.goalsService.getGoalFeedbackOpened();
-      // console.log("The goal has been opened");
+      // //console.log("The goal has been opened");
       this.changeActiveStatus(2);
       this.messageReplyTo = goal.title
-      console.log(goal.id + " Is the goal ID");
-      // console.log("messageReplyTo = " + goal.title)
+      //console.log(goal.id + " Is the goal ID");
+      // //console.log("messageReplyTo = " + goal.title)
       // this.displayGoalCard(index:number)
     }
     else
@@ -251,23 +251,23 @@ export class ProjectStatusComponent implements OnInit {
         if(this.template_statuses[0])
         {
           // this.feedbackService.getFeedback()
-          // console.log("Attaching files");
+          // //console.log("Attaching files");
         }
 
         if(this.template_statuses[1])
         {
-          console.log("Attaching files");
+          //console.log("Attaching files");
           //Now when we get here we need to get all the goal and creat a for loop.
           for(let x = 0; x < this.goals.length; x++)
           {
-            // console.log()
+            // //console.log()
             //Now get all the attached files.
-            console.log(this.goals[x].id)
+            //console.log(this.goals[x].id)
             this.displayFiles.push("none");
             this.transformFileCollapseElements.push("transform: rotate(0deg);");
             this.transformFileCollapseElementsStatus.push(false);
             this.goalFileService.getGoalFiles(this.goals[x].id).subscribe((res)=>{
-              console.log(res);
+              //console.log(res);
             })
           }
           
@@ -282,7 +282,7 @@ export class ProjectStatusComponent implements OnInit {
           {
             this.goalNotifications = [];
             this.goalsService.getAllGoalsWhere(openedProject.id).subscribe((data:any)=>{
-              console.log("Goals Data", data);
+              //console.log("Goals Data", data);
               this.goals = data.goal;
               let svgImage =  "../../../../../../../assets/media/icons/circle/circle_green.svg"
               let svgImageAccordionGoal = {
@@ -290,18 +290,18 @@ export class ProjectStatusComponent implements OnInit {
                 isCardExpanded: false,
                 transformElement: this.transFormElements[1]
               }
-              console.log("goals.length", this.goals.length);
+              //console.log("goals.length", this.goals.length);
               for(let x = 0; x < this.goals.length; x++)
               {
 
-                console.log("X", x);
+                //console.log("X", x);
                 this.feedbackService.CountFeedbacksForAGivenGoal(this.goals[x].id).subscribe((data)=>{
-                  // console.log("data", data);
+                  // //console.log("data", data);
                   let feedback = data.notifications[0];
                   this.goalNotificationObjects.push(data);
                     if(this.goalNotificationObjects[x].results > 0)
                     {
-                      console.log(this.goalNotificationObjects[x].notifications[0].countfeedbacks);
+                      //console.log(this.goalNotificationObjects[x].notifications[0].countfeedbacks);
                       this.goalNotifications.push(this.goalNotificationObjects[x].notifications[0].countfeedbacks);
                     }
                     else
@@ -344,7 +344,7 @@ export class ProjectStatusComponent implements OnInit {
                 if(goalPercentage <= 50 && goalPercentage >= 0)
                 {
                   //TIME IS GOOD ON GREEN
-                  console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
+                  //console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
                   this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
                   this.goalTimeOut.push(false);
                   this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[0])
@@ -355,7 +355,7 @@ export class ProjectStatusComponent implements OnInit {
                   if(goalPercentage > 50 && goalPercentage <=100)
                   {
                     //TIME IS STILL GOOD BUT ORANGE
-                    console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
+                    //console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
                     this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[1]);
                     this.goalTimeOut.push(false);
                     this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[1])
@@ -365,7 +365,7 @@ export class ProjectStatusComponent implements OnInit {
                   else
                   {
                     //TIME IS OVERDUE
-                    console.log(goalPercentage + " > 100");
+                    //console.log(goalPercentage + " > 100");
                     this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
                     this.goalTimeOut.push(true);
                     this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[2])
@@ -376,7 +376,7 @@ export class ProjectStatusComponent implements OnInit {
                 }
                 if(goalPercentage < 0)
                 {
-                  console.log(goalPercentage + " < 0");
+                  //console.log(goalPercentage + " < 0");
                   this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
                   this.goalTimeOut.push(true);
                   if(data.goal[x].project_status.id == 1)
@@ -408,9 +408,9 @@ export class ProjectStatusComponent implements OnInit {
           else
           {
             this.goalsService.getAllGoalsWhere(this.presentWorkingProject.id).subscribe((data:any)=>{
-              console.log(data);
+              //console.log(data);
               this.goals = data.goal;
-              console.log("console.log(this.goals) = " + this.goals);
+              //console.log("//console.log(this.goals) = " + this.goals);
               let svgImage =  "../../../../../../../assets/media/icons/circle/circle_green.svg"
               let svgImageAccordionGoal = {
                 image: svgImage,
@@ -420,21 +420,21 @@ export class ProjectStatusComponent implements OnInit {
               for(let x = 0; x < this.goals.length; x++)
               {
                 //Get the notification for very goal
-                console.log(this.goals[x].id + " ------")
+                //console.log(this.goals[x].id + " ------")
                 this.feedbackService.CountFeedbacksForAGivenGoal(this.goals[x].id).subscribe((data)=>{
-                  console.log(data.notifications[x]);
+                  //console.log(data.notifications[x]);
                   if(data.notifications.length < 1)
                   {
-                    console.log("Error");
-                    console.log(data);
+                    //console.log("Error");
+                    //console.log(data);
                     this.goalNotifications.push(0);
 
                     // this.goalNotifications.push(data.notifications[0].countfeedback);
                   }
                   else
                   {
-                    console.log(this.goalNotifications);
-                    console.log(data.notifications[0].countfeedbacks)
+                    //console.log(this.goalNotifications);
+                    //console.log(data.notifications[0].countfeedbacks)
                     //Now the issue that I have here is that I am not getting all the goals that I am looking for - I need to get only goals for a supervisor
                     // this.goalNotifications.push(data.notifications[x]);
                     this.goalNotifications.push(data.notifications[0].countfeedbacks);
@@ -476,7 +476,7 @@ export class ProjectStatusComponent implements OnInit {
                 if(goalPercentage <= 50 && goalPercentage >= 0)
                 {
                   //TIME IS GOOD ON GREEN
-                  console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
+                  //console.log(goalPercentage + " <= 50 && " + goalPercentage + " >= 0");
                   this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[2]);
                   this.goalTimeOut.push(false);
                   this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[0])
@@ -487,7 +487,7 @@ export class ProjectStatusComponent implements OnInit {
                   if(goalPercentage > 50 && goalPercentage <=100)
                   {
                     //TIME IS STILL GOOD BUT ORANGE
-                    console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
+                    //console.log(goalPercentage + " > 50 && " + goalPercentage + " <= 100");
                     this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[1]);
                     this.goalTimeOut.push(false);
                     this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[1])
@@ -497,7 +497,7 @@ export class ProjectStatusComponent implements OnInit {
                   else
                   {
                     //TIME IS OVERDUE
-                    console.log(goalPercentage + " > 100");
+                    //console.log(goalPercentage + " > 100");
                     this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
                     this.goalTimeOut.push(true);
                     this.goalsTimeSTatusBackGroundColor.push(this.goalsTimeSTatusBackGroundColors[2])
@@ -508,7 +508,7 @@ export class ProjectStatusComponent implements OnInit {
                 }
                 if(goalPercentage < 0)
                 {
-                  console.log(goalPercentage + " < 0");
+                  //console.log(goalPercentage + " < 0");
                   this.typeOfIconToUseOnPercentage.push(this.typeOfIconToUseOnPercentageList[0]);
                   this.goalTimeOut.push(true);
                   if(data.goal[x].project_status.id == 1)
@@ -536,11 +536,11 @@ export class ProjectStatusComponent implements OnInit {
             
             });
           }
-          console.log("This is the goals object " + this.goals)
-          console.log(this.goalsListDisplayStatus);
-          // console.log(this.svgImageAccordionGoals);
+          //console.log("This is the goals object " + this.goals)
+          //console.log(this.goalsListDisplayStatus);
+          // //console.log(this.svgImageAccordionGoals);
         }
-        // console.log(this.svgImageAccordionGoals);
+        // //console.log(this.svgImageAccordionGoals);
 
       }
 
@@ -672,11 +672,11 @@ export class ProjectStatusComponent implements OnInit {
         {
           this.refreshAcceptanceCriteriaInput(); 
         }
-        console.log(event.keyCode);
+        //console.log(event.keyCode);
       }
       createNewGoal()
       {
-        console.log(" I am used " + this.createGoalValuesValid.length)
+        //console.log(" I am used " + this.createGoalValuesValid.length)
         let checkAllVariables = 0;
         for(let x = 0; x < this.createGoalValuesValid.length; x++)
         {
@@ -690,7 +690,7 @@ export class ProjectStatusComponent implements OnInit {
         }
         if(checkAllVariables == 5)
         {
-          console.log("We can move forward");
+          //console.log("We can move forward");
           this.createGoalObject.title = this.createGoalInputTitle.nativeElement.value;
           this.createGoalObject.createAt = this.createGoalInputStartDate.nativeElement.value;
           this.createGoalObject.dueDate = this.createGoalInputEndDate.nativeElement.value;
@@ -707,7 +707,7 @@ export class ProjectStatusComponent implements OnInit {
           this.createGoalObject.acceptanceCriteria += this.createGoalInputAcceptanceCriteria.nativeElement.value;
           //Create The goal
           this.projectObjectService.apiCreateNewGoal(this.createGoalObject).subscribe((res)=>{
-            console.log(res, "res==>");
+            //console.log(res, "res==>");
             if(res.status == 'success')
             {
               this.createGoalInputTitle.nativeElement.value = "";
@@ -725,7 +725,7 @@ export class ProjectStatusComponent implements OnInit {
               this.isGoalNotSuccessfullyCreated = true;
             }
           })
-          console.log(this.createGoalObject);
+          //console.log(this.createGoalObject);
         }
       }
       updateIsGoalSuccessfullDisplay()
@@ -744,7 +744,7 @@ export class ProjectStatusComponent implements OnInit {
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((distance % (1000 * 60)) / 1000);
         
-        // console.log( days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
+        // //console.log( days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
       }, 1000);
       refreshTimeLeft(id:any)
       {
@@ -872,7 +872,7 @@ export class ProjectStatusComponent implements OnInit {
           {
             this.messageSubject = feedback.title;
           }
-          console.log(this.messageSubject);
+          //console.log(this.messageSubject);
           this.goalToReply = goal;
           this.goalsService.setGoalOpenedFromFeedback(goal);
 
@@ -899,7 +899,7 @@ export class ProjectStatusComponent implements OnInit {
           }
 
           this.messageObject = messageObject;          
-          console.log(this.messageObject);
+          //console.log(this.messageObject);
           //Make sure that the message is not empty
           let isSendMessageGood = [false, false];
           if(messageObject.title.length > 0)
@@ -913,7 +913,7 @@ export class ProjectStatusComponent implements OnInit {
           if(isSendMessageGood[0] && isSendMessageGood[1])
           {
             this.feedbackService.sendFeedback(this.messageObject).subscribe((res)=>{
-              console.log(res, "res==>");
+              //console.log(res, "res==>");
               this.isMessageSuccessfullySent = true;
               this.isMessageNotSuccessfullySent = false;
               this.sendMessageInputText.nativeElement.value = "";
@@ -933,13 +933,13 @@ export class ProjectStatusComponent implements OnInit {
         {
 
           this.messageRead = feedback;
-          console.log(feedback.userId);
-          console.log(this.userDetails.id);
+          //console.log(feedback.userId);
+          //console.log(this.userDetails.id);
           //Update the messages status. but not the messages that this user sent.
           if(feedback.projectStatusId == 13 && this.userDetails.id != feedback.userId)
           {
             this.feedbackService.marksFeedbackAsRead(feedback.id).subscribe((res)=>{
-              console.log(res);
+              //console.log(res);
               this.ngOnInit();
               // this.dashboradComponent.ngOnInit();
             
@@ -952,22 +952,22 @@ export class ProjectStatusComponent implements OnInit {
 
         attachUpload(event:any)
         {
-          console.log(event);
+          //console.log(event);
           // let description = this.sendMessageInputText.nativeElement.value;
           
             let selectedFile = <File>event.target.files[0];
             this.selectedFile = <File>event.target.files[0];
-            console.log(selectedFile);
+            //console.log(selectedFile);
 
           let goalId = 0
           let goal = this.goalsService.getGoalFeedbackOpened()
           // goalId = goal.id;
           this.attachFileName.nativeElement.value = selectedFile.name;
           let extention = selectedFile.type;
-          console.log(extention);
+          //console.log(extention);
           let allowedExtensions = /(\.doc|\.docx|\.odt|\.pdf|\.tex|\.txt|\.rtf|\.wps|\.wks|\.wpd)$/i;
           let allowedFileUpload = "docx";
-          console.log(selectedFile.name.substring(selectedFile.name.length -3))
+          //console.log(selectedFile.name.substring(selectedFile.name.length -3))
           //create a for loop that will loop from the end of the file.
           let newFileExtention = "";
           for(let x = selectedFile.name.length-1; x >= 0; x--)
@@ -979,13 +979,13 @@ export class ProjectStatusComponent implements OnInit {
             }
             else
             {
-              console.log(selectedFile.name[x]);
+              //console.log(selectedFile.name[x]);
               newFileExtention += selectedFile.name[x];
             }
 
           }
           let finalExention = "";
-          // console.log(newFileExtention.length);
+          // //console.log(newFileExtention.length);
           for(let x = newFileExtention.length-1; x >= 0; x--)
           {
             finalExention += newFileExtention[x];
@@ -1001,13 +1001,13 @@ export class ProjectStatusComponent implements OnInit {
             this.fileUploadValuesValid[0] = false;
             
           }
-          console.log(finalExention);
+          //console.log(finalExention);
 
 
           
           // if(description == "" || goalId == 0)
           // {
-          //   console.log("Values are empty")
+          //   //console.log("Values are empty")
           // }
           // else
           // {
@@ -1016,10 +1016,10 @@ export class ProjectStatusComponent implements OnInit {
           //   formData.set("document", selectedFile);
           //   formData.set("description", description);
           //   formData.set("goalId", goalId.toString());
-          //   console.log(goalId);
+          //   //console.log(goalId);
           //   this.goalFileService.postGoalFile(goalId, formData).subscribe((res)=>{
-          //     console.log(goalId);
-          //     console.log(res);
+          //     //console.log(goalId);
+          //     //console.log(res);
           //   })
           // }
         }
@@ -1049,7 +1049,7 @@ export class ProjectStatusComponent implements OnInit {
         {
           if(this.attachFileDescription.nativeElement.value.trim().length > 0)
           {
-            console.log("We are about to upload a file");
+            //console.log("We are about to upload a file");
             //We are good to send this upload the file.
             let goalId:any;
             let goal = this.goalsService.getGoalFeedbackOpened();
@@ -1058,11 +1058,11 @@ export class ProjectStatusComponent implements OnInit {
             formData.set("document", this.selectedFile);
             formData.set("description", this.fileDescription);
             formData.set("goalId", goalId.toString());
-            console.log(formData);
-            console.log(goalId);
+            //console.log(formData);
+            //console.log(goalId);
             this.goalFileService.postGoalFile(goalId, formData).subscribe((res)=>{
-              console.log(goalId);
-              console.log(res);
+              //console.log(goalId);
+              //console.log(res);
               //Reset everything
               this.attachFileDescription.nativeElement.value = "";
               this.attachFileName.nativeElement.value = "";
@@ -1075,8 +1075,8 @@ export class ProjectStatusComponent implements OnInit {
 
         changeFileDisplayStatus(index:any)
         {
-          console.log("Displaying our file");
-          console.log(this.displayFiles[index]);
+          //console.log("Displaying our file");
+          //console.log(this.displayFiles[index]);
           if(this.displayFiles[index] == "none")
           {
             this.displayFiles[index] = "inline"

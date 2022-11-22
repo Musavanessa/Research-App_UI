@@ -21,7 +21,7 @@ export class BlogComponent implements OnInit {
       this.userType = data.user.userType;
     });
     this.blogService.getAllBlogs().subscribe((data:any)=>{
-      console.log(data);
+      // console.log(data);
       this.blogs = data.blogs;
     })
   }

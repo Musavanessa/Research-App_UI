@@ -78,7 +78,7 @@ export class GuidelinesComponent implements OnInit {
       this.userService.getUser().subscribe((data: any)=>{
         this.userData = data.user;
         this.userType = data.user.userType;
-        console.log(this.userData);
+        //console.log(this.userData);
         this.userID = data.user.id;
       });
       // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
@@ -88,31 +88,31 @@ export class GuidelinesComponent implements OnInit {
   openGuideline(id:any)
   {
     this.service.getGuideline(id).subscribe((res)=>{
-      console.log(res.guideline);
+      //console.log(res.guideline);
       this.links = res.guideline.links;
-      console.log(this.links);
+      //console.log(this.links);
       this.guideLineObject = res.guideline;
       this.guideLine = res.guideline;
       this.subGuides = res.guideline.subuides;
-      console.log(this.subGuides);
+      //console.log(this.subGuides);
 
       
     });
     this.guidelineSerivce.getHtmlDetails(id).subscribe((data:any)=>{
-      // console.log(data.htmlDetails[0].userHTML);
+      // //console.log(data.htmlDetails[0].userHTML);
       this.htmlDetails = data.htmlDetails;
-      console.log(data);
+      //console.log(data);
       this.htmlClasses = data.htmlDetails;
-      console.log(this.htmlDetails);
-      console.log(this.htmlClasses.length);
-      // console.log(this.myId.componets.toArray());
+      //console.log(this.htmlDetails);
+      //console.log(this.htmlClasses.length);
+      // //console.log(this.myId.componets.toArray());
       // for(let x = 0; x < this.htmlClasses.length; x++)
       // {
       //   this.myId.push("id-" + this.htmlDetails[x].id);
-      //   // console.log(this.htmlDetails[x].id);
+      //   // //console.log(this.htmlDetails[x].id);
       // }
       
-      // console.log(data);
+      // //console.log(data);
     })
 
   }
@@ -120,7 +120,7 @@ export class GuidelinesComponent implements OnInit {
   {
 
     this.service.guidelines(1).subscribe((res)=>{
-      console.log(res.guidelines);
+      //console.log(res.guidelines);
       this.guideLinesObject = res.guidelines;
     });
   }
@@ -138,9 +138,9 @@ export class GuidelinesComponent implements OnInit {
       }
       if(guidelineObject.text.trim() != "" && guidelineObject.name.trim() != "")
       {
-        console.log(guidelineObject); 
+        //console.log(guidelineObject); 
         this.guidelineSerivce.updateGuideline(guidelineObject).subscribe((res)=>{
-          console.log(res);
+          //console.log(res);
           if(res.status == "success")
           {
             this.isUpdate = false;
@@ -166,9 +166,9 @@ export class GuidelinesComponent implements OnInit {
           g_order: 0
         }
         //CREATE THE API WHERE WE ARE GOING TO POST THE NEW CREATED GUIDELINE
-        console.log(guidelineObject);
+        //console.log(guidelineObject);
         this.guidelineSerivce.createGuideline(guidelineObject).subscribe((res)=>{
-          console.log(res);
+          //console.log(res);
           this.ngOnInit();
         })
         this.isGuidelineCreateFalse = false;
@@ -210,8 +210,8 @@ export class GuidelinesComponent implements OnInit {
 
   editElement(id:any)
   {
-    console.log(this.el.nativeElement.children[0].childNodes);
-    console.log(id.path[0].style.color);
+    //console.log(this.el.nativeElement.children[0].childNodes);
+    //console.log(id.path[0].style.color);
     id.path[0].style.color = "red";
     // console.log(this.divs.nativeElement);
     // this.divs.forEach((div:ElementRef)=> console.log(div.nativeElement));

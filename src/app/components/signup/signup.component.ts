@@ -35,9 +35,9 @@ export class SignupComponent implements OnInit {
 
     this.authService.signUp(this.signUpForm).subscribe({
       next: data => {
-        console.log('Sign in data:',data)
+        // console.log('Sign in data:',data)
         var newData:any = data;
-        console.log(newData.status);
+        // console.log(newData.status);
         this.errors = [];
         if(newData.status == "success")
         {

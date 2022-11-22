@@ -131,7 +131,7 @@ export class ProjectObjectService {
   updateProjectObject(projectId:any)
   {
       this.service.getProject(projectId).subscribe((res)=>{
-        console.log(res, 'res=>');
+        //console.log(res, 'res=>');
         ProjectObjectService.projectObject = res.project;
       });
   }
@@ -146,7 +146,7 @@ export class ProjectObjectService {
   {
     ProjectObjectService.projectOpened = true;
     this.service.getNote(noteId).subscribe((res)=>{
-      console.log(res,'res=>');
+      //console.log(res,'res=>');
       ProjectObjectService.noteObject = res.note;
     });
     // return ProjectObjectService.noteObject;

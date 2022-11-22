@@ -11,7 +11,7 @@
           <img (click)="changeActiveStatus(1)" src="../../../../../../../assets/media/icons/clipboard/assignment_softorange_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-appointment" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" ></li>
         <li data-tooltip="Manage Events" class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
           <img (click)="changeActiveStatus(2)" src="../../../../../../../assets/media/icons/event/event_note_blue_24dp.svg" alt="New Event" width="30px" height="30px" class="project-event-event" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" ></li>
-        <li data-tooltip="Manage Goals" class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
+        <li data-tooltip="Manage Tasks" class="list-group-item" style="margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
           <img (click)="changeActiveStatus(3)" src="../../../../../../../assets/media/icons/goal_flag_FILL1_wght400_GRAD0_opsz48.svg" alt="New Event" width="30px" height="30px" class="project-event-goal" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" ></li>
       </ul>
     </div>
@@ -342,7 +342,7 @@
                     Event Details
                   </h3>
                     <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
-                      <textarea (keyup)="validateEventInputDetails()" #createEventInputDetails class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Goal details..."></textarea>
+                      <textarea (keyup)="validateEventInputDetails()" #createEventInputDetails class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Task details..."></textarea>
                     </div>
                     <div *ngIf="createEventErrorList[3]" >
                       <br>
@@ -370,12 +370,12 @@
           <div class="card" style="width:42rem; border:none; background-color: rgb(239, 239, 239);">
             <caption style="background-color:transparent; text-align: center;user-select: none;">
               <div>
-                <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" >New Goal Form
+                <img (click)="showCreateNewGoal($event)" src="../../../../../../../assets/media/logos/{{svgImage}}" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none;" [style]="transformElement" >New Task Form
               </div>
             </caption>
             <div *ngIf="isGoalSuccessfullyCreated" (click)="updateIsGoalSuccessfullDisplay()" style="margin-left:auto; margin-right:auto; width: 95%">
               <div class="alert alert-success" role="alert">
-                <strong>Success:</strong> Goal Created Successfully
+                <strong>Success:</strong> Task Created Successfully
               </div>
             </div>
             <div *ngIf="isGoalNotSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
@@ -390,11 +390,11 @@
                 </div>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item" style="border:none">
-                    <input (keyup)="validateGoalInputTitle()" #createGoalInputTitle type="text" class="form-control input_table" placeholder="Goal title" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">
+                    <input (keyup)="validateGoalInputTitle()" #createGoalInputTitle type="text" class="form-control input_table" placeholder="Task title" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">
                     <div *ngIf="createGoalErrorList[0]">
                       <br>
                       <div class="alert alert-danger" role="alert">
-                        <strong>Error:</strong> Goal Title is Missing
+                        <strong>Error:</strong> Task Title is Missing
                       </div>
                     </div>
                   </li>
@@ -437,14 +437,14 @@
                   </li>
                   <li class="list-group-item" style="border:none">
                     <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
-                      Goal Description
+                      Task Description
                     </h3>
                       <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
-                        <textarea (keyup)="validateGoalInputDescription()" #createGoalInputDecription class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Goal Description..."></textarea>
+                        <textarea (keyup)="validateGoalInputDescription()" #createGoalInputDecription class="form-control  input_table" id="exampleFormControlTextarea1" style=" resize: none;" rows="6" placeholder="Task Description..."></textarea>
                         <div *ngIf="createGoalErrorList[3]">
                           <br>
                           <div class="alert alert-danger" role="alert">
-                            <strong>Error: </strong> Enter Goal Details
+                            <strong>Error: </strong> Enter Task Details
                           </div>
                         </div>
                       </div>
@@ -507,7 +507,7 @@
       <div *ngIf="template_statuses[3]" class="d-flex flex-column flex-shrink-0 p-3 bg-light ">
         <caption style="background-color:transparent; text-align: center;user-select: none;">
           <div style="width:10rem; background: transparent;">
-              Goals Created
+              Tasks Created
           </div>
         </caption>
         <div *ngIf="userDetails.userType == '2'" class="d-flex flex-column flex-shrink-0 p-3 bg-light"  style="padding:0 0 0 0; margin: 0 0 0 0; height: 710px;overflow: scroll;">
@@ -516,7 +516,7 @@
               <div class="card" style="width:42rem; border:none; background-color:transparent">
                 <div *ngIf="isGoalSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
                   <div class="alert alert-success" role="alert">
-                    <strong>Success:</strong> Goal Updated Successfully
+                    <strong>Success:</strong> Task Updated Successfully
                   </div>
                 </div>
                 <div *ngIf="isGoalNotSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
@@ -644,7 +644,7 @@
                       </li>
                       <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item" style="border:none">
                         <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
-                          Goal Description
+                          Task Description
                         </h3>
                         <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
                           <pre #createGoalInputDecription class="input_table" id="exampleFormControlTextarea1" style="white-space: pre-wrap;       /* Since CSS 2.1 */
@@ -714,7 +714,7 @@
               <div class="card" style="width:42rem; border:none; background-color:transparent">
                 <div *ngIf="isGoalSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
                   <div class="alert alert-success" role="alert">
-                    <strong>Success:</strong> Goal Updated Successfully
+                    <strong>Success:</strong> Task Updated Successfully
                   </div>
                 </div>
                 <div *ngIf="isGoalNotSuccessfullyCreated" style="margin-left:auto; margin-right:auto; width: 95%">
@@ -841,7 +841,7 @@
                       </li>
                       <li *ngIf="goalsListDisplayStatus[i]" class="list-group-item" style="border:none">
                         <h3 class="card-title" style="color:#919191; font-size: 11px; margin: 0 0 -5px;">
-                          Goal Description
+                          Task Description
                         </h3>
                         <div class="mb-3" style="width:98%; margin-left: auto; margin-right:auto">
                           <pre #createGoalInputDecription class="input_table" id="exampleFormControlTextarea1" style="white-space: pre-wrap;       /* Since CSS 2.1 */

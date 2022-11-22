@@ -33,21 +33,21 @@ export class ProjectComponent implements OnInit {
   //We need to get the total number of items so that we can allow the user to click the next button.
   backgroundColor = "white";
   ngOnInit(): void {
-    console.log(this.globalProjectObject.getOpenedProjectObject());
+    //console.log(this.globalProjectObject.getOpenedProjectObject());
 
     this.service.notes().subscribe((res)=>{
-      console.log(res.notes, "res==>");
+      //console.log(res.notes, "res==>");
       this.notesData = res.notes;
     });
     this.projectObject = ProjectObjectService.projectObject;
 
     // this.innerNav.ngOnInit();
-    console.log(this.projectObject)
+    //console.log(this.projectObject)
     //The one issue that I am getting here, is that when I create a project - I am not able to synchronise the project right away - 
     //I do not know how I can takle this issue and get it done with.
     
     this.guidelines();
-    console.log(this.globalProjectObject.getPassStudentData());
+    //console.log(this.globalProjectObject.getPassStudentData());
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
@@ -93,7 +93,7 @@ export class ProjectComponent implements OnInit {
       this.noteObject.text = this.noteText.nativeElement.value;
       this.noteObject.title = this.noteTitle.nativeElement.value;
       this.noteObject.userId = ProjectObjectService.projectObject.userId;
-      // console.log(this.noteObject);
+      // //console.log(this.noteObject);
       this.service.saveNote(this.noteObject).subscribe((res)=>{
         this.createNoteResponse = res.status;
       });
@@ -143,7 +143,7 @@ export class ProjectComponent implements OnInit {
   openGuideline(id:any)
   {
     this.service.getGuideline(id).subscribe((res)=>{
-      console.log(res.guideline);
+      //console.log(res.guideline);
       this.guideLineObject = res.guideline;
       this.guideLine = res.guideline;
       this.backgroundColor = "grey";
@@ -154,7 +154,7 @@ export class ProjectComponent implements OnInit {
   openNote(id : any)
   { 
     this.service.getNote(id).subscribe((res)=>{
-      console.log(res.note, "res==>");
+      //console.log(res.note, "res==>");
       this.noteObject = res.note;
     })
     //Now when we get the a specific note that we are looking for 
@@ -168,7 +168,7 @@ export class ProjectComponent implements OnInit {
   {
 
     this.service.guidelines(1).subscribe((res)=>{
-      console.log(res.guidelines);
+      //console.log(res.guidelines);
       this.guideLinesObject = res.guidelines;
     });
   }

@@ -46,12 +46,12 @@ export class NotesComponent implements OnInit {
   }
   ngOnInit(): void {
     this.userService.getUser().subscribe((data:any)=>{
-      // console.log(data.user);
+      // //console.log(data.user);
       this.user.id = data.user.id;
-      console.log(this.user);
+      //console.log(this.user);
     })
     this.service.notes().subscribe((res)=>{
-      console.log(res.notes, "res==>");
+      //console.log(res.notes, "res==>");
       this.notesData = res.notes;
       this.innerWidth = (window.innerWidth * 0.823) + "px";
       this.innerHeight= (window.innerHeight * 0.78) + "px";
@@ -73,7 +73,7 @@ export class NotesComponent implements OnInit {
     // this.inputSearchNotes.nativeElement.value
     if(this.inputSearchNotes.nativeElement.value != "")
     {
-      console.log(this.inputSearchNotes.nativeElement.value);
+      //console.log(this.inputSearchNotes.nativeElement.value);
       //Now we need to loop through the whole note object.
       if(this.notesData.length > 0)
       {
@@ -84,7 +84,7 @@ export class NotesComponent implements OnInit {
           //Make the whole title lowercase
           let testTitle =  this.notesData[x].title.toLowerCase;
           let searchTitle =   this.inputSearchNotes.nativeElement.value;
-          console.log("Test Title " + searchTitle.toLowerCase())
+          //console.log("Test Title " + searchTitle.toLowerCase())
           if(!(this.notesData[x].title.toLowerCase().search(this.inputSearchNotes.nativeElement.value.toLowerCase()) >= 0))
           {
               this.notesData.splice(x, 1);
@@ -101,14 +101,14 @@ export class NotesComponent implements OnInit {
         //   //reduce the height
         //   this.numNotesListHeight = this.numNotesListHeight - ( numberOfTrimmed * 41);
         //   this.notesListHeight = this.numNotesListHeight + "px";
-        //   console.log(this.notesListHeight);
+        //   //console.log(this.notesListHeight);
         // }
       }
     }
     else
     {
       this.service.notes().subscribe((res)=>{
-        console.log(res.notes, "res==>");
+        //console.log(res.notes, "res==>");
         this.notesData = res.notes;
         this.innerWidth = (window.innerWidth * 0.823) + "px";
         this.innerHeight= (window.innerHeight * 0.78) + "px";
@@ -143,7 +143,7 @@ export class NotesComponent implements OnInit {
       updatedNote.title = this.inputNoteTitle.nativeElement.value;
       updatedNote.text= this.inputNoteText.nativeElement.value;
       this.service.updateNote(id, updatedNote).subscribe((res)=>{
-        console.log(res.status);
+        //console.log(res.status);
         this.ngOnInit();
       });
     }
@@ -169,8 +169,8 @@ export class NotesComponent implements OnInit {
   openNote(id : any)
   { 
     this.service.getNote(id).subscribe((res)=>{
-      console.log("We are openNote Function |")
-      console.log(res.note, "res==>");
+      //console.log("We are openNote Function |")
+      //console.log(res.note, "res==>");
       this.noteObject = res.note;
       ProjectObjectService.noteObject = res.note;
       this.inputNoteTitle.nativeElement.value = res.note.title;
@@ -189,7 +189,7 @@ export class NotesComponent implements OnInit {
   showAllNotes()
   {
     this.service.notes().subscribe((res)=>{
-      console.log(res.notes, "res==>");
+      //console.log(res.notes, "res==>");
       this.notesData = res.notes;
       this.innerWidth = (window.innerWidth * 0.823) + "px";
       this.innerHeight= (window.innerHeight * 0.78) + "px";
@@ -219,8 +219,8 @@ export class NotesComponent implements OnInit {
         userId: ProjectObjectService.projectObject.userId,
         projectId: ProjectObjectService.noteObject.projectId
       };
-      console.log(newNoteObject);
-      // console.log(this.noteObject);
+      //console.log(newNoteObject);
+      // //console.log(this.noteObject);
       this.service.saveNote(newNoteObject).subscribe((res)=>{
         this.createNoteResponse = res.status;
         this.ngOnInit();
@@ -238,12 +238,12 @@ export class NotesComponent implements OnInit {
   }
   deleteNote(noteId:number, noteTitle:any)
   {
-    // console.log(this.hiddenNoteIdInput.nativeElement.value);
+    // //console.log(this.hiddenNoteIdInput.nativeElement.value);
     let confirmText = "You are about to delete:\n " + "\" " + noteTitle   + " \"";
     if(confirm(confirmText)  == true)
     {
       this.service.deleteNote(noteId).subscribe((res)=>{
-        console.log(res.status, "res==>");
+        //console.log(res.status, "res==>");
         this.ngOnInit();
       });
     }  
@@ -258,7 +258,7 @@ export class NotesComponent implements OnInit {
   {
 
     this.userService.makeAdmin(this.user).subscribe((res)=>{
-      console.log(res);
+      //console.log(res);
     })
   }
 }

@@ -136,12 +136,12 @@ onResize(event: any) {
       }
       let scrollTop = this.chatBoxPage.nativeElement.scrollHeight * 2;
       this.chatBoxPage.nativeElement.scrollTop = scrollTop;
-      console.log(sendChatToDB);
+      //console.log(sendChatToDB);
       // this.chats.push(newChat);
       // this.chats.push()
       this.inputChatBox.nativeElement.value = "";
       this.chatBoxService.createChat(sendChatToDB).subscribe((res)=>{
-        console.log(res.status);
+        //console.log(res.status);
         // this.ngOnInit();
       })
     }
@@ -160,7 +160,7 @@ onResize(event: any) {
 
   openChatGroup(chatGroupId: any, i:any)
   {
-    console.log("ChatGroupID " + chatGroupId);
+    //console.log("ChatGroupID " + chatGroupId);
     this.chatGroupID =  chatGroupId;
     for(let x = 0; x < this.activeChatGroupBackgroundColor.length; x++)
     {
@@ -174,7 +174,7 @@ onResize(event: any) {
       }
     }
     this.chatBoxService.viewChats(chatGroupId).subscribe((data:any)=>{
-      console.log(data.chat);
+      //console.log(data.chat);
       this.chats = data.chat;
     });
 
@@ -194,10 +194,10 @@ onResize(event: any) {
     this.userService.getUser().subscribe((data: any)=>{
       this.newChatGroupModel.userId = data.user.id;
       this.userData = data.user;
-      console.log(this.userData);
+      //console.log(this.userData);
       this.userID = data.user.id;
       this.newChatGroupModel.disciplineId = data.user.disciplineId;
-      console.log(this.newChatGroupModel.disciplineId);
+      //console.log(this.newChatGroupModel.disciplineId);
     });
   }
 
@@ -232,11 +232,11 @@ onResize(event: any) {
     let formData = new FormData();
     formData.set("document", this.selectedFile);
     formData.set("text", this.selectedFile.name)
-    console.log(event);
-    console.log(this.selectedFile);
+    //console.log(event);
+    //console.log(this.selectedFile);
     
     this.chatBoxService.uploadChatFile(formData, this.chatGroupID).subscribe((res)=>{
-      console.log(res);
+      //console.log(res);
     })
   }
 
@@ -266,13 +266,13 @@ onResize(event: any) {
   {
     this.chatBoxService.chat_groups().subscribe((res)=>{
       this.chatGroups = res.chatGroups;
-      console.log(this.chatGroups);
+      //console.log(this.chatGroups);
       for(let x  = 0; x < res.chatGroups.length; x++)
       {
         this.isGroupChatActive.push(false);
         this.activeChatGroupBackgroundColor.push("white");
-        console.log(this.isGroupChatActive);
-        console.log(x);
+        //console.log(this.isGroupChatActive);
+        //console.log(x);
       }
 
     });
@@ -375,7 +375,7 @@ onResize(event: any) {
   }
   updateChatGroup()
   {
-    console.log(this.updateChatGroupModel.id);
+    //console.log(this.updateChatGroupModel.id);
     if(this.switchRestrictInput.nativeElement.checked)
     {
       this.updateChatGroupModel.privileges = 2;
@@ -385,10 +385,10 @@ onResize(event: any) {
       this.updateChatGroupModel.privileges = 1;
     }
     this.updateChatGroupModel.title = this.updateChatGroupTitle.nativeElement.value;
-    console.log(this.updateChatGroupModel.privileges);
-    console.log(this.updateChatGroupModel);
+    //console.log(this.updateChatGroupModel.privileges);
+    //console.log(this.updateChatGroupModel);
     this.chatBoxService.updateChatGroup(this.updateChatGroupModel).subscribe((res)=>{
-      console.log(res, 'res=>');
+      //console.log(res, 'res=>');
       this.ngOnInit();
       this.closeSettingsCardCloseButton();
     });
@@ -400,22 +400,22 @@ onResize(event: any) {
       {
         this.closeCreateNewGroup();
       }
-      console.log(id);
-      console.log("Primary ID is: " + this.openCardId)
-      console.log("X=" + event.target.x + " , Y=" + event.target.y);
+      //console.log(id);
+      //console.log("Primary ID is: " + this.openCardId)
+      //console.log("X=" + event.target.x + " , Y=" + event.target.y);
       this.editGroupChatDataDetailsLeft = (0 )+ "px";
       this.editGroupChatDataDetailsTop = (event.target.y)+ "px";
-      console.log(this.editGroupChatDataDetailsLeft + " Left , " + this.editGroupChatDataDetailsTop + " Right");
-      console.log(this.chatGroups);
+      //console.log(this.editGroupChatDataDetailsLeft + " Left , " + this.editGroupChatDataDetailsTop + " Right");
+      //console.log(this.chatGroups);
       for(let x=0; x < this.chatGroups.length; x++)
       {
         if(this.chatGroups[x].id == id)
         {
           this.noticeBoardName = this.chatGroups[x].title;
           this.openChatGroupName = this.chatGroups[x].id;
-          console.log(this.noticeBoardName);
-          console.log(id);
-          console.log(this.chatGroups[x].privileges + " P");
+          //console.log(this.noticeBoardName);
+          //console.log(id);
+          //console.log(this.chatGroups[x].privileges + " P");
           this.updateChatGroupModel.id = this.chatGroups[x].id;
           this.updateChatGroupModel.privileges = this.chatGroups[x].privileges;
           this.updateChatGroupModel.title = this.chatGroups[x].title;
@@ -458,10 +458,10 @@ onResize(event: any) {
   openSettingsCard(event:any, id: any)
   {
     //If the chat settings card is open I just want to make sure that I  close it first
-    console.log("X=" + event.target.x + " , Y=" + event.target.y);
+    //console.log("X=" + event.target.x + " , Y=" + event.target.y);
     this.editGroupChatDataDetailsLeft = (event.target.x)+ "px";
     this.editGroupChatDataDetailsTop = (event.target.y-180)+ "px";
-    console.log(this.editGroupChatDataDetailsLeft + " Left , " + this.editGroupChatDataDetailsTop + " Right");
+    //console.log(this.editGroupChatDataDetailsLeft + " Left , " + this.editGroupChatDataDetailsTop + " Right");
     //Get the variable of the chatGroup name
 
     //Close if the ID is the same else open
@@ -497,9 +497,9 @@ onResize(event: any) {
       this.newChatGroupModel.privileges = 1;
     }
     this.newChatGroupModel.title = this.createChatGroupTitleInput.nativeElement.value;
-    // console.log(newChatGroupModel);
+    // //console.log(newChatGroupModel);
     this.chatBoxService.createChatGroup(this.newChatGroupModel).subscribe((res)=>{
-      console.log(res, 'res=>');
+      //console.log(res, 'res=>');
       this.ngOnInit();
     })
 
@@ -520,7 +520,7 @@ onResize(event: any) {
   deleteChatGroup(id:any)
   {
     this.chatBoxService.deleteChatGroup(id).subscribe((res)=>{
-      console.log(res, 'res=>');
+      //console.log(res, 'res=>');
       this.ngOnInit();
     });
   }

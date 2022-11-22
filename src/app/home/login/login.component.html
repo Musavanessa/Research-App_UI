@@ -17,7 +17,6 @@
               name="email" 
               #email="ngModel" 
               id="email" 
-              pattern="[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{3,}"
               [(ngModel)]="loginForm.email"
               minlength="4" required>
             <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
