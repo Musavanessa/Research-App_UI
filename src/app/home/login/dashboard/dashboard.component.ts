@@ -56,6 +56,14 @@ export class DashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload(); 
+    } else {
+      localStorage.removeItem('foo') 
+    }
+
     this.countAllNotifications = [];
     this.service.getAllLinks().subscribe((data:any)=>{
       // console.log(data);
@@ -67,6 +75,7 @@ export class DashboardComponent implements OnInit {
 
     this.userService.getUser().subscribe((data: any) => {
       this.userType = data.user.userType;
+      localStorage.setItem('activeUser', JSON.stringify(data.user));
       this.userData = data.user;
 
         this.getAllUsers(this.userData.id);
@@ -351,11 +360,13 @@ export class DashboardComponent implements OnInit {
   openStudentPortal(project_student:any)
   {
       // this.projectObject.myObservable = project_student;
+      localStorage.setItem('activeProjectStudent', JSON.stringify(project_student));
       this.projectObject.passStudentData(project_student);
   }
 
   openProjectSelected(project:any)
   {
+    localStorage.setItem('activeProject', JSON.stringify(project));
     this.projectObject.setOpenedProjectObject(project);
     //We alos need to get the project count for notifications.
     

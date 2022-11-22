@@ -24,6 +24,12 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
 
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload(); 
+    } else {
+      localStorage.removeItem('foo') 
+    }
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
     // });
@@ -45,7 +51,7 @@ export class LoginComponent implements OnInit {
 
     this.authService.logIn(this.loginForm).subscribe({
       next: data => {
-        // console.log(data);
+        console.log(data);
         this.appComponent.isAuthenticated = true;
         this.router.navigate(['/dashboard'], {
           queryParams: { message: 'You logged in successfully ' }

@@ -27,11 +27,13 @@ export class ProjectStatusComponent implements OnInit {
   //=====================
   //GENERAL VARIABLES
   //=====================
-  userDetails:any;
+  userDetails:any =  JSON.parse(localStorage.getItem('activeUser')!);
   studentData:any;
-  projectData:any;
+
   userType:any;
-  presentWorkingProject:any;
+  presentWorkingProject:any = JSON.parse(localStorage.getItem('activeProject')!);
+  openedProject:any = JSON.parse(localStorage.getItem('activeProjectStudent')!);
+  projectData:any = this.presentWorkingProject;
 
 
 
@@ -184,12 +186,9 @@ export class ProjectStatusComponent implements OnInit {
     // this.attachFileDescription.innerHTML = this.showMeSomething;
     // //console.log(this.attachFileName.nativeElement.value);
     //console.log(this.attachFileName);
-    this.userDetails = this.projectObjectService.getUserDetails();
     this.userType = this.userDetails.userType;
     //console.log(this.projectObjectService.getUserDetails());
     this.studentData = this.projectObjectService.getPassStudentData();
-    this.projectData = this.projectObjectService.getOpenedProjectObject();
-
     //console.log(this.goalsService.getIsGoalFeedbackOpened());
     if(this.goalsService.getIsGoalFeedbackOpened())
     {
@@ -275,13 +274,13 @@ export class ProjectStatusComponent implements OnInit {
 
         if(this.template_statuses[2])
         {
-          let openedProject = this.projectObjectService.getPassStudentData();
-          this.presentWorkingProject = this.projectObjectService.getOpenedProjectObject();
+          
+          // this.presentWorkingProject = this.projectObjectService.getOpenedProjectObject();
           //Get all goals again.
           if(this.userDetails.userType == '2')
           {
             this.goalNotifications = [];
-            this.goalsService.getAllGoalsWhere(openedProject.id).subscribe((data:any)=>{
+            this.goalsService.getAllGoalsWhere(this.openedProject.id).subscribe((data:any)=>{
               //console.log("Goals Data", data);
               this.goals = data.goal;
               let svgImage =  "../../../../../../../assets/media/icons/circle/circle_green.svg"
@@ -299,9 +298,11 @@ export class ProjectStatusComponent implements OnInit {
                   // //console.log("data", data);
                   let feedback = data.notifications[0];
                   this.goalNotificationObjects.push(data);
+            
+                  // studentData:any = JSON.parse(localStorage.getItem('activeProjectStudent')!);
+                    // console.log(this.goalNotificationObjects[x])
                     if(this.goalNotificationObjects[x].results > 0)
                     {
-                      //console.log(this.goalNotificationObjects[x].notifications[0].countfeedbacks);
                       this.goalNotifications.push(this.goalNotificationObjects[x].notifications[0].countfeedbacks);
                     }
                     else
@@ -407,6 +408,7 @@ export class ProjectStatusComponent implements OnInit {
           }
           else
           {
+            console.log(this.presentWorkingProject.id);
             this.goalsService.getAllGoalsWhere(this.presentWorkingProject.id).subscribe((data:any)=>{
               //console.log(data);
               this.goals = data.goal;
@@ -882,7 +884,9 @@ export class ProjectStatusComponent implements OnInit {
         {
           //Firsty get the gaol details
           //Display the goal name
-          let user = this.projectObjectService.getUserDetails();
+          // let user = this.projectObjectService.getUserDetails();
+          let user = JSON.parse(localStorage.getItem('activeProjectStudent')!);
+
           //THE MESSSAGE OBJECT
           let messageObject = {
             text: this.sendMessageInputText.nativeElement.value.trim(),

@@ -85,6 +85,9 @@ export class AuthService {
 
   public logout() {
     localStorage.removeItem('Bearer token');
+    localStorage.removeItem('activeProject');
+    localStorage.removeItem('activeUser');
+    localStorage.removeItem('activeProjectStudent');
     this.decodedToken = new DecodedToken();
   }
 

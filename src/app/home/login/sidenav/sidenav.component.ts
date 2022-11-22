@@ -28,16 +28,23 @@ export class SidenavComponent implements OnInit {
 
 
   constructor(public sideNavService: SidenavService, private userService: UserService) { }
-  activeUser:any;
+  activeUser:any = JSON.parse(localStorage.getItem('activeUser')!);
   ngOnInit(): void {
+    if (!localStorage.getItem('activeUser')) { 
+      this.userService.getUser().subscribe((data:any)=>{
+        this.activeUser = data.user;
+        console.log("Active User New- Inner Header", this.activeUser);
+      })
+    }
+    else
+    {
+      this.activeUser = JSON.parse(localStorage.getItem('activeUser')!);
+    }
+
     this.changeSideNav();
     // this.activateProfileElement();
     // this.profileElement.nativeElement.style.backgroundColor="rgb(0, 132, 255)";
     // this.profileElement.nativeElement.style.color="white";
-
-    this.userService.getUser().subscribe((data: any) => {
-      this.activeUser = data.user;
-    });
 
   }
 

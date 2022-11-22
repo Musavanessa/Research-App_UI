@@ -34,8 +34,8 @@ export class ProjectEventsComponent implements OnInit {
   //=====================
   //GENERAL VARIABLES
   //=====================
-  userDetails:any;
-  studentData:any;
+  userDetails:any = JSON.parse(localStorage.getItem('activeUser')!);
+  studentData:any = JSON.parse(localStorage.getItem('activeProjectStudent')!);
 
 
 
@@ -126,7 +126,7 @@ export class ProjectEventsComponent implements OnInit {
   isGoalSuccessfullyCreated:boolean = false;
   isGoalNotSuccessfullyCreated:boolean = false;
   goalsObject:any;
-  presentWorkingProject:any;
+  presentWorkingProject:any = JSON.parse(localStorage.getItem('activeProject')!)
 
   //==========================
   //GOALS VARIABLES
@@ -190,11 +190,19 @@ export class ProjectEventsComponent implements OnInit {
 
   //WHAT WOULD YOU LIKE TO DO DIALOG
   displayWhatWouldYouLikeToDo = "none";
-
+  //this.userDetails = JSON.parse(localStorage.getItem('activeUser')!);
   ngOnInit(): void {
-   this.userDetails = this.projectObjectService.getUserDetails();
 
-   this.studentData = this.projectObjectService.getPassStudentData();
+    // localStorage.setItem('userDetailsProjectEvents', JSON.stringify(this.userDetails));
+    // if (!localStorage.getItem('userDetailsProjectEvents')) { 
+    //   localStorage.setItem('foo', 'no reload') 
+    //   location.reload() 
+    // } else {
+    //   localStorage.removeItem('foo') 
+    // }
+  //  this.studentData = this.projectObjectService.getPassStudentData();
+  //  console.log("studentData", this.studentData);
+  //  console.log(JSON.parse(localStorage.getItem('activeProjectStudent')!));
    // console.log(this.requestNewAppointment);
     // if(this.authService.isAuthenticated) this.router.navigate(['/dashboard'], {
     //   queryParams: { message: 'Please log out first ' }
@@ -312,9 +320,7 @@ export class ProjectEventsComponent implements OnInit {
     {
       //Get all goals again.
       //I need to get the project details.
-      let openedProject = this.projectObjectService.getPassStudentData();
-      this.presentWorkingProject = this.projectObjectService.getOpenedProjectObject();
-      //console.log("Opened Project ", openedProject); 
+      let openedProject = JSON.parse(localStorage.getItem('activeProjectStudent')!)
       //There are two posibilitise - 
       if(this.userDetails.userType == '2')
       {
