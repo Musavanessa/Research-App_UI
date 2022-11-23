@@ -1,4 +1,5 @@
-<div style="position:fixed; width:100%; height:100%; z-index:100; background-color:white; left:0; top:0; overflow: scroll; ">
+<div
+  style="position:fixed; width:100%; height:100%; z-index:100; background-color:white; left:0; top:0; overflow: scroll; ">
   <img style="user-select:none" class="img-login" src="../../../assets/download.svg" alt="login">
   <br><br>
   <h1 style="color:black; font-weight:lighter; text-align: center;user-select: none;">Welcome To ResearcherDNA</h1>
@@ -26,8 +27,8 @@
         <div class="inputBox">
           <input type="text" placeholder="Last Name" name="lastName" #lastName="ngModel" id="lastName"
             [(ngModel)]="signUpForm.lastName" type="text" minlength="2" required>
-            <input [(ngModel)]="signUpForm.userType" type="hidden" id="userType" name="userType" value="1">
-            <input [(ngModel)]="signUpForm.disciplineId" type="hidden" id="disciplineId" name="disciplineId" value="1">
+          <input [(ngModel)]="signUpForm.userType" type="hidden" id="userType" name="userType" value="1">
+          <input [(ngModel)]="signUpForm.disciplineId" type="hidden" id="disciplineId" name="disciplineId" value="1">
 
 
           <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert alert-danger">
@@ -43,7 +44,8 @@
           </div>
         </div>
         <div class="inputBox">
-          <input type="email" [(ngModel)]="signUpForm.email" #email="ngModel" name="email" required placeholder="Your Email"  class="form-input" id="email">
+          <input type="email" [(ngModel)]="signUpForm.email" #email="ngModel" name="email" required
+            placeholder="Your Email" class="form-input" id="email">
           <div *ngIf="email.invalid && email.touched" class="alert alert-danger">
             <div *ngIf="email.errors?.['required']">
               Email is required.
@@ -54,23 +56,29 @@
           </div>
         </div>
         <div class="inputBox">
-          <input
-          type="idNumber"
-          [(ngModel)]="signUpForm.idNumber"
-          name="idNumber"
-          #idNumber="ngModel"
-          minlength="13"
-          maxlength="13"
-          required
-          placeholder="Your I.D Number"
-          class="form-input"
-          id="idNumber">
-      <div *ngIf="idNumber.invalid && idNumber.touched" class="alert alert-danger">
-          <div *ngIf="idNumber.errors?.['required']">ID Number is required.</div>
-          <div *ngIf="idNumber.errors?.['minlength'] || idNumber.errors?.['maxlength']">ID Number must be 13 characters long.</div>
+          <input type="idNumber" [(ngModel)]="signUpForm.idNumber" name="idNumber" #idNumber="ngModel" minlength="13"
+            maxlength="13" required placeholder="Your I.D Number" class="form-input" id="idNumber">
+          <div *ngIf="idNumber.invalid && idNumber.touched" class="alert alert-danger">
+            <div *ngIf="idNumber.errors?.['required']">ID Number is required.</div>
+            <div *ngIf="idNumber.errors?.['minlength'] || idNumber.errors?.['maxlength']">ID Number must be 13
+              characters long.</div>
 
-      </div>
-      </div>
+          </div>
+        </div>
+        <br>
+        <div class="inputBox" class="form-input" style="width:100%">
+          <span style="font-size:12px; color:grey">Choose Faculty</span>
+          <select #inputDescription (change)="getFacultyDepartments()" id="faculties" class="form-input" style="width:100%; height:50px; border-top: none; border-left: none; border-right: none; outline: none;">
+            <option  *ngFor="let faculty of faculties" value="{{faculty.id}}">{{faculty.name}}</option>
+          </select>
+        </div>
+        <br>
+        <div class="inputBox" class="form-input" style="width:100%">
+          <span style="font-size:12px; color:grey">Choose Department</span>
+          <select #chosenDepartment id="departments" class="form-input" style="width:100%; height:50px; border-top: none; border-left: none; border-right: none; outline: none;">
+            <option *ngFor="let department of departments" value="{{department.id}}">{{department.name}}</option>
+          </select>
+        </div>
 
         <div class="inputBox">
           <input type="password" [(ngModel)]="signUpForm.password" name="password" #password="ngModel" minlength="6"
@@ -81,22 +89,27 @@
           </div>
 
         </div>
+
+
+
         <div class="inputBox">
-          <input type="password"  (keyup)="checkPassword()" [(ngModel)]="signUpForm.confirmPassword" name="confirmPassword"
-            #confirmPassword="ngModel" minlength="6" required placeholder="Repeat your password" class="form-input"
-            id="confirmPassword">
-          <div *ngIf="confirmPassword.invalid && confirmPassword.touched || pCheck.length > 0" class="alert alert-danger">
+          <input type="password" (keyup)="checkPassword()" [(ngModel)]="signUpForm.confirmPassword"
+            name="confirmPassword" #confirmPassword="ngModel" minlength="6" required placeholder="Repeat your password"
+            class="form-input" id="confirmPassword">
+          <div *ngIf="confirmPassword.invalid && confirmPassword.touched || pCheck.length > 0"
+            class="alert alert-danger">
             <div *ngIf="confirmPassword.errors?.['required']">Confirm Password is required.</div>
-            <div *ngIf="confirmPassword.errors?.['minlength']">Confirm Password must be at least 6 characters long.</div>
+            <div *ngIf="confirmPassword.errors?.['minlength']">Confirm Password must be at least 6 characters long.
+            </div>
             <div *ngIf="pCheck.length > 0">{{pCheck}}</div>
           </div>
         </div>
         <br style="user-select:none">
-        <div class="submit" >
-          <button [disabled] = "fData.invalid" (click)="signUp()" class="btn btn-primary" >Sign Up</button>
+        <div class="submit">
+          <button [disabled]="fData.invalid" (click)="signUp()" class="btn btn-primary">Sign Up</button>
         </div>
-        <br  style="user-select:none">
-        <p class="forget" style="color:black">Already have an account ?<a  routerLink="/login"> LogIn</a>
+        <br style="user-select:none">
+        <p class="forget" style="color:black">Already have an account ?<a routerLink="/login"> LogIn</a>
         </p>
       </form>
       <div *ngIf="errors.length > 0" class="alert alert-danger">
@@ -107,7 +120,3 @@
     </div>
   </div>
 </div>
-
-
-
-
