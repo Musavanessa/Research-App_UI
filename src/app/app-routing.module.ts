@@ -2,9 +2,9 @@
 //  Navigation opens one or more routed components in one or more <router-outlet> locations on the page.
 
 /*
-You can use absolute or relative paths in a link, 
-set query parameters, 
-control how parameters are handled, 
+You can use absolute or relative paths in a link,
+set query parameters,
+control how parameters are handled,
 and keep a history of navigation states.
 */
 
@@ -37,7 +37,7 @@ import { NewToolboxComponent } from './new-toolbox/new-toolbox.component';
 
 const routes: Routes = [
   {
-    path: '', redirectTo: 'home', pathMatch: 'full'
+    path: '', redirectTo: 'login', pathMatch: 'full'
   },
   {path: 'home', component:DashboardComponent},
   {path: 'login', component:LoginComponent},
