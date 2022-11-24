@@ -629,10 +629,12 @@ export class ProjectStatusComponent implements OnInit {
           this.tempAcceptanceCriteriaList = this.createGoalInputAcceptanceCriteria.nativeElement.value;
         } 
       }
-      addToAcceptanceCriteriaList(){
+      addToAcceptanceCriteriaList(goalDetails:any){
         //Push to accepateCritriaList
         //(1) Check if the acceptance criteria has been filled in.
+        console.log(goalDetails);
         this.tempAcceptanceCriteriaList = this.createGoalInputAcceptanceCriteria.nativeElement.value;
+        console.log(this.tempAcceptanceCriteriaList);
         if(this.tempAcceptanceCriteriaList == "")
         {
           if(this.acceptanceCriteriaList.length  > 0)
@@ -643,6 +645,7 @@ export class ProjectStatusComponent implements OnInit {
         }
         else
         {
+          //How do we define our acceptance criteria list?
           //(2) Push to the acceptance Criteria List
           this.acceptanceCriteriaList.push(this.tempAcceptanceCriteriaList)
           if(this.acceptanceCriteriaList.length > 0)

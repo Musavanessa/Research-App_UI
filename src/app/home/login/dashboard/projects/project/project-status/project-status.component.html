@@ -5,7 +5,7 @@
     <div class="row">
       <div style="width:5%">
         <ul class="list-group" style="width: 60px; background-color:transparent;">
-          <li data-tooltip="Goals and Feedbacks" class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
+          <li data-tooltip="Tasks and Feedbacks" class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
             <img (click)="changeActiveStatus(2)" src="../../../../../../../assets/media/icons/goal_flag_FILL1_wght400_GRAD0_opsz48.svg" alt="New Event" width="30px" height="30px" class="project-event-goal" style="text-align:center;cursor: pointer; transition:  transform 1s; user-select: none;"  >
           </li>
           <li data-tooltip="Submitted Files" class="list-group-item" style="position:relative; left:-5px; margin: 20px; border:none; border-radius: 50px; width: 50px; height:50px; text-align: center; margin-left: auto; margin-right: auto;  background-color: transparent;">
@@ -267,7 +267,7 @@
                               <div class="input-group mb-3">
                                 <input (keyup)="validateGoalInputAcceptanceCriteria()" #createGoalInputAcceptanceCriteria type="text" class="form-control GeneralRemoveActiveStatus" placeholder="Acceptance Criteria" aria-label="Acceptance Criteria" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
-                                  <button (mouseup)="refreshAcceptanceCriteriaInput()" (mousedown)="addToAcceptanceCriteriaList()"  (keyup)="refreshAcceptanceCriteriaInputOnEnter($event)" (keydown)="addToAcceptanceCriteriaList()" class="btn btn-outline-secondary addAcceptanceCriteriaButton" type="button">
+                                  <button (mouseup)="refreshAcceptanceCriteriaInput()" (mousedown)="addToAcceptanceCriteriaList(goal)"  (keyup)="refreshAcceptanceCriteriaInputOnEnter($event)" (keydown)="addToAcceptanceCriteriaList(goal)" class="btn btn-outline-secondary addAcceptanceCriteriaButton" type="button">
                                     <img *ngIf="showAddIconOnAddGoal" src="../../../../../../../assets/media/logos/add_circle_green_24dp.svg" alt="ResearcherDNA-Logo" width="24px" height="24px" style="cursor: pointer; transition:  transform 1s; user-select: none; color: grey;" [style]="transformElement" >
                                     <span *ngIf="!showAddIconOnAddGoal" class="badge" style="background-color:darkgreen; border-radius:50px">{{showNumAcceptanceCriteriaItem}}</span>
                                     Add</button>
