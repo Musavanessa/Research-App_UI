@@ -44,6 +44,7 @@ const routes: Routes = [
   {path: 'home', component:DashboardComponent},
   {path: 'admin/dashboard', component:AdminDashComponent},
   {path: 'admin/manage-student', component:AdminManageStudentsComponent},
+  {path: 'admin/manage-supervisors', component:AdminDashComponent},
   {path: 'login', component:LoginComponent},
   {path: 'signup', component:SignupComponent},
   {path: 'dashboard', component:DashboardComponent, canActivate:[SessionGuardService]},

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, ObservedValuesFromArray } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 
 @Injectable({
@@ -15,6 +15,10 @@ export class UserService {
 
   constructor(private http:HttpClient) { }
 
+  adminGetNewUsers(disciplineId:any):Observable<any>
+  {
+    return this.http.get<any>(this.URL+'/adminGetNewUsers/' + disciplineId);
+  }
  
   getUser():Observable<User>{
     return this.http.get<User>(this.URL+'/getUser');
