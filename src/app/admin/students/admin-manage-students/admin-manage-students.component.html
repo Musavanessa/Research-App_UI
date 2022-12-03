@@ -1,0 +1,55 @@
+<app-new-inner-header></app-new-inner-header>
+<app-admin-dash-top-nav></app-admin-dash-top-nav>
+<div style="top:190px;background-color: rgba(165, 7, 7, 0); width:100%; user-select: text; position: fixed; padding-left:75px;padding-right:15px;">
+    <h1>Manage Students</h1>
+    <div style="width:100%; display: inline-flex;color:rgb(2, 33, 80); font-size: 17px;border-bottom: 1px solid rgb(0, 149, 255);border-top: 1px solid rgb(0, 149, 255);height:30px; padding-top:4px;">
+        <div style="width:10%;">
+            Student Number
+        </div>
+        <div style="width:30%;">
+            Full Name
+        </div>
+        <div style="width:20%;">
+            Email
+        </div>
+        <div style="width:30%;">
+            Supervisor
+        </div>
+        <div style="width:30%;">
+            Verified
+        </div>
+        <div style="width:20%;">
+            Actions
+        </div>
+    </div>
+    <div style="width:100%;color:rgb(2, 33, 80);height:auto;overflow:scroll; position:fixed">
+        <div *ngFor="let student of students" style="width:100%; display: inline-flex;color:rgb(2, 33, 80); font-size: 17px; height:90%; overflow:scroll">
+            <div style="width:10%;">
+                {{student.id}}
+            </div>
+            <div style="width:30%;">
+                {{student.firstName + " " + student.lastName}}
+            </div>
+            <div style="width:20%;">
+                {{student.email}}
+            </div>
+            <div style="width:30%;">
+                Supervisor
+            </div>
+            <div *ngIf="student.verified == 0" style="width:30%; color:red">
+                Not verifed
+                <button type="button" style=" border:none" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Save">
+                    Verify
+                  </button>&nbsp;
+            </div>
+            <div *ngIf="student.verified != 0"  style="width:30%; color:darkgreen">
+                Verified
+            </div>
+            <div style="width:20%;">
+                Actions
+            </div>
+            <hr>
+        </div>
+    </div>
+
+</div>

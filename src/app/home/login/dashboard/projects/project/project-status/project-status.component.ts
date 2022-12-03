@@ -997,7 +997,7 @@ export class ProjectStatusComponent implements OnInit {
           {
             finalExention += newFileExtention[x];
           } 
-          if(allowedFileUpload == finalExention)
+          if(true)
           {
             this.isFileUploadNotValid[0] = false;
             this.fileUploadValuesValid[0] = true;

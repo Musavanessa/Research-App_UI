@@ -13,7 +13,8 @@
   padding: 10px;
   color: #333;
   border-radius: 10px;
-  box-shadow: 2px 2px 1px silver;    
+  box-shadow: 2px 2px 1px silver;  
+  background-color: rgb(0, 157, 255);  
 }
 
 [data-tooltip]:hover:before {

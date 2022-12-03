@@ -49,7 +49,11 @@ import { AppointmentService } from './services/project-appointment/appointment.s
 import { NewInnerHeaderComponent } from './new-inner-header/new-inner-header.component';
 import { ProjectInnerHeaderComponent } from './project-inner-header/project-inner-header.component';
 import { NewToolboxComponent } from './new-toolbox/new-toolbox.component';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common'
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { AdminManageStudentsComponent } from './admin/students/admin-manage-students/admin-manage-students.component';
+import { AdminDashComponent } from './admin/dashboard/admin-dash/admin-dash.component';
+import { AdminSupervisorsComponent } from './admin/supervisors/admin-supervisors/admin-supervisors.component';
+import { AdminDashTopNavComponent } from './admin/admin-dash-top-nav/admin-dash-top-nav.component'
 
 
 @NgModule({
@@ -80,7 +84,11 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common'
     TemplatePipesPipe,
     NewInnerHeaderComponent,
     ProjectInnerHeaderComponent,
-    NewToolboxComponent
+    NewToolboxComponent,
+    AdminManageStudentsComponent,
+    AdminDashComponent,
+    AdminSupervisorsComponent,
+    AdminDashTopNavComponent
   ],
   imports: [
     BrowserModule,
