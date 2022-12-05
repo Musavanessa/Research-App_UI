@@ -79,6 +79,10 @@ export class ApiserviceService {
     return this._http.get(`${this.apiUrl+"projects/userId/"+userId}`);
   }
 
+  updateProject(userId:any, data:any):Observable<any>
+  {
+    return this._http.patch(`${this.apiUrl+ "projects/" + userId}`, data)
+  }
 
 
 

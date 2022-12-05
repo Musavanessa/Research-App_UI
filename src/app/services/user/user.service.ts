@@ -15,6 +15,11 @@ export class UserService {
 
   constructor(private http:HttpClient) { }
 
+  getAllSupervisors(disciplineId:any):Observable<any>
+  {
+    return this.http.get<any>(this.URL+'/getAllSupervisors/' + disciplineId);
+  }
+
   adminGetNewUsers(disciplineId:any):Observable<any>
   {
     return this.http.get<any>(this.URL+'/adminGetNewUsers/' + disciplineId);

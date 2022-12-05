@@ -8,7 +8,81 @@ How to use angular material basic 3 steps
 3 - Use in the HTML
 	<button mat-raised-button>Hello World</button>
 
-
+createdAt
+: 
+"2022-03-25T13:51:22.000Z"
+description
+: 
+"Cloud computing is the on-demand availability of computer system resources, especially data storage and computing power, without direct active management by the user. Large clouds often have functions distributed over multiple locations, each location being a data center."
+disciplineId
+: 
+9
+email
+: 
+"pidilematlala@gmail.com"
+endDate
+: 
+null
+firstName
+: 
+"Itumeleng"
+id
+: 
+14
+idNumber
+: 
+"9911275418082"
+keyword
+: 
+null
+lastName
+: 
+"Matlala"
+name
+: 
+"Cloud computing"
+password
+: 
+"$2a$12$m6MLnMKeo"
+photo
+: 
+"Get the API"
+projectStatusId
+: 
+1
+projectTypeId
+: 
+1
+references
+: 
+null
+startDate
+: 
+"2022-03-25T13:51:22.000Z"
+studNumber
+: 
+null
+supervisorId
+: 
+39
+text
+: 
+null
+title
+: 
+null
+updatedAt
+: 
+"2022-03-25T13:51:22.000Z"
+userId
+: 
+5
+userType
+: 
+"1"
+verified
+: 
+1
 
 
 

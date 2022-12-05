@@ -1,16 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
+import { ApiserviceService } from 'src/app/apiservice.service';
 @Component({
   selector: 'app-admin-dash',
   templateUrl: './admin-dash.component.html',
   styleUrls: ['./admin-dash.component.css']
 })
 export class AdminDashComponent implements OnInit {
-
-students2:any = [];
-  constructor(private userService: UserService) { }
+    @ViewChild('inputDescription') inputDescription: any;
+    @ViewChild('supervisorId') supervisorId:any;
+    userDetails:any =  JSON.parse(localStorage.getItem('activeUser')!);
+    students2:any = [];
+    allAdmins:any = [];
+  constructor(private userService: UserService, private apiService: ApiserviceService) { }
   ngOnInit(): void {
     let id = 9;
+
     this.userService.adminGetNewUsers(id).subscribe((data:any) =>{
         console.log(data);
         let tempData = data.data[0];
@@ -21,369 +26,58 @@ students2:any = [];
         }
         console.log(this.students2);
     })
+    this.userService.getAllSupervisors(id).subscribe((data:any)=>{
+        let tempData = data.data[0];
+        let i:any;
+        for(i in data.data[0])
+        {
+            this.allAdmins.push(tempData[i]);
+        }
+        console.log(this.allAdmins);
+    })
 
   }
  generalCollapse = "collapse-";
  collapseWithPound = "#collapse-";
  heading = "heading-";
-  students:any =
-  [ {
-         "id": 1,
-         "firstName": "Shiko",
-         "lastName": "Matlala",
-         "email": "tsholofeloitumeleng@gmail.com",
-         "password": "shikomatlala@",
-         "idNumber": "9511275418082",
-         "title": "Mr",
-         "photo": "Get the API",
-         "userType": "2",
-         "verified": 0,
-         "references": 3,
-         "createdAt": "2022-03-17T09:34:15.000Z",
-         "updatedAt": "2022-03-17T09:34:15.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 2,
-         "firstName": "Katleho",
-         "lastName": "Makhoba",
-         "email": "rkmwastaken@gmail.com",
-         "password": "123456",
-         "idNumber": "1111111111111",
-         "title": null,
-         "photo": "Get the API",
-         "userType": "",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-03-25T15:52:50.000Z",
-         "updatedAt": "2022-03-25T15:52:50.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-      {
-         "id": 11,
-         "firstName": "Phethivangeli",
-         "lastName": "Nyembe",
-         "email": "phethimatlala@gmail.com",
-         "password": "$2a$12$5ccLA.W3TtdmEJ48.ylrwOdbEKjxRT5tveuTqVTDkkZ4dw5mgyBIm",
-         "idNumber": "9611280992084",
-         "title": "Miss",
-         "photo": "",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-09-19T12:56:58.000Z",
-         "updatedAt": "2022-09-19T12:56:58.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 12,
-         "firstName": "Phethivangeli",
-         "lastName": "Nyembe",
-         "email": "Phethivangeli@gmail.com",
-         "password": "$2a$12$SeIOSyXe/0J4AFJ2ar4CzO9cCtmlBDcQ6iYV0ujAPcMG4xq79M1E.",
-         "idNumber": "9611290023087",
-         "title": "Miss",
-         "photo": "default.png",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-10-31T06:11:32.000Z",
-         "updatedAt": "2022-10-31T06:11:32.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-      {
-         "id": 14,
-         "firstName": "James",
-         "lastName": "Livingston",
-         "email": "workmaster42@gmail.com",
-         "password": "$2a$12$6miu5tGPv.jGT3mXZ3aMT.zjPTtOLX3iHrz7Gt/2gY0Z6LiXq7OG6",
-         "idNumber": "9511275418083",
-         "title": "Mr",
-         "photo": "default.png",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-01T01:57:41.000Z",
-         "updatedAt": "2022-11-01T01:57:41.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 15,
-         "firstName": "James",
-         "lastName": "Livingston",
-         "email": "workmaster42@gmail.com",
-         "password": "$2a$12$MqI3zejA3A5GPIfLlzg7leuQhRudKeZTE5Ie/0II8PDBJwpA.pjza",
-         "idNumber": "9511275418083",
-         "title": "Mr",
-         "photo": "default.png",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-01T01:58:19.000Z",
-         "updatedAt": "2022-11-01T01:58:19.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 16,
-         "firstName": "James",
-         "lastName": "Livingston",
-         "email": "workmaster42@gmail.com",
-         "password": "$2a$12$Lx0LxF.X9MJGcNaUCwvaU.2rSG9d0tlm9o982JJ4H4QBBPzA6UmKS",
-         "idNumber": "9511275418083",
-         "title": "Mr",
-         "photo": "default.png",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-01T01:58:58.000Z",
-         "updatedAt": "2022-11-01T01:58:58.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 17,
-         "firstName": "234234232",
-         "lastName": "3423423424",
-         "email": "supervisor@tut.ac.za",
-         "password": "$2a$12$bLnP8eiSxN8HuNoERPNth.dyOS7POLScLIJxOQ.G.9nOVsq.EILtS",
-         "idNumber": "9511276342381",
-         "title": "Mr",
-         "photo": "default.png",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-01T02:26:36.000Z",
-         "updatedAt": "2022-11-01T02:26:36.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 18,
-         "firstName": "Shiko",
-         "lastName": "Matlala",
-         "email": "matlalashiko@gmail.com",
-         "password": "$2a$12$S9TUf64zPuE8yp4FI4vLR.D89KTjQPvaE37h4okUh1WnuvBdCV2b.",
-         "idNumber": "9011275418082",
-         "title": "Mr",
-         "photo": "default.png",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-01T08:10:46.000Z",
-         "updatedAt": "2022-11-01T08:10:46.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 19,
-         "firstName": "Email",
-         "lastName": "Protocol",
-         "email": "emailprotocol@gmail.com",
-         "password": "$2a$12$U0FksLtq08RndJZOZ2R2F.2RR6dUKaIN/JPYRFICFw49CkaQaOGj.",
-         "idNumber": "9502025684028",
-         "title": "Mr",
-         "photo": "default.png",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-01T10:30:20.000Z",
-         "updatedAt": "2022-11-01T10:30:20.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 20,
-         "firstName": "Success",
-         "lastName": "Awaiting",
-         "email": "sucessawaiting@gmail.com",
-         "password": "$2a$12$Gs0fuPA6z4ScRde6ggcFg.Z53yCRqXutzsRHSRxgF7/DZ5w9XkPPO",
-         "idNumber": "9812315844052",
-         "title": "Mr",
-         "photo": "default.png",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-01T10:31:58.000Z",
-         "updatedAt": "2022-11-01T10:31:58.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 22,
-         "firstName": "Refilwe",
-         "lastName": "Mmotong",
-         "email": "refilwemmotong@gmail.com",
-         "password": "$2a$12$7Bcaw7KUbPYbGVFxGFHKr.zVx/VFRyUAwC0YWGAUyjlBlICom/Q6G",
-         "idNumber": "9109090833086",
-         "title": "Miss",
-         "photo": "",
-         "userType": "2",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-16T07:07:38.000Z",
-         "updatedAt": "2022-11-16T07:07:38.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 23,
-         "firstName": "Vuyisile",
-         "lastName": "Memani",
-         "email": "memani@gmail.com",
-         "password": "$2a$12$YXMWebJqFkqcTwCpgz4biO2EHE7pf7.c02xqJDVAC3D6pjn6Tbgz6",
-         "idNumber": "8005055418082",
-         "title": "Mr",
-         "photo": "",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-17T07:21:10.000Z",
-         "updatedAt": "2022-11-17T07:21:10.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 24,
-         "firstName": "Amanda",
-         "lastName": "Masemeni",
-         "email": "amandamasemeni@gmail.com",
-         "password": "$2a$12$FS2P.6RydwTUVmAcEhxjqeJ7xmoe5pnoRhPZSO4T0XU8zjhz6M.Py",
-         "idNumber": "5709270554086",
-         "title": "Miss",
-         "photo": "",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-17T07:25:50.000Z",
-         "updatedAt": "2022-11-17T07:25:50.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 25,
-         "firstName": "Refilwe",
-         "lastName": "Paledi",
-         "email": "paledi@gmail.com",
-         "password": "$2a$12$CAzzhqE4tWP0k85RVLZjy.aPzewmBOXplzH.ayB8eRkO2wRgLHYUq",
-         "idNumber": "9908085481082",
-         "title": "Mr",
-         "photo": "",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-17T07:27:10.000Z",
-         "updatedAt": "2022-11-17T07:27:10.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 26,
-         "firstName": "Peter",
-         "lastName": "Chatiyoka",
-         "email": "chatiyoka@gmail.com",
-         "password": "$2a$12$ssWSCP8nQmodNXGXcuaHNe0lLnmjNxdnSXPWP7wfQwoubPxLSj/Xe",
-         "idNumber": "9301315987084",
-         "title": "Mr",
-         "photo": "",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-17T07:28:30.000Z",
-         "updatedAt": "2022-11-17T07:28:30.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 27,
-         "firstName": "Gary",
-         "lastName": "Bronson",
-         "email": "gary.bronson@gmail.com",
-         "password": "$2a$12$OGpoX5oRcNYJ7YT8L0drf.dRK6nIcjGoYlMLdVaTPNeee/JPEOzFu",
-         "idNumber": "7511275418082",
-         "title": "Mr",
-         "photo": "",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-17T07:30:55.000Z",
-         "updatedAt": "2022-11-17T07:30:55.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 28,
-         "firstName": "Marie",
-         "lastName": "Lee",
-         "email": "marielee@gmail.com",
-         "password": "$2a$12$IYN8mxKQrI4fHT2fQSz8vulZfS3JHX/DxFoKadh4yy6yNvyYKb/2O",
-         "idNumber": "8905110155086",
-         "title": "Miss",
-         "photo": "",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-17T07:34:53.000Z",
-         "updatedAt": "2022-11-17T07:34:53.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 29,
-         "firstName": "Barnabas",
-         "lastName": "Sibanda",
-         "email": "barnabas@gmail.com",
-         "password": "$2a$12$G9feVTsMOXzm66xgJ5R6.u6tYIKhOh2HDO1PG4teTpZs5yp6I5nCa",
-         "idNumber": "0212129230086",
-         "title": "Mr",
-         "photo": "",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-19T12:20:01.000Z",
-         "updatedAt": "2022-11-19T12:20:01.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 30,
-         "firstName": "Sam",
-         "lastName": "Mathabz",
-         "email": "cramndly@gmail.com",
-         "password": "$2a$12$Z8IuYGZWYp5ozN6HybFcT.zf4bsgtw7RvTM2zSh9OlOH1joTxKUkq",
-         "idNumber": "9405075810082",
-         "title": "Mr",
-         "photo": "",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-20T09:32:51.000Z",
-         "updatedAt": "2022-11-20T09:32:51.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     },
-     {
-         "id": 31,
-         "firstName": "sammie",
-         "lastName": "Mathabz",
-         "email": "samie@gmail.com",
-         "password": "$2a$12$zUMP.ApETOC4KDslU/Mk5.z8g53MWA451V8IIQ0XDeRMiBdFk7.pW",
-         "idNumber": "9405175810082",
-         "title": "Mr",
-         "photo": "",
-         "userType": "1",
-         "verified": 0,
-         "references": null,
-         "createdAt": "2022-11-21T07:56:16.000Z",
-         "updatedAt": "2022-11-21T07:56:16.000Z",
-         "disciplineId": 9,
-         "studNumber": null
-     }]
  
+ parseSupervisorJSON(object:any)
+ {
+    let supervisor:any;  
+    if(object != 0){
+        supervisor = JSON.parse(object);
+        supervisor = supervisor.title + ' ' +  supervisor.firstName + ' ' + supervisor.lastName;
+    }
+    else
+        supervisor = "Not Assigned";
 
+    return supervisor;
+ }
+
+ updateInputDescription()
+ {
+    console.log(this.inputDescription.nativeElement.value)
+ }
+ assignSupervisor(projectId:any, supervisorId:any)
+ {
+    console.log(this.inputDescription.nativeElement)
+ 
+    let data:any = {supervisorId: supervisorId}
+    console.log(data);
+    this.apiService.updateProject(projectId, data).subscribe((res)=>{
+        console.log(res)
+    })
+ }
+ parseProjectJSON(object:any)
+ {
+    let project:any;  
+    if(object != 0){
+        project = JSON.parse(object);
+    }
+    else
+        project = "Not Created";
+
+    return project;
+    
+ }
 }

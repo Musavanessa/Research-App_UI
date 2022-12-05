@@ -35,12 +35,6 @@ export class SignupComponent implements OnInit {
     
   }
 
-  // chooseDepartment()
-  // {
-  //   console.log(this.chosenDepartment.nativeElement.value)
-  //   console.log(this.signUpForm);
-  // }
-
   checkPassword():void{this.pCheck = this.signUpForm.password !== this.signUpForm.confirmPassword ? 'Password does not match' : '' }
 
   signUp(){
