@@ -35,6 +35,7 @@ import { BlogService } from './services/blog/blog.service';
 import { NewToolboxComponent } from './new-toolbox/new-toolbox.component';
 import { AdminDashComponent } from './admin/dashboard/admin-dash/admin-dash.component';
 import { AdminManageStudentsComponent } from './admin/students/admin-manage-students/admin-manage-students.component';
+import { AdminSupervisorsComponent } from './admin/supervisors/admin-supervisors/admin-supervisors.component';
 
 
 const routes: Routes = [
@@ -43,8 +44,9 @@ const routes: Routes = [
   },
   {path: 'home', component:DashboardComponent},
   {path: 'admin/dashboard', component:AdminDashComponent},
-  {path: 'admin/manage-student', component:AdminManageStudentsComponent},
-  {path: 'admin/manage-supervisors', component:AdminDashComponent},
+  {path: 'admin/manage-supervisors', component:AdminSupervisorsComponent},
+  {path: 'admin/manage-students', component:AdminDashComponent},
+  {path: 'admin/manage-students', component:AdminManageStudentsComponent},
   {path: 'login', component:LoginComponent},
   {path: 'signup', component:SignupComponent},
   {path: 'dashboard', component:DashboardComponent, canActivate:[SessionGuardService]},

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { UserService } from 'src/app/services/user/user.service';
 import { ApiserviceService } from 'src/app/apiservice.service';
 @Component({
@@ -7,15 +7,18 @@ import { ApiserviceService } from 'src/app/apiservice.service';
   styleUrls: ['./admin-dash.component.css']
 })
 export class AdminDashComponent implements OnInit {
-    @ViewChild('inputDescription') inputDescription: any;
-    @ViewChild('supervisorId') supervisorId:any;
+
     userDetails:any =  JSON.parse(localStorage.getItem('activeUser')!);
+    showAlert = false;
     students2:any = [];
     allAdmins:any = [];
   constructor(private userService: UserService, private apiService: ApiserviceService) { }
+  @ViewChild('inputDescription_') inputDescription: any;
+  @ViewChild('supervisorId') supervisorId:any;
+  @ViewChild('optionValue') optionValue:any;
+  @Input('inputValue') inputValue:any;
   ngOnInit(): void {
     let id = 9;
-
     this.userService.adminGetNewUsers(id).subscribe((data:any) =>{
         console.log(data);
         let tempData = data.data[0];
@@ -54,18 +57,42 @@ export class AdminDashComponent implements OnInit {
     return supervisor;
  }
 
- updateInputDescription()
+ parseSupervisorNameJSON(object:any)
  {
-    console.log(this.inputDescription.nativeElement.value)
+    let supervisor:any;  
+    if(object != 0){
+        supervisor = JSON.parse(object);
+    }
+    else
+        supervisor = "Not Assigned";
+
+    return supervisor.firstName;
  }
- assignSupervisor(projectId:any, supervisorId:any)
+ parseSupervisorLastJSON(object:any)
  {
-    console.log(this.inputDescription.nativeElement)
- 
+    let supervisor:any;  
+    if(object != 0){
+        supervisor = JSON.parse(object);
+    }
+    else
+        supervisor = "Not Assigned";
+
+    return supervisor.lastName;
+ }
+ assignSupervisor(projectId:any)
+ {
+    let supervisorId =this.optionValue.nativeElement.value;
+      
+    
     let data:any = {supervisorId: supervisorId}
     console.log(data);
     this.apiService.updateProject(projectId, data).subscribe((res)=>{
-        console.log(res)
+        console.log(res);
+        if(res.status == "success")
+        {
+            this.showAlert = true;
+        }
+
     })
  }
  parseProjectJSON(object:any)
@@ -78,6 +105,29 @@ export class AdminDashComponent implements OnInit {
         project = "Not Created";
 
     return project;
+ }
+ parseProjectNameJSON(object:any)
+ {
+    let project:any;  
+    if(object != 0){
+        project = JSON.parse(object);
+    }
+    else
+        project = "Not Created";
+
+    return project.name;
+    
+ }
+ parseProjectDescriptionJSON(object:any)
+ {
+    let project:any;  
+    if(object != 0){
+        project = JSON.parse(object);
+    }
+    else
+        project = "Not Created";
+
+    return project.description;
     
  }
 }

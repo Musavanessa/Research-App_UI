@@ -24,6 +24,8 @@
                                         <th scope="col" style="font-weight:lighter">Full Name</th>
                                         <th scope="col" style="font-weight:lighter">Email</th>
                                         <th scope="col" style="font-weight:lighter">Supervisor</th>
+                                        <!-- <th scope="col" style="font-weight:lighter">Research Name</th>
+                                        <th scope="col" style="font-weight:lighter">Research Description</th> -->
                                         <th scope="col" style="font-weight:lighter"></th>
                                         <th scope="col" style="font-weight:lighter"></th>
                                     </tr>
@@ -42,6 +44,8 @@
                                             <p *ngIf="student.supervisor != 0" style="color:green">{{parseSupervisorJSON(student.supervisor)}}</p>
                                         </td>
                                         <td>
+                                            <!-- <div>{{parseProjectJSON(student.project).name}}</div> -->
+
                                         </td>
                                         <td>
 
@@ -78,27 +82,41 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">Research Name</th>
-                                <th scope="col">Research Description</th>
+                                <!-- <th scope="col">Research Name</th>
+                                <th scope="col">Research Description</th> -->
                                 <th scope="col">Supervisor</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
+                            <div *ngIf="showAlert == true" class="alert alert-success" style="width:100%" (click)="showAlert = false">
+                                <div>
+                                  <strong>Success</strong>
+                                </div>
+                                <div>
+                                  Supervisor has been updated
+                                </div>
+                              </div>
                             <tr>
-                                <td><div>{{parseProjectJSON(student.project).name}}</div></td>
+                                <!-- <td>
+                                    <div>{{parseProjectNameJSON(student.project)}}</div>
+                                </td>
                                 <td>
                                     
                                     <div>
                                         {{parseProjectJSON(student.project).description}}
                                     </div>
-                                </td>
+                                </td> -->
                                 <td>
                                     <div class="inputBox" class="form-input" style="width:100%">
                                         <span style="font-size:12px; color:grey">Change / Assign Supervisor</span>
-                                        <select id="faculties" class="form-input" #inputDescription
+                                        <select #optionValue id="optionValue" class="form-input" 
                                             style="width:100%; height: 30px; border-top: none; border-left: none; border-right: none; outline: none;">
-                                            <option *ngFor="let admin of allAdmins" value="{{admin.id}}">{{admin.id + " "+  admin.title + " " + admin.firstName + " " + admin.lastName}}</option>
+                                            <!-- <option value="1">Shiko</option>
+                                            <option value="2">Matlala</option> -->
+                                            <!-- (change)="assignSupervisor(parseProjectJSON(student.project).id, admin.id)" -->
+                                            <option>Choose Supervisor...</option>
+                                            <option  *ngFor="let admin of allAdmins" value="{{admin.id}}" >{{admin.id + " "+  admin.title + " " + admin.firstName + " " + admin.lastName}}</option>
                                         </select>
                                     </div>
                                 </td>
@@ -110,7 +128,7 @@
                                         </svg> Remove Verification</button>
                                 </td> -->
                                 <td>
-                                    <button (click)="assignSupervisor(parseProjectJSON(student.project).id, inputDescription.value)" type="button" class="btn btn-primary btn-sm remove-outline"
+                                    <button (click)="assignSupervisor(parseProjectJSON(student.project).id)" type="button" class="btn btn-primary btn-sm remove-outline"
                                         style="margin-left:10px">Save</button>
                                 </td>
                             </tr>
