@@ -36,7 +36,10 @@ import { NewToolboxComponent } from './new-toolbox/new-toolbox.component';
 import { AdminDashComponent } from './admin/dashboard/admin-dash/admin-dash.component';
 import { AdminManageStudentsComponent } from './admin/students/admin-manage-students/admin-manage-students.component';
 import { AdminSupervisorsComponent } from './admin/supervisors/admin-supervisors/admin-supervisors.component';
-
+import { CreateNewAdminComponent } from './admin/supervisors/create-new-admin/create-new-admin/create-new-admin.component';
+import { UpdateSupervisorsComponent } from './admin/supervisors/update-supervisors/update-supervisors/update-supervisors.component';
+import { AdminCreateNewAdminComponent } from './admin/admin-create-new-admin/admin-create-new-admin.component';
+import { ListAdminsComponent } from './admin/list-admins/list-admins.component';
 
 const routes: Routes = [
   {
@@ -45,8 +48,12 @@ const routes: Routes = [
   {path: 'home', component:DashboardComponent},
   {path: 'admin/dashboard', component:AdminDashComponent},
   {path: 'admin/manage-supervisors', component:AdminSupervisorsComponent},
-  {path: 'admin/manage-students', component:AdminDashComponent},
-  {path: 'admin/manage-students', component:AdminManageStudentsComponent},
+  // {path: 'admin/manage-students', component:AdminDashComponent},
+  {path: 'admin/dashboard', component:AdminManageStudentsComponent},
+  {path: 'admin/list-admins', component:ListAdminsComponent},
+  {path: 'admin/admin-create-new-admin', component:AdminCreateNewAdminComponent},
+  {path: 'admin/create-new-supervisor', component:CreateNewAdminComponent},
+  {path: 'admin/list-supervisors', component:UpdateSupervisorsComponent},
   {path: 'login', component:LoginComponent},
   {path: 'signup', component:SignupComponent},
   {path: 'dashboard', component:DashboardComponent, canActivate:[SessionGuardService]},

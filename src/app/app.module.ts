@@ -53,7 +53,11 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AdminManageStudentsComponent } from './admin/students/admin-manage-students/admin-manage-students.component';
 import { AdminDashComponent } from './admin/dashboard/admin-dash/admin-dash.component';
 import { AdminSupervisorsComponent } from './admin/supervisors/admin-supervisors/admin-supervisors.component';
-import { AdminDashTopNavComponent } from './admin/admin-dash-top-nav/admin-dash-top-nav.component'
+import { AdminDashTopNavComponent } from './admin/admin-dash-top-nav/admin-dash-top-nav.component';
+import { CreateNewAdminComponent } from './admin/supervisors/create-new-admin/create-new-admin/create-new-admin.component';
+import { UpdateSupervisorsComponent } from './admin/supervisors/update-supervisors/update-supervisors/update-supervisors.component';
+import { ListAdminsComponent } from './admin/list-admins/list-admins.component';
+import { AdminCreateNewAdminComponent } from './admin/admin-create-new-admin/admin-create-new-admin.component'
 
 
 @NgModule({
@@ -88,7 +92,11 @@ import { AdminDashTopNavComponent } from './admin/admin-dash-top-nav/admin-dash-
     AdminManageStudentsComponent,
     AdminDashComponent,
     AdminSupervisorsComponent,
-    AdminDashTopNavComponent
+    AdminDashTopNavComponent,
+    CreateNewAdminComponent,
+    UpdateSupervisorsComponent,
+    ListAdminsComponent,
+    AdminCreateNewAdminComponent
   ],
   imports: [
     BrowserModule,

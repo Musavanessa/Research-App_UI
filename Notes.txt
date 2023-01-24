@@ -584,3 +584,158 @@ verified
         &nbsp;
         &nbsp;
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      ========================================
+      13 Jan 2023
+      ======================
+          <div class="accordion" id="accordionExample">
+        <div class="accordion-item" *ngFor="let student of students2; let i = index">
+            <h2 class="accordion-header" id="{{heading}}{{i}}">
+                <button class="accordion-button remove-outline" type="button" data-bs-toggle="collapse"
+                   attr.data-bs-target="#shiko{{i}}" aria-expanded="true" attr.aria-controls="shiko{{i}}"
+                    style="user-select:none">
+                    <div style="width:100%;color:rgb(2, 33, 80);">
+                        <div style="width:100%; display: inline-flex;color:rgb(2, 33, 80); font-size: 17px;">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="font-weight:lighter">Stud ID</th>
+                                        <th scope="col" style="font-weight:lighter">Full Name</th>
+                                        <th scope="col" style="font-weight:lighter">Email</th>
+                                        <th scope="col" style="font-weight:lighter">Supervisor</th>
+                                        <!-- <th scope="col" style="font-weight:lighter">Research Name</th>
+                                        <th scope="col" style="font-weight:lighter">Research Description</th> -->
+                                        <th scope="col" style="font-weight:lighter"></th>
+                                        <th scope="col" style="font-weight:lighter"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {{student.id}}
+                                        </td>
+                                        <td>{{student.firstName + " " + student.lastName}}</td>
+                                        <td>
+                                            {{student.email}}
+                                        </td>
+                                        <td>
+                                            <p *ngIf="student.supervisor == 0" style="color:red">{{parseSupervisorJSON(student.supervisor)}}</p>
+                                            <p *ngIf="student.supervisor != 0" style="color:green">{{parseSupervisorJSON(student.supervisor)}}</p>
+                                        </td>
+                                        <td>
+                                            <!-- <div>{{parseProjectJSON(student.project).name}}</div> -->
+
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- <div style="width:30%;">
+                                {{student.id}}
+                            </div>
+                            <div style="width:30%;">
+                                {{student.firstName + " " + student.lastName}}
+                            </div>
+                            <div style="min-width:30%;">
+                                {{student.email}}
+                            </div>
+                            <div style="width:30%;">
+                                <p *ngIf="student.supervisor == 0">Not Assigned</p>
+                                <p *ngIf="student.supervisor != 0">
+                                    {{parseJSON(student.supervisor)}}
+                                </p>
+
+                            </div>
+                            <div style="width:10%; color:darkgreen">
+                                Verified
+                            </div> -->
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="shiko{{i}}" class="accordion-collapse collapse " attr.aria-labelledby="{{heading}}{{i}}"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <!-- <th scope="col">Research Name</th>
+                                <th scope="col">Research Description</th> -->
+                                <th scope="col">Supervisor</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div *ngIf="showAlert == true" class="alert alert-success" style="width:100%" (click)="showAlert = false">
+                                <div>
+                                  <strong>Success</strong>
+                                </div>
+                                <div>
+                                  Supervisor has been updated
+                                </div>
+                              </div>
+                            <tr>
+                                <!-- <td>
+                                    <div>{{parseProjectNameJSON(student.project)}}</div>
+                                </td>
+                                <td>
+                                    
+                                    <div>
+                                        {{parseProjectJSON(student.project).description}}
+                                    </div>
+                                </td> -->
+                                <td>
+                                    <div class="inputBox" class="form-input" style="width:100%">
+                                        <span style="font-size:12px; color:grey">Change / Assign Supervisor</span>
+                                        <select #optionValue id="optionValue" class="form-input" 
+                                            style="width:100%; height: 30px; border-top: none; border-left: none; border-right: none; outline: none;">
+                                            <!-- <option value="1">Shiko</option>
+                                            <option value="2">Matlala</option> -->
+                                            <!-- (change)="assignSupervisor(parseProjectJSON(student.project).id, admin.id)" -->
+                                            <option>Choose Supervisor...</option>
+                                            <option  *ngFor="let admin of allAdmins" value="{{admin.id}}" >{{admin.id + " "+  admin.title + " " + admin.firstName + " " + admin.lastName}}</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <!-- <td>
+                                    <button type="button" class="btn btn-light  btn-sm remove-outline"><svg
+                                            xmlns="http://www.w3.org/2000/svg" height="24" fill="red" width="24">
+                                            <path
+                                                d="m8.4 17 3.6-3.6 3.6 3.6 1.4-1.4-3.6-3.6L17 8.4 15.6 7 12 10.6 8.4 7 7 8.4l3.6 3.6L7 15.6Zm3.6 5q-2.075 0-3.9-.788-1.825-.787-3.175-2.137-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175 1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138 1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175-1.35 1.35-3.175 2.137Q14.075 22 12 22Z" />
+                                        </svg> Remove Verification</button>
+                                </td> -->
+                                <td>
+                                    <button (click)="assignSupervisor(parseProjectJSON(student.project).id)" type="button" class="btn btn-primary btn-sm remove-outline"
+                                        style="margin-left:10px">Save</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse
+                    plugin adds the appropriate classes that we use to style each element. These classes control the
+                    overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of
+                    this with custom CSS or overriding our default variables. It's also worth noting that just about any
+                    HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow. -->
+                </div>
+            </div>
+        </div>
+    </div>
