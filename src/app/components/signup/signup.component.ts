@@ -9,7 +9,7 @@ import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css']//
 })
 export class SignupComponent implements OnInit {
   @ViewChild('inputDescription') inputDescription: any;

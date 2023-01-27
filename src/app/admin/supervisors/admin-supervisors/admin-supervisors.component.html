@@ -15,6 +15,153 @@
                 <a routerLink="/admin/create-new-supervisor"><svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" fill="darkgreen"><path d="M12 17q.425 0 .713-.288Q13 16.425 13 16v-3h3.025q.425 0 .7-.288Q17 12.425 17 12t-.288-.713Q16.425 11 16 11h-3V7.975q0-.425-.287-.7Q12.425 7 12 7t-.712.287Q11 7.575 11 8v3H7.975q-.425 0-.7.287Q7 11.575 7 12t.287.712Q7.575 13 8 13h3v3.025q0 .425.288.7.287.275.712.275Zm0 5q-2.075 0-3.9-.788-1.825-.787-3.175-2.137-1.35-1.35-2.137-3.175Q2 14.075 2 12t.788-3.9q.787-1.825 2.137-3.175 1.35-1.35 3.175-2.138Q9.925 2 12 2t3.9.787q1.825.788 3.175 2.138 1.35 1.35 2.137 3.175Q22 9.925 22 12t-.788 3.9q-.787 1.825-2.137 3.175-1.35 1.35-3.175 2.137Q14.075 22 12 22Z"/></svg><label><br>Create New Supervisor</label></a>
                 <a routerLink="/admin/manage-supervisors"><svg xmlns="http://www.w3.org/2000/svg" height="24" width="24"><path d="M8 9q-.425 0-.713-.288Q7 8.425 7 8t.287-.713Q7.575 7 8 7h12q.425 0 .712.287Q21 7.575 21 8t-.288.712Q20.425 9 20 9Zm0 4q-.425 0-.713-.288Q7 12.425 7 12t.287-.713Q7.575 11 8 11h12q.425 0 .712.287.288.288.288.713t-.288.712Q20.425 13 20 13Zm0 4q-.425 0-.713-.288Q7 16.425 7 16t.287-.713Q7.575 15 8 15h12q.425 0 .712.287.288.288.288.713t-.288.712Q20.425 17 20 17ZM4 9q-.425 0-.712-.288Q3 8.425 3 8t.288-.713Q3.575 7 4 7t.713.287Q5 7.575 5 8t-.287.712Q4.425 9 4 9Zm0 4q-.425 0-.712-.288Q3 12.425 3 12t.288-.713Q3.575 11 4 11t.713.287Q5 11.575 5 12t-.287.712Q4.425 13 4 13Zm0 4q-.425 0-.712-.288Q3 16.425 3 16t.288-.713Q3.575 15 4 15t.713.287Q5 15.575 5 16t-.287.712Q4.425 17 4 17Z"/></svg><label><br>List Supervisors</label></a>
             </div>
+            <div
+    style="position:fixed; top:195px; left:70px; padding-left: 90px;padding-right:100px; width:100%; height:100%; overflow: scroll; padding-bottom: 220px;">
+    <!-- <h1>Manage Students</h1> -->
+    <br><br><br>
+    <p>List of All Supervisors</p><br>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col" style="font-weight:lighter">Stud ID</th>
+                <th scope="col" style="font-weight:lighter">Full Name</th>
+                <th scope="col" style="font-weight:lighter">Email</th>
+                <th scope="col" style="font-weight:lighter">Current Supervisor</th>
+                <th scope="col" style="font-weight:lighter">Change Supervisor</th>
+                <!-- <th scope="col" style="font-weight:lighter">Research Name</th>
+                <th scope="col" style="font-weight:lighter">Research Description</th> -->
+                <th scope="col" style="font-weight:lighter"></th>
+                <th scope="col" style="font-weight:lighter"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let student of students2; let i = index">
+                <td>
+                    {{student.id}}
+                </td>
+                <td>{{student.firstName + " " + student.lastName}}</td>
+                <td>
+                    {{student.email}}
+                </td>
+                <td>
+                    <p *ngIf="student.supervisor == 0" style="color:red">{{parseSupervisorJSON(student.supervisor)}}</p>
+                    <p *ngIf="student.supervisor != 0" style="color:green">{{parseSupervisorJSON(student.supervisor)}}</p>
+                </td>
+                <td>
+                    <div class="inputBox" class="form-input" style="width:100%">
+                        <!-- <span style="font-size:12px; color:grey">Change / Assign Supervisor</span> -->
+                        <select #optionValue id="optionValue" class="form-input" 
+                            style="width:100%; height: 30px; border-top: none; border-left: none; border-right: none; outline: none;">
+                            <!-- <option value="1">Shiko</option>
+                            <option value="2">Matlala</option> -->
+                            <!-- (change)="assignSupervisor(parseProjectJSON(student.project).id, admin.id)" -->
+                            <option>Choose Supervisor...</option>
+                            <option  *ngFor="let admin of allAdmins" value="{{admin.id}}" >{{admin.id + " "+  admin.title + " " + admin.firstName + " " + admin.lastName}}</option>
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <button (click)="assignSupervisor(parseProjectJSON(student.project).id)" type="button" class="btn btn-primary btn-sm remove-outline"
+                    style="margin-left:10px">Save</button>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- <div class="accordion" id="accordionExample">
+        <div class="accordion-item" *ngFor="let student of students2; let i = index">
+            <h2 class="accordion-header" id="{{heading}}{{i}}">
+                <button class="accordion-button remove-outline" type="button" data-bs-toggle="collapse"
+                   attr.data-bs-target="#shiko{{i}}" aria-expanded="true" attr.aria-controls="shiko{{i}}"
+                    style="user-select:none">
+                    <div style="width:100%;color:rgb(2, 33, 80);">
+                        <div style="width:100%; display: inline-flex;color:rgb(2, 33, 80); font-size: 17px;">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" style="font-weight:lighter">Stud ID</th>
+                                        <th scope="col" style="font-weight:lighter">Full Name</th>
+                                        <th scope="col" style="font-weight:lighter">Email</th>
+                                        <th scope="col" style="font-weight:lighter">Current Supervisor</th>
+                                        <th scope="col" style="font-weight:lighter">Change Supervisor</th>
+
+                                        <th scope="col" style="font-weight:lighter"></th>
+                                        <th scope="col" style="font-weight:lighter"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            {{student.id}}
+                                        </td>
+                                        <td>{{student.firstName + " " + student.lastName}}</td>
+                                        <td>
+                                            {{student.email}}
+                                        </td>
+                                        <td>
+                                            <p *ngIf="student.supervisor == 0" style="color:red">{{parseSupervisorJSON(student.supervisor)}}</p>
+                                            <p *ngIf="student.supervisor != 0" style="color:green">{{parseSupervisorJSON(student.supervisor)}}</p>
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                        <td>
+                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </button>
+            </h2>
+            <div id="shiko{{i}}" class="accordion-collapse collapse " attr.aria-labelledby="{{heading}}{{i}}"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Supervisor</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <div *ngIf="showAlert == true" class="alert alert-success" style="width:100%" (click)="showAlert = false">
+                                <div>
+                                  <strong>Success</strong>
+                                </div>
+                                <div>
+                                  Supervisor has been updated
+                                </div>
+                              </div>
+                            <tr>
+                                <td>
+                                    <div class="inputBox" class="form-input" style="width:100%">
+                                        <span style="font-size:12px; color:grey">Change / Assign Supervisor</span>
+                                        <select #optionValue id="optionValue" class="form-input" 
+                                            style="width:100%; height: 30px; border-top: none; border-left: none; border-right: none; outline: none;">
+                                            <option>Choose Supervisor...</option>
+                                            <option  *ngFor="let admin of allAdmins" value="{{admin.id}}" >{{admin.id + " "+  admin.title + " " + admin.firstName + " " + admin.lastName}}</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button (click)="assignSupervisor(parseProjectJSON(student.project).id)" type="button" class="btn btn-primary btn-sm remove-outline"
+                                        style="margin-left:10px">Save</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
         
         </div>
 
