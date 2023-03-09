@@ -16,72 +16,43 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./list-admins.component.css']
 })
 export class ListAdminsComponent implements OnInit {
-  @ViewChild('inputDescription') inputDescription: any;
-  @ViewChild('chosenDepartment') chosenDepartment:any;
-
-  // @ViewChild('inputDescription_') inputDescription: any;
+  userDetails:any =  JSON.parse(localStorage.getItem('activeUser')!);
+  showAlert = false;
+  students2:any = [];
+  allAdmins:any = [];
+constructor(private userService: UserService, private apiService: ApiserviceService) { }
+@ViewChild('inputDescription_') inputDescription: any;
 @ViewChild('supervisorId') supervisorId:any;
 @ViewChild('optionValue') optionValue:any;
 @Input('inputValue') inputValue:any;
-
-  signUpForm: User = new User;
-  errors: any = [];
-  students2:any = [];
-  allAdmins:any = [];
-
-  pCheck: string ='';
-  faculties:any;
-  departments:any;
-  constructor( private userService: UserService, private authService:AuthService,private router: Router, private departmentFacultiesService: DepartmentFacultiesService, private apiService: ApiserviceService ) { }
-  userDetails:any =  JSON.parse(localStorage.getItem('activeUser')!);
-  ngOnInit(): void {
-
-
-
-
-    console.log("User Details", this.userDetails);
-    console.log("disciplineId", this.userDetails.disciplineId);
-    this.signUpForm.userType = 2;
-    this.signUpForm.password = "283DDF1W@88*";
-    this.signUpForm.disciplineId = this.userDetails.disciplineId;
-    this.signUpForm.confirmPassword = this.signUpForm.password;
-    this.departmentFacultiesService.getFaculties().subscribe((data:any)=>{
-      this.faculties = data.faculties;
-    })
-    console.log(this.signUpForm);
-  }
-
-  getFacultyDepartments()
-  {
-    this.departmentFacultiesService.getDepartment(this.inputDescription.nativeElement.value).subscribe((data:any)=>{
-      this.departments = data.departments;
-    })
-    
-  }
-
-  checkPassword():void{this.pCheck = this.signUpForm.password !== this.signUpForm.confirmPassword ? 'Password does not match' : '' }
-
-  signUp(){
-    this.signUpForm.disciplineId = this.chosenDepartment.nativeElement.value;
-
-    this.authService.signUp(this.signUpForm).subscribe({
-      next: data => {
-        // console.log('Sign in data:',data)
-        var newData:any = data;
-        // console.log(newData.status);
-        this.errors = [];
-        if(newData.status == "success")
-        {
-          this.router.navigate(['/login']);
-        }
-      },
-      error: err => {
-        this.errors[0] = err.message;
+ngOnInit(): void {
+  let id = 9;
+  this.userService.adminGetNewUsers(id).subscribe((data:any) =>{
+      console.log(data);
+      let tempData = data.data[0];
+      let i:any;
+      for( i in data.data[0])
+      {
+          this.students2.push(tempData[i]);
       }
-    })
-  }
+      console.log(this.students2);
+  })
+  this.userService.getAllSupervisors(id).subscribe((data:any)=>{
+      let tempData = data.data[0];
+      let i:any;
+      for(i in data.data[0])
+      {
+          this.allAdmins.push(tempData[i]);
+      }
+      console.log(this.allAdmins);
+  })
 
-  parseSupervisorJSON(object:any)
+}
+generalCollapse = "collapse-";
+collapseWithPound = "#collapse-";
+heading = "heading-";
+
+parseSupervisorJSON(object:any)
 {
   let supervisor:any;  
   if(object != 0){
@@ -127,7 +98,7 @@ assignSupervisor(projectId:any)
       console.log(res);
       if(res.status == "success")
       {
-          // this.showAlert = true;
+          this.showAlert = true;
       }
 
   })
@@ -167,4 +138,5 @@ parseProjectDescriptionJSON(object:any)
   return project.description;
   
 }
+
 }
