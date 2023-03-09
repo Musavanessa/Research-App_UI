@@ -10,9 +10,9 @@ export class ChatboxServiceService {
 
   constructor(public _http:HttpClient) { }
   // apiUrl = 'http://localhost:3000/api/v1/';
-  apiUrl = 'http://44.204.59.197:3000/api/v1/';
+  apiUrl = 'http://3.83.42.8:3000/api/v1/';
 
-  // URL: string = `http://44.204.59.197:3000/api/v1/users`;
+  // URL: string = `http://3.83.42.8:3000/api/v1/users`;
 
 
   //Get All Chats

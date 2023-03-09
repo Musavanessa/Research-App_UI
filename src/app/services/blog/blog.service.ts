@@ -9,8 +9,8 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 export class BlogService {
 
   // URL: string = `http://localhost:3000/api/v1/blogs`;
-  COMMENT_URL: string = `http://44.204.59.19:3000/api/v1/comments`;
-  URL: string = `http://44.204.59.197:3000/api/v1/blogs`;
+  COMMENT_URL: string = `http://3.83.42.8:3000/api/v1/comments`;
+  URL: string = `http://3.83.42.8:3000/api/v1/blogs`;
 
   //private decodedToken: DecodedToken = new DecodedToken;
 

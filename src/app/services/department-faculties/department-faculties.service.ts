@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class DepartmentFacultiesService {
 
   constructor(public _http:HttpClient) { }
-  apiUrl = 'http://44.204.59.197:3000/api/v1/';
+  apiUrl = 'http://3.83.42.8:3000/api/v1/';
 
   getFaculties():Observable<any>
   {
