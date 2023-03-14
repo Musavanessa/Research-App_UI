@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { url } from 'src/app/globals';
 
 
 @Injectable({
@@ -9,8 +10,7 @@ import { Observable } from 'rxjs';
 export class FeedbackService {
 
   constructor(public http:HttpClient) { }
-  apiUrl = 'http://3.83.42.8:3000/api/v1/';
-  // apiUrl = 'http://localhost:3000/api/v1/';
+  apiUrl = url;
 
   sendFeedback(messageObject:any):Observable<any>
   {

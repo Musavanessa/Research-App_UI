@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { url } from 'src/app/globals';
 
 
 @Injectable({
@@ -9,10 +10,9 @@ import { Observable } from 'rxjs';
 export class ChatboxServiceService {
 
   constructor(public _http:HttpClient) { }
-  // apiUrl = 'http://localhost:3000/api/v1/';
-  apiUrl = 'http://3.83.42.8:3000/api/v1/';
 
-  // URL: string = `http://3.83.42.8:3000/api/v1/users`;
+  apiUrl = url;
+
 
 
   //Get All Chats

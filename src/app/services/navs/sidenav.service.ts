@@ -3,6 +3,7 @@
 //We want to be able to open
 import { Injectable } from '@angular/core';
 import { ViewChild } from '@angular/core';
+import { url } from 'src/app/globals';
 // import { UserService } from '../user/user.service';
 // import { SidenavComponent } from 'src/app/home/login/sidenav/sidenav.component';
 // import { TopnavComponent } from 'src/app/home/login/dashboard/projects/topnav/topnav.component';

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { url } from 'src/app/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Observable } from 'rxjs';
 export class DepartmentFacultiesService {
 
   constructor(public _http:HttpClient) { }
-  apiUrl = 'http://3.83.42.8:3000/api/v1/';
+  apiUrl = url;
 
   getFaculties():Observable<any>
   {
@@ -16,7 +17,7 @@ export class DepartmentFacultiesService {
   }
 
   getDepartment(id:any):Observable<any>{
-    return this._http.get(`${this.apiUrl + "discipline/getAllDepartmentsWhere/" +  id}`);
+    return this._http.get(`${this.apiUrl + "discipline/" +  id}`);
   }
 
 

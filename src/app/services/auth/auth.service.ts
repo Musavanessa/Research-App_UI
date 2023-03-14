@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { url } from 'src/app/globals';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import * as moment from 'moment';
 
@@ -24,7 +25,7 @@ class DecodedToken {
 export class AuthService {
 
   // URL: string = `http://localhost:3000/api/v1/users`;
-  URL: string = `http://44.204.59.197:3000/api/v1/users`;
+  URL: string = `${url}users`;
   private decodedToken: DecodedToken = new DecodedToken;
 
   constructor(private http:HttpClient) {

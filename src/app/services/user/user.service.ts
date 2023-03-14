@@ -2,15 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, ObservedValuesFromArray } from 'rxjs';
 import { User } from 'src/app/models/user.model';
+import { url } from 'src/app/globals';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  // URL: string = `http://168.172.189.59:3000/api/v1/users`
-  URL: string = `http://3.83.42.8:3000/api/v1/users`;
-  // URL: string = `http://localhost:3000/api/v1/users`;
+
+  URL: string = `${url}users`;
+
   
 
   constructor(private http:HttpClient) { }

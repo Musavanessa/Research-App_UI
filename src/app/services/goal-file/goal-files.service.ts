@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { convertToObject } from 'typescript';
+import { url } from 'src/app/globals';
 
 
 
@@ -11,9 +12,9 @@ import { convertToObject } from 'typescript';
 export class GoalFilesService {
 
   constructor(private http: HttpClient) { }
-    // apiUrl = 'http://168.172.189.59:3000/api/v1/';
-    apiUrl = 'http://3.83.42.8:3000/api/v1/goal_files/';
-    // apiUrl = 'http://localhost:3000/api/v1/goal_files/';
+
+    apiUrl = url;
+
 
     postGoalFile(goalId:any, formData:any):Observable<any>
     {

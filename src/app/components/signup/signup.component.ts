@@ -29,8 +29,10 @@ export class SignupComponent implements OnInit {
 
   getFacultyDepartments()
   {
+    console.log(this.inputDescription.nativeElement.value);
     this.departmentFacultiesService.getDepartment(this.inputDescription.nativeElement.value).subscribe((data:any)=>{
-      this.departments = data.departments;
+      this.departments = data.discipline;
+      console.log(data)
     })
     
   }

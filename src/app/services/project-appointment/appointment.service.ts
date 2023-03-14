@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { url } from 'src/app/globals';
 
 @Injectable({
   providedIn: 'root'
@@ -8,8 +9,7 @@ import { Observable } from 'rxjs';
 export class AppointmentService {
 
   constructor(private http: HttpClient) { }
-  apiUrl = 'http://3.83.42.8:3000/api/v1/appointments/';
-  // apiUrl = 'http://localhost:3000/api/v1/appointments/'
+  apiUrl = url;
   createApppoitment(appointment:any):Observable<any>
   {
     return this.http.post(`${this.apiUrl + appointment.projectId}`, appointment);

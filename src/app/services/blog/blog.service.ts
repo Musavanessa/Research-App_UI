@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { catchError, map, Observable, throwError } from 'rxjs';
+import { url } from 'src/app/globals';
 
 
 @Injectable({
@@ -9,8 +10,8 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 export class BlogService {
 
   // URL: string = `http://localhost:3000/api/v1/blogs`;
-  COMMENT_URL: string = `http://3.83.42.8:3000/api/v1/comments`;
-  URL: string = `http://3.83.42.8:3000/api/v1/blogs`;
+  COMMENT_URL: string = `${url}comments`;
+  URL: string = `${url}blogs`;
 
   //private decodedToken: DecodedToken = new DecodedToken;
 

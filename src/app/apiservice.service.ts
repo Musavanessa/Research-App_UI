@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { url } from './globals';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,7 @@ import { Observable } from 'rxjs';
 export class ApiserviceService {
 
   constructor(private _http:HttpClient) { }
-  // apiUrl = 'https://researcher-dna-api.herokuapp.com/api/v1/';
-  // apiUrl = 'http://168.172.189.59:3000/api/v1/';
-  apiUrl = 'http://3.83.42.8:3000/api/v1/';
-  // apiUrl = 'http://localhost:3000/api/v1';
-
+  apiUrl = url;
 
   disciplines(): Observable<any>
   {
