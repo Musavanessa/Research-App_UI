@@ -26,7 +26,7 @@ constructor(private userService: UserService, private apiService: ApiserviceServ
 @ViewChild('optionValue') optionValue:any;
 @Input('inputValue') inputValue:any;
 ngOnInit(): void {
-  let id = 9;
+  let id = this.userDetails.disciplineId;
   this.userService.adminGetNewUsers(id).subscribe((data:any) =>{
       console.log(data);
       let tempData = data.data[0];

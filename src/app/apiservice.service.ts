@@ -6,7 +6,8 @@ import { url } from './globals';
 @Injectable({
   providedIn: 'root'
 })
-export class ApiserviceService {
+export class 
+ApiserviceService {
 
   constructor(private _http:HttpClient) { }
   apiUrl = url;

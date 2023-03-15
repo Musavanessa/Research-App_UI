@@ -13,7 +13,7 @@ export class GoalFilesService {
 
   constructor(private http: HttpClient) { }
 
-    apiUrl = url;
+    apiUrl = `${url}goal_files/`;
 
 
     postGoalFile(goalId:any, formData:any):Observable<any>

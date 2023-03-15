@@ -20,5 +20,9 @@ export class DepartmentFacultiesService {
     return this._http.get(`${this.apiUrl + "discipline/" +  id}`);
   }
 
+  getFacultyDepartment(id:any):Observable<any>{
+    return this._http.get(`${this.apiUrl + "discipline/faculty/" +  id}`);
+  }
+
 
 }

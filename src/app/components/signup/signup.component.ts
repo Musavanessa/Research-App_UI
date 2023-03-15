@@ -16,9 +16,10 @@ export class SignupComponent implements OnInit {
   @ViewChild('chosenDepartment') chosenDepartment:any;
   signUpForm: User = new User;
   errors: any = [];
+  disciplineNotFound: any = [{department:{id: 0, name: "Not Found"}}]
   pCheck: string ='';
   faculties:any;
-  departments:any;
+  departments:any = this.disciplineNotFound;
   constructor(private authService:AuthService,private router: Router, private departmentFacultiesService: DepartmentFacultiesService ) { }
 
   ngOnInit(): void {
@@ -30,8 +31,19 @@ export class SignupComponent implements OnInit {
   getFacultyDepartments()
   {
     console.log(this.inputDescription.nativeElement.value);
-    this.departmentFacultiesService.getDepartment(this.inputDescription.nativeElement.value).subscribe((data:any)=>{
-      this.departments = data.discipline;
+    this.departmentFacultiesService.getFacultyDepartment(this.inputDescription.nativeElement.value).subscribe((data:any)=>{
+      if(data.status == "error")
+      {
+        console.log("error found");
+        this.departments = "";
+        this.departments = this.disciplineNotFound;
+      }
+      if(data.status == "success")
+      {
+        this.departments = "";
+        this.departments = data.discipline;
+      }
+
       console.log(data)
     })
     

@@ -3,6 +3,7 @@ import { Observable, Observer } from 'rxjs';
 import { of } from 'rxjs/internal/observable/of';
 import { HttpClient } from '@angular/common/http';
 import { ApiserviceService } from 'src/app/apiservice.service';
+import { url } from 'src/app/globals';
 
 
 
@@ -31,7 +32,7 @@ export class ProjectObjectService {
     return this.projectObject;
   }
   
-  apiUrl = 'http://44.204.59.197:3000/api/v1/';
+  apiUrl = url;
   student_pass_down_data:any;
   userDatails:any;
   messageReplyTo = "";
