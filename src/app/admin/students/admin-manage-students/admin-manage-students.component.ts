@@ -28,7 +28,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-03-17T09:34:15.000Z",
         "updatedAt": "2022-03-17T09:34:15.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071433,
+        "Department":""
     },
     {
         "id": 2,
@@ -37,7 +38,7 @@ export class AdminManageStudentsComponent implements OnInit {
         "email": "rkmwastaken@gmail.com",
         "password": "123456",
         "idNumber": "1111111111111",
-        "title": null,
+        "title": "Mr",
         "photo": "Get the API",
         "userType": "",
         "verified": 0,
@@ -45,7 +46,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-03-25T15:52:50.000Z",
         "updatedAt": "2022-03-25T15:52:50.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071434,
+        "Department":""
     },
      {
         "id": 11,
@@ -54,7 +56,7 @@ export class AdminManageStudentsComponent implements OnInit {
         "email": "phethimatlala@gmail.com",
         "password": "$2a$12$5ccLA.W3TtdmEJ48.ylrwOdbEKjxRT5tveuTqVTDkkZ4dw5mgyBIm",
         "idNumber": "9611280992084",
-        "title": "Miss",
+        "title": "Ms",
         "photo": "",
         "userType": "1",
         "verified": 0,
@@ -62,7 +64,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-09-19T12:56:58.000Z",
         "updatedAt": "2022-09-19T12:56:58.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071435,
+        "Department":""
     },
     {
         "id": 12,
@@ -71,7 +74,7 @@ export class AdminManageStudentsComponent implements OnInit {
         "email": "Phethivangeli@gmail.com",
         "password": "$2a$12$SeIOSyXe/0J4AFJ2ar4CzO9cCtmlBDcQ6iYV0ujAPcMG4xq79M1E.",
         "idNumber": "9611290023087",
-        "title": "Miss",
+        "title": "Ms",
         "photo": "default.png",
         "userType": "1",
         "verified": 0,
@@ -79,7 +82,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-10-31T06:11:32.000Z",
         "updatedAt": "2022-10-31T06:11:32.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071436,
+        "Department":""
     },
      {
         "id": 14,
@@ -96,7 +100,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-01T01:57:41.000Z",
         "updatedAt": "2022-11-01T01:57:41.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 21607147,
+        "Department":""
     },
     {
         "id": 15,
@@ -113,7 +118,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-01T01:58:19.000Z",
         "updatedAt": "2022-11-01T01:58:19.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071438,
+        "Department":""
     },
     {
         "id": 16,
@@ -130,7 +136,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-01T01:58:58.000Z",
         "updatedAt": "2022-11-01T01:58:58.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071439,
+        "Department":""
     },
     {
         "id": 17,
@@ -147,7 +154,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-01T02:26:36.000Z",
         "updatedAt": "2022-11-01T02:26:36.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071440,
+        "Department":""
     },
     {
         "id": 18,
@@ -164,7 +172,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-01T08:10:46.000Z",
         "updatedAt": "2022-11-01T08:10:46.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071441,
+        "Department":""
     },
     {
         "id": 19,
@@ -181,7 +190,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-01T10:30:20.000Z",
         "updatedAt": "2022-11-01T10:30:20.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071442,
+        "Department":""
     },
     {
         "id": 20,
@@ -198,7 +208,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-01T10:31:58.000Z",
         "updatedAt": "2022-11-01T10:31:58.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071443,
+        "Department":""
     },
     {
         "id": 22,
@@ -207,7 +218,7 @@ export class AdminManageStudentsComponent implements OnInit {
         "email": "refilwemmotong@gmail.com",
         "password": "$2a$12$7Bcaw7KUbPYbGVFxGFHKr.zVx/VFRyUAwC0YWGAUyjlBlICom/Q6G",
         "idNumber": "9109090833086",
-        "title": "Miss",
+        "title": "Ms",
         "photo": "",
         "userType": "2",
         "verified": 0,
@@ -215,7 +226,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-16T07:07:38.000Z",
         "updatedAt": "2022-11-16T07:07:38.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071444,
+        "Department":""
     },
     {
         "id": 23,
@@ -232,7 +244,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-17T07:21:10.000Z",
         "updatedAt": "2022-11-17T07:21:10.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071445,
+        "Department":""
     },
     {
         "id": 24,
@@ -241,7 +254,7 @@ export class AdminManageStudentsComponent implements OnInit {
         "email": "amandamasemeni@gmail.com",
         "password": "$2a$12$FS2P.6RydwTUVmAcEhxjqeJ7xmoe5pnoRhPZSO4T0XU8zjhz6M.Py",
         "idNumber": "5709270554086",
-        "title": "Miss",
+        "title": "Ms",
         "photo": "",
         "userType": "1",
         "verified": 0,
@@ -249,7 +262,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-17T07:25:50.000Z",
         "updatedAt": "2022-11-17T07:25:50.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071446,
+        "Department":""
     },
     {
         "id": 25,
@@ -266,7 +280,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-17T07:27:10.000Z",
         "updatedAt": "2022-11-17T07:27:10.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071447,
+        "Department":""
     },
     {
         "id": 26,
@@ -283,7 +298,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-17T07:28:30.000Z",
         "updatedAt": "2022-11-17T07:28:30.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071448,
+        "Department":""
     },
     {
         "id": 27,
@@ -300,7 +316,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-17T07:30:55.000Z",
         "updatedAt": "2022-11-17T07:30:55.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071449,
+        "Department":""
     },
     {
         "id": 28,
@@ -309,7 +326,7 @@ export class AdminManageStudentsComponent implements OnInit {
         "email": "marielee@gmail.com",
         "password": "$2a$12$IYN8mxKQrI4fHT2fQSz8vulZfS3JHX/DxFoKadh4yy6yNvyYKb/2O",
         "idNumber": "8905110155086",
-        "title": "Miss",
+        "title": "Ms",
         "photo": "",
         "userType": "1",
         "verified": 0,
@@ -317,7 +334,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-17T07:34:53.000Z",
         "updatedAt": "2022-11-17T07:34:53.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071450,
+        "Department":""
     },
     {
         "id": 29,
@@ -334,7 +352,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-19T12:20:01.000Z",
         "updatedAt": "2022-11-19T12:20:01.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071451,
+        "Department":""
     },
     {
         "id": 30,
@@ -351,7 +370,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-20T09:32:51.000Z",
         "updatedAt": "2022-11-20T09:32:51.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071452,
+        "Department":""
     },
     {
         "id": 31,
@@ -368,7 +388,8 @@ export class AdminManageStudentsComponent implements OnInit {
         "createdAt": "2022-11-21T07:56:16.000Z",
         "updatedAt": "2022-11-21T07:56:16.000Z",
         "disciplineId": 9,
-        "studNumber": null
+        "studNumber": 216071453,
+        "Department":""
     }]
 
 }
